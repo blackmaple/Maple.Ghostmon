@@ -1,0 +1,45 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+  </Configurations>
+  <Folder Name="/SDK/MonoCore/">
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.Core\Maple.MonoGameAssistant.Core.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.Model\Maple.MonoGameAssistant.Model.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.UnityCore\Maple.MonoGameAssistant.UnityCore.csproj" />
+  </Folder>
+  <Folder Name="/SDK/Generator/">
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.DllExportTmp\Maple.MonoGameAssistant.DllExportTmp.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.DllHijackData\Maple.MonoGameAssistant.DllHijackData.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.DllHijackGenerator\Maple.MonoGameAssistant.DllHijackGenerator.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.MonoCollectorDataV2\Maple.MonoGameAssistant.MonoCollectorDataV2.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.MonoCollectorGeneratorV2\Maple.MonoGameAssistant.MonoCollectorGeneratorV2.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.MonoCollector\Maple.MonoGameAssistant.MonoCollector.csproj" />
+  </Folder>
+  <Folder Name="/SDK/GameWebApi/">
+    <Project Path="..\Maple.MonoGameAssistant\Maple.GameContext\Maple.GameContext.csproj">
+      <Configuration Solution="Debug|*" Project="Release|*" />
+    </Project>
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.WebApi\Maple.MonoGameAssistant.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/SDK/GameUI/">
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.GameCore\Maple.MonoGameAssistant.GameCore.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.GameDTO\Maple.MonoGameAssistant.GameDTO.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.GameShared\Maple.MonoGameAssistant.GameShared.csproj">
+      <Configuration Solution="Debug|*" Project="Debug|*" />
+    </Project>
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.GameSSR\Maple.MonoGameAssistant.GameSSR.csproj">
+      <Configuration Solution="Debug|*" Project="Debug|*" />
+    </Project>
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.GameWASM\Maple.MonoGameAssistant.GameWASM.csproj">
+      <Configuration Solution="Debug|*" Project="Debug|*" />
+    </Project>
+  </Folder>
+  <Folder Name="/SDK/Common/">
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.Common\Maple.MonoGameAssistant.Common.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.HotKey\Maple.MonoGameAssistant.HotKey.csproj" />
+    <Project Path="..\Maple.MonoGameAssistant\Maple.MonoGameAssistant.Logger\Maple.MonoGameAssistant.Logger.csproj" />
+  </Folder>
+  <Folder Name="/SDK/" />
+  <Project Path="Maple.Ghostmon\Maple.Ghostmon.csproj" Type="Classic C#" />
+</Solution>
