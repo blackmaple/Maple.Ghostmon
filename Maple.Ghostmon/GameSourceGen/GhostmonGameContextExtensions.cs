@@ -1,4 +1,5 @@
 ﻿using Maple.MonoGameAssistant.Common;
+using Maple.MonoGameAssistant.Model;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 using GameConfigJson = System.Collections.Generic.Dictionary<string, System.Text.Json.JsonElement>;
@@ -90,7 +91,7 @@ namespace Maple.Ghostmon
                 }
 
             }
-
+            @this.Logger.Info(System.Text.Json.JsonSerializer.Serialize(config, ConfigJsonSerializerContext.Default.DictionaryStringDictionaryUInt64DictionaryStringJsonElement));
         }
     }
 }
