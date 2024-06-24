@@ -23,7 +23,7 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<PMonoString, PMonoDictionary_Ghostmon<UInt64, JObject.Ptr_JObject>>), "configStore", "CONFIG_STORE", true)]
 
     //  struct static System.Boolean cfgLoaded
-    //  [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"cfgLoaded", "CFG_LOADED", true)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "cfgLoaded", "CFG_LOADED", true)]
 
     //  class static System.Collections.Generic.Dictionary<System.String,MonsterObject> monster_cfg_store
     [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<PMonoString, MonsterObject.Ptr_MonsterObject>), "monster_cfg_store", "MONSTER_CFG_STORE", true)]
