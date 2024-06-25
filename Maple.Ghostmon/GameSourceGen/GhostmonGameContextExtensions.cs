@@ -1,20 +1,25 @@
 ﻿using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.Logging;
-using GameConfigJsonElement = System.Collections.Generic.Dictionary<string, System.Text.Json.JsonElement>;
-using GameConfigJsonElementUnmanaged = Maple.MonoGameAssistant.Core.PMonoString;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Maple.Ghostmon
 {
 
-    using GameConfigStore = System.Collections.Generic.Dictionary<string, Dictionary<ulong, GameConfigJsonElementUnmanaged>>;
 
     internal static class GhostmonGameContextExtensions
     {
+        //private static string[] SheetNames { get; } = 
+        //    [
+        //        "AbilityBookConfig","AbilityConfig","CharmConfig","EggConfig","GoodsConfig","IllustrationConfig"
+        //    ];
 
-        public static GameConfigStore GetGameConfigDictionary(this GhostmonGameContext @this)
+        public static IEnumerable<GameConfigStoreDTO> GetGameConfigDictionary(this GhostmonGameContext @this)
         {
-            GameConfigStore gameConfigStore = [];
+
             if (@this.ConfigDataStore.CFG_LOADED)
             {
                 var dicConfig = @this.ConfigDataStore.CONFIG_STORE;
@@ -22,24 +27,28 @@ namespace Maple.Ghostmon
                 {
                     foreach (var dic in dicConfig.AsRefArray())
                     {
-                        ref readonly var val = ref dic.Value;
+                        var val = dic.Value;
                         if (false == val.Valid())
                         {
                             continue;
                         }
-                        Dictionary<ulong, GameConfigJsonElementUnmanaged> configData = [];
-                        gameConfigStore.TryAdd(dic.Key.ToString()!, configData);
+
                         foreach (var kvp in val.AsRefArray())
                         {
-                            ref readonly var kVal = ref kvp.Value;
+                            var kVal = kvp.Value;
                             if (false == kVal.Valid())
                             {
                                 continue;
                             }
-                            var json = kvp.Value.TO_STRING_00();
-                            if (json.Valid())
+                            var json = kvp.Value.TO_STRING_00().ToString();
+                            if (!string.IsNullOrEmpty(json))
                             {
-                                configData.Add(kvp.Key, json);
+                                yield return new GameConfigStoreDTO()
+                                {
+                                    SheetName = dic.Key.ToString(),
+                                    ConfigId = kvp.Key,
+                                    Json = json
+                                };
                             }
                         }
                     }
@@ -97,8 +106,19 @@ namespace Maple.Ghostmon
             //    //}
 
             //}
-            return gameConfigStore;
+
             //@this.Logger.Info(System.Text.Json.JsonSerializer.Serialize(config, ConfigJsonSerializerContext.Default.DictionaryStringDictionaryUInt64DictionaryStringJsonElement));
         }
+    }
+
+
+
+    public class GameConfigStoreDTO
+    {
+        [NotNull]
+        public string? SheetName { set; get; }
+        public ulong ConfigId { set; get; }
+        [NotNull]
+        public string? Json { set; get; }
     }
 }

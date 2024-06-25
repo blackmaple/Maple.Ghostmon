@@ -35,27 +35,37 @@ namespace Maple.Ghostmon
 
         protected override async ValueTask F5_KeyDown()
         {
-            var config = await this.UnityTaskAsync((gameContext) => gameContext.GetGameConfigDictionary()).ConfigureAwait(false);
-            this.Logger.LogInformation("config=>{c}", config.Count);
-            foreach (var cfg in config)
+            var config = await this.MonoTaskAsync((gameContext) => gameContext.GetGameConfigDictionary().ToArray()).ConfigureAwait(false);
+
+            if (this.GameSettings.TryGetJsonStream("config.json", out var stream))
             {
-                foreach (var kv in cfg.Value)
+                using (stream)
                 {
-                    this.Logger.LogInformation("config json=>{kv}", kv.Key);
-                    var val = kv.Value;
-                    if (val.Valid())
-                    {
-                        this.Logger.LogInformation("config=>{name}", val.ToString());
-                        //var data = ConfigJsonSerializerContext.GameConfigJsonElementDeserialize(val.AsReadOnlySpan());
-                        //if (data?.TryGetValue(nameof(BaseConfig.name), out var jsonElement) == true)
-                        //{
-                        //    // 
-
-                        //}
-                    }
-
+                    ConfigJsonSerializerContext.SerializeGameConfigStore(stream, config);
                 }
             }
+
+
+
+            //foreach (var cfg in config)
+            //{
+            //    foreach (var kv in cfg.Value)
+            //    {
+            //        this.Logger.LogInformation("config json=>{kv}", kv.Key);
+            //        var val = kv.Value;
+            //        if (val.Valid())
+            //        {
+            //            this.Logger.LogInformation("config=>{name}", val.ToString());
+            //            //var data = ConfigJsonSerializerContext.GameConfigJsonElementDeserialize(val.AsReadOnlySpan());
+            //            //if (data?.TryGetValue(nameof(BaseConfig.name), out var jsonElement) == true)
+            //            //{
+            //            //    // 
+
+            //            //}
+            //        }
+
+            //    }
+            //}
 
         }
 
