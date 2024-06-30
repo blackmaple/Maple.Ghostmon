@@ -26,7 +26,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.IntPtr),"m_CachedPtr", "M_CACHED_PTR")]
             
     // class 0x18 System.String m_prefab
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"m_prefab", "M_PREFAB")]
+     [MonoCollectorSearchFieldAttribute(typeof(nint),"m_prefab", "M_PREFAB")]
             
     // struct 0x20 System.UInt64 m_title
       [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"m_title", "M_TITLE")]

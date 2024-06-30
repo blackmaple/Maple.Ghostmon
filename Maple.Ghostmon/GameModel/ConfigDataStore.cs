@@ -1,11 +1,5 @@
-
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Maple.Ghostmon
 {
@@ -236,8 +230,8 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="Id">struct System.UInt64</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLanguageText")]
-        /// static extern nint GET_LANGUAGE_TEXT (System.UInt64 Id);
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLanguageText")]
+        static extern PMonoString GET_LANGUAGE_TEXT(System.UInt64 Id);
 
 
         /// <summary>
@@ -267,8 +261,40 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<MonsterObject></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMonsterConfig")]
-        /// static extern Cysharp.Threading.Tasks.UniTask<MonsterObject> GET_MONSTER_CONFIG (nint name);
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMonsterConfig")]
+        static extern UniTask_MonsterObject.Ptr_UniTask_MonsterObject GET_MONSTER_CONFIG(out UniTask_MonsterObject.Ref_UniTask_MonsterObject ref_UniTask_MonsterObject, PMonoString name);
+
+
+        //[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Explicit)]
+        //public readonly unsafe partial struct Ref_UniTaskGeneric
+        //{
+
+
+
+        //    /// const string Name_Field_source = "source";
+        //    /// <summary>
+        //    /// interface 0x10 Cysharp.Threading.Tasks.IUniTaskSource<MonsterObject> source
+        //    /// </summary>
+        //    [System.Runtime.InteropServices.FieldOffsetAttribute(0x0)]
+        //    public readonly nint source;
+
+
+        //    /// const string Name_Field_result = "result";
+        //    /// <summary>
+        //    /// class 0x18 MonsterObject result
+        //    /// </summary>
+        //    [System.Runtime.InteropServices.FieldOffsetAttribute(0x8)]
+        //    public readonly MonsterObject.Ptr_MonsterObject result;
+
+
+        //    /// const string Name_Field_token = "token";
+        //    /// <summary>
+        //    /// struct 0x20 System.Int16 token
+        //    /// </summary>
+        //    [System.Runtime.InteropServices.FieldOffsetAttribute(0x10)]
+        //    public readonly System.Int16 token;
+
+        //}
 
 
         /// <summary>
