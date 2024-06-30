@@ -24,27 +24,7 @@ namespace Maple.Ghostmon
         //   protected sealed override bool EnableService => true;
 
         protected sealed override GhostmonGameContext LoadGameContext()
-        {
-            var gameContext = GhostmonGameContext.LoadGhostmonGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Ver_Common, this.Logger);
-
-            var methodGetMonsterConfig = gameContext.ConfigDataStore.ClassInfo.MethodInfos.Where(p => p.Name == "GetMonsterConfig").FirstOrDefault();
-            if (methodGetMonsterConfig is not null)
-            {
-
-                gameContext.UniTask_MonsterObject = new UniTask_MonsterObject(gameContext, this.RuntimeContext.GetMonoCollectorClassInfo(methodGetMonsterConfig.ReturnType.Pointer));
-
-                var methodGetAwaiter = gameContext.UniTask_MonsterObject.ClassInfo.MethodInfos.Where(p => p.Name == "GetAwaiter").FirstOrDefault();
-                if (methodGetAwaiter is not null)
-                {
-                    gameContext.Awaiter_MonsterObject = new Awaiter_MonsterObject(gameContext, this.RuntimeContext.GetMonoCollectorClassInfo(methodGetAwaiter.ReturnType.Pointer));
-                }
-            }
-
-            this.Logger.LogInformation("UniTask_MonsterObject:{UniTask_MonsterObject}/Awaiter_MonsterObject:{Awaiter_MonsterObject}",
-                UniTask_MonsterObject.Func_GET_AWAITER.ToString(), Awaiter_MonsterObject.Func_GET_RESULT.ToString());
-
-            return gameContext;
-        }
+           => GhostmonGameContext.LoadGhostmonGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Ver_Common, this.Logger);
 
         //protected sealed override GameSwitchDisplayDTO[] InitListGameSwitch()
         //{
@@ -56,7 +36,17 @@ namespace Maple.Ghostmon
         protected override async ValueTask F5_KeyDown()
         {
             var config = await this.MonoTaskAsync(p => p.GetGameConfigStore()).ConfigureAwait(false);
-            await this.UnityTaskAsync((p, args) => p.LoadGameConfig_UniTask(args), config).ConfigureAwait(false);
+            var tasks = new List<Task>();
+            foreach (var data in config.ListIllustrationConfig)
+            {
+                var task = this.MonoTaskAsync((p, args) => p.GetMonsterConfigUniTask(data), data);
+                tasks.Add(task);
+            }
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+ 
+
+           
+
         }
 
         public async Task<UserDataManager.Ptr_UserDataManager> GetUserDataManagerAsync()

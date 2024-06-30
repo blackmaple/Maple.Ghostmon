@@ -40,10 +40,5 @@ typeof(MonoCollectorClassInfo)
 
     internal partial class GhostmonGameContext
     {
-        [NotNull]
-        public Awaiter_MonsterObject? Awaiter_MonsterObject { set; get; }
-
-        [NotNull]
-        public UniTask_MonsterObject? UniTask_MonsterObject { set; get; }
     }
 }

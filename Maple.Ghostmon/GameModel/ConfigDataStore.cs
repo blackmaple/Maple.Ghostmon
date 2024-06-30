@@ -262,7 +262,7 @@ namespace Maple.Ghostmon
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<MonsterObject></returns>
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMonsterConfig")]
-        static extern UniTask_MonsterObject.Ptr_UniTask_MonsterObject GET_MONSTER_CONFIG(out UniTask_MonsterObject.Ref_UniTask_MonsterObject ref_UniTask_MonsterObject, PMonoString name);
+        static extern Ptr_UniTask<MonsterObject.Ptr_MonsterObject> GET_MONSTER_CONFIG(out Ref_UniTask<MonsterObject.Ptr_MonsterObject> ref_UniTask_MonsterObject, PMonoString name);
 
 
         //[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Explicit)]

@@ -3,8 +3,6 @@ using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
-using static Maple.Ghostmon.AsyncUniTaskGeneric;
-using static Maple.Ghostmon.GetMonsterConfig_d__13;
 
 namespace Maple.Ghostmon
 {
@@ -98,35 +96,59 @@ namespace Maple.Ghostmon
             }
             return default!;
         }
-        public static void LoadGameConfig_UniTask(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStore)
+
+        public static IEnumerable<MonsterObject.Ptr_MonsterObject> LoadGameConfig_UniTask(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStore)
         {
+
             foreach (var illustrationConfig in gameConfigStore.ListIllustrationConfig)
             {
                 var monsterName = @this.T(illustrationConfig.prefab!);
-                var ptr_task = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out var ref_UniTask_MonsterObject, monsterName);
-                //@this.Logger.Info("1");
-                //var token = ptr_task.AsRef().token;
-                //var source= ptr_task.AsRef().source;
-                //@this.Logger.LogInformation("token=>{token}/source=>{source}", token.ToString(), source.ToString("X8"));
-                //@this.Logger.LogInformation("token=>{token}/source=>{source}", ref_UniTask_MonsterObject.token.ToString(), ref_UniTask_MonsterObject.source.ToString("X8"));
-                //@this.Logger.Info("2");
+                ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out var ref_UniTask_MonsterObject, monsterName);
+                if (ref_UniTask_MonsterObject.SOURCE.Valid())
+                {
 
-                //UniTask.Ref_UniTask ref_unitask = new UniTask.Ref_UniTask() { source = source, token = token };
-                //UniTaskExtensions.Ptr_UniTaskExtensions.FORGET(ref_unitask);
-                //@this.Logger.Info("3");
-
-
-
-
-
-                //var ptr = new Ptr_AsyncUniTaskGeneric(source);
-                //@this.Logger.Info("4");
-                //ref var core = ref ptr.AsRef<Ref_GetMonsterConfig_d__13,MonsterObject.Ptr_MonsterObject>().CORE;
-                //@this.Logger.Info("5");
-                //  @this.Logger.LogInformation("MonsterObject=>{MonsterObject} ", core.result.M_PREFAB);
-                //   @this.Logger.Info("6");
-
+                    Thread.Sleep(2000);
+                    var result = ref_UniTask_MonsterObject.SOURCE.GET_RESULT<Ref_LoadMonsterObjectArgs>();
+                    if (result.Valid())
+                    {
+                        @this.Logger.LogInformation("monster:{monster}", result.M_PREFAB.ToString());
+                        yield return result;
+                    }
+                    // uniTasks.Add(ref_UniTask_MonsterObject.SOURCE);
+                }
+                else
+                {
+                    var result = ref_UniTask_MonsterObject.RESULT;
+                    if (result.Valid())
+                    {
+                        @this.Logger.LogInformation("monster:{monster}", result.M_PREFAB.ToString());
+                        yield return result;
+                    }
+                }
             }
+
+
+        }
+        public static void GetMonsterConfigUniTask(this GhostmonGameContext @this, IllustrationConfig illustrationConfig )
+        {
+            MonsterObject.Ptr_MonsterObject result;
+            var monsterName = @this.T(illustrationConfig.prefab!);
+            ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out var ref_UniTask_MonsterObject, monsterName);
+            if (ref_UniTask_MonsterObject.SOURCE.Valid())
+            {
+                Thread.Sleep(2000);
+                result = ref_UniTask_MonsterObject.SOURCE.GET_RESULT<Ref_LoadMonsterObjectArgs>();
+            }
+            else
+            {
+                result = ref_UniTask_MonsterObject.RESULT;
+            }
+
+            if (result)
+            {
+                @this.Logger.LogInformation("monster=>{p}", result.M_PREFAB.ToString());
+            }
+
         }
 
         public static bool TryGetMonsterObject(this GhostmonGameContext @this, string monsterName, out MonsterObject.Ptr_MonsterObject monsterObject)

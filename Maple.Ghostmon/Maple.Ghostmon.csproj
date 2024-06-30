@@ -29,6 +29,17 @@
 		<InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);Microsoft.AspNetCore.Http.Generated</InterceptorsPreviewNamespaces>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="GameModel\UniTask\ConfigDataStore._GetMonsterConfig_d__13.cs" />
+	  <Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask_TStateMachine,T_.cs" />
+	  <Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTask.Awaiter_MonsterObject_.cs" />
+
+	  <Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTaskCompletionSourceCore_T_.cs" />
+	
+	  <Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTaskStatus.cs" />
+	  <Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTask_MonsterObject_.cs" />
+	</ItemGroup>
+
  
 
 
