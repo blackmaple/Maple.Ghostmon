@@ -36,16 +36,20 @@ namespace Maple.Ghostmon
         protected override async ValueTask F5_KeyDown()
         {
             var config = await this.MonoTaskAsync(p => p.GetGameConfigStore()).ConfigureAwait(false);
-            var tasks = new List<Task>();
-            foreach (var data in config.ListIllustrationConfig)
+            var monsterObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterConfig(args).ToArray(), config).ConfigureAwait(false);
+            foreach (var monster in monsterObjs)
             {
-                var task = this.MonoTaskAsync((p, args) => p.GetMonsterConfigUniTask(data), data);
-                tasks.Add(task);
+                this.Logger.LogInformation("monster=>{monster}", monster.M_PREFAB.ToString());
             }
-            await Task.WhenAll(tasks).ConfigureAwait(false);
- 
+            //foreach (var data in config.ListIllustrationConfig)
+            //{
+            //    _ = this.MonoTaskAsync((p, args) => p.GetMonsterConfigUniTask(data), data);
 
-           
+            //}
+
+
+
+
 
         }
 

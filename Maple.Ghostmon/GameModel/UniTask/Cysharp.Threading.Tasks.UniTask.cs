@@ -363,12 +363,32 @@ namespace Maple.Ghostmon
             return ref Unsafe.AsRef<Ref_AsyncUniTask<T_DATA, T_ARGS>>(_ptr.ToPointer());
         }
 
-        public unsafe T_DATA GET_RESULT<T_ARGS>() where T_ARGS : struct
+        public unsafe T_DATA UNSAFE_GET_RESULT<T_ARGS>() where T_ARGS : struct
         {
             ref var ref_Source = ref AsRef<T_ARGS>();
             ref var ref_Core = ref ref_Source.CORE;
+          
             return ref_Core.RESULT;
         }
+
+
+
+        public UniTaskStatus UNSAFE_GET_STATUS<T_ARGS>() where T_ARGS : struct
+        {
+            ref var ref_Source = ref AsRef<T_ARGS>();
+            ref var ref_Core = ref ref_Source.CORE;
+            if (ref_Core.CONTINUATION == nint.Zero || ref_Core.COMPLETED_COUNT == 0)
+            {
+                return UniTaskStatus.Pending;
+            }
+            if (ref_Core.ERROR == nint.Zero)
+            {
+                return UniTaskStatus.Succeeded;
+            }
+
+            return UniTaskStatus.Faulted;
+        }
+
     }
 
     [StructLayout(LayoutKind.Sequential)]
