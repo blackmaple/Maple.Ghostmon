@@ -97,57 +97,32 @@ namespace Maple.Ghostmon
             }
             return default!;
         }
-        public static IEnumerable<MonsterObject.Ptr_MonsterObject> LoadListMonsterConfig(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStore)
+        public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> LoadListMonsterConfig(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStore)
         {
-            foreach (var data in gameConfigStore.ListIllustrationConfig)
+            var count = gameConfigStore.ListIllustrationConfig.Count;
+            var uniTasks = (stackalloc Ref_UniTask<MonsterObject.Ptr_MonsterObject>[count]);
+            for (int i = 0; i < count; ++i)
             {
-                MonsterObject.Ptr_MonsterObject result = default;
-                var monsterName = @this.T(data.prefab!);
-                _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out var ref_UniTask_MonsterObject, monsterName);
-                if (ref_UniTask_MonsterObject.SOURCE.Valid())
-                {
-                    var source = ref_UniTask_MonsterObject.SOURCE;
-                    if (SpinWait.SpinUntil(() => source.UNSAFE_GET_STATUS<Ref_LoadMonsterObjectArgs>() == UniTaskStatus.Succeeded, 5000))
-                    {
-                        result = source.UNSAFE_GET_RESULT<Ref_LoadMonsterObjectArgs>();
-                    }
-                }
-                else
-                {
-                    result = ref_UniTask_MonsterObject.RESULT;
-                }
+                var monsterName = @this.T(gameConfigStore.ListIllustrationConfig[i % count].prefab!);
+                ref var uniTask = ref uniTasks[i % count];
+                _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out uniTask, monsterName);
+            }
 
-                if (result)
+            List<MonsterObject.Ptr_MonsterObject> list = new(count);
+            foreach (var uniTask in uniTasks)
+            {
+                @this.Logger.LogInformation("unitask=>{source}", uniTask.SOURCE.ToString());
+                var ret = uniTask.GetResult<Ref_LoadMonsterObjectArgs>();
+                if (ret)
                 {
-                    yield return result;
+                    list.Add(ret);
                 }
             }
+
+         
+            return list;
         }
-        //public static void GetMonsterConfigUniTask(this GhostmonGameContext @this, IllustrationConfig illustrationConfig)
-        //{
-        //    MonsterObject.Ptr_MonsterObject result = default;
-        //    var monsterName = @this.T(illustrationConfig.prefab!);
-        //    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out var ref_UniTask_MonsterObject, monsterName);
-        //    if (ref_UniTask_MonsterObject.SOURCE.Valid())
-        //    {
-        //        var source = ref_UniTask_MonsterObject.SOURCE;
-        //        if (SpinWait.SpinUntil(() => source.UNSAFE_GET_STATUS<Ref_LoadMonsterObjectArgs>() == UniTaskStatus.Succeeded, 5000))
-        //        {
-        //            result = source.UNSAFE_GET_RESULT<Ref_LoadMonsterObjectArgs>();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        result = ref_UniTask_MonsterObject.RESULT;
-        //    }
 
-        //    if (result)
-        //    {
-        //        @this.Logger.LogInformation("monster=>{p}", result.M_PREFAB.ToString());
-        //    }
-
-
-        //}
 
         public static bool TryGetMonsterObject(this GhostmonGameContext @this, string monsterName, out MonsterObject.Ptr_MonsterObject monsterObject)
         {

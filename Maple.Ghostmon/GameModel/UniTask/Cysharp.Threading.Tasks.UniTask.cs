@@ -153,6 +153,24 @@ namespace Maple.Ghostmon
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I2)]
         public readonly System.Int16 TOKEN;
 
+        public T_DATA GetResult<T_ARGS>() where T_ARGS : struct
+        {
+            if (SOURCE.Valid())
+            {
+
+                (Ptr_AsyncUniTask<T_DATA> Source, Int16 Token) = (SOURCE, TOKEN);
+                if (SpinWait.SpinUntil(() => Source.UNSAFE_GET_STATUS<T_ARGS>(Token) != UniTaskStatus.Pending, 5000))
+                {
+                    return SOURCE.UNSAFE_GET_RESULT<T_ARGS>();
+                }
+            }
+            else
+            {
+                return RESULT;
+            }
+
+            return default;
+        }
 
     }
 
@@ -179,6 +197,14 @@ namespace Maple.Ghostmon
         {
             return ref Unsafe.AsRef<Ref_UniTask<T_DATA>>(_ptr.ToPointer());
         }
+
+        public T_DATA GetResult<T_ARGS>()
+            where T_ARGS : struct
+        {
+            return this.AsRef().GetResult<T_ARGS>();
+        }
+
+
     }
 
     /// <summary>
@@ -367,16 +393,21 @@ namespace Maple.Ghostmon
         {
             ref var ref_Source = ref AsRef<T_ARGS>();
             ref var ref_Core = ref ref_Source.CORE;
-          
+
             return ref_Core.RESULT;
         }
 
 
 
-        public UniTaskStatus UNSAFE_GET_STATUS<T_ARGS>() where T_ARGS : struct
+        public UniTaskStatus UNSAFE_GET_STATUS<T_ARGS>(int token) where T_ARGS : struct
         {
             ref var ref_Source = ref AsRef<T_ARGS>();
             ref var ref_Core = ref ref_Source.CORE;
+            if (ref_Core.VERSION != token)
+            {
+                //???
+                return UniTaskStatus.Faulted;
+            }
             if (ref_Core.CONTINUATION == nint.Zero || ref_Core.COMPLETED_COUNT == 0)
             {
                 return UniTaskStatus.Pending;
