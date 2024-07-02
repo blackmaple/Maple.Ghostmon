@@ -1,7 +1,10 @@
 ﻿using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
+using Maple.MonoGameAssistant.UnityCore;
+using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
@@ -97,6 +100,8 @@ namespace Maple.Ghostmon
             }
             return default!;
         }
+
+        [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
         public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> LoadListMonsterConfig(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStore)
         {
             var count = gameConfigStore.ListIllustrationConfig.Count;
@@ -107,20 +112,82 @@ namespace Maple.Ghostmon
                 ref var uniTask = ref uniTasks[i % count];
                 _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out uniTask, monsterName);
             }
-
+            //延迟2S等待异步完成
+            Thread.Sleep(2000);
             List<MonsterObject.Ptr_MonsterObject> list = new(count);
-            foreach (var uniTask in uniTasks)
+            foreach (ref var uniTask in uniTasks)
             {
-                @this.Logger.LogInformation("unitask=>{source}", uniTask.SOURCE.ToString());
-                var ret = uniTask.GetResult<Ref_LoadMonsterObjectArgs>();
+                var ret = uniTask.GetResult_State<Ref_LoadMonsterObjectArgs>();
                 if (ret)
                 {
                     list.Add(ret);
                 }
             }
 
-         
+
             return list;
+        }
+
+        [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
+        public static IReadOnlyList<UnitySpriteData> LoadListMonsterAvater(this GhostmonGameContext @this, IReadOnlyList<MonsterObject.Ptr_MonsterObject> monsterObjects)
+        {
+            const string atlasName = "MonsterAvaterUIAtlas";
+            const string spriteName_Suffix = "_Head";
+            var pAtlasName = @this.T(atlasName);
+            var count = monsterObjects.Count;
+            List<UnitySpriteData> list = new(count);
+            var uniTasks = (stackalloc Ref_UniTask<Sprite.Ptr_Sprite>[count]);
+            for (int i = 0; i < count; ++i)
+            {
+                var prefab = monsterObjects[i % count].M_PREFAB.ToString();
+
+                list.Add(new UnitySpriteData() { Category = "Monster", Name = prefab, });
+
+                var spriteName = $"{prefab}{spriteName_Suffix}";
+                var pSpriteName = @this.T(spriteName);
+                ref var uniTask = ref uniTasks[i % count];
+                _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(out uniTask, pAtlasName, pSpriteName);
+            }
+
+            Thread.Sleep(2000);
+            for (int i = 0; i < count; ++i)
+            {
+                ref var uniTask = ref uniTasks[i % count];
+                var ret = uniTask.GetResult_State<Ref_LoadSpriteArgs>();
+                if (ret.Valid())
+                {
+                    list[i % count].Ptr_Sprite = ret;
+                }
+            }
+
+
+            return list;
+        }
+
+        public static IEnumerable<UnitySpriteImageData> LoadListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, IReadOnlyList<UnitySpriteData> spriteDatas)
+        {
+            int i = 0;
+            foreach (UnitySpriteData spriteData in spriteDatas)
+            {
+
+                var pIconData = unityEngine.ReadSprite2Png(spriteData.Ptr_Sprite);
+
+                if (pIconData.Valid())
+                {
+
+                    yield return new UnitySpriteImageData()
+                    {
+                        Category = spriteData.Category,
+                        Name = spriteData.Name,
+                        ImageData = pIconData,
+                    };
+                }
+                ++i;
+                if (i > 3)
+                {
+                    yield break;
+                }
+            }
         }
 
 

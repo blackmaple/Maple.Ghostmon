@@ -153,13 +153,30 @@ namespace Maple.Ghostmon
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I2)]
         public readonly System.Int16 TOKEN;
 
+        [Obsolete("USE GetResult_State")]
         public T_DATA GetResult<T_ARGS>() where T_ARGS : struct
         {
             if (SOURCE.Valid())
             {
 
                 (Ptr_AsyncUniTask<T_DATA> Source, Int16 Token) = (SOURCE, TOKEN);
-                if (SpinWait.SpinUntil(() => Source.UNSAFE_GET_STATUS<T_ARGS>(Token) != UniTaskStatus.Pending, 5000))
+                if (SpinWait.SpinUntil(() => Source.UNSAFE_GET_STATUS<T_ARGS>(Token) > UniTaskStatus.Pending, 5000))
+                {
+                    return SOURCE.UNSAFE_GET_RESULT<T_ARGS>();
+                }
+            }
+            else
+            {
+                return RESULT;
+            }
+
+            return default;
+        }
+        public T_DATA GetResult_State<T_ARGS>(int state = -2) where T_ARGS : struct
+        {
+            if (SOURCE.Valid())
+            {
+                if (SOURCE.UNSAFE_IS_COMPLETED<T_ARGS>(state) && SOURCE.UNSAFE_GET_STATUS<T_ARGS>(TOKEN) > UniTaskStatus.Pending)
                 {
                     return SOURCE.UNSAFE_GET_RESULT<T_ARGS>();
                 }
@@ -306,7 +323,7 @@ namespace Maple.Ghostmon
         [MarshalAs(UnmanagedType.SysInt)]
         public readonly nint NEXT_NODE;
 
-        public readonly Ref_AsyncStateMachine<T_DATA, T_ARGS> ASYNC_STATE_MACHINE;
+        public Ref_AsyncStateMachine<T_DATA, T_ARGS> ASYNC_STATE_MACHINE;
 
         public Ref_UniTaskCompletionSourceCore<T_DATA> CORE;
 
@@ -378,15 +395,22 @@ namespace Maple.Ghostmon
         [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Valid() => _ptr != nint.Zero;
 
-        public unsafe ref Ref_AsyncUniTask<T_DATA> AsRef()
-        {
-            return ref Unsafe.AsRef<Ref_AsyncUniTask<T_DATA>>(_ptr.ToPointer());
-        }
+        //public unsafe ref Ref_AsyncUniTask<T_DATA> AsRef()
+        //{
+        //    return ref Unsafe.AsRef<Ref_AsyncUniTask<T_DATA>>(_ptr.ToPointer());
+        //}
 
         public unsafe ref Ref_AsyncUniTask<T_DATA, T_ARGS> AsRef<T_ARGS>()
             where T_ARGS : struct
         {
             return ref Unsafe.AsRef<Ref_AsyncUniTask<T_DATA, T_ARGS>>(_ptr.ToPointer());
+        }
+
+        public bool UNSAFE_IS_COMPLETED<T_ARGS>(int state) where T_ARGS : struct
+        {
+            ref var ref_Source = ref AsRef<T_ARGS>();
+            ref var ref_State = ref ref_Source.ASYNC_STATE_MACHINE;
+            return ref_State.STATE == state;
         }
 
         public unsafe T_DATA UNSAFE_GET_RESULT<T_ARGS>() where T_ARGS : struct
@@ -396,8 +420,6 @@ namespace Maple.Ghostmon
 
             return ref_Core.RESULT;
         }
-
-
 
         public UniTaskStatus UNSAFE_GET_STATUS<T_ARGS>(int token) where T_ARGS : struct
         {
@@ -449,5 +471,15 @@ namespace Maple.Ghostmon
 
         [MarshalAs(UnmanagedType.SysInt)]
         public readonly nint KEY;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_LoadSpriteArgs
+    {
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint ATLAS_NAME;
+
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint SPRITE_NAME;
     }
 }

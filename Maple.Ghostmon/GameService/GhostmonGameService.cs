@@ -35,20 +35,22 @@ namespace Maple.Ghostmon
 
         protected override async ValueTask F5_KeyDown()
         {
+            this.Logger.Info("1");
             var config = await this.MonoTaskAsync(p => p.GetGameConfigStore()).ConfigureAwait(false);
-            var monsterObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterConfig(args).ToArray(), config).ConfigureAwait(false);
-            foreach (var monster in monsterObjs)
+            this.Logger.Info("2");
+            var monsterObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterConfig(args), config).ConfigureAwait(false);
+            this.Logger.Info("3");
+            var spriteObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterAvater(args), monsterObjs).ConfigureAwait(false);
+            this.Logger.Info("4");
+
+            var imageObjs = await this.UnityTaskAsync((p, args) => p.LoadListUnitySpriteImageData(args.UnityEngineContext, args.spriteObjs).ToArray(), (this.UnityEngineContext, spriteObjs)).ConfigureAwait(false);
+            this.Logger.Info("5");
+
+            foreach (var gameIcon in imageObjs)
             {
-                this.Logger.LogInformation("monster=>{monster}", monster.M_PREFAB.ToString());
+                this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
             }
-            //foreach (var data in config.ListIllustrationConfig)
-            //{
-            //    _ = this.MonoTaskAsync((p, args) => p.GetMonsterConfigUniTask(data), data);
-
-            //}
-
-
-
+            this.Logger.Info("6");
 
 
         }

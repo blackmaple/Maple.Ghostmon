@@ -35,9 +35,9 @@ typeof(MonoCollectorClassInfo)
 
     //[MonoCollectorType(typeof(Awaiter_MonsterObject))]
     //[MonoCollectorType(typeof(UniTask_MonsterObject))]
-    [MonoCollectorType(typeof(UniTaskExtensions))]
+    [MonoCollectorType(typeof(LoadUtils))]
 
-
+    
     internal partial class GhostmonGameContext
     {
     }
