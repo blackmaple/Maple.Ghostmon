@@ -35,22 +35,16 @@ namespace Maple.Ghostmon
 
         protected override async ValueTask F5_KeyDown()
         {
-            this.Logger.Info("1");
             var config = await this.MonoTaskAsync(p => p.GetGameConfigStore()).ConfigureAwait(false);
-            this.Logger.Info("2");
             var monsterObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterConfig(args), config).ConfigureAwait(false);
-            this.Logger.Info("3");
             var spriteObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterAvater(args), monsterObjs).ConfigureAwait(false);
-            this.Logger.Info("4");
 
             var imageObjs = await this.UnityTaskAsync((p, args) => p.LoadListUnitySpriteImageData(args.UnityEngineContext, args.spriteObjs).ToArray(), (this.UnityEngineContext, spriteObjs)).ConfigureAwait(false);
-            this.Logger.Info("5");
 
             foreach (var gameIcon in imageObjs)
             {
                 this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
             }
-            this.Logger.Info("6");
 
 
         }

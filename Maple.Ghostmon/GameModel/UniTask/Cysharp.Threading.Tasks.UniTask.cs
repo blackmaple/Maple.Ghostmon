@@ -215,6 +215,8 @@ namespace Maple.Ghostmon
             return ref Unsafe.AsRef<Ref_UniTask<T_DATA>>(_ptr.ToPointer());
         }
 
+
+        [Obsolete("remove...")]
         public T_DATA GetResult<T_ARGS>()
             where T_ARGS : struct
         {

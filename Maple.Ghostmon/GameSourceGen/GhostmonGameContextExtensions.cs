@@ -6,7 +6,6 @@ using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 
 namespace Maple.Ghostmon
 {
@@ -166,11 +165,16 @@ namespace Maple.Ghostmon
 
         public static IEnumerable<UnitySpriteImageData> LoadListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, IReadOnlyList<UnitySpriteData> spriteDatas)
         {
-            int i = 0;
             foreach (UnitySpriteData spriteData in spriteDatas)
             {
+                if (false == spriteData.Ptr_Sprite.Valid())
+                {
+                    continue;
+                }
 
-                var pIconData = unityEngine.ReadSprite2Png(spriteData.Ptr_Sprite);
+
+
+                var pIconData = unityEngine.ReadSprite2Png2(spriteData.Ptr_Sprite);
 
                 if (pIconData.Valid())
                 {
@@ -182,11 +186,7 @@ namespace Maple.Ghostmon
                         ImageData = pIconData,
                     };
                 }
-                ++i;
-                if (i > 3)
-                {
-                    yield break;
-                }
+                //yield break;
             }
         }
 
@@ -267,7 +267,6 @@ namespace Maple.Ghostmon
                 p.PLAY_MESSAGE(txt, 0);
             }
         }
-
 
 
         public static GameCurrencyDisplayDTO[] GetListCurrencyDisplay(this GhostmonGameContext @this)
@@ -351,6 +350,177 @@ namespace Maple.Ghostmon
             return GameException.Throw<GameCurrencyInfoDTO>($"{currencyModifyDTO.CurrencyObject} NOT FOUND");
 
         }
+
+
+
+        public static IEnumerable<GameInventoryDisplayDTO> GetListGameInventoryDisplay(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStoreDTO)
+        {
+            foreach (var config in gameConfigStoreDTO.ListMaterialConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(MaterialConfig),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.makeTime), CanPreview = true, DisplayName = nameof(config.makeTime), DisplayValue = config.makeTime.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListCharmConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(CharmConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.cooldown), CanPreview = true, DisplayName = nameof(config.cooldown), DisplayValue = config.cooldown.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.rank), CanPreview = true, DisplayName = nameof(config.rank), DisplayValue = config.rank.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListRareConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(RareConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.favorability), CanPreview = true, DisplayName = nameof(config.favorability), DisplayValue = config.favorability.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListAbilityBookConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(AbilityBookConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.rank), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.abilityDesc), CanPreview = true, DisplayName = nameof(config.abilityDesc), DisplayValue = config.abilityDesc },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListTreasureConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(TreasureConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.exp), CanPreview = true, DisplayName = nameof(config.exp), DisplayValue = config.exp.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListClothingConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(ClothingConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListMenuConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(MenuConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.unlock), CanPreview = true, DisplayName = nameof(config.unlock), DisplayValue = config.unlock.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListEggConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(EggConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.monster), CanPreview = true, DisplayName = nameof(config.monster), DisplayValue = config.monster.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListItemRecipeConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(ItemRecipeConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+                    new GameValueInfoDTO() { ObjectId = nameof(config.itemID), CanPreview = true, DisplayName = nameof(config.itemID), DisplayValue = config.itemID.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in gameConfigStoreDTO.ListFishLureConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = nameof(FishLureConfig),
+                    DisplayDesc = config.description,
+                    DisplayImage = config.name,
+                    ItemAttributes = [
+
+                    new GameValueInfoDTO() { ObjectId = nameof(config.material), CanPreview = true, DisplayName = nameof(config.material), DisplayValue = config.material },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+        }
+
+
     }
 
 
