@@ -23,6 +23,16 @@ typeof(MonoCollectorClassInfo)
 
 
 
+    [MonoCollectorType(typeof(MaterialData))]
+
+    [MonoCollectorType(typeof(AbilityBookData))]
+    [MonoCollectorType(typeof(CharmData))]
+    [MonoCollectorType(typeof(CuisineData))]
+    [MonoCollectorType(typeof(EggData))]
+    [MonoCollectorType(typeof(FishLureItemData))]
+    [MonoCollectorType(typeof(ItemRecipeData))]
+    [MonoCollectorType(typeof(RareData))]
+    [MonoCollectorType(typeof(TreasureData))]
 
     [MonoCollectorType(typeof(MonsterData))]
 

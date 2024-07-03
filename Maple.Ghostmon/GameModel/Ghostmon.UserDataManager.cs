@@ -480,8 +480,8 @@ namespace Maple.Ghostmon
         /// <param name="id">struct System.UInt64</param>
         /// <param name="num">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainItem")]
-        ///  extern void GAIN_ITEM (System.Int32 type, System.UInt64 id, System.Int32 num);
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainItem")]
+        extern void GAIN_ITEM(System.Int32 type, System.UInt64 id, System.Int32 num);
 
 
         /// <summary>

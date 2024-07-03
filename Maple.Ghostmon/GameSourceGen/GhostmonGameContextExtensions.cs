@@ -6,6 +6,7 @@ using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Maple.Ghostmon
 {
@@ -13,6 +14,8 @@ namespace Maple.Ghostmon
 
     internal static class GhostmonGameContextExtensions
     {
+        public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
+
         private static string[] SheetNames { get; } =
             [
         nameof(EnumSheetName.MaterialConfig)  ,
@@ -52,62 +55,78 @@ namespace Maple.Ghostmon
             return false;
         }
 
-        public static GameConfigStoreDTO GetGameConfigStore(this GhostmonGameContext @this)
+        public static bool LoadGameConfigStore(this GhostmonGameContext @this)
         {
-            try
+
+            if (false == SpinWait.SpinUntil(() => @this.ConfigDataStore.CFG_LOADED, 5000))
             {
-                GameConfigStoreDTO gameConfigStoreDTO = new();
-                if (@this.ConfigDataStore.CFG_LOADED)
+                return default;
+            }
+            var dicConfig = @this.ConfigDataStore.CONFIG_STORE;
+            if (false == dicConfig.Valid())
+            {
+                return default;
+            }
+
+            foreach (var dic in dicConfig.AsRefArray())
+            {
+                var keyName = dic.Key.AsReadOnlySpan();
+                if (false == LikeConfig(keyName, out var enumSheetName))
                 {
-                    var dicConfig = @this.ConfigDataStore.CONFIG_STORE;
-                    if (dicConfig.Valid())
-                    {
-                        foreach (var dic in dicConfig.AsRefArray())
-                        {
-                            var keyName = dic.Key.AsReadOnlySpan();
-                            if (false == LikeConfig(keyName, out var enumSheetName))
-                            {
-                                continue;
-                            }
-                            var val = dic.Value;
-                            if (false == val.Valid())
-                            {
-                                continue;
-                            }
-
-                            foreach (var kvp in val.AsRefArray())
-                            {
-                                var kVal = kvp.Value;
-                                if (false == kVal.Valid())
-                                {
-                                    continue;
-                                }
-
-                                var json = kvp.Value.TO_STRING_00().AsReadOnlySpan();
-                                //  @this.Logger.LogInformation("key:{k}//json=>{json}", keyName.ToString(), json.ToString());
-                                gameConfigStoreDTO.Add(json, enumSheetName);
-                            }
-                        }
-                    }
-
+                    continue;
                 }
-                return gameConfigStoreDTO;
+                var val = dic.Value;
+                if (false == val.Valid())
+                {
+                    continue;
+                }
+
+                foreach (var kvp in val.AsRefArray())
+                {
+                    var kVal = kvp.Value;
+                    if (false == kVal.Valid())
+                    {
+                        continue;
+                    }
+                    var json = kvp.Value.TO_STRING_00().AsReadOnlySpan();
+                    GameConfigStore.Add(json, enumSheetName);
+                }
             }
-            catch (Exception ex)
+
+            return true;
+        }
+        public static int LoadListMonsterConfig(this GhostmonGameContext @this)
+        {
+            var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
+            foreach (var illustration in listIllustrationConfig)
             {
-                @this.Logger.Error(ex);
+                var prefab = illustration.prefab;
+                if (false == string.IsNullOrEmpty(prefab))
+                {
+                    var monsterName = @this.T(illustration.prefab!);
+                    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out _, monsterName);
+                }
             }
-            return default!;
+            //加个延迟等待task完成
+            Thread.Sleep(2000);
+            var monsterConfig = @this.ConfigDataStore.MONSTER_CFG_STORE;
+            if (monsterConfig.Valid())
+            {
+                return monsterConfig.AsRef().Count - monsterConfig.AsRef().FreeCount;
+            }
+            return default;
         }
 
+
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
-        public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> LoadListMonsterConfig(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStore)
+        public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
         {
-            var count = gameConfigStore.ListIllustrationConfig.Count;
+            var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
+            var count = listIllustrationConfig.Count;
             var uniTasks = (stackalloc Ref_UniTask<MonsterObject.Ptr_MonsterObject>[count]);
             for (int i = 0; i < count; ++i)
             {
-                var monsterName = @this.T(gameConfigStore.ListIllustrationConfig[i % count].prefab!);
+                var monsterName = @this.T(listIllustrationConfig[i % count].prefab!);
                 ref var uniTask = ref uniTasks[i % count];
                 _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out uniTask, monsterName);
             }
@@ -235,10 +254,6 @@ namespace Maple.Ghostmon
 
         }
 
-        public static UserDataManager.Ptr_UserDataManager GetUserDataManager(this GhostmonGameContext @this)
-        {
-            return @this.UserDataManager.INSTANCE;
-        }
 
         //public static void AddBubblingPopUp(this GhostmonGameContext @this, string? msg)
         //{
@@ -267,7 +282,25 @@ namespace Maple.Ghostmon
                 p.PLAY_MESSAGE(txt, 0);
             }
         }
+        public static UserDataManager.Ptr_UserDataManager GetUserDataManager(this GhostmonGameContext @this)
+        {
+            var userDataManager = @this.UserDataManager.INSTANCE;
+            if (false == userDataManager)
+            {
+               return GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first (0)");
+            }
+            return userDataManager;
+        }
 
+        public static UserData.Ptr_UserData GetUserData(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
+        {
+            var userData = userDataManager.USER_DATA;
+            if (false == userData)
+            {
+                GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first (1)");
+            }
+            return userData;
+        }
 
         public static GameCurrencyDisplayDTO[] GetListCurrencyDisplay(this GhostmonGameContext @this)
         {
@@ -296,11 +329,9 @@ namespace Maple.Ghostmon
         }
         public static GameCurrencyInfoDTO GetCurrencyInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCurrencyObjectDTO currencyObjectDTO)
         {
-            var userData = userDataManager.USER_DATA;
-            if (userData.Valid() == false)
-            {
-                return GameException.Throw<GameCurrencyInfoDTO>("USER_DATA IS NULL");
-            }
+
+            var userData = @this.GetUserData(userDataManager);
+
             if (currencyObjectDTO.CurrencyObject == EnumSheetName.GEM.ToString())
             {
                 return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = userData.GEM_NUM.ToString() };
@@ -318,11 +349,8 @@ namespace Maple.Ghostmon
         }
         public static GameCurrencyInfoDTO UpdateCurrencyInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCurrencyModifyDTO currencyModifyDTO)
         {
-            var userData = userDataManager.USER_DATA;
-            if (userData.Valid() == false)
-            {
-                return GameException.Throw<GameCurrencyInfoDTO>("USER_DATA IS NULL");
-            }
+            var userData = @this.GetUserData(userDataManager);
+
             if (currencyModifyDTO.CurrencyObject == EnumSheetName.GEM.ToString())
             {
                 if (int.TryParse(currencyModifyDTO.NewValue, out var result))
@@ -353,14 +381,14 @@ namespace Maple.Ghostmon
 
 
 
-        public static IEnumerable<GameInventoryDisplayDTO> GetListGameInventoryDisplay(this GhostmonGameContext @this, GameConfigStoreDTO gameConfigStoreDTO)
+        public static IEnumerable<GameInventoryDisplayDTO> GetListInventoryDisplay(this GhostmonGameContext @this)
         {
-            foreach (var config in gameConfigStoreDTO.ListMaterialConfig)
+            foreach (var config in GameConfigStore.ListMaterialConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(MaterialConfig),
+                    DisplayCategory = EnumSheetName.MaterialConfig.ToString(),
                     DisplayDesc = config.description,
                     DisplayName = config.name,
                     ItemAttributes = [
@@ -371,14 +399,14 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListCharmConfig)
+            foreach (var config in GameConfigStore.ListCharmConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(CharmConfig),
+                    DisplayCategory = EnumSheetName.CharmConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
                     new GameValueInfoDTO() { ObjectId = nameof(config.cooldown), CanPreview = true, DisplayName = nameof(config.cooldown), DisplayValue = config.cooldown.ToString() },
@@ -390,14 +418,14 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListRareConfig)
+            foreach (var config in GameConfigStore.ListRareConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(RareConfig),
+                    DisplayCategory = EnumSheetName.RareConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
                     new GameValueInfoDTO() { ObjectId = nameof(config.favorability), CanPreview = true, DisplayName = nameof(config.favorability), DisplayValue = config.favorability.ToString() },
@@ -406,31 +434,31 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListAbilityBookConfig)
+            foreach (var config in GameConfigStore.ListAbilityBookConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(AbilityBookConfig),
-                    DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayCategory = EnumSheetName.AbilityBookConfig.ToString(),
+                    DisplayDesc = config.abilityDesc,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
-                    new GameValueInfoDTO() { ObjectId = nameof(config.rank), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
-                    new GameValueInfoDTO() { ObjectId = nameof(config.abilityDesc), CanPreview = true, DisplayName = nameof(config.abilityDesc), DisplayValue = config.abilityDesc },
+                    new GameValueInfoDTO() { ObjectId = nameof(config.rank), CanPreview = true, DisplayName = nameof(config.rank), DisplayValue = config.rank.ToString() },
+                //    new GameValueInfoDTO() { ObjectId = nameof(config.abilityDesc), CanPreview = true, DisplayName = nameof(config.abilityDesc), DisplayValue = config.abilityDesc },
                     ]
                 };
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListTreasureConfig)
+            foreach (var config in GameConfigStore.ListTreasureConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(TreasureConfig),
+                    DisplayCategory = EnumSheetName.TreasureConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
                     new GameValueInfoDTO() { ObjectId = nameof(config.exp), CanPreview = true, DisplayName = nameof(config.exp), DisplayValue = config.exp.ToString() },
@@ -439,14 +467,14 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListClothingConfig)
+            foreach (var config in GameConfigStore.ListClothingConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(ClothingConfig),
+                    DisplayCategory = EnumSheetName.ClothingConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
                     new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
@@ -455,45 +483,45 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListMenuConfig)
+            foreach (var config in GameConfigStore.ListMenuConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(MenuConfig),
+                    DisplayCategory = EnumSheetName.MenuConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
-                    new GameValueInfoDTO() { ObjectId = nameof(config.unlock), CanPreview = true, DisplayName = nameof(config.unlock), DisplayValue = config.unlock.ToString() },
+       //             new GameValueInfoDTO() { ObjectId = nameof(config.unlock), CanPreview = true, DisplayName = nameof(config.unlock), DisplayValue = config.unlock.ToString() },
                     ]
                 };
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListEggConfig)
+            foreach (var config in GameConfigStore.ListEggConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(EggConfig),
+                    DisplayCategory = EnumSheetName.EggConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.price), CanPreview = true, DisplayName = nameof(config.price), DisplayValue = config.price.ToString() },
-                    new GameValueInfoDTO() { ObjectId = nameof(config.monster), CanPreview = true, DisplayName = nameof(config.monster), DisplayValue = config.monster.ToString() },
+           //         new GameValueInfoDTO() { ObjectId = nameof(config.monster), CanPreview = true, DisplayName = nameof(config.monster), DisplayValue = config.monster.ToString() },
                     ]
                 };
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListItemRecipeConfig)
+            foreach (var config in GameConfigStore.ListItemRecipeConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(ItemRecipeConfig),
+                    DisplayCategory = EnumSheetName.ItemRecipeConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
                     new GameValueInfoDTO() { ObjectId = nameof(config.itemID), CanPreview = true, DisplayName = nameof(config.itemID), DisplayValue = config.itemID.ToString() },
                     ]
@@ -501,14 +529,14 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
-            foreach (var config in gameConfigStoreDTO.ListFishLureConfig)
+            foreach (var config in GameConfigStore.ListFishLureConfig)
             {
                 var data = new GameInventoryDisplayDTO
                 {
                     ObjectId = config.configID.ToString(),
-                    DisplayCategory = nameof(FishLureConfig),
+                    DisplayCategory = EnumSheetName.FishLureConfig.ToString(),
                     DisplayDesc = config.description,
-                    DisplayImage = config.name,
+                    DisplayName = config.name,
                     ItemAttributes = [
 
                     new GameValueInfoDTO() { ObjectId = nameof(config.material), CanPreview = true, DisplayName = nameof(config.material), DisplayValue = config.material },
@@ -519,6 +547,178 @@ namespace Maple.Ghostmon
             }
 
         }
+
+        public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryObjectDTO inventoryObjectDTO)
+        {
+            var userData = @this.GetUserData(userDataManager);
+            if (false == Enum.TryParse<EnumSheetName>(inventoryObjectDTO.InventoryCategory, out var result))
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryCategory}");
+            }
+            if (false == ulong.TryParse(inventoryObjectDTO.InventoryObject, out var configId))
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryObject}");
+            }
+
+            var count = 0;
+            if (result == EnumSheetName.MaterialConfig)
+            {
+
+                foreach (var data in userData.TOTAL_MATERIALS)
+                {
+                    if (data.CONFIG_ID == configId)
+                    {
+                        count = data.COUNT;
+                        break;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.CharmConfig)
+            {
+
+                foreach (var data in userData.TOTAL_CHARMS.AsRefArray())
+                {
+                    if (data.Key == configId && data.Value.Valid())
+                    {
+                        count = data.Value.NUM;
+                        break;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.RareConfig)
+            {
+                foreach (var data in userData.TOTAL_RARE)
+                {
+                    if (data.CONFIG_ID == configId)
+                    {
+                        count = data.NUM;
+                        break;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.AbilityBookConfig)
+            {
+                foreach (var data in userData.TOTAL_ABILITY_BOOKS.AsRefArray())
+                {
+                    if (data.Key == configId && data.Value.Valid())
+                    {
+                        count = data.Value.NUM;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.TreasureConfig)
+            {
+                foreach (var data in userData.TOTAL_TREASURE)
+                {
+                    if (data.CONFIG_ID == configId)
+                    {
+                        count = data.NUM;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.ClothingConfig)
+            {
+                foreach (var data in userData.TOTAL_CLOTHING)
+                {
+                    if (data == configId)
+                    {
+                        count = 1;
+                        break;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.MenuConfig)
+            {
+
+                foreach (var data in userData.TOTAL_MENU.AsRefArray())
+                {
+                    if (data.Value == configId)
+                    {
+                        count = 1;
+                        break;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.EggConfig)
+            {
+                foreach (var data in userData.TOTAL_EGG.AsRefArray())
+                {
+                    var egg = data.Value;
+                    if (egg.Valid() && egg.CONFIG_ID == configId)
+                    {
+                        count++;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.ItemRecipeConfig)
+            {
+
+                foreach (var data in userData.TOTAL_ITEM_RECIPE.AsRefArray())
+                {
+                    if (data.Key == configId)
+                    {
+                        count = 1;
+                    }
+                }
+            }
+            else if (result == EnumSheetName.FishLureConfig)
+            {
+                foreach (var data in userData.TOTAL_FISH_LURE.AsRefArray())
+                {
+                    if (data.Key == configId && data.Value)
+                    {
+                        count = data.Value.NUM;
+                    }
+                }
+            }
+            else
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryObject}");
+            }
+
+            return new GameInventoryInfoDTO() { ObjectId = inventoryObjectDTO.InventoryObject, InventoryCount = count };
+
+        }
+
+        public static GameInventoryInfoDTO UpdateInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryModifyDTO inventoryModifyDTO)
+        {
+            var userData = @this.GetUserData(userDataManager);
+            if (false == Enum.TryParse<EnumSheetName>(inventoryModifyDTO.InventoryCategory, out var result))
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryModifyDTO.InventoryCategory}");
+            }
+            if (false == ulong.TryParse(inventoryModifyDTO.InventoryObject, out var configId))
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryModifyDTO.InventoryObject}");
+            }
+
+            var count = inventoryModifyDTO.InventoryCount;
+
+            if (result == EnumSheetName.EggConfig)
+            {
+                var eggCount = 0;
+                foreach (var data in userData.TOTAL_EGG.AsRefArray())
+                {
+                    var egg = data.Value;
+                    if (egg.Valid() && egg.CONFIG_ID == configId)
+                    {
+                        eggCount++;
+                    }
+                }
+                count -= eggCount;
+            }
+
+            if (count < 0)
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
+            }
+
+            userDataManager.GAIN_ITEM((int)result, configId, count);
+
+            return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = count };
+
+        }
+
 
 
     }

@@ -99,7 +99,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"meet_monsters", "MEET_MONSTERS")]
 
     // class 0xA8 System.Collections.Generic.List<System.UInt64> take_monsters
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"take_monsters", "TAKE_MONSTERS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<UInt64>), "take_monsters", "TAKE_MONSTERS")]
 
     // class 0xB0 System.Collections.Generic.List<System.UInt64> battle_monsters
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"battle_monsters", "BATTLE_MONSTERS")]
@@ -135,34 +135,34 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_monsters", "TOTAL_MONSTERS")]
 
     // class 0x100 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.CharmData> total_charms
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_charms", "TOTAL_CHARMS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, CharmData.Ptr_CharmData>), "total_charms", "TOTAL_CHARMS")]
 
     // class 0x108 System.Collections.Generic.List<Ghostmon.MaterialData> total_materials
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_materials", "TOTAL_MATERIALS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<MaterialData.Ptr_MaterialData>), "total_materials", "TOTAL_MATERIALS")]
 
     // class 0x110 System.Collections.Generic.List<Ghostmon.RareData> total_rare
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_rare", "TOTAL_RARE")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<RareData.Ptr_RareData>), "total_rare", "TOTAL_RARE")]
 
     // class 0x118 System.Collections.Generic.List<Ghostmon.TreasureData> total_treasure
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_treasure", "TOTAL_TREASURE")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<TreasureData.Ptr_TreasureData>), "total_treasure", "TOTAL_TREASURE")]
 
     // class 0x120 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.AbilityBookData> total_abilityBooks
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_abilityBooks", "TOTAL_ABILITY_BOOKS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, AbilityBookData.Ptr_AbilityBookData>), "total_abilityBooks", "TOTAL_ABILITY_BOOKS")]
 
     // class 0x128 System.Collections.Generic.Dictionary<System.UInt64,System.UInt64> total_menu
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_menu", "TOTAL_MENU")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, UInt64>), "total_menu", "TOTAL_MENU")]
 
     // class 0x130 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.EggData> total_egg
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_egg", "TOTAL_EGG")]
+      [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64,EggData.Ptr_EggData>),"total_egg", "TOTAL_EGG")]
 
     // class 0x138 System.Collections.Generic.List<System.UInt64> total_clothing
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_clothing", "TOTAL_CLOTHING")]
+      [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<UInt64>),"total_clothing", "TOTAL_CLOTHING")]
 
     // class 0x140 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.ItemRecipeData> total_itemRecipe
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_itemRecipe", "TOTAL_ITEM_RECIPE")]
+      [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, ItemRecipeData.Ptr_ItemRecipeData>),"total_itemRecipe", "TOTAL_ITEM_RECIPE")]
 
     // class 0x148 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.FishLureItemData> total_fishLure
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_fishLure", "TOTAL_FISH_LURE")]
+      [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, FishLureItemData.Ptr_FishLureItemData>),"total_fishLure", "TOTAL_FISH_LURE")]
 
     // class 0x150 System.Collections.Generic.List<System.UInt64> makable_fishLure
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"makable_fishLure", "MAKABLE_FISH_LURE")]

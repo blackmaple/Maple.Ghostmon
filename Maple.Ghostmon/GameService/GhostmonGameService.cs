@@ -30,21 +30,30 @@ namespace Maple.Ghostmon
         //{
         //    return Enumerable.Range(0, 10).Select(p => new GameSwitchDisplayDTO { ObjectId = p.ToString(), DisplayName = $"DisplayName_{p}", DisplayDesc = $"DisplayDesc_{p}", SwitchValue = false }).ToArray();
         //}
+
+        protected sealed override async ValueTask LoadGameDataAsync()
+        {
+            var load = await this.MonoTaskAsync(p => p.LoadGameConfigStore()).ConfigureAwait(false);
+            this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
+            var count = await this.MonoTaskAsync(p => p.LoadListMonsterConfig()).ConfigureAwait(false);
+            this.Logger.LogInformation("LoadListMonsterConfig=>{count}", count);
+
+        }
         #endregion
 
 
         protected override async ValueTask F5_KeyDown()
         {
-            var config = await this.MonoTaskAsync(p => p.GetGameConfigStore()).ConfigureAwait(false);
-            var monsterObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterConfig(args), config).ConfigureAwait(false);
+
+            var monsterObjs = await this.MonoTaskAsync((p) => p.GetListMonsterConfig()).ConfigureAwait(false);
             var spriteObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterAvater(args), monsterObjs).ConfigureAwait(false);
 
-            var imageObjs = await this.UnityTaskAsync((p, args) => p.LoadListUnitySpriteImageData(args.UnityEngineContext, args.spriteObjs).ToArray(), (this.UnityEngineContext, spriteObjs)).ConfigureAwait(false);
+            //var imageObjs = await this.UnityTaskAsync((p, args) => p.LoadListUnitySpriteImageData(args.UnityEngineContext, args.spriteObjs).ToArray(), (this.UnityEngineContext, spriteObjs)).ConfigureAwait(false);
 
-            foreach (var gameIcon in imageObjs)
-            {
-                this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
-            }
+            //foreach (var gameIcon in imageObjs)
+            //{
+            //    this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
+            //}
 
 
         }
@@ -90,6 +99,29 @@ namespace Maple.Ghostmon
             return data;
         }
 
+
+
+        public sealed override ValueTask<GameInventoryDisplayDTO[]> GetListInventoryDisplayAsync()
+        {
+            var datas = this.GameContext.GetListInventoryDisplay().ToArray();
+            return ValueTask.FromResult(datas);
+        }
+        public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
+        {
+            var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
+            return this.GameContext.GetInventoryInfo(userDataMgr, inventoryObjectDTO);
+        }
+
+        public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
+        {
+            var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((gameContext, args) =>
+            {
+                var data = gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO);
+                gameContext.PlayMessage($"Change:{data.DisplayValue}");
+                return data;
+            }, (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
+        }
         #endregion
     }
 
