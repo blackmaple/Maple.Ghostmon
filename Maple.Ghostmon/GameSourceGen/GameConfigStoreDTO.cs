@@ -7,7 +7,6 @@
 
         public List<RareConfig> ListRareConfig { get; } = [];
         public List<AbilityBookConfig> ListAbilityBookConfig { get; } = [];
-
         public List<TreasureConfig> ListTreasureConfig { get; } = [];
         public List<ClothingConfig> ListClothingConfig { get; } = [];
 
@@ -17,6 +16,8 @@
         public List<ItemRecipeConfig> ListItemRecipeConfig { get; } = [];
         public List<FishLureConfig> ListFishLureConfig { get; } = [];
 
+
+        public List<AbilityConfig> ListAbilityConfig { get; } = [];
         public List<BuffConfig> ListBuffConfig { get; } = [];
         public List<IllustrationConfig> ListIllustrationConfig { get; } = [];
 
@@ -60,7 +61,6 @@
                     this.ListAbilityBookConfig.Add(data);
                 }
             }
-
 
             else if (enumSheetName == EnumSheetName.TreasureConfig)
             {
@@ -127,6 +127,15 @@
                 if (data is not null)
                 {
                     this.ListIllustrationConfig.Add(data);
+                }
+            }
+
+            else if (enumSheetName == EnumSheetName.AbilityConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.AbilityConfig);
+                if (data is not null)
+                {
+                    this.ListAbilityConfig.Add(data);
                 }
             }
 

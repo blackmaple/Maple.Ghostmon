@@ -63,7 +63,7 @@
         TipsConfig,
         TradeConfig,
 
-
+        Skill = 98,
         Monster = 99,
         Player = 100,
     };

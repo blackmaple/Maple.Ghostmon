@@ -82,8 +82,8 @@ namespace Maple.Ghostmon
             var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
 
             var data = await this.MonoTaskAsync(
-                (gameContext, args) 
-                    => gameContext.UpdateCurrencyInfo(args.userDataMgr, args.currencyModifyDTO), 
+                (gameContext, args)
+                    => gameContext.UpdateCurrencyInfo(args.userDataMgr, args.currencyModifyDTO),
                 (userDataMgr, currencyModifyDTO)).ConfigureAwait(false);
 
 
@@ -104,13 +104,39 @@ namespace Maple.Ghostmon
             var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
             return this.GameContext.GetInventoryInfo(userDataMgr, inventoryObjectDTO);
         }
-
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
             var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((gameContext, args) => 
-            gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO), 
+            return await this.MonoTaskAsync((gameContext, args) =>
+            gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO),
             (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
+        }
+
+
+
+        public sealed override async ValueTask<GameCharacterDisplayDTO[]> GetListCharacterDisplayAsync()
+        {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, userDataMgr) => p.GetListCharacterDisplay(userDataMgr).ToArray(), userDataMgr).ConfigureAwait(false);
+        }
+        public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
+        {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => p.GetCharacterEquipment(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+
+        }
+
+        public sealed override async ValueTask<GameCharacterSkillDTO> GetCharacterSkillAsync(GameCharacterObjectDTO characterObjectDTO)
+        {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => p.GetCharacterSkill(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+
+        }
+        public sealed override async ValueTask<GameCharacterStatusDTO> GetCharacterStatusAsync(GameCharacterObjectDTO characterObjectDTO)
+        {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+
         }
         #endregion
     }

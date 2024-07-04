@@ -30,6 +30,10 @@ namespace Maple.Ghostmon
 
     [JsonSerializable(typeof(BuffConfig))]
     [JsonSerializable(typeof(IllustrationConfig))]
+
+    [JsonSerializable(typeof(AbilityConfig))]
+
+    
     public partial class ConfigJsonSerializerContext : JsonSerializerContext
     {
 

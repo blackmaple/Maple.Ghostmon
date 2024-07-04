@@ -105,10 +105,10 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int64),"u_gainTime", "U_GAIN_TIME")]
 
     // class 0x98 System.Int32[] u_ability_tags
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_ability_tags", "U_ABILITY_TAGS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<Int32>), "u_ability_tags", "U_ABILITY_TAGS")]
 
     // class 0xA0 System.UInt64[] u_abilities
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_abilities", "U_ABILITIES")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<UInt64>), "u_abilities", "U_ABILITIES")]
 
     // struct 0xA8 System.Single growth_atk
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_atk", "GROWTH_ATK")]
