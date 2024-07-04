@@ -4,8 +4,10 @@ using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Maple.Ghostmon
@@ -282,17 +284,17 @@ namespace Maple.Ghostmon
                 p.PLAY_MESSAGE(txt, 0);
             }
         }
+
         public static UserDataManager.Ptr_UserDataManager GetUserDataManager(this GhostmonGameContext @this)
         {
             var userDataManager = @this.UserDataManager.INSTANCE;
             if (false == userDataManager)
             {
-               return GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first (0)");
+                return GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first (0)");
             }
             return userDataManager;
         }
-
-        public static UserData.Ptr_UserData GetUserData(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
+        public static UserData.Ptr_UserData GetUserData(this UserDataManager.Ptr_UserDataManager userDataManager)
         {
             var userData = userDataManager.USER_DATA;
             if (false == userData)
@@ -330,52 +332,54 @@ namespace Maple.Ghostmon
         public static GameCurrencyInfoDTO GetCurrencyInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCurrencyObjectDTO currencyObjectDTO)
         {
 
-            var userData = @this.GetUserData(userDataManager);
-
-            if (currencyObjectDTO.CurrencyObject == EnumSheetName.GEM.ToString())
+            var userData = userDataManager.GetUserData();
+            if (false == Enum.TryParse<EnumSheetName>(currencyObjectDTO.CurrencyObject, out var obj))
             {
-                return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = userData.GEM_NUM.ToString() };
+                return GameException.Throw<GameCurrencyInfoDTO>($"NOT FOUND {currencyObjectDTO.CurrencyObject}");
             }
-            if (currencyObjectDTO.CurrencyObject == EnumSheetName.COIN.ToString())
+            string count;
+            if (obj == EnumSheetName.GEM)
             {
-                return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = userData.COIN_NUM.ToString() };
+                count = userData.GEM_NUM.ToString();
             }
-            if (currencyObjectDTO.CurrencyObject == EnumSheetName.REIKI.ToString())
+            else if (obj == EnumSheetName.COIN)
             {
-                return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = userData.REIKI.ToString() };
+                count = userData.COIN_NUM.ToString();
             }
-            return GameException.Throw<GameCurrencyInfoDTO>($"{currencyObjectDTO.CurrencyObject} NOT FOUND");
-
+            else if (obj == EnumSheetName.REIKI)
+            {
+                count = userData.REIKI.ToString();
+            }
+            else
+            {
+                count = string.Empty;
+            }
+            return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = count };
         }
         public static GameCurrencyInfoDTO UpdateCurrencyInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCurrencyModifyDTO currencyModifyDTO)
         {
-            var userData = @this.GetUserData(userDataManager);
+            var userData = userDataManager.GetUserData();
+            if (false == Enum.TryParse<EnumSheetName>(currencyModifyDTO.CurrencyObject, out var obj))
+            {
+                return GameException.Throw<GameCurrencyInfoDTO>($"NOT FOUND {currencyModifyDTO.CurrencyObject}");
+            }
 
-            if (currencyModifyDTO.CurrencyObject == EnumSheetName.GEM.ToString())
+            if (obj == EnumSheetName.GEM)
             {
-                if (int.TryParse(currencyModifyDTO.NewValue, out var result))
-                {
-                    userData.GEM_NUM = result;
-                }
-                return new GameCurrencyInfoDTO() { ObjectId = currencyModifyDTO.CurrencyObject, DisplayValue = userData.GEM_NUM.ToString() };
+                userData.GEM_NUM = currencyModifyDTO.IntValue;
             }
-            if (currencyModifyDTO.CurrencyObject == EnumSheetName.COIN.ToString())
+            else if (obj == EnumSheetName.COIN)
             {
-                if (int.TryParse(currencyModifyDTO.NewValue, out var result))
-                {
-                    userData.COIN_NUM = result;
-                }
-                return new GameCurrencyInfoDTO() { ObjectId = currencyModifyDTO.CurrencyObject, DisplayValue = userData.COIN_NUM.ToString() };
+                userData.COIN_NUM = currencyModifyDTO.IntValue;
             }
-            if (currencyModifyDTO.CurrencyObject == EnumSheetName.REIKI.ToString())
+            else if (obj == EnumSheetName.REIKI)
             {
-                if (float.TryParse(currencyModifyDTO.NewValue, out var result))
-                {
-                    userData.REIKI = result;
-                }
-                return new GameCurrencyInfoDTO() { ObjectId = currencyModifyDTO.CurrencyObject, DisplayValue = userData.REIKI.ToString() };
+                userData.REIKI = currencyModifyDTO.FloatValue;
             }
-            return GameException.Throw<GameCurrencyInfoDTO>($"{currencyModifyDTO.CurrencyObject} NOT FOUND");
+
+            @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
+
+            return new GameCurrencyInfoDTO() { ObjectId = currencyModifyDTO.CurrencyObject, DisplayValue = currencyModifyDTO.NewValue };
 
         }
 
@@ -547,21 +551,10 @@ namespace Maple.Ghostmon
             }
 
         }
-
-        public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryObjectDTO inventoryObjectDTO)
+        private static int GetInventoryCount(UserData.Ptr_UserData userData, EnumSheetName category, ulong configId)
         {
-            var userData = @this.GetUserData(userDataManager);
-            if (false == Enum.TryParse<EnumSheetName>(inventoryObjectDTO.InventoryCategory, out var result))
-            {
-                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryCategory}");
-            }
-            if (false == ulong.TryParse(inventoryObjectDTO.InventoryObject, out var configId))
-            {
-                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryObject}");
-            }
-
-            var count = 0;
-            if (result == EnumSheetName.MaterialConfig)
+            int count = 0;
+            if (category == EnumSheetName.MaterialConfig)
             {
 
                 foreach (var data in userData.TOTAL_MATERIALS)
@@ -573,7 +566,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.CharmConfig)
+            else if (category == EnumSheetName.CharmConfig)
             {
 
                 foreach (var data in userData.TOTAL_CHARMS.AsRefArray())
@@ -585,7 +578,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.RareConfig)
+            else if (category == EnumSheetName.RareConfig)
             {
                 foreach (var data in userData.TOTAL_RARE)
                 {
@@ -596,7 +589,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.AbilityBookConfig)
+            else if (category == EnumSheetName.AbilityBookConfig)
             {
                 foreach (var data in userData.TOTAL_ABILITY_BOOKS.AsRefArray())
                 {
@@ -606,7 +599,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.TreasureConfig)
+            else if (category == EnumSheetName.TreasureConfig)
             {
                 foreach (var data in userData.TOTAL_TREASURE)
                 {
@@ -616,7 +609,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.ClothingConfig)
+            else if (category == EnumSheetName.ClothingConfig)
             {
                 foreach (var data in userData.TOTAL_CLOTHING)
                 {
@@ -627,7 +620,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.MenuConfig)
+            else if (category == EnumSheetName.MenuConfig)
             {
 
                 foreach (var data in userData.TOTAL_MENU.AsRefArray())
@@ -639,7 +632,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.EggConfig)
+            else if (category == EnumSheetName.EggConfig)
             {
                 foreach (var data in userData.TOTAL_EGG.AsRefArray())
                 {
@@ -650,7 +643,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.ItemRecipeConfig)
+            else if (category == EnumSheetName.ItemRecipeConfig)
             {
 
                 foreach (var data in userData.TOTAL_ITEM_RECIPE.AsRefArray())
@@ -661,7 +654,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else if (result == EnumSheetName.FishLureConfig)
+            else if (category == EnumSheetName.FishLureConfig)
             {
                 foreach (var data in userData.TOTAL_FISH_LURE.AsRefArray())
                 {
@@ -671,19 +664,26 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            else
+            return count;
+        }
+        public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryObjectDTO inventoryObjectDTO)
+        {
+            if (false == Enum.TryParse<EnumSheetName>(inventoryObjectDTO.InventoryCategory, out var category))
+            {
+                return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryCategory}");
+            }
+            if (false == ulong.TryParse(inventoryObjectDTO.InventoryObject, out var configId))
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryObject}");
             }
 
+            var userData = userDataManager.GetUserData();
+            var count = GetInventoryCount(userData, category, configId);
             return new GameInventoryInfoDTO() { ObjectId = inventoryObjectDTO.InventoryObject, InventoryCount = count };
-
         }
-
         public static GameInventoryInfoDTO UpdateInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryModifyDTO inventoryModifyDTO)
         {
-            var userData = @this.GetUserData(userDataManager);
-            if (false == Enum.TryParse<EnumSheetName>(inventoryModifyDTO.InventoryCategory, out var result))
+            if (false == Enum.TryParse<EnumSheetName>(inventoryModifyDTO.InventoryCategory, out var category))
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryModifyDTO.InventoryCategory}");
             }
@@ -691,35 +691,136 @@ namespace Maple.Ghostmon
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryModifyDTO.InventoryObject}");
             }
-
-            var count = inventoryModifyDTO.InventoryCount;
-
-            if (result == EnumSheetName.EggConfig)
-            {
-                var eggCount = 0;
-                foreach (var data in userData.TOTAL_EGG.AsRefArray())
-                {
-                    var egg = data.Value;
-                    if (egg.Valid() && egg.CONFIG_ID == configId)
-                    {
-                        eggCount++;
-                    }
-                }
-                count -= eggCount;
-            }
-
-            if (count < 0)
+            var userData = userDataManager.GetUserData();
+            var oldCount = GetInventoryCount(userData, category, configId);
+            var newCount = inventoryModifyDTO.InventoryCount;
+            var addCount = newCount - oldCount;
+            if (addCount <= 0)
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
             }
-
-            userDataManager.GAIN_ITEM((int)result, configId, count);
-
-            return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = count };
+            userDataManager.GAIN_ITEM((int)category, configId, addCount);
+            @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
+            return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
 
         }
 
 
+        public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
+        {
+            var userData = userDataManager.GetUserData();
+            yield return new GameCharacterDisplayDTO()
+            {
+                ObjectId = EnumSheetName.Player.ToString(),
+                DisplayCategory = EnumSheetName.Player.ToString(),
+                DisplayName = userData.PLAYER_NAME.ToString(),
+                DisplayDesc = userData.PLAYER_NAME.ToString(),
+            };
+            foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
+            {
+                yield return new GameCharacterDisplayDTO()
+                {
+                    ObjectId = total.Key.ToString(),
+                    DisplayCategory = total.Value.U_PREFAB.ToString(),
+                    DisplayName = total.Value.U_NAME.ToString(),
+                    //DisplayDesc = total.Value.U_PREFAB.ToString(),
+                };
+            }
+
+        }
+        public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+        {
+            var userData = userDataManager.GetUserData();
+            if (characterObjectDTO.CharacterId == EnumSheetName.Player.ToString())
+            {
+                return new GameCharacterStatusDTO()
+                {
+                    ObjectId = characterObjectDTO.CharacterId,
+                    CharacterAttributes = [
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),DisplayValue = userData.RANK_VALUE.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),DisplayValue = userData.RANK_VALUE.ToString(),CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),DisplayValue = userData.TOTAL_RANK_VALUE.ToString(), },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),DisplayValue = userData.LEV_SEAL.ToString(), },
+                        ]
+                };
+            }
+            else
+            {
+                foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
+                {
+                    if (total.Key == characterObjectDTO.ULongValue && total.Value.Valid())
+                    {
+                        var monster = total.Value;
+                        return new GameCharacterStatusDTO()
+                        {
+                            ObjectId = characterObjectDTO.CharacterId,
+                            CharacterAttributes = [
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString()  },
+                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
+
+                        ]
+                        };
+                    }
+                }
+            }
+            return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
+        }
+        public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+        {
+            var userData = userDataManager.GetUserData();
+            if (characterObjectDTO.CharacterId == EnumSheetName.Player.ToString())
+            {
+                return new GameCharacterEquipmentDTO()
+                {
+                    ObjectId = characterObjectDTO.CharacterId,
+                };
+            }
+            else
+            {
+                foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
+                {
+                    if (total.Key == characterObjectDTO.ULongValue)
+                    {
+                        return new GameCharacterEquipmentDTO()
+                        {
+                            ObjectId = characterObjectDTO.CharacterId,
+                        };
+                    }
+                }
+            }
+            return GameException.Throw<GameCharacterEquipmentDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
+
+        }
+        public static GameCharacterEquipmentDTO GetCharacterSkill(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+        {
+            var userData = userDataManager.GetUserData();
+            if (characterObjectDTO.CharacterId == EnumSheetName.Player.ToString())
+            {
+                return new GameCharacterEquipmentDTO()
+                {
+                    ObjectId = characterObjectDTO.CharacterId,
+                };
+            }
+            else
+            {
+                foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
+                {
+                    if (total.Key == characterObjectDTO.ULongValue)
+                    {
+                        return new GameCharacterEquipmentDTO()
+                        {
+                            ObjectId = characterObjectDTO.CharacterId,
+                        };
+                    }
+                }
+            }
+            return GameException.Throw<GameCharacterEquipmentDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
+
+        }
 
     }
 

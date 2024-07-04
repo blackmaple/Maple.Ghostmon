@@ -82,16 +82,9 @@ namespace Maple.Ghostmon
             var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
 
             var data = await this.MonoTaskAsync(
-                (gameContext, args) =>
-                {
-                    var ret = gameContext.UpdateCurrencyInfo(args.userDataMgr, args.currencyModifyDTO);
-
-                    gameContext.PlayMessage($"Change:{ret.DisplayValue}");
-
-                    return ret;
-
-                }, (userDataMgr, currencyModifyDTO)
-                ).ConfigureAwait(false);
+                (gameContext, args) 
+                    => gameContext.UpdateCurrencyInfo(args.userDataMgr, args.currencyModifyDTO), 
+                (userDataMgr, currencyModifyDTO)).ConfigureAwait(false);
 
 
 
@@ -115,12 +108,9 @@ namespace Maple.Ghostmon
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
             var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((gameContext, args) =>
-            {
-                var data = gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO);
-                gameContext.PlayMessage($"Change:{data.DisplayValue}");
-                return data;
-            }, (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
+            return await this.MonoTaskAsync((gameContext, args) => 
+            gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO), 
+            (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
         }
         #endregion
     }

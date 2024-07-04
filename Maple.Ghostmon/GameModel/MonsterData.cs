@@ -21,13 +21,13 @@ namespace Maple.Ghostmon
 
 
     // struct 0x10 System.UInt64 dataID
-    // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"dataID", "DATA_ID")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "dataID", "DATA_ID")]
 
     // class 0x18 System.String u_name
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_name", "U_NAME")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_name", "U_NAME")]
 
     // class 0x20 System.String u_prefab
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_prefab", "U_PREFAB")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_prefab", "U_PREFAB")]
 
     // struct 0x28 System.UInt64 u_professional
     // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"u_professional", "U_PROFESSIONAL")]
@@ -42,7 +42,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_YingYang", "U_YING_YANG")]
 
     // struct 0x3C System.Boolean u_flash
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"u_flash", "U_FLASH")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "u_flash", "U_FLASH", IsReadOnly = false)]
 
     // struct 0x3D System.Boolean u_vari_color
     [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "u_vari_color", "U_VARI_COLOR", IsReadOnly = false)]
@@ -87,19 +87,19 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_friends_num", "U_FRIENDS_NUM")]
 
     // struct 0x7C System.Int32 u_level
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_level", "U_LEVEL")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_level", "U_LEVEL")]
 
     // struct 0x80 System.Int32 u_exp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_exp", "U_EXP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_exp", "U_EXP", IsReadOnly = false)]
 
     // struct 0x84 System.Int32 u_total_exp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_total_exp", "U_TOTAL_EXP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_total_exp", "U_TOTAL_EXP")]
 
     // struct 0x88 System.Int32 pre_getAbilityLv
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"pre_getAbilityLv", "PRE_GET_ABILITY_LV")]
 
     // struct 0x8C System.Single u_favorability
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_favorability", "U_FAVORABILITY")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_favorability", "U_FAVORABILITY", IsReadOnly = false)]
 
     // struct 0x90 System.Int64 u_gainTime
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int64),"u_gainTime", "U_GAIN_TIME")]

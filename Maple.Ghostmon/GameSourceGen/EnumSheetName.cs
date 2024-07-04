@@ -62,6 +62,10 @@
         TaskTargetConfig,
         TipsConfig,
         TradeConfig,
+
+
+        Monster = 99,
+        Player = 100,
     };
 
 
