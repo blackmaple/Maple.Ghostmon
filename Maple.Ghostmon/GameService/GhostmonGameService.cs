@@ -35,8 +35,8 @@ namespace Maple.Ghostmon
         {
             var load = await this.MonoTaskAsync(p => p.LoadGameConfigStore()).ConfigureAwait(false);
             this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
-            var count = await this.MonoTaskAsync(p => p.LoadListMonsterConfig()).ConfigureAwait(false);
-            this.Logger.LogInformation("LoadListMonsterConfig=>{count}", count);
+            var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
+            this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
 
         }
         #endregion
@@ -125,7 +125,6 @@ namespace Maple.Ghostmon
             return await this.MonoTaskAsync((p, args) => p.GetCharacterEquipment(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
 
         }
-
         public sealed override async ValueTask<GameCharacterSkillDTO> GetCharacterSkillAsync(GameCharacterObjectDTO characterObjectDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
@@ -136,11 +135,17 @@ namespace Maple.Ghostmon
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
         }
-
         public sealed override async ValueTask<GameCharacterModifyDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+        }
+
+
+        public sealed override ValueTask<GameMonsterDisplayDTO[]> GetListMonsterDisplayAsync()
+        {
+            var datas = this.GameContext.GetListMonsterDisplay().ToArray();
+            return ValueTask.FromResult(datas);
         }
         #endregion
     }

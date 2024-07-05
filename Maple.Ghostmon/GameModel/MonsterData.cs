@@ -30,7 +30,7 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_prefab", "U_PREFAB")]
 
     // struct 0x28 System.UInt64 u_professional
-    // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"u_professional", "U_PROFESSIONAL")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "u_professional", "U_PROFESSIONAL")]
 
     // struct 0x30 System.Int32 u_race
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_race", "U_RACE")]

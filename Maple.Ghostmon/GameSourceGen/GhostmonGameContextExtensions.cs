@@ -1,15 +1,11 @@
-﻿using Maple.MonoGameAssistant.Common;
-using Maple.MonoGameAssistant.Core;
+﻿using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Threading;
 
 namespace Maple.Ghostmon
 {
@@ -103,26 +99,36 @@ namespace Maple.Ghostmon
 
             return true;
         }
-        public static int LoadListMonsterConfig(this GhostmonGameContext @this)
+        public static int LoadListMonsterInfo(this GhostmonGameContext @this)
         {
             var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
+            var suffix = @this.T(skill_Suffix);
+
             foreach (var illustration in listIllustrationConfig)
             {
                 var prefab = illustration.prefab;
                 if (false == string.IsNullOrEmpty(prefab))
                 {
-                    var monsterName = @this.T(illustration.prefab!);
+                    var monsterName = @this.T(prefab);
                     _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out _, monsterName);
+                    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(out _, monsterName, suffix);
+
                 }
             }
             //加个延迟等待task完成
             Thread.Sleep(2000);
             var monsterConfig = @this.ConfigDataStore.MONSTER_CFG_STORE;
+            var skillConfig = @this.ConfigDataStore.SKILL_CFG_STORE;
+            var count = 0;
             if (monsterConfig.Valid())
             {
-                return monsterConfig.AsRef().Size;
+                count += monsterConfig.AsRef().Size;
             }
-            return default;
+            if (skillConfig.Valid())
+            {
+                count += skillConfig.AsRef().Size;
+            }
+            return count;
         }
         //public static int LoadListSkillConfig(this GhostmonGameContext @this)
         //{ 
@@ -131,12 +137,20 @@ namespace Maple.Ghostmon
         public static T_SKILL_OBJECT GetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, PMonoString name)
             where T_SKILL_OBJECT : unmanaged
         {
-
-            var suffix = @this.T(skill_Suffix);
-            _ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(out var ref_UniTask, name, suffix);
-            Thread.Sleep(1500);
-            var skillObject = ref_UniTask.GetResult_State<Ref_LoadSkillArgs>();
-            return Unsafe.As<SkillObject.Ptr_SkillObject, T_SKILL_OBJECT>(ref skillObject);
+            foreach (var skill in @this.ConfigDataStore.SKILL_CFG_STORE.AsRefArray())
+            {
+                if (skill.Key.AsReadOnlySpan().StartsWith(name.AsReadOnlySpan()))
+                {
+                    var skillObject = skill.Value;
+                    return Unsafe.As<SkillObject.Ptr_SkillObject, T_SKILL_OBJECT>(ref skillObject);
+                }
+            }
+            return default;
+            ////var suffix = @this.T(skill_Suffix);
+            ////_ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(out var ref_UniTask, name, suffix);
+            ////Thread.Sleep(1500);
+            ////var skillObject = ref_UniTask.GetResult_State<Ref_LoadSkillArgs>();
+            ////
         }
 
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
@@ -718,15 +732,31 @@ namespace Maple.Ghostmon
                 DisplayCategory = EnumSheetName.Player.ToString(),
                 DisplayName = userData.PLAYER_NAME.ToString(),
                 DisplayDesc = userData.PLAYER_NAME.ToString(),
+                CharacterAttributes = [
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),DisplayValue = userData.LEV_RANK.ToString() ,CanPreview = true, },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),DisplayValue = userData.RANK_VALUE.ToString(),CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),DisplayValue = userData.TOTAL_RANK_VALUE.ToString(), },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),DisplayValue = userData.LEV_SEAL.ToString(),CanPreview = true, },
+                        ]
             };
             foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
             {
+                var monster = total.Value;
                 yield return new GameCharacterDisplayDTO()
                 {
                     ObjectId = total.Key.ToString(),
                     DisplayCategory = EnumSheetName.Monster.ToString(),
-                    DisplayName = total.Value.U_NAME.ToString(),
-                    DisplayDesc = total.Value.U_PREFAB.ToString(),
+                    DisplayName = monster.U_NAME.ToString(),
+                    DisplayDesc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(monster.U_PROFESSIONAL).ToString(),
+                    CharacterAttributes = [
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString()  },
+                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString(),CanPreview = true,  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
+
+                        ]
                 };
             }
 
@@ -895,7 +925,7 @@ namespace Maple.Ghostmon
                 }
                 else
                 {
-                    //2秒内未获取数据
+
                     skillInfos[0].DisplayName = "???";
                     skillInfos[0].DisplayDesc = "???";
                 }
@@ -923,7 +953,62 @@ namespace Maple.Ghostmon
         }
 
 
+        public static IEnumerable<GameMonsterDisplayDTO> GetListMonsterDisplay(this GhostmonGameContext @this)
+        {
+            var category = EnumSheetName.Monster.ToString();
+            foreach (var monsterData in @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray())
+            {
+                var monster = monsterData.Value;
+                var prefab = monster.M_PREFAB.ToString();
+                if (false == string.IsNullOrEmpty(prefab))
+                {
+                    var skillId = EnumSheetName.Skill.ToString();
+                    var name = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(monster.M_TITLE).ToString();
+                    yield return new GameMonsterDisplayDTO()
+                    {
+                        ObjectId = prefab,
+                        DisplayName = name,
+                        DisplayCategory = category,
+                        DisplayDesc = name,
+                        MonsterAttributes = [
+                            new (){ ObjectId = nameof(monster.M_RANK), DisplayName= nameof(monster.M_RANK),DisplayValue = monster.M_RANK.ToString(),CanPreview = true },
+                            new (){ ObjectId = nameof(monster.BASE_CRIT), DisplayName= nameof(monster.BASE_CRIT),DisplayValue = monster.BASE_CRIT.ToString(),CanPreview = true },
+                            new (){ ObjectId = nameof(monster.LEVEL_RANGE), DisplayName= nameof(monster.LEVEL_RANGE),DisplayValue = $"{monster.LEVEL_RANGE.m_X}~{monster.LEVEL_RANGE.m_Y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_HP), DisplayName= nameof(monster.GROWTH_HP),DisplayValue = $"{monster.GROWTH_HP.x}~{monster.GROWTH_HP.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_WP), DisplayName= nameof(monster.GROWTH_WP),DisplayValue = $"{monster.GROWTH_WP.x}~{monster.GROWTH_WP.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_ATK), DisplayName= nameof(monster.GROWTH_ATK),DisplayValue = $"{monster.GROWTH_ATK.x}~{monster.GROWTH_ATK.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_DEF), DisplayName= nameof(monster.GROWTH_DEF),DisplayValue = $"{monster.GROWTH_DEF.x}~{monster.GROWTH_DEF.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_MAGIC), DisplayName= nameof(monster.GROWTH_MAGIC),DisplayValue = $"{monster.GROWTH_MAGIC.x}~{monster.GROWTH_MAGIC.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_CRIT), DisplayName= nameof(monster.GROWTH_CRIT),DisplayValue = $"{monster.GROWTH_CRIT.x}~{monster.GROWTH_CRIT.y}",CanPreview = false },
 
+
+                            ],
+                        SkillInfos = [GetSkillInfo(monster)]
+                    };
+                }
+
+            }
+
+            GameSkillInfoDTO GetSkillInfo(MonsterObject.Ptr_MonsterObject monsterObject)
+            {
+                var skillId = EnumSheetName.Skill.ToString();
+                var skillObject = @this.GetSkillObject<USkillObject.Ptr_USkillObject>(monsterObject.M_PREFAB);
+                string? skillName;
+                string? skillDesc;
+                if (skillObject)
+                {
+                    skillName = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_NAME).ToString();
+                    skillDesc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_DESCRIPTION).ToString();
+
+                }
+                else
+                {
+                    skillName = "???";
+                    skillDesc = "???";
+                }
+                return new GameSkillInfoDTO() { ObjectId = skillId, DisplayCategory = skillId, DisplayDesc = skillDesc, DisplayName = skillName };
+            }
+        }
 
     }
 

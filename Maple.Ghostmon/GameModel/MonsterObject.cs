@@ -41,7 +41,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"m_jobSection", "M_JOB_SECTION")]
             
     // struct 0x38 System.Int32 m_rank
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"m_rank", "M_RANK")]
+      [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"m_rank", "M_RANK")]
             
     // struct 0x3C System.Boolean capturable
     // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"capturable", "CAPTURABLE")]
@@ -50,7 +50,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"capture_rate", "CAPTURE_RATE")]
             
     // struct 0x44 UnityEngine.Vector2Int level_range
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2Int),"level_range", "LEVEL_RANGE")]
+      [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2INT),"level_range", "LEVEL_RANGE")]
             
     // struct 0x4C System.Int32 map_num
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"map_num", "MAP_NUM")]
@@ -83,134 +83,134 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"monsterGroupProbablity", "MONSTER_GROUP_PROBABLITY")]
             
     // class 0x88 System.Int32[] abilityTagList
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"abilityTagList", "ABILITY_TAG_LIST")]
-            
+      [MonoCollectorSearchFieldAttribute(typeof(nint),"abilityTagList", "ABILITY_TAG_LIST")]
+
     // struct 0x90 System.Single base_atk
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_atk", "BASE_ATK")]
-            
+
     // struct 0x94 UnityEngine.Vector2 growth_atk
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2),"growth_atk", "GROWTH_ATK")]
-            
+      [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2),"growth_atk", "GROWTH_ATK")]
+
     // struct 0x9C System.Single base_magic
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_magic", "BASE_MAGIC")]
-            
+
     // struct 0xA0 UnityEngine.Vector2 growth_magic
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2),"growth_magic", "GROWTH_MAGIC")]
-            
+      [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2),"growth_magic", "GROWTH_MAGIC")]
+
     // struct 0xA8 System.Single base_def
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_def", "BASE_DEF")]
-            
+
     // struct 0xAC UnityEngine.Vector2 growth_def
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2),"growth_def", "GROWTH_DEF")]
+    [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2),"growth_def", "GROWTH_DEF")]
             
     // struct 0xB4 System.Single base_wp
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_wp", "BASE_WP")]
             
     // struct 0xB8 UnityEngine.Vector2 growth_wp
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2),"growth_wp", "GROWTH_WP")]
+      [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2),"growth_wp", "GROWTH_WP")]
             
     // struct 0xC0 System.Single base_hp
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_hp", "BASE_HP")]
             
     // struct 0xC4 UnityEngine.Vector2 growth_hp
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2),"growth_hp", "GROWTH_HP")]
-            
+      [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2),"growth_hp", "GROWTH_HP")]
+
     // struct 0xCC System.Single base_crit
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_crit", "BASE_CRIT")]
-            
+      [MonoCollectorSearchFieldAttribute(typeof(System.Single),"base_crit", "BASE_CRIT")]
+
     // struct 0xD0 UnityEngine.Vector2 growth_crit
-    // [MonoCollectorSearchFieldAttribute(typeof(UnityEngine.Vector2),"growth_crit", "GROWTH_CRIT")]
-            
+      [MonoCollectorSearchFieldAttribute(typeof(REF_MONO_VECTOR2),"growth_crit", "GROWTH_CRIT")]
+
     // struct 0xD8 System.Single skill_cost
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"skill_cost", "SKILL_COST")]
-            
+
     // struct 0xDC System.Single mana_gather
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"mana_gather", "MANA_GATHER")]
-            
+
     // struct 0xE0 System.Single move_speed
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"move_speed", "MOVE_SPEED")]
-            
+
     // struct 0xE4 System.Single atk_range
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"atk_range", "ATK_RANGE")]
-            
+
     // struct 0xE8 System.Int32 atk_type
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"atk_type", "ATK_TYPE")]
-            
+
     // struct 0xEC System.Int32 fire_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"fire_resist", "FIRE_RESIST")]
-            
+
     // struct 0xF0 System.Int32 cold_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"cold_resist", "COLD_RESIST")]
-            
+
     // struct 0xF4 System.Int32 ltng_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"ltng_resist", "LTNG_RESIST")]
-            
+
     // struct 0xF8 System.Int32 wind_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"wind_resist", "WIND_RESIST")]
-            
+
     // struct 0xFC System.Int32 poison_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"poison_resist", "POISON_RESIST")]
-            
+
     // struct 0x100 System.Int32 dark_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"dark_resist", "DARK_RESIST")]
-            
+
     // struct 0x104 System.Int32 puncture_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"puncture_resist", "PUNCTURE_RESIST")]
-            
+
     // struct 0x108 System.Int32 shock_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"shock_resist", "SHOCK_RESIST")]
-            
+
     // struct 0x10C System.Int32 tear_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"tear_resist", "TEAR_RESIST")]
-            
+
     // struct 0x110 System.Boolean atk_remote
     // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"atk_remote", "ATK_REMOTE")]
-            
+
     // struct 0x118 System.UInt64 bullet_ID
     // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"bullet_ID", "BULLET_ID")]
-            
+
     // class 0x120 System.String hit_effect
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"hit_effect", "HIT_EFFECT")]
-            
+
     // class 0x128 System.String hit_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"hit_sound", "HIT_SOUND")]
-            
+
     // struct 0x130 System.Single radius
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"radius", "RADIUS")]
-            
+
     // struct 0x134 System.Int32 weight
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"weight", "WEIGHT")]
-            
+
     // struct 0x138 System.Int32 atk_force
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"atk_force", "ATK_FORCE")]
-            
+
     // struct 0x13C System.Single atk_preTime
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"atk_preTime", "ATK_PRE_TIME")]
-            
+
     // struct 0x140 System.Single atk_aniTime
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"atk_aniTime", "ATK_ANI_TIME")]
-            
+
     // class 0x148 System.String atk_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"atk_sound", "ATK_SOUND")]
-            
+
     // struct 0x150 System.Single spell_preTime
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"spell_preTime", "SPELL_PRE_TIME")]
-            
+
     // struct 0x154 System.Single spell_aniTime
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"spell_aniTime", "SPELL_ANI_TIME")]
-            
+
     // class 0x158 System.String spell_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"spell_sound", "SPELL_SOUND")]
-            
+
     // class 0x160 System.String dead_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"dead_sound", "DEAD_SOUND")]
-            
+
     // class 0x168 System.String alert_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"alert_sound", "ALERT_SOUND")]
-            
+
     // class 0x170 System.String encounter_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"encounter_sound", "ENCOUNTER_SOUND")]
-            
+
     // class 0x178 System.String deploy_sound
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"deploy_sound", "DEPLOY_SOUND")]
     public partial class MonsterObject
