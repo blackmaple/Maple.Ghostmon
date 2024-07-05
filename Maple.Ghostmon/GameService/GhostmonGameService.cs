@@ -130,13 +130,17 @@ namespace Maple.Ghostmon
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return await this.MonoTaskAsync((p, args) => p.GetCharacterSkill(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
-
         }
         public sealed override async ValueTask<GameCharacterStatusDTO> GetCharacterStatusAsync(GameCharacterObjectDTO characterObjectDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+        }
 
+        public sealed override async ValueTask<GameCharacterModifyDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
+        {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
         }
         #endregion
     }

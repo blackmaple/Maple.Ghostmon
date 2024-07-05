@@ -319,8 +319,8 @@ namespace Maple.Ghostmon
         /// <param name="name">class System.String</param>
         /// <param name="suffix">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<SkillObject></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSkillConfig")]
-        /// static extern Cysharp.Threading.Tasks.UniTask<SkillObject> GET_SKILL_CONFIG (nint name, nint suffix);
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSkillConfig")]
+        static extern Ptr_UniTask<SkillObject.Ptr_SkillObject> GET_SKILL_CONFIG(out Ref_UniTask<SkillObject.Ptr_SkillObject> ref_UniTask, PMonoString name, PMonoString suffix);
 
 
         /// <summary>

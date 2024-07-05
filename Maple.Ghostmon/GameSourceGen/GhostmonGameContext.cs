@@ -20,6 +20,7 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(CollectionObject))]
     [MonoCollectorType(typeof(SpriteObject))]
     [MonoCollectorType(typeof(SkillObject))]
+    [MonoCollectorType(typeof(USkillObject))]
 
 
 

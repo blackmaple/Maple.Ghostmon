@@ -484,4 +484,15 @@ namespace Maple.Ghostmon
         [MarshalAs(UnmanagedType.SysInt)]
         public readonly nint SPRITE_NAME;
     }
+
+
+    public unsafe readonly partial struct Ref_LoadSkillArgs
+    {
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint NAME;
+
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint SUFFIX;
+
+    }
 }

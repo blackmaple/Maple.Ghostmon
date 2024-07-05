@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Maple.Ghostmon
@@ -16,6 +17,9 @@ namespace Maple.Ghostmon
 
     internal static class GhostmonGameContextExtensions
     {
+        const string atlasName = "MonsterAvaterUIAtlas";
+        const string spriteName_Suffix = "_Head";
+        const string skill_Suffix = "_Skill";
         public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
 
         private static string[] SheetNames { get; } =
@@ -122,9 +126,18 @@ namespace Maple.Ghostmon
         }
         //public static int LoadListSkillConfig(this GhostmonGameContext @this)
         //{ 
-        
-        //}
 
+        //}
+        public static T_SKILL_OBJECT GetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, PMonoString name)
+            where T_SKILL_OBJECT : unmanaged
+        {
+
+            var suffix = @this.T(skill_Suffix);
+            _ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(out var ref_UniTask, name, suffix);
+            Thread.Sleep(1500);
+            var skillObject = ref_UniTask.GetResult_State<Ref_LoadSkillArgs>();
+            return Unsafe.As<SkillObject.Ptr_SkillObject, T_SKILL_OBJECT>(ref skillObject);
+        }
 
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
         public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
@@ -157,8 +170,6 @@ namespace Maple.Ghostmon
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
         public static IReadOnlyList<UnitySpriteData> LoadListMonsterAvater(this GhostmonGameContext @this, IReadOnlyList<MonsterObject.Ptr_MonsterObject> monsterObjects)
         {
-            const string atlasName = "MonsterAvaterUIAtlas";
-            const string spriteName_Suffix = "_Head";
             var pAtlasName = @this.T(atlasName);
             var count = monsterObjects.Count;
             List<UnitySpriteData> list = new(count);
@@ -740,7 +751,7 @@ namespace Maple.Ghostmon
             {
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
-                    if (total.Key == characterObjectDTO.ULongValue && total.Value.Valid())
+                    if (total.Key == characterObjectDTO.UCharacterId && total.Value.Valid())
                     {
                         var monster = total.Value;
                         return new GameCharacterStatusDTO()
@@ -761,6 +772,39 @@ namespace Maple.Ghostmon
             }
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
         }
+        public static GameCharacterModifyDTO UpdateCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
+        {
+            var userData = userDataManager.GetUserData();
+            if (characterModifyDTO.CharacterId == EnumSheetName.Player.ToString())
+            {
+                if (characterModifyDTO.ModifyObject == nameof(userData.RANK_VALUE))
+                {
+                    userData.RANK_VALUE = characterModifyDTO.IntValue;
+                    return characterModifyDTO;
+                }
+            }
+            else
+            {
+                foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
+                {
+                    if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
+                    {
+                        var monster = total.Value;
+                        if (characterModifyDTO.ModifyObject == nameof(monster.U_EXP))
+                        {
+                            monster.U_EXP = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_FAVORABILITY))
+                        {
+                            monster.U_FAVORABILITY = characterModifyDTO.IntValue;
+                        }
+                        return characterModifyDTO;
+                    }
+                }
+            }
+            return GameException.Throw<GameCharacterModifyDTO>($"NOT FOUND {characterModifyDTO.UCharacterId}:{characterModifyDTO.ModifyObject}");
+        }
+
         public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = userDataManager.GetUserData();
@@ -769,21 +813,21 @@ namespace Maple.Ghostmon
                 return new GameCharacterEquipmentDTO()
                 {
                     ObjectId = characterObjectDTO.CharacterId,
-                    EquipmentAttributes = [],
+                    EquipmentInfos = [],
                 };
             }
             else
             {
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
-                    if (total.Key == characterObjectDTO.ULongValue)
+                    if (total.Key == characterObjectDTO.UCharacterId)
                     {
-                      
+
 
                         return new GameCharacterEquipmentDTO()
                         {
                             ObjectId = characterObjectDTO.CharacterId,
-                            EquipmentAttributes = []
+                            EquipmentInfos = []
                         };
                     }
                 }
@@ -807,34 +851,79 @@ namespace Maple.Ghostmon
             {
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
-                    if (total.Key == characterObjectDTO.ULongValue && total.Value.Valid())
+                    if (total.Key == characterObjectDTO.UCharacterId && total.Value.Valid())
                     {
                         return new GameCharacterSkillDTO()
                         {
                             ObjectId = characterObjectDTO.CharacterId,
-                            SkillInfos = GetListSkill(total.Value.U_ABILITIES).ToArray(),
+                            SkillInfos = GetListSkill(@this, total.Value),
 
                         };
                     }
                 }
             }
             return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
-            static IEnumerable<GameSkillInfoDTO> GetListSkill(PMonoArray<UInt64> abilities)
+            GameSkillInfoDTO[] GetListSkill(GhostmonGameContext @this, MonsterData.Ptr_MonsterData monsterData)
             {
-                if (abilities.Valid())
+                var skillId = EnumSheetName.Skill.ToString();
+                var ability = EnumSheetName.AbilityConfig.ToString();
+                GameSkillInfoDTO[] skillInfos =
+                [
+                    new (){ ObjectId = skillId,DisplayCategory = skillId},
+
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+
+
+                ];
+
+                var skillObject = @this.GetSkillObject<USkillObject.Ptr_USkillObject>(monsterData.U_PREFAB);
+                if (skillObject)
                 {
-                    foreach (var item in abilities)
+                    var name = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_NAME);
+                    var desc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_DESCRIPTION);
+
+                    skillInfos[0].DisplayName = name.ToString();
+                    skillInfos[0].DisplayDesc = desc.ToString();
+                }
+                else
+                {
+                    //2秒内未获取数据
+                    skillInfos[0].DisplayName = "???";
+                    skillInfos[0].DisplayDesc = "???";
+                }
+
+                int abilityIndex = 1;
+                if (monsterData.U_ABILITIES.Valid())
+                {
+                    foreach (var item in monsterData.U_ABILITIES)
                     {
                         var skill = GameConfigStore.ListAbilityConfig.Find(p => p.configID == item);
                         if (skill is not null)
                         {
-                            yield return new GameSkillInfoDTO() { ObjectId = skill.configID.ToString(), DisplayName = skill.name, DisplayValue = skill.description, DisplayCategory = EnumSheetName.AbilityConfig.ToString(), CanWrite = true };
+                            var skillInfo = skillInfos[abilityIndex];
+                            skillInfo.ObjectId = skill.configID.ToString();
+                            skillInfo.DisplayName = skill.name;
+                            skillInfo.DisplayDesc = skill.description;
+                            ++abilityIndex;
                         }
                     }
                 }
+
+                return skillInfos;
             }
 
         }
+
+
+
 
     }
 
