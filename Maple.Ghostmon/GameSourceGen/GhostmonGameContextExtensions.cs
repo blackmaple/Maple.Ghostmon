@@ -788,8 +788,8 @@ namespace Maple.Ghostmon
                         {
                             ObjectId = characterObjectDTO.CharacterId,
                             CharacterAttributes = [
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString()  },
-                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString() ,CanWrite = true },
+                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  ,CanWrite = true},
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString()  },
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
@@ -827,6 +827,23 @@ namespace Maple.Ghostmon
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_FAVORABILITY))
                         {
                             monster.U_FAVORABILITY = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
+                        {
+                            var flash = characterModifyDTO.BoolValue ?? false;
+                            if (flash)
+                            {
+                                monster.U_FLASH = true;
+                            //    monster.gra
+                            }
+                            else
+                            { 
+                            
+                            }
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
+                        { 
+                            
                         }
                         return characterModifyDTO;
                     }
@@ -1010,6 +1027,7 @@ namespace Maple.Ghostmon
             }
         }
 
+        
     }
 
 
