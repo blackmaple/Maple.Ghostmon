@@ -4,7 +4,9 @@ using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Maple.Ghostmon
@@ -134,24 +136,40 @@ namespace Maple.Ghostmon
         //{ 
 
         //}
-        public static T_SKILL_OBJECT GetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, PMonoString name)
-            where T_SKILL_OBJECT : unmanaged
+        public static bool TryGetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, ReadOnlySpan<char> name, out T_SKILL_OBJECT ptr_Skill)
         {
+            Unsafe.SkipInit(out ptr_Skill);
             foreach (var skill in @this.ConfigDataStore.SKILL_CFG_STORE.AsRefArray())
             {
-                if (skill.Key.AsReadOnlySpan().StartsWith(name.AsReadOnlySpan()))
+                //name_skill
+                if (skill.Key.AsReadOnlySpan()[..^6].SequenceEqual(name))
                 {
                     var skillObject = skill.Value;
-                    return Unsafe.As<SkillObject.Ptr_SkillObject, T_SKILL_OBJECT>(ref skillObject);
+                    ptr_Skill = Unsafe.As<SkillObject.Ptr_SkillObject, T_SKILL_OBJECT>(ref skillObject);
+                    return skillObject.Valid();
                 }
             }
             return default;
-            ////var suffix = @this.T(skill_Suffix);
-            ////_ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(out var ref_UniTask, name, suffix);
-            ////Thread.Sleep(1500);
-            ////var skillObject = ref_UniTask.GetResult_State<Ref_LoadSkillArgs>();
-            ////
         }
+        public static bool TryGetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, PMonoString name, out T_SKILL_OBJECT ptr_Skill)
+            where T_SKILL_OBJECT : unmanaged
+            => @this.TryGetSkillObject( name.AsReadOnlySpan(), out ptr_Skill);
+        public static bool TryGetMonsterObject(this GhostmonGameContext @this, ReadOnlySpan<char> name, out MonsterObject.Ptr_MonsterObject ptr_MonsterObject)
+        {
+            Unsafe.SkipInit(out ptr_MonsterObject);
+            foreach (var monster in @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray())
+            {
+                var monsterObj = monster.Value;
+                if (monsterObj.M_PREFAB.AsReadOnlySpan().SequenceEqual(name))
+                {
+                    ptr_MonsterObject = monster.Value;
+                    return ptr_MonsterObject.Valid();
+                }
+            }
+            return default;
+        }
+        public static bool TryGetMonsterObject(this GhostmonGameContext @this, PMonoString name, out MonsterObject.Ptr_MonsterObject ptr_MonsterObject)
+        => @this.TryGetMonsterObject(name.AsReadOnlySpan(), out ptr_MonsterObject);
 
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
         public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
@@ -756,6 +774,17 @@ namespace Maple.Ghostmon
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+
+
+
+
+
                         ]
                 };
             }
@@ -795,6 +824,14 @@ namespace Maple.Ghostmon
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
+
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+
                         ]
                         };
                     }
@@ -802,7 +839,7 @@ namespace Maple.Ghostmon
             }
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
         }
-        public static GameCharacterModifyDTO UpdateCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
+        public static GameCharacterStatusDTO UpdateCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
         {
             var userData = userDataManager.GetUserData();
             if (characterModifyDTO.CharacterId == EnumSheetName.Player.ToString())
@@ -810,7 +847,16 @@ namespace Maple.Ghostmon
                 if (characterModifyDTO.ModifyObject == nameof(userData.RANK_VALUE))
                 {
                     userData.RANK_VALUE = characterModifyDTO.IntValue;
-                    return characterModifyDTO;
+                    return new GameCharacterStatusDTO()
+                    {
+                        ObjectId = characterModifyDTO.CharacterId,
+                        CharacterAttributes = [
+                         new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),DisplayValue = userData.LEV_RANK.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),DisplayValue = userData.RANK_VALUE.ToString(),CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),DisplayValue = userData.TOTAL_RANK_VALUE.ToString(), },
+                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),DisplayValue = userData.LEV_SEAL.ToString(), },
+                        ]
+                    };
                 }
             }
             else
@@ -830,26 +876,88 @@ namespace Maple.Ghostmon
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
                         {
+                           
+                            if (false == @this.TryGetMonsterObject(monster.U_PREFAB,out var monsterObj))
+                            {
+                                return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
+                            }
+
+                            float growth_atk;
+                            float growth_magic;
+                            float growth_def;
+                            float growth_wp;
+                            float growth_hp;
+                            float growth_crit;
                             var flash = characterModifyDTO.BoolValue ?? false;
                             if (flash)
                             {
                                 monster.U_FLASH = true;
-                            //    monster.gra
+                                growth_atk = monsterObj.GROWTH_ATK.y;
+                                growth_magic = monsterObj.GROWTH_MAGIC.y;
+                                growth_def = monsterObj.GROWTH_DEF.y;
+                                growth_wp = monsterObj.GROWTH_WP.y;
+                                growth_hp = monsterObj.GROWTH_HP.y;
+                                growth_crit = monsterObj.GROWTH_CRIT.y;
                             }
                             else
-                            { 
-                            
+                            {
+                                monster.U_FLASH = false;
+                                growth_atk = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_ATK);
+                                growth_magic = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_MAGIC);
+                                growth_def = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_DEF);
+                                growth_wp = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_WP);
+                                growth_hp = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_HP);
+                                growth_crit = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_CRIT);
                             }
+
+                            monster.GROWTH_ATK = growth_atk;
+                            monster.GROWTH_MAGIC = growth_magic;
+                            monster.GROWTH_DEF = growth_def;
+                            monster.GROWTH_WP = growth_wp;
+                            monster.GROWTH_HP = growth_hp;
+                            monster.GROWTH_CRIT = growth_crit;
+
+                            float lv = monster.U_LEVEL;
+
+                            monster.U_ATK = monsterObj.BASE_ATK + lv * growth_atk;
+                            monster.U_MAGIC = monsterObj.BASE_MAGIC + lv * growth_magic;
+                            monster.U_DEF = monsterObj.BASE_DEF + lv * growth_def;
+                            monster.U_WP = monsterObj.BASE_WP + lv * growth_wp;
+                            monster.U_MAX_HP = monsterObj.BASE_HP + lv * growth_hp;
+                            monster.U_HP = monster.U_MAX_HP;
+                            monster.U_CRIT = monsterObj.BASE_CRIT + lv * growth_crit;
+
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
-                        { 
-                            
+                        {
+                            monster.U_VARI_COLOR = characterModifyDTO.BoolValue ?? false;
                         }
-                        return characterModifyDTO;
+                        return new GameCharacterStatusDTO()
+                        {
+                            ObjectId = characterModifyDTO.CharacterId,
+                            CharacterAttributes = [
+                       new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString() ,CanWrite = true },
+                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  ,CanWrite = true},
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
+
+
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+
+                        ]
+                        };
                     }
                 }
             }
-            return GameException.Throw<GameCharacterModifyDTO>($"NOT FOUND {characterModifyDTO.UCharacterId}:{characterModifyDTO.ModifyObject}");
+            return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.UCharacterId}:{characterModifyDTO.ModifyObject}");
         }
 
         public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
@@ -910,13 +1018,15 @@ namespace Maple.Ghostmon
                 }
             }
             return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
-            GameSkillInfoDTO[] GetListSkill(GhostmonGameContext @this, MonsterData.Ptr_MonsterData monsterData)
-            {
-                var skillId = EnumSheetName.Skill.ToString();
-                var ability = EnumSheetName.AbilityConfig.ToString();
-                GameSkillInfoDTO[] skillInfos =
-                [
-                    new (){ ObjectId = skillId,DisplayCategory = skillId},
+
+        }
+        static GameSkillInfoDTO[] GetListSkill(GhostmonGameContext @this, MonsterData.Ptr_MonsterData monsterData)
+        {
+            var skillId = EnumSheetName.Skill.ToString();
+            var ability = EnumSheetName.AbilityConfig.ToString();
+            GameSkillInfoDTO[] skillInfos =
+            [
+                new (){ ObjectId = skillId,DisplayCategory = skillId},
 
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
@@ -931,44 +1041,130 @@ namespace Maple.Ghostmon
 
                 ];
 
-                var skillObject = @this.GetSkillObject<USkillObject.Ptr_USkillObject>(monsterData.U_PREFAB);
-                if (skillObject)
+
+            if (@this.TryGetSkillObject<USkillObject.Ptr_USkillObject>(monsterData.U_PREFAB, out var skillObject))
+            {
+                var name = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_NAME);
+                var desc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_DESCRIPTION);
+
+                skillInfos[0].DisplayName = name.ToString();
+                skillInfos[0].DisplayDesc = desc.ToString();
+            }
+            else
+            {
+
+                skillInfos[0].DisplayName = "???";
+                skillInfos[0].DisplayDesc = "???";
+            }
+
+            int abilityIndex = 1;
+            if (monsterData.U_ABILITIES.Valid())
+            {
+                foreach (var item in monsterData.U_ABILITIES)
                 {
-                    var name = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_NAME);
-                    var desc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_DESCRIPTION);
-
-                    skillInfos[0].DisplayName = name.ToString();
-                    skillInfos[0].DisplayDesc = desc.ToString();
+                    var skill = GameConfigStore.ListAbilityConfig.Find(p => p.configID == item);
+                    if (skill is not null)
+                    {
+                        var skillInfo = skillInfos[abilityIndex];
+                        skillInfo.ObjectId = skill.configID.ToString();
+                        skillInfo.DisplayName = skill.name;
+                        skillInfo.DisplayDesc = skill.description;
+                        ++abilityIndex;
+                    }
                 }
-                else
+            }
+
+            return skillInfos;
+        }
+        public static GameCharacterSkillDTO UpdateCharacterSkill(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
+        {
+
+            if (false == ulong.TryParse(characterModifyDTO.ModifyObject, out var removeSkillId) && string.IsNullOrEmpty(characterModifyDTO.NewValue))
+            {
+                return GameException.Throw<GameCharacterSkillDTO>("ERROR");
+            }
+            var userData = userDataManager.GetUserData();
+            foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
+            {
+                if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
                 {
+                    var monsterData = total.Value;
+                    var addSkillId = characterModifyDTO.ULongValue;
+                    if (addSkillId == 0LU)
+                    {
+                        //remove
+                        var skills = RemoveTheSkill(monsterData, removeSkillId).ToArray();
+                        if (skills.Length != 0)
+                        {
+                            var newSkills = @this.SystemUInt64.NewArray<UInt64>(skills.Length, out var ptrSkills);
+                            skills.AsSpan().CopyTo(newSkills);
+                            monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
+                        }
+                        else
+                        {
+                            monsterData.U_ABILITIES = nint.Zero;
+                        }
+                    }
+                    else
+                    {
+                        //add
+                        var skills = AddTheSkill(monsterData, addSkillId, removeSkillId).ToArray();
+                        var newSkills = @this.SystemUInt64.NewArray<UInt64>(skills.Length, out var ptrSkills);
+                        skills.AsSpan().CopyTo(newSkills);
+                        monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
 
-                    skillInfos[0].DisplayName = "???";
-                    skillInfos[0].DisplayDesc = "???";
+                    }
+
+                    return new GameCharacterSkillDTO()
+                    {
+                        ObjectId = characterModifyDTO.CharacterId,
+                        SkillInfos = GetListSkill(@this, monsterData),
+                    };
                 }
+            }
+            return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
 
-                int abilityIndex = 1;
+            IEnumerable<ulong> RemoveTheSkill(MonsterData.Ptr_MonsterData monsterData, ulong removeSkill)
+            {
+                //只移除一个
                 if (monsterData.U_ABILITIES.Valid())
                 {
                     foreach (var item in monsterData.U_ABILITIES)
                     {
-                        var skill = GameConfigStore.ListAbilityConfig.Find(p => p.configID == item);
-                        if (skill is not null)
+                        if (item == removeSkill)
                         {
-                            var skillInfo = skillInfos[abilityIndex];
-                            skillInfo.ObjectId = skill.configID.ToString();
-                            skillInfo.DisplayName = skill.name;
-                            skillInfo.DisplayDesc = skill.description;
-                            ++abilityIndex;
+                            removeSkill = 0;
+                        }
+                        else
+                        {
+                            yield return item;
                         }
                     }
                 }
-
-                return skillInfos;
+            }
+            IEnumerable<ulong> AddTheSkill(MonsterData.Ptr_MonsterData monsterData, ulong AddSkill, ulong removeSkill = 0)
+            {
+                yield return AddSkill;
+                if (monsterData.U_ABILITIES.Valid())
+                {
+                    foreach (var item in monsterData.U_ABILITIES)
+                    {
+                        //只移除一个
+                        if (item == removeSkill)
+                        {
+                            removeSkill = 0;
+                        }
+                        else
+                        {
+                            yield return item;
+                        }
+                    }
+                }
             }
 
-        }
 
+
+        }
 
         public static IEnumerable<GameMonsterDisplayDTO> GetListMonsterDisplay(this GhostmonGameContext @this)
         {
@@ -1009,10 +1205,9 @@ namespace Maple.Ghostmon
             GameSkillInfoDTO GetSkillInfo(MonsterObject.Ptr_MonsterObject monsterObject)
             {
                 var skillId = EnumSheetName.Skill.ToString();
-                var skillObject = @this.GetSkillObject<USkillObject.Ptr_USkillObject>(monsterObject.M_PREFAB);
                 string? skillName;
                 string? skillDesc;
-                if (skillObject)
+                if (@this.TryGetSkillObject<USkillObject.Ptr_USkillObject>(monsterObject.M_PREFAB, out var skillObject))
                 {
                     skillName = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_NAME).ToString();
                     skillDesc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(skillObject.S_DESCRIPTION).ToString();
@@ -1026,8 +1221,25 @@ namespace Maple.Ghostmon
                 return new GameSkillInfoDTO() { ObjectId = skillId, DisplayCategory = skillId, DisplayDesc = skillDesc, DisplayName = skillName };
             }
         }
+        public static GameCharacterSkillDTO AddMonsterMember(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameMonsterObjectDTO monsterObjectDTO)
+        {
+            if (false == @this.TryGetMonsterObject(monsterObjectDTO.MonsterObject,out var monsterObject))
+            {
+                return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {monsterObjectDTO.MonsterObject}");
+            }
+            var monsterData = @this.MonsterData.New(false);
+            monsterData.CTOR(monsterObject, 1, 0, true);
+            monsterData.GET_ABILITIES();
+            userDataManager.SET_MONSTER_INFO(monsterData);
+            userDataManager.ADD_MONSTER(monsterData);
+            return new GameCharacterSkillDTO()
+            {
+                ObjectId = monsterData.DATA_ID.ToString(),
+                SkillInfos = GetListSkill(@this, monsterData),
 
-        
+            };
+        }
+
     }
 
 

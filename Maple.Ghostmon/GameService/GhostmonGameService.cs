@@ -135,7 +135,7 @@ namespace Maple.Ghostmon
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
         }
-        public sealed override async ValueTask<GameCharacterModifyDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
+        public sealed override async ValueTask<GameCharacterStatusDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
@@ -146,6 +146,12 @@ namespace Maple.Ghostmon
         {
             var datas = this.GameContext.GetListMonsterDisplay().ToArray();
             return ValueTask.FromResult(datas);
+        }
+
+        public sealed override async ValueTask<GameCharacterSkillDTO> AddMonsterMemberAsync(GameMonsterObjectDTO monsterObjectDTO)
+        {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => p.AddMonsterMember(args.userDataMgr, args.monsterObjectDTO), (userDataMgr, monsterObjectDTO)).ConfigureAwait(false);
         }
         #endregion
     }

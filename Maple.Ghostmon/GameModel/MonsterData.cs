@@ -108,43 +108,43 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<Int32>), "u_ability_tags", "U_ABILITY_TAGS")]
 
     // class 0xA0 System.UInt64[] u_abilities
-    [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<UInt64>), "u_abilities", "U_ABILITIES")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<UInt64>), "u_abilities", "U_ABILITIES", IsReadOnly = false)]
 
     // struct 0xA8 System.Single growth_atk
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_atk", "GROWTH_ATK")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_atk", "GROWTH_ATK", IsReadOnly = false)]
 
     // struct 0xAC System.Single growth_magic
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_magic", "GROWTH_MAGIC")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_magic", "GROWTH_MAGIC", IsReadOnly = false)]
 
     // struct 0xB0 System.Single growth_def
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_def", "GROWTH_DEF")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_def", "GROWTH_DEF", IsReadOnly = false)]
 
     // struct 0xB4 System.Single growth_wp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_wp", "GROWTH_WP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_wp", "GROWTH_WP", IsReadOnly = false)]
 
     // struct 0xB8 System.Single growth_hp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_hp", "GROWTH_HP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_hp", "GROWTH_HP", IsReadOnly = false)]
 
     // struct 0xBC System.Single growth_crit
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_crit", "GROWTH_CRIT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_crit", "GROWTH_CRIT", IsReadOnly = false)]
 
     // struct 0xC0 System.Int32 u_atk_type
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_atk_type", "U_ATK_TYPE")]
 
     // struct 0xC4 System.Single u_atk
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_atk", "U_ATK")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_atk", "U_ATK", IsReadOnly = false)]
 
     // struct 0xC8 System.Single u_magic
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_magic", "U_MAGIC")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_magic", "U_MAGIC", IsReadOnly = false)]
 
     // struct 0xCC System.Single u_def
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_def", "U_DEF")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_def", "U_DEF", IsReadOnly = false)]
 
     // struct 0xD0 System.Single u_wp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_wp", "U_WP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_wp", "U_WP", IsReadOnly = false)]
 
     // struct 0xD4 System.Single u_maxHp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_maxHp", "U_MAX_HP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_maxHp", "U_MAX_HP", IsReadOnly = false)]
 
     // struct 0xD8 System.Int32 u_fire_resist
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_fire_resist", "U_FIRE_RESIST")]
@@ -201,10 +201,10 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_tear_increase", "U_TEAR_INCREASE")]
 
     // struct 0x120 System.Single u_hp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_hp", "U_HP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_hp", "U_HP", IsReadOnly = false)]
 
     // struct 0x124 System.Single u_crit
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_crit", "U_CRIT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_crit", "U_CRIT", IsReadOnly = false)]
 
     // struct 0x128 System.Single u_critDmg
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_critDmg", "U_CRIT_DMG")]
@@ -421,8 +421,8 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="range">struct UnityEngine.Vector2</param>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetGrowthValue")]
-        ///  extern System.Single GET_GROWTH_VALUE (UnityEngine.Vector2 range);
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetGrowthValue")]
+        extern System.Single GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
 
 
         /// <summary>

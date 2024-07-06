@@ -48,7 +48,7 @@ typeof(MonoCollectorClassInfo)
     //[MonoCollectorType(typeof(UniTask_MonsterObject))]
     [MonoCollectorType(typeof(LoadUtils))]
 
-    
+    [MonoCollectorType(typeof(SystemUInt64))]
     internal partial class GhostmonGameContext
     {
     }
