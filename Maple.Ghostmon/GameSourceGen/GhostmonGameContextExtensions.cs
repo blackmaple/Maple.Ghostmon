@@ -4,10 +4,7 @@ using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
-using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace Maple.Ghostmon
 {
@@ -153,7 +150,7 @@ namespace Maple.Ghostmon
         }
         public static bool TryGetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, PMonoString name, out T_SKILL_OBJECT ptr_Skill)
             where T_SKILL_OBJECT : unmanaged
-            => @this.TryGetSkillObject( name.AsReadOnlySpan(), out ptr_Skill);
+            => @this.TryGetSkillObject(name.AsReadOnlySpan(), out ptr_Skill);
         public static bool TryGetMonsterObject(this GhostmonGameContext @this, ReadOnlySpan<char> name, out MonsterObject.Ptr_MonsterObject ptr_MonsterObject)
         {
             Unsafe.SkipInit(out ptr_MonsterObject);
@@ -774,12 +771,12 @@ namespace Maple.Ghostmon
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
 
 
 
@@ -876,8 +873,8 @@ namespace Maple.Ghostmon
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
                         {
-                           
-                            if (false == @this.TryGetMonsterObject(monster.U_PREFAB,out var monsterObj))
+
+                            if (false == @this.TryGetMonsterObject(monster.U_PREFAB, out var monsterObj))
                             {
                                 return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
                             }
@@ -1026,7 +1023,7 @@ namespace Maple.Ghostmon
             var ability = EnumSheetName.AbilityConfig.ToString();
             GameSkillInfoDTO[] skillInfos =
             [
-                new (){ ObjectId = skillId,DisplayCategory = skillId},
+                    new (){ ObjectId = skillId,DisplayCategory = skillId},
 
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
@@ -1065,7 +1062,11 @@ namespace Maple.Ghostmon
                     var skill = GameConfigStore.ListAbilityConfig.Find(p => p.configID == item);
                     if (skill is not null)
                     {
-                        var skillInfo = skillInfos[abilityIndex];
+                        var skillInfo = skillInfos.ElementAtOrDefault(abilityIndex);
+                        if (skillInfo is null)
+                        {
+                            break;
+                        }
                         skillInfo.ObjectId = skill.configID.ToString();
                         skillInfo.DisplayName = skill.name;
                         skillInfo.DisplayDesc = skill.description;
@@ -1088,8 +1089,17 @@ namespace Maple.Ghostmon
             {
                 if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
                 {
+
+
                     var monsterData = total.Value;
                     var addSkillId = characterModifyDTO.ULongValue;
+
+                    {
+                        var newSkills = @this.SystemUInt64.NewArray<UInt64>(0, out var ptrSkills);
+                        monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
+
+                    }
+
                     if (addSkillId == 0LU)
                     {
                         //remove
@@ -1102,7 +1112,8 @@ namespace Maple.Ghostmon
                         }
                         else
                         {
-                            monsterData.U_ABILITIES = nint.Zero;
+                            var newSkills = @this.SystemUInt64.NewArray<UInt64>(0, out var ptrSkills);
+                            monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
                         }
                     }
                     else
@@ -1223,7 +1234,7 @@ namespace Maple.Ghostmon
         }
         public static GameCharacterSkillDTO AddMonsterMember(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameMonsterObjectDTO monsterObjectDTO)
         {
-            if (false == @this.TryGetMonsterObject(monsterObjectDTO.MonsterObject,out var monsterObject))
+            if (false == @this.TryGetMonsterObject(monsterObjectDTO.MonsterObject, out var monsterObject))
             {
                 return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {monsterObjectDTO.MonsterObject}");
             }
@@ -1240,6 +1251,26 @@ namespace Maple.Ghostmon
             };
         }
 
+
+
+        public static IEnumerable<GameSkillDisplayDTO> GetListGameSkillDisplay(this GhostmonGameContext @this)
+        {
+            foreach (var skill in GameConfigStore.ListAbilityConfig)
+            {
+                yield return new GameSkillDisplayDTO()
+                {
+                    ObjectId = skill.configID.ToString(),
+                    DisplayName = skill.name,
+                    DisplayDesc = skill.description,
+                    DisplayCategory = EnumSheetName.AbilityConfig.ToString(),
+                    SkillAttributes = [
+                         new GameValueInfoDTO(){  ObjectId = nameof(AbilityConfig.rank),DisplayName = nameof(AbilityConfig.rank), DisplayValue = skill.rank.ToString(),CanPreview = true},
+                         new GameValueInfoDTO(){  ObjectId = nameof(AbilityConfig.cooldown),DisplayName = nameof(AbilityConfig.cooldown), DisplayValue = skill.cooldown.ToString(),CanPreview = true},
+                       ]
+                };
+            }
+
+        }
     }
 
 
