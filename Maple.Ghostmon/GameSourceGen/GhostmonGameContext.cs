@@ -49,6 +49,13 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(LoadUtils))]
 
     [MonoCollectorType(typeof(SystemUInt64))]
+
+
+
+    [MonoCollectorType(typeof(BattleCore))]
+    [MonoCollectorType(typeof(JudgeControl))]
+    [MonoCollectorType(typeof(BUnit))]
+
     internal partial class GhostmonGameContext
     {
     }

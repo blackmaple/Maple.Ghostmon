@@ -9,7 +9,7 @@
         //public string? icon;
 
         //// Token: 0x04001953 RID: 6483
-        //public float duration;
+        public float duration;
 
         //// Token: 0x04001954 RID: 6484
         //public bool useOverflow;
@@ -45,9 +45,17 @@
         //public Dictionary<AttributeType, int> sc_adjust;
 
         // Token: 0x0400195F RID: 6495
-      //  public ulong ability;
+        //  public ulong ability;
 
         // Token: 0x04001960 RID: 6496
-     //   public string? bone;
+        //   public string? bone;
+    }
+
+
+    public enum EnumBattleBuffType
+    {
+        增益 = 1,
+        减益 = 2,
+        食物 = 3,
     }
 }

@@ -8,6 +8,7 @@ using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using System.Xml.Linq;
 
 
 namespace Maple.Ghostmon
@@ -41,6 +42,40 @@ namespace Maple.Ghostmon
         }
         #endregion
 
+        #region HotKey
+
+        protected sealed override async ValueTask F11_KeyDown()
+        {
+            try
+            {
+                var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
+                await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
+            }
+            catch (GameException ex)
+            {
+                await this.PlayMessageAsync(ex.Message).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogError("{ex}", ex);
+            }
+        }
+        protected sealed override async ValueTask F12_KeyDown()
+        {
+            try
+            {
+                var name = await this.MonoTaskAsync(p => p.SetDeBuff2Enemy()).ConfigureAwait(false);
+                await this.PlayMessageAsync($"Add DeBuff:{name}").ConfigureAwait(false);
+            }
+            catch (GameException ex)
+            {
+                await this.PlayMessageAsync(ex.Message).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogError("{ex}", ex);
+            }
+        }
 
         protected override async ValueTask F5_KeyDown()
         {
@@ -57,6 +92,9 @@ namespace Maple.Ghostmon
 
 
         }
+        #endregion
+
+        #region Game Data
 
         public async Task<UserDataManager.Ptr_UserDataManager> GetUserDataManagerAsync()
         {
@@ -64,7 +102,20 @@ namespace Maple.Ghostmon
             return userDataMgr ? userDataMgr : GameException.Throw<UserDataManager.Ptr_UserDataManager>("UserDataManager IS NULL");
         }
 
+        public async ValueTask PlayMessageAsync(string? msg)
+        {
+            if (string.IsNullOrEmpty(msg))
+            {
+                return;
+            }
+            await this.UnityTaskAsync((p, msg) => p.PlayMessage(msg), msg).ConfigureAwait(false);
+        }
+        #endregion
+
         #region WebApi
+
+        #region Currency
+
         public sealed override ValueTask<GameCurrencyDisplayDTO[]> GetListCurrencyDisplayAsync()
         {
             return ValueTask.FromResult(this.GameContext.GetListCurrencyDisplay());
@@ -86,13 +137,15 @@ namespace Maple.Ghostmon
                     => gameContext.UpdateCurrencyInfo(args.userDataMgr, args.currencyModifyDTO),
                 (userDataMgr, currencyModifyDTO)).ConfigureAwait(false);
 
+            await this.PlayMessageAsync($@"{data.ObjectId}:{data.DisplayValue}").ConfigureAwait(false);
 
 
 
             return data;
         }
+        #endregion
 
-
+        #region Inventory
 
         public sealed override ValueTask<GameInventoryDisplayDTO[]> GetListInventoryDisplayAsync()
         {
@@ -107,12 +160,15 @@ namespace Maple.Ghostmon
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
             var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((gameContext, args) =>
+            var data = await this.MonoTaskAsync((gameContext, args) =>
             gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO),
             (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
+            await this.PlayMessageAsync($@"{data.ObjectId}:{data.DisplayValue}").ConfigureAwait(false);
+            return data;
         }
+        #endregion
 
-
+        #region Character
 
         public sealed override async ValueTask<GameCharacterDisplayDTO[]> GetListCharacterDisplayAsync()
         {
@@ -138,14 +194,21 @@ namespace Maple.Ghostmon
         public sealed override async ValueTask<GameCharacterStatusDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+            await this.PlayMessageAsync($@"CharacterStatus:{data.ObjectId}").ConfigureAwait(false);
+            return data;
         }
         public sealed override async ValueTask<GameCharacterSkillDTO> UpdateCharacterSkillAsync(GameCharacterModifyDTO characterModifyDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, args) => p.UpdateCharacterSkill(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterSkill(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+            await this.PlayMessageAsync($@"CharacterSkill:{data.ObjectId}").ConfigureAwait(false);
+            return data;
         }
-     
+
+        #endregion
+
+        #region Monster
 
         public sealed override ValueTask<GameMonsterDisplayDTO[]> GetListMonsterDisplayAsync()
         {
@@ -156,14 +219,55 @@ namespace Maple.Ghostmon
         public sealed override async ValueTask<GameCharacterSkillDTO> AddMonsterMemberAsync(GameMonsterObjectDTO monsterObjectDTO)
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, args) => p.AddMonsterMember(args.userDataMgr, args.monsterObjectDTO), (userDataMgr, monsterObjectDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((p, args) => p.AddMonsterMember(args.userDataMgr, args.monsterObjectDTO), (userDataMgr, monsterObjectDTO)).ConfigureAwait(false);
+            await this.PlayMessageAsync($@"CharacterSkill:{data.ObjectId}").ConfigureAwait(false);
+            return data;
         }
+        #endregion
 
+        #region Skill
 
         public sealed override ValueTask<GameSkillDisplayDTO[]> GetListSkillDisplayAsync()
         {
             return ValueTask.FromResult(this.GameContext.GetListGameSkillDisplay().ToArray());
         }
+        #endregion
+
+        #region Switch
+
+        public sealed override async ValueTask<GameSwitchDisplayDTO> UpdateSwitchDisplayAsync(GameSwitchModifyDTO gameSwitchModify)
+        {
+            if (gameSwitchModify.SwitchObjectId == "0")
+            {
+                var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
+                await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
+            }
+            else if (gameSwitchModify.SwitchObjectId == "1")
+            {
+                var name = await this.MonoTaskAsync(p => p.SetDeBuff2Enemy()).ConfigureAwait(false);
+                await this.PlayMessageAsync($"Add DeBuff:{name}").ConfigureAwait(false);
+
+            }
+            return new GameSwitchDisplayDTO() { ObjectId = gameSwitchModify.SwitchObjectId, SwitchValue = gameSwitchModify.SwitchValue };
+        }
+
+        protected override GameSwitchDisplayDTO[] InitListGameSwitch()
+        {
+            return [
+                 new GameSwitchDisplayDTO(){ ObjectId = "0", ButtonType = true, DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方宠物     (仅限战斗准备阶段使用)" ,SwitchValue = false,},
+                 new GameSwitchDisplayDTO(){ ObjectId = "1", ButtonType = true, DisplayName = "随机减益(F12)" , DisplayDesc=  "随机DeBuff给敌方妖怪   (仅限战斗准备阶段使用)" ,SwitchValue = false,},
+                ];
+        }
+
+
+        #endregion
+
+
+
+
+
+
+
         #endregion
     }
 

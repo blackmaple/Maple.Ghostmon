@@ -12,11 +12,11 @@ namespace Maple.Ghostmon
 
     internal static class GhostmonGameContextExtensions
     {
+        #region props+const
         const string atlasName = "MonsterAvaterUIAtlas";
         const string spriteName_Suffix = "_Head";
         const string skill_Suffix = "_Skill";
         public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
-
         private static string[] SheetNames { get; } =
             [
         nameof(EnumSheetName.MaterialConfig)  ,
@@ -41,6 +41,9 @@ namespace Maple.Ghostmon
          nameof(EnumSheetName.AbilityConfig ),
 
             ];
+        #endregion
+
+        #region LOAD CONFIG
 
         static bool LikeConfig(ReadOnlySpan<char> keyName, out EnumSheetName sheetName)
         {
@@ -57,7 +60,6 @@ namespace Maple.Ghostmon
             sheetName = EnumSheetName.None;
             return false;
         }
-
         public static bool LoadGameConfigStore(this GhostmonGameContext @this)
         {
 
@@ -129,10 +131,10 @@ namespace Maple.Ghostmon
             }
             return count;
         }
-        //public static int LoadListSkillConfig(this GhostmonGameContext @this)
-        //{ 
+        #endregion
 
-        //}
+        #region help
+
         public static bool TryGetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, ReadOnlySpan<char> name, out T_SKILL_OBJECT ptr_Skill)
         {
             Unsafe.SkipInit(out ptr_Skill);
@@ -166,7 +168,10 @@ namespace Maple.Ghostmon
             return default;
         }
         public static bool TryGetMonsterObject(this GhostmonGameContext @this, PMonoString name, out MonsterObject.Ptr_MonsterObject ptr_MonsterObject)
-        => @this.TryGetMonsterObject(name.AsReadOnlySpan(), out ptr_MonsterObject);
+            => @this.TryGetMonsterObject(name.AsReadOnlySpan(), out ptr_MonsterObject);
+        #endregion
+
+        #region TEST
 
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
         public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
@@ -195,7 +200,6 @@ namespace Maple.Ghostmon
 
             return list;
         }
-
         [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
         public static IReadOnlyList<UnitySpriteData> LoadListMonsterAvater(this GhostmonGameContext @this, IReadOnlyList<MonsterObject.Ptr_MonsterObject> monsterObjects)
         {
@@ -229,7 +233,6 @@ namespace Maple.Ghostmon
 
             return list;
         }
-
         public static IEnumerable<UnitySpriteImageData> LoadListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, IReadOnlyList<UnitySpriteData> spriteDatas)
         {
             foreach (UnitySpriteData spriteData in spriteDatas)
@@ -256,53 +259,9 @@ namespace Maple.Ghostmon
                 //yield break;
             }
         }
+        #endregion
 
-
-        public static bool TryGetMonsterObject(this GhostmonGameContext @this, string monsterName, out MonsterObject.Ptr_MonsterObject monsterObject)
-        {
-            Unsafe.SkipInit(out monsterObject);
-            var pMonsterConfig = @this.ConfigDataStore.MONSTER_CFG_STORE;
-            foreach (var monster in pMonsterConfig.AsRefArray())
-            {
-                @this.Logger.LogInformation("monster.Key:{key}", monster.Key.ToString());
-                if (monster.Key.AsReadOnlySpan().StartsWith(monsterName))
-                {
-                    monsterObject = monster.Value;
-                    return monsterObject;
-                }
-            }
-            return default;
-        }
-
-        public static void Test(this GhostmonGameContext @this)
-        {
-            var userDataMgr = @this.UserDataManager.INSTANCE;
-            if (userDataMgr)
-            {
-                @this.Logger.LogInformation("userDataMgr=>{userDataMgr}", userDataMgr);
-                if (@this.TryGetMonsterObject("Monster_64_1", out var monsterObject))
-                {
-                    @this.Logger.LogInformation("Monster_64_1=>{Monster_64_1}", monsterObject);
-                    var monsterData = @this.MonsterData.New(false);
-                    monsterData.CTOR(monsterObject, 1, 0, false);
-                    monsterData.GET_ABILITIES();
-
-                    userDataMgr.SET_MONSTER_INFO(monsterData);
-                    userDataMgr.ADD_MONSTER(monsterData);
-                    monsterData.SET_SHINER(monsterObject);
-                    monsterData.U_VARI_COLOR = true;
-                }
-                else
-                {
-                    @this.Logger.LogInformation("err Monster_64_1=>{err}", 0);
-
-                }
-            }
-
-
-        }
-
-
+        #region  Game DATA
         public static void PlayMessage(this GhostmonGameContext @this, string? msg)
         {
             if (string.IsNullOrEmpty(msg))
@@ -316,6 +275,8 @@ namespace Maple.Ghostmon
                 p.PLAY_MESSAGE(txt, 0);
             }
         }
+
+
 
         public static UserDataManager.Ptr_UserDataManager GetUserDataManager(this GhostmonGameContext @this)
         {
@@ -335,6 +296,30 @@ namespace Maple.Ghostmon
             }
             return userData;
         }
+
+        public static JudgeControl.Ptr_JudgeControl GetJudgeControl(this GhostmonGameContext @this, BattlePhase battlePhase)
+        {
+            var battle = @this.BattleCore.INSTANCE;
+            if (false == battle)
+            {
+                return GameException.Throw<JudgeControl.Ptr_JudgeControl>("Please enter the battle first (0)");
+            }
+            if (battle.PHASE != battlePhase)
+            {
+                return GameException.Throw<JudgeControl.Ptr_JudgeControl>($"Please enter the battle first ({battle.PHASE})");
+            }
+            var judge = battle.JUDGE_CONTROL;
+            if (false == judge)
+            {
+                return GameException.Throw<JudgeControl.Ptr_JudgeControl>("Please enter the battle first (1)");
+            }
+
+            return judge;
+
+        }
+        #endregion
+
+        #region Currency
 
         public static GameCurrencyDisplayDTO[] GetListCurrencyDisplay(this GhostmonGameContext @this)
         {
@@ -409,13 +394,14 @@ namespace Maple.Ghostmon
                 userData.REIKI = currencyModifyDTO.FloatValue;
             }
 
-            @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
+    //        @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
 
             return new GameCurrencyInfoDTO() { ObjectId = currencyModifyDTO.CurrencyObject, DisplayValue = currencyModifyDTO.NewValue };
 
         }
+        #endregion
 
-
+        #region Inventory
 
         public static IEnumerable<GameInventoryDisplayDTO> GetListInventoryDisplay(this GhostmonGameContext @this)
         {
@@ -732,12 +718,13 @@ namespace Maple.Ghostmon
                 return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
             }
             userDataManager.GAIN_ITEM((int)category, configId, addCount);
-            @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
+     //       @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
             return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
 
         }
+        #endregion
 
-
+        #region Character
         public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
         {
             var userData = userDataManager.GetUserData();
@@ -956,7 +943,6 @@ namespace Maple.Ghostmon
             }
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.UCharacterId}:{characterModifyDTO.ModifyObject}");
         }
-
         public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = userDataManager.GetUserData();
@@ -1176,6 +1162,9 @@ namespace Maple.Ghostmon
 
 
         }
+        #endregion
+
+        #region Monster
 
         public static IEnumerable<GameMonsterDisplayDTO> GetListMonsterDisplay(this GhostmonGameContext @this)
         {
@@ -1250,8 +1239,10 @@ namespace Maple.Ghostmon
 
             };
         }
+        #endregion
 
 
+        #region Skill
 
         public static IEnumerable<GameSkillDisplayDTO> GetListGameSkillDisplay(this GhostmonGameContext @this)
         {
@@ -1270,7 +1261,63 @@ namespace Maple.Ghostmon
                 };
             }
 
+            foreach (var skill in GameConfigStore.ListBuffConfig)
+            {
+                yield return new GameSkillDisplayDTO()
+                {
+                    ObjectId = skill.configID.ToString(),
+                    DisplayName = skill.name,
+                    DisplayDesc = skill.description,
+                    DisplayCategory = EnumSheetName.BuffConfig.ToString(),
+                    SkillAttributes = [
+                        new GameValueInfoDTO(){  ObjectId =nameof(BuffConfig.buffType),DisplayName = nameof(BuffConfig.buffType), DisplayValue = skill.buffType.ToString()  },
+                        new GameValueInfoDTO(){  ObjectId =nameof(BuffConfig.duration),DisplayName = nameof(BuffConfig.duration), DisplayValue = skill.duration.ToString()  },
+                        ]
+                };
+            }
+
         }
+        #endregion
+
+        #region switch
+        public static string SetBuff2Character(this GhostmonGameContext @this)
+        {
+            var judge = @this.GetJudgeControl( BattlePhase.Deploy);
+
+            var listBuff = GameConfigStore.ListBuffConfig.Where(p => p.buffType != (int)EnumBattleBuffType.减益).ToArray();
+            if (listBuff.Length == 0)
+            {
+                return string.Empty;
+            }
+            Random.Shared.Shuffle(listBuff);
+            var buff = listBuff[0];
+            foreach (var unit in judge.GET_UNITS_BY_FACTION(false))
+            {
+                unit.ADD_BUFF_ITEM(buff.configID, unit);
+            }
+            return buff.name!;
+       //     @this.PlayMessage($"Add Buff:{buff.name}");
+        }
+        public static string SetDeBuff2Enemy(this GhostmonGameContext @this)
+        {
+            var judge = @this.GetJudgeControl(BattlePhase.Deploy);
+
+            var listBuff = GameConfigStore.ListBuffConfig.Where(p => p.buffType == (int)EnumBattleBuffType.减益).ToArray();
+            if (listBuff.Length == 0)
+            {
+                return string.Empty;
+            }
+            Random.Shared.Shuffle(listBuff);
+            var buff = listBuff[0];
+            foreach (var unit in judge.GET_UNITS_BY_FACTION(true))
+            {
+                unit.ADD_BUFF_ITEM(buff.configID, unit);
+            }
+            return buff.name!;
+          //  @this.PlayMessage($"Add DeBuff:{buff.name}");
+
+        }
+        #endregion
     }
 
 
