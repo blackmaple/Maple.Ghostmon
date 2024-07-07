@@ -5,6 +5,8 @@ using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using static Maple.Ghostmon.GhostmonGameContextExtensions;
 
 namespace Maple.Ghostmon
 {
@@ -13,9 +15,18 @@ namespace Maple.Ghostmon
     internal static class GhostmonGameContextExtensions
     {
         #region props+const
-        const string atlasName = "MonsterAvaterUIAtlas";
-        const string spriteName_Suffix = "_Head";
-        const string skill_Suffix = "_Skill";
+        const string MonsterAvaterUIAtlas = "MonsterAvaterUIAtlas";
+        const string MonsterAvaterUIAtlas_Suffix = "_Head";
+
+        const string Skill_Suffix = "_Skill";
+
+        const string AbilityBookUIAtlas = "AbilityBookUIAtlas";
+
+        const string MaterialUIAtlas = "MaterialUIAtlas";
+        const string Icon_Prefix = "icon_";
+
+        const string CharmItemUIAtlas = "CharmItemUIAtlas";
+
         public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
         private static string[] SheetNames { get; } =
             [
@@ -103,7 +114,7 @@ namespace Maple.Ghostmon
         public static int LoadListMonsterInfo(this GhostmonGameContext @this)
         {
             var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
-            var suffix = @this.T(skill_Suffix);
+            var suffix = @this.T(Skill_Suffix);
 
             foreach (var illustration in listIllustrationConfig)
             {
@@ -172,70 +183,341 @@ namespace Maple.Ghostmon
         #endregion
 
         #region TEST
-
-        [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
-        public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
+        public class GameImageData
         {
-            var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
-            var count = listIllustrationConfig.Count;
-            var uniTasks = (stackalloc Ref_UniTask<MonsterObject.Ptr_MonsterObject>[count]);
-            for (int i = 0; i < count; ++i)
+            public required string Category { set; get; }
+            public required string ObjectId { set; get; }
+
+            public required string AtlasName { set; get; }
+            public required string SpriteName { set; get; }
+
+            public Sprite.Ptr_Sprite Ptr_Sprite { set; get; }
+
+            public Ref_UniTask<Sprite.Ptr_Sprite> _Ref_UniTask;
+        }
+
+        static IEnumerable<GameImageData> InitListGameImageData(this GhostmonGameContext @this)
+        {
+            const string RareItemUIAtlas = "RareItemUIAtlas";
+            const string TreasureUIAtlas = "TreasureUIAtlas";
+            const string ClothingUIAtlas = "ClothingUIAtlas";
+            const string MenuUIAtlas = "MenuUIAtlas";
+            const string EggUIAtlas = "EggUIAtlas";
+            const string ItemRecipeUIAtlas = "ItemRecipeUIAtlas";
+            const string BuffUIAtlas = "BuffUIAtlas";
+            const string ItemUIAtlas = "ItemUIAtlas";
+            const string TravelUIAtlas = "TravelUIAtlas";
+            foreach (var monster in @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray())
             {
-                var monsterName = @this.T(listIllustrationConfig[i % count].prefab!);
-                ref var uniTask = ref uniTasks[i % count];
-                _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out uniTask, monsterName);
-            }
-            //延迟2S等待异步完成
-            Thread.Sleep(2000);
-            List<MonsterObject.Ptr_MonsterObject> list = new(count);
-            foreach (ref var uniTask in uniTasks)
-            {
-                var ret = uniTask.GetResult_State<Ref_LoadMonsterObjectArgs>();
-                if (ret)
+                var monsterObj = monster.Value;
+                if (monsterObj)
                 {
-                    list.Add(ret);
+                    var prefab = monsterObj.M_PREFAB.ToString();
+                    if (string.IsNullOrEmpty(prefab) == false)
+                    {
+                        yield return new GameImageData()
+                        {
+                            Category = EnumSheetName.Monster.ToString(),
+                            ObjectId = prefab,
+                            AtlasName = MonsterAvaterUIAtlas,
+                            SpriteName = $"{prefab}{MonsterAvaterUIAtlas_Suffix}",
+                            Ptr_Sprite = nint.Zero
+                        };
+                    }
+
                 }
             }
 
-
-            return list;
-        }
-        [Description("对游戏UniTask的解析存在游戏崩溃的情况?")]
-        public static IReadOnlyList<UnitySpriteData> LoadListMonsterAvater(this GhostmonGameContext @this, IReadOnlyList<MonsterObject.Ptr_MonsterObject> monsterObjects)
-        {
-            var pAtlasName = @this.T(atlasName);
-            var count = monsterObjects.Count;
-            List<UnitySpriteData> list = new(count);
-            var uniTasks = (stackalloc Ref_UniTask<Sprite.Ptr_Sprite>[count]);
-            for (int i = 0; i < count; ++i)
+            foreach (var material in GameConfigStore.ListMaterialConfig)
             {
-                var prefab = monsterObjects[i % count].M_PREFAB.ToString();
+                var prefab = material.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.MaterialConfig.ToString(),
+                        ObjectId = material.configID.ToString(),
+                        AtlasName = MaterialUIAtlas,
+                        SpriteName = $"{Icon_Prefix}{prefab}",
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
 
-                list.Add(new UnitySpriteData() { Category = "Monster", Name = prefab, });
+            }
+            foreach (var charm in GameConfigStore.ListCharmConfig)
+            {
+                var prefab = charm.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.CharmConfig.ToString(),
+                        ObjectId = charm.configID.ToString(),
+                        AtlasName = CharmItemUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
 
-                var spriteName = $"{prefab}{spriteName_Suffix}";
-                var pSpriteName = @this.T(spriteName);
-                ref var uniTask = ref uniTasks[i % count];
+            }
+            foreach (var rare in GameConfigStore.ListRareConfig)
+            {
+                var prefab = rare.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.RareConfig.ToString(),
+                        ObjectId = rare.configID.ToString(),
+                        AtlasName = RareItemUIAtlas,
+                        SpriteName = $"{Icon_Prefix}{prefab}",
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+            foreach (var skill in GameConfigStore.ListAbilityBookConfig)
+            {
+                var prefab = skill.prefab;
+
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.AbilityBookConfig.ToString(),
+                        ObjectId = skill.configID.ToString(),
+                        AtlasName = AbilityBookUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+            }
+            foreach (var treasure in GameConfigStore.ListTreasureConfig)
+            {
+                var prefab = treasure.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.TreasureConfig.ToString(),
+                        ObjectId = treasure.configID.ToString(),
+                        AtlasName = TreasureUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+
+            foreach (var clothing in GameConfigStore.ListClothingConfig)
+            {
+                var prefab = clothing.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.ClothingConfig.ToString(),
+                        ObjectId = clothing.configID.ToString(),
+                        AtlasName = ClothingUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+            foreach (var menu in GameConfigStore.ListMenuConfig)
+            {
+                var prefab = menu.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.MenuConfig.ToString(),
+                        ObjectId = menu.configID.ToString(),
+                        AtlasName = MenuUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+            foreach (var egg in GameConfigStore.ListEggConfig)
+            {
+                var prefab = egg.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.EggConfig.ToString(),
+                        ObjectId = egg.configID.ToString(),
+                        AtlasName = EggUIAtlas,
+                        SpriteName = $"{Icon_Prefix}{prefab}",
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+            foreach (var itemRecipe in GameConfigStore.ListItemRecipeConfig)
+            {
+                var prefab = itemRecipe.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.ItemRecipeConfig.ToString(),
+                        ObjectId = itemRecipe.configID.ToString(),
+                        AtlasName = ItemRecipeUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+            foreach (var fishLure in GameConfigStore.ListFishLureConfig)
+            {
+                var prefab = fishLure.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.FishLureConfig.ToString(),
+                        ObjectId = fishLure.configID.ToString(),
+                        AtlasName = MaterialUIAtlas,
+                        SpriteName = $"{Icon_Prefix}{prefab}",
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+
+            foreach (var buff in GameConfigStore.ListBuffConfig)
+            {
+                var prefab = buff.prefab;
+                if (string.IsNullOrEmpty(prefab) == false && string.IsNullOrEmpty(buff.icon) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.BuffConfig.ToString(),
+                        ObjectId = buff.configID.ToString(),
+                        AtlasName = BuffUIAtlas,
+                        SpriteName = buff.icon,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+
+            yield return new GameImageData()
+            {
+                Category = EnumSheetName.GEM.ToString(),
+                ObjectId = EnumSheetName.GEM.ToString(),
+                AtlasName = ItemUIAtlas,
+                SpriteName = "icon_largeGem",
+                Ptr_Sprite = nint.Zero
+            };
+            yield return new GameImageData()
+            {
+                Category = EnumSheetName.COIN.ToString(),
+                ObjectId = EnumSheetName.COIN.ToString(),
+                AtlasName = ItemUIAtlas,
+                SpriteName = "icon_largeCoin",
+                Ptr_Sprite = nint.Zero
+            };
+            yield return new GameImageData()
+            {
+                Category = EnumSheetName.REIKI.ToString(),
+                ObjectId = EnumSheetName.REIKI.ToString(),
+                AtlasName = TravelUIAtlas,
+                SpriteName = "icon_0",
+                Ptr_Sprite = nint.Zero
+            };
+        }
+
+        //public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
+        //{
+        //    var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
+        //    var count = listIllustrationConfig.Count;
+        //    var uniTasks = (stackalloc Ref_UniTask<MonsterObject.Ptr_MonsterObject>[count]);
+        //    for (int i = 0; i < count; ++i)
+        //    {
+        //        var monsterName = @this.T(listIllustrationConfig[i % count].prefab!);
+        //        ref var uniTask = ref uniTasks[i % count];
+        //        _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out uniTask, monsterName);
+        //    }
+        //    //延迟2S等待异步完成
+        //    Thread.Sleep(2000);
+        //    List<MonsterObject.Ptr_MonsterObject> list = new(count);
+        //    foreach (ref var uniTask in uniTasks)
+        //    {
+        //        var ret = uniTask.GetResult_State<Ref_LoadMonsterObjectArgs>();
+        //        if (ret)
+        //        {
+        //            list.Add(ret);
+        //        }
+        //    }
+
+
+        //    return list;
+        //}
+        //public static IReadOnlyList<UnitySpriteData> LoadListMonsterAvater(this GhostmonGameContext @this)
+        //{
+        //    //var pAtlasName = @this.T(MonsterAvaterUIAtlas);
+        //    //var monsterObjects = @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray();
+        //    //var count = monsterObjects.Length;
+        //    //List<UnitySpriteData> list = new(count);
+        //    //var uniTasks = (stackalloc Ref_UniTask<Sprite.Ptr_Sprite>[count]);
+        //    //for (int i = 0; i < count; ++i)
+        //    //{
+        //    //    var prefab = monsterObjects[i % count].Value.M_PREFAB.ToString();
+
+        //    //    list.Add(new UnitySpriteData() { Category = EnumSheetName.Monster.ToString(), Name = prefab, });
+
+        //    //    var spriteName = $"{prefab}{sMonsterAvaterUIAtlas_Suffix}";
+        //    //    var pSpriteName = @this.T(spriteName);
+        //    //    ref var uniTask = ref uniTasks[i % count];
+        //    //    _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(out uniTask, pAtlasName, pSpriteName);
+        //    //}
+
+        //    //Thread.Sleep(2000);
+        //    //for (int i = 0; i < count; ++i)
+        //    //{
+        //    //    ref var uniTask = ref uniTasks[i % count];
+        //    //    var ret = uniTask.GetResult_State<Ref_LoadSpriteArgs>();
+        //    //    if (ret.Valid())
+        //    //    {
+        //    //        list[i % count].Ptr_Sprite = ret;
+        //    //    }
+        //    //}
+
+
+        //    //return list;
+        //}
+
+        public static GameImageData[] GetListGameImageData(this GhostmonGameContext @this)
+        {
+            var gameImageDatas = @this.InitListGameImageData().ToArray();
+            foreach (var image in gameImageDatas)
+            {
+                var pAtlasName = @this.T(image.AtlasName);
+                var pSpriteName = @this.T(image.SpriteName);
+                ref var uniTask = ref image._Ref_UniTask;
                 _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(out uniTask, pAtlasName, pSpriteName);
             }
 
-            Thread.Sleep(2000);
-            for (int i = 0; i < count; ++i)
+            Thread.Sleep(10_000);
+            foreach (var image in gameImageDatas.Reverse())
             {
-                ref var uniTask = ref uniTasks[i % count];
-                var ret = uniTask.GetResult_State<Ref_LoadSpriteArgs>();
-                if (ret.Valid())
-                {
-                    list[i % count].Ptr_Sprite = ret;
-                }
+                ref var uniTask = ref image._Ref_UniTask;
+                var spriteData = uniTask.GetResult_State<Ref_LoadSpriteArgs>();
+                image.Ptr_Sprite = spriteData;
             }
+            return gameImageDatas;
 
 
-            return list;
         }
-        public static IEnumerable<UnitySpriteImageData> LoadListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, IReadOnlyList<UnitySpriteData> spriteDatas)
+        public static IEnumerable<UnitySpriteImageData> GetListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, GameImageData[] spriteDatas)
         {
-            foreach (UnitySpriteData spriteData in spriteDatas)
+            foreach (var spriteData in spriteDatas)
             {
                 if (false == spriteData.Ptr_Sprite.Valid())
                 {
@@ -252,7 +534,7 @@ namespace Maple.Ghostmon
                     yield return new UnitySpriteImageData()
                     {
                         Category = spriteData.Category,
-                        Name = spriteData.Name,
+                        Name = spriteData.ObjectId,
                         ImageData = pIconData,
                     };
                 }
@@ -296,7 +578,6 @@ namespace Maple.Ghostmon
             }
             return userData;
         }
-
         public static JudgeControl.Ptr_JudgeControl GetJudgeControl(this GhostmonGameContext @this, BattlePhase battlePhase)
         {
             var battle = @this.BattleCore.INSTANCE;
@@ -317,6 +598,8 @@ namespace Maple.Ghostmon
             return judge;
 
         }
+
+
         #endregion
 
         #region Currency
@@ -394,7 +677,7 @@ namespace Maple.Ghostmon
                 userData.REIKI = currencyModifyDTO.FloatValue;
             }
 
-    //        @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
+            //        @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
 
             return new GameCurrencyInfoDTO() { ObjectId = currencyModifyDTO.CurrencyObject, DisplayValue = currencyModifyDTO.NewValue };
 
@@ -718,7 +1001,7 @@ namespace Maple.Ghostmon
                 return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
             }
             userDataManager.GAIN_ITEM((int)category, configId, addCount);
-     //       @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
+            //       @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
             return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
 
         }
@@ -728,12 +1011,13 @@ namespace Maple.Ghostmon
         public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
         {
             var userData = userDataManager.GetUserData();
+            var playerName = userData.PLAYER_NAME.ToString() ?? "???";
             yield return new GameCharacterDisplayDTO()
             {
                 ObjectId = EnumSheetName.Player.ToString(),
                 DisplayCategory = EnumSheetName.Player.ToString(),
-                DisplayName = userData.PLAYER_NAME.ToString(),
-                DisplayDesc = userData.PLAYER_NAME.ToString(),
+                DisplayName = playerName,
+                DisplayDesc = playerName,
                 CharacterAttributes = [
                         new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),DisplayValue = userData.LEV_RANK.ToString() ,CanPreview = true, },
                         new GameValueInfoDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),DisplayValue = userData.RANK_VALUE.ToString(),CanWrite = true },
@@ -750,6 +1034,7 @@ namespace Maple.Ghostmon
                     DisplayCategory = EnumSheetName.Monster.ToString(),
                     DisplayName = monster.U_NAME.ToString(),
                     DisplayDesc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(monster.U_PROFESSIONAL).ToString(),
+                    DisplayImage = monster.U_PREFAB.ToString(),
                     CharacterAttributes = [
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString()  },
                          new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  },
@@ -1241,7 +1526,6 @@ namespace Maple.Ghostmon
         }
         #endregion
 
-
         #region Skill
 
         public static IEnumerable<GameSkillDisplayDTO> GetListGameSkillDisplay(this GhostmonGameContext @this)
@@ -1282,7 +1566,7 @@ namespace Maple.Ghostmon
         #region switch
         public static string SetBuff2Character(this GhostmonGameContext @this)
         {
-            var judge = @this.GetJudgeControl( BattlePhase.Deploy);
+            var judge = @this.GetJudgeControl(BattlePhase.Deploy);
 
             var listBuff = GameConfigStore.ListBuffConfig.Where(p => p.buffType != (int)EnumBattleBuffType.减益).ToArray();
             if (listBuff.Length == 0)
@@ -1296,7 +1580,7 @@ namespace Maple.Ghostmon
                 unit.ADD_BUFF_ITEM(buff.configID, unit);
             }
             return buff.name!;
-       //     @this.PlayMessage($"Add Buff:{buff.name}");
+            //     @this.PlayMessage($"Add Buff:{buff.name}");
         }
         public static string SetDeBuff2Enemy(this GhostmonGameContext @this)
         {
@@ -1314,8 +1598,25 @@ namespace Maple.Ghostmon
                 unit.ADD_BUFF_ITEM(buff.configID, unit);
             }
             return buff.name!;
-          //  @this.PlayMessage($"Add DeBuff:{buff.name}");
+            //  @this.PlayMessage($"Add DeBuff:{buff.name}");
 
+        }
+
+
+        public static MapWeather SetMapWeather(this GhostmonGameContext @this, MapWeather mapWeather)
+        {
+            var regionManager = @this.RegionManager.INSTANCE;
+            if (!regionManager)
+            {
+                return GameException.Throw<MapWeather>("Please enter the game first (0)");
+            }
+            var environmentCtrl = regionManager.ENVIRONMENT_CTRL;
+            if (!environmentCtrl)
+            {
+                return GameException.Throw<MapWeather>("Please enter the game first (1)");
+            }
+            environmentCtrl.SET_WEATHER(mapWeather, true);
+            return mapWeather;
         }
         #endregion
     }

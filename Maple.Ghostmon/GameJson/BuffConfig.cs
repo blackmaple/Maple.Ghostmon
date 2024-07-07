@@ -6,7 +6,7 @@
         // Token: 0x06001529 RID: 5417 RVA: 0x0008386C File Offset: 0x00081A6C
 
         // Token: 0x04001952 RID: 6482
-        //public string? icon;
+        public string? icon;
 
         //// Token: 0x04001953 RID: 6483
         public float duration;

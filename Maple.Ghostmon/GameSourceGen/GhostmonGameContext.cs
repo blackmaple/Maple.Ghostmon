@@ -11,6 +11,8 @@ typeof(MonoCollectorMember),
 typeof(MonoRuntimeContext),
 typeof(MonoCollectorClassInfo)
 )]
+    [MonoCollectorType(typeof(RegionManager))]
+    [MonoCollectorType(typeof(EnvironmentCtrl))]
 
     [MonoCollectorType(typeof(UIMsgControl))]
 

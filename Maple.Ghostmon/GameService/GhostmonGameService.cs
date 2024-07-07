@@ -1,14 +1,10 @@
 ﻿using Maple.GameContext;
-using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.Model;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
 using Maple.MonoGameAssistant.UnityCore;
-using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.Xml.Linq;
 
 
 namespace Maple.Ghostmon
@@ -79,16 +75,13 @@ namespace Maple.Ghostmon
 
         protected override async ValueTask F5_KeyDown()
         {
-
-            var monsterObjs = await this.MonoTaskAsync((p) => p.GetListMonsterConfig()).ConfigureAwait(false);
-            var spriteObjs = await this.MonoTaskAsync((p, args) => p.LoadListMonsterAvater(args), monsterObjs).ConfigureAwait(false);
-
-            //var imageObjs = await this.UnityTaskAsync((p, args) => p.LoadListUnitySpriteImageData(args.UnityEngineContext, args.spriteObjs).ToArray(), (this.UnityEngineContext, spriteObjs)).ConfigureAwait(false);
-
-            //foreach (var gameIcon in imageObjs)
-            //{
-            //    this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
-            //}
+            var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
+            var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
+                (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
+            foreach (var gameIcon in imageObjs)
+            {
+                this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
+            }
 
 
         }
@@ -116,9 +109,13 @@ namespace Maple.Ghostmon
 
         #region Currency
 
+
         public sealed override ValueTask<GameCurrencyDisplayDTO[]> GetListCurrencyDisplayAsync()
         {
-            return ValueTask.FromResult(this.GameContext.GetListCurrencyDisplay());
+            var datas = this.GameContext.GetListCurrencyDisplay();
+            this.UpdateListGameImage(datas);
+            return ValueTask.FromResult(datas);
+
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> GetCurrencyInfoAsync(GameCurrencyObjectDTO currencyObjectDTO)
         {
@@ -150,6 +147,7 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameInventoryDisplayDTO[]> GetListInventoryDisplayAsync()
         {
             var datas = this.GameContext.GetListInventoryDisplay().ToArray();
+            this.UpdateListGameImage(datas);
             return ValueTask.FromResult(datas);
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
@@ -173,7 +171,9 @@ namespace Maple.Ghostmon
         public sealed override async ValueTask<GameCharacterDisplayDTO[]> GetListCharacterDisplayAsync()
         {
             var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, userDataMgr) => p.GetListCharacterDisplay(userDataMgr).ToArray(), userDataMgr).ConfigureAwait(false);
+            var datas = await this.MonoTaskAsync((p, userDataMgr) => p.GetListCharacterDisplay(userDataMgr).ToArray(), userDataMgr).ConfigureAwait(false);
+            this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
+            return datas;
         }
         public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
         {
@@ -213,6 +213,7 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameMonsterDisplayDTO[]> GetListMonsterDisplayAsync()
         {
             var datas = this.GameContext.GetListMonsterDisplay().ToArray();
+            this.UpdateListGameImage(datas);
             return ValueTask.FromResult(datas);
         }
 
@@ -229,7 +230,9 @@ namespace Maple.Ghostmon
 
         public sealed override ValueTask<GameSkillDisplayDTO[]> GetListSkillDisplayAsync()
         {
-            return ValueTask.FromResult(this.GameContext.GetListGameSkillDisplay().ToArray());
+            var datas = this.GameContext.GetListGameSkillDisplay().ToArray();
+            this.UpdateListGameImage(datas);
+            return ValueTask.FromResult(datas);
         }
         #endregion
 
@@ -237,7 +240,12 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameSwitchDisplayDTO> UpdateSwitchDisplayAsync(GameSwitchModifyDTO gameSwitchModify)
         {
-            if (gameSwitchModify.SwitchObjectId == "0")
+            if (Enum.TryParse<MapWeather>(gameSwitchModify.SwitchObjectId, out var weather))
+            {
+                var name = await this.MonoTaskAsync((p, weather) => p.SetMapWeather(weather), weather).ConfigureAwait(false);
+                await this.PlayMessageAsync($"Weather:{name}").ConfigureAwait(false);
+            }
+            else if (gameSwitchModify.SwitchObjectId == "0")
             {
                 var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
@@ -254,9 +262,17 @@ namespace Maple.Ghostmon
         protected override GameSwitchDisplayDTO[] InitListGameSwitch()
         {
             return [
-                 new GameSwitchDisplayDTO(){ ObjectId = "0", ButtonType = true, DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方宠物     (仅限战斗准备阶段使用)" ,SwitchValue = false,},
-                 new GameSwitchDisplayDTO(){ ObjectId = "1", ButtonType = true, DisplayName = "随机减益(F12)" , DisplayDesc=  "随机DeBuff给敌方妖怪   (仅限战斗准备阶段使用)" ,SwitchValue = false,},
-                ];
+                 new GameSwitchDisplayDTO(){ ObjectId = "0", ButtonType = true, DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方宠物|(仅限战斗准备阶段使用)" ,SwitchValue = false,},
+                 new GameSwitchDisplayDTO(){ ObjectId = "1", ButtonType = true, DisplayName = "随机减益(F12)" , DisplayDesc=  "随机DeBuff给敌方妖怪|(仅限战斗准备阶段使用)" ,SwitchValue = false,},
+
+                 new GameSwitchDisplayDTO(){ ObjectId = MapWeather.CLEAR.ToString(), ButtonType = true, DisplayName = "天气-晴天" , DisplayDesc=  "天气-晴天" ,SwitchValue = false,},
+                 new GameSwitchDisplayDTO(){ ObjectId = MapWeather.CLOUDY.ToString(), ButtonType = true, DisplayName = "天气-多云" , DisplayDesc=  "天气-多云" ,SwitchValue = false,},
+                new GameSwitchDisplayDTO(){ ObjectId = MapWeather.LIGHT_RAIN.ToString(), ButtonType = true, DisplayName = "天气-小雨" , DisplayDesc=  "天气-小雨" ,SwitchValue = false,},
+                 new GameSwitchDisplayDTO(){ ObjectId = MapWeather.MODERATE_RAIN.ToString(), ButtonType = true, DisplayName = "天气-中雨" , DisplayDesc=  "天气-中雨" ,SwitchValue = false,},
+                new GameSwitchDisplayDTO(){ ObjectId = MapWeather.HEAVY_RAIN.ToString(), ButtonType = true, DisplayName = "天气-大雨" , DisplayDesc=  "天气-大雨" ,SwitchValue = false,},
+
+
+            ];
         }
 
 
