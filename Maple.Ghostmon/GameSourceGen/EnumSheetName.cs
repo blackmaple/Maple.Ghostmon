@@ -1,5 +1,8 @@
 ﻿namespace Maple.Ghostmon
 {
+    /// <summary>
+    /// 请不要改动位置
+    /// </summary>
     public enum EnumSheetName
     {
         None = -1,
@@ -32,7 +35,9 @@
         CuisineConfig = 101,
         BuffConfig = 102,
 
-
+        /// <summary>
+        /// 读取以上游戏中的JSON 反序列成对象
+        /// </summary>
         MaxLoadConfig = 999,
         //load
 
