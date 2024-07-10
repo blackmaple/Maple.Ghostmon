@@ -271,6 +271,16 @@ namespace Maple.Ghostmon
                  new GameSwitchDisplayDTO(){ ObjectId = MapWeather.MODERATE_RAIN.ToString(), ButtonType = true, DisplayName = "天气-中雨" , DisplayDesc=  "天气-中雨" ,SwitchValue = false,},
                 new GameSwitchDisplayDTO(){ ObjectId = MapWeather.HEAVY_RAIN.ToString(), ButtonType = true, DisplayName = "天气-大雨" , DisplayDesc=  "天气-大雨" ,SwitchValue = false,},
 
+                new GameSwitchDisplayDTO(){ ObjectId = nameof(MapWeather),   DisplayName = nameof(MapWeather) , DisplayDesc=  nameof(MapWeather) ,ContentValue= MapWeather.CLEAR.ToString(),
+                SelectedContents=[
+                     new GameValueInfoDTO(){ ObjectId = MapWeather.CLEAR.ToString(), DisplayName="天气-晴天" ,DisplayValue = MapWeather.CLEAR.ToString()},
+                      new GameValueInfoDTO(){ ObjectId = MapWeather.CLOUDY.ToString(), DisplayName="天气-多云" ,DisplayValue = MapWeather.CLOUDY.ToString()},
+                     new GameValueInfoDTO(){ ObjectId = MapWeather.LIGHT_RAIN.ToString(), DisplayName="天气-小雨" ,DisplayValue = MapWeather.LIGHT_RAIN.ToString()},
+                     new GameValueInfoDTO(){ ObjectId = MapWeather.MODERATE_RAIN.ToString(), DisplayName="天气-中雨" ,DisplayValue = MapWeather.MODERATE_RAIN.ToString()},
+                     new GameValueInfoDTO(){ ObjectId = MapWeather.HEAVY_RAIN.ToString(), DisplayName="天气-大雨" ,DisplayValue = MapWeather.HEAVY_RAIN.ToString()},
+
+                    ]
+                },
 
             ];
         }
