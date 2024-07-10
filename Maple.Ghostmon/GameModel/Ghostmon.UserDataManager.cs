@@ -374,8 +374,8 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="config">class Ghostmon.CuisineConfig</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("EatCuisine")]
-        ///  extern void EAT_CUISINE (nint config);
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("EatCuisine")]
+        extern void EAT_CUISINE(nint config);
 
 
         /// <summary>

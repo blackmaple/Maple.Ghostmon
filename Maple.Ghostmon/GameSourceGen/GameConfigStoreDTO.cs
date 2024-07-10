@@ -2,26 +2,30 @@
 {
     public class GameConfigStoreDTO
     {
-        public List<MaterialConfig> ListMaterialConfig { get; } = [];
-        public List<CharmConfig> ListCharmConfig { get; } = [];
+        public List<MaterialConfig> ListMaterialConfig { get; } = new(512);
+        public List<CharmConfig> ListCharmConfig { get; } = new(512);
 
-        public List<RareConfig> ListRareConfig { get; } = [];
-        public List<AbilityBookConfig> ListAbilityBookConfig { get; } = [];
-        public List<TreasureConfig> ListTreasureConfig { get; } = [];
-        public List<ClothingConfig> ListClothingConfig { get; } = [];
+        public List<RareConfig> ListRareConfig { get; } = new(512);
+        public List<AbilityBookConfig> ListAbilityBookConfig { get; } = new(512);
+        public List<TreasureConfig> ListTreasureConfig { get; } = new(512);
+        public List<ClothingConfig> ListClothingConfig { get; } = new(512);
 
-        public List<MenuConfig> ListMenuConfig { get; } = [];
-        public List<EggConfig> ListEggConfig { get; } = [];
+        public List<MenuConfig> ListMenuConfig { get; } = new(512);
+        public List<EggConfig> ListEggConfig { get; } = new(512);
 
-        public List<ItemRecipeConfig> ListItemRecipeConfig { get; } = [];
-        public List<FishLureConfig> ListFishLureConfig { get; } = [];
+        public List<ItemRecipeConfig> ListItemRecipeConfig { get; } = new(512);
+        public List<FishLureConfig> ListFishLureConfig { get; } = new(512);
 
 
-        public List<AbilityConfig> ListAbilityConfig { get; } = [];
-        public List<BuffConfig> ListBuffConfig { get; } = [];
-        public List<IllustrationConfig> ListIllustrationConfig { get; } = [];
+        public List<AbilityConfig> ListAbilityConfig { get; } = new(512);
+        public List<BuffConfig> ListBuffConfig { get; } = new(512);
+        public List<IllustrationConfig> ListIllustrationConfig { get; } = new(512);
 
-        public void Add(ReadOnlySpan<char> json, EnumSheetName enumSheetName)
+
+        public List<CuisineConfig> ListCuisineConfig { get; } = new(512);
+
+
+        public void AddConfig(ReadOnlySpan<char> json, EnumSheetName enumSheetName)
         {
             if (json.IsEmpty)
             {
@@ -136,6 +140,14 @@
                 if (data is not null)
                 {
                     this.ListAbilityConfig.Add(data);
+                }
+            }
+            else if (enumSheetName == EnumSheetName.CuisineConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.CuisineConfig);
+                if (data is not null)
+                {
+                    this.ListCuisineConfig.Add(data);
                 }
             }
 

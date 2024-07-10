@@ -11,6 +11,8 @@ typeof(MonoCollectorMember),
 typeof(MonoRuntimeContext),
 typeof(MonoCollectorClassInfo)
 )]
+    [MonoCollectorType(typeof(CharacterCore))]
+
     [MonoCollectorType(typeof(RegionManager))]
     [MonoCollectorType(typeof(EnvironmentCtrl))]
 

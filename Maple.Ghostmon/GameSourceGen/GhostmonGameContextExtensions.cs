@@ -28,45 +28,16 @@ namespace Maple.Ghostmon
         const string CharmItemUIAtlas = "CharmItemUIAtlas";
 
         public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
-        private static string[] SheetNames { get; } =
-            [
-        nameof(EnumSheetName.MaterialConfig)  ,
-         nameof(EnumSheetName.CharmConfig ),
 
-         nameof(EnumSheetName.RareConfig ),
-         nameof(EnumSheetName.AbilityBookConfig),
-
-         nameof(EnumSheetName.TreasureConfig ),
-         nameof(EnumSheetName.ClothingConfig ),
-
-         nameof(EnumSheetName.MenuConfig),
-         nameof(EnumSheetName.EggConfig ),
-
-         nameof(EnumSheetName.ItemRecipeConfig ),
-         nameof(EnumSheetName.FishLureConfig ),
-
-
-         nameof(EnumSheetName.BuffConfig ),
-         nameof(EnumSheetName.IllustrationConfig ),
-
-         nameof(EnumSheetName.AbilityConfig ),
-
-            ];
         #endregion
 
         #region LOAD CONFIG
 
-        static bool LikeConfig(ReadOnlySpan<char> keyName, out EnumSheetName sheetName)
+        static bool AllowLoadConfig(ReadOnlySpan<char> keyName, out EnumSheetName sheetName)
         {
-            foreach (var name in SheetNames)
+            if (Enum.TryParse(keyName, out sheetName))
             {
-                if (name.AsSpan().Equals(keyName, StringComparison.OrdinalIgnoreCase))
-                {
-                    if (Enum.TryParse(name, out sheetName))
-                    {
-                        return true;
-                    }
-                }
+                return (int)sheetName < (int)EnumSheetName.MaxLoadConfig;
             }
             sheetName = EnumSheetName.None;
             return false;
@@ -86,16 +57,17 @@ namespace Maple.Ghostmon
 
             foreach (var dic in dicConfig.AsRefArray())
             {
-                var keyName = dic.Key.AsReadOnlySpan();
-                if (false == LikeConfig(keyName, out var enumSheetName))
-                {
-                    continue;
-                }
                 var val = dic.Value;
                 if (false == val.Valid())
                 {
                     continue;
                 }
+                var keyName = dic.Key.AsReadOnlySpan();
+                if (false == AllowLoadConfig(keyName, out var enumSheetName))
+                {
+                    continue;
+                }
+
 
                 foreach (var kvp in val.AsRefArray())
                 {
@@ -104,8 +76,8 @@ namespace Maple.Ghostmon
                     {
                         continue;
                     }
-                    var json = kvp.Value.TO_STRING_00().AsReadOnlySpan();
-                    GameConfigStore.Add(json, enumSheetName);
+                    var json = kVal.TO_STRING_00().AsReadOnlySpan();
+                    GameConfigStore.AddConfig(json, enumSheetName);
                 }
             }
 
@@ -1530,6 +1502,21 @@ namespace Maple.Ghostmon
 
         public static IEnumerable<GameSkillDisplayDTO> GetListGameSkillDisplay(this GhostmonGameContext @this)
         {
+            foreach (var skill in GameConfigStore.ListCuisineConfig)
+            {
+                yield return new GameSkillDisplayDTO()
+                {
+                    ObjectId = skill.configID.ToString(),
+                    DisplayName = skill.name,
+                    DisplayDesc = skill.description,
+                    DisplayCategory = EnumSheetName.CuisineConfig.ToString(),
+                    CanUse = true,
+                    SkillAttributes = [
+                        new GameValueInfoDTO(){  ObjectId =nameof(CuisineConfig.lifeTime),DisplayName = nameof(CuisineConfig.lifeTime), DisplayValue = skill.lifeTime.ToString()  },
+                        ]
+                };
+            }
+
             foreach (var skill in GameConfigStore.ListAbilityConfig)
             {
                 yield return new GameSkillDisplayDTO()
@@ -1560,6 +1547,29 @@ namespace Maple.Ghostmon
                 };
             }
 
+
+        }
+
+        public static GameSkillDisplayDTO AddSkillDisplay(this GhostmonGameContext @this, GameSkillObjectDTO gameSkillObject)
+        {
+            var skillId = gameSkillObject.ULongSkill;
+            var skillObj = GameConfigStore.ListCuisineConfig.Find(p => p.configID == skillId);
+            if (skillObj is null)
+            {
+                return GameException.Throw<GameSkillDisplayDTO>($"NOT FOUND {gameSkillObject.SkillObject}");
+            }
+            return new GameSkillDisplayDTO()
+            {
+                ObjectId = skillObj.configID.ToString(),
+                DisplayName = skillObj.name,
+                DisplayDesc = skillObj.description,
+                DisplayCategory = EnumSheetName.CuisineConfig.ToString(),
+                CanUse = true,
+                SkillAttributes = [
+                       new GameValueInfoDTO(){  ObjectId =nameof(CuisineConfig.lifeTime),DisplayName = nameof(CuisineConfig.lifeTime), DisplayValue = skillObj.lifeTime.ToString()  },
+                        ]
+            };
+            
         }
         #endregion
 
@@ -1618,6 +1628,123 @@ namespace Maple.Ghostmon
             environmentCtrl.SET_WEATHER(mapWeather, true);
             return mapWeather;
         }
+
+
+        public static void ChangelayerDoubleMoveSpeed(
+            this GhostmonGameContext @this,
+            UserDataManager.Ptr_UserDataManager userDataManager,
+            GameSwitchDisplayDTO gameSwitchDisplay)
+        {
+            var player = userDataManager.PLAYER_PROPERTY;
+            if (false == player.Valid())
+            {
+                GameException.Throw<MapWeather>("Please enter the game first (1)");
+            }
+            else
+            {
+                if (gameSwitchDisplay.SwitchValue)
+                {
+                    player.P_MOVE_SPEED_SCALE = gameSwitchDisplay.FloatCache;
+
+                }
+                else
+                {
+                    var old = player.P_MOVE_SPEED_SCALE;
+                    gameSwitchDisplay.FloatCache = old;
+                    player.P_MOVE_SPEED_SCALE = old * 2f;
+
+                }
+            }
+
+        }
+
+
+        public static void ChangeMonsterDoubleExp(
+            this GhostmonGameContext @this,
+            UserDataManager.Ptr_UserDataManager userDataManager,
+            GameSwitchDisplayDTO gameSwitchDisplay)
+        {
+            var player = userDataManager.PLAYER_PROPERTY;
+            if (false == player.Valid())
+            {
+                GameException.Throw<MapWeather>("Please enter the game first (1)");
+            }
+            else
+            {
+                if (gameSwitchDisplay.SwitchValue)
+                {
+
+                    player.P_EXP_SCALE = gameSwitchDisplay.FloatCache;
+
+                }
+                else
+                {
+                    var old = player.P_EXP_SCALE;
+                    gameSwitchDisplay.FloatCache = old;
+                    player.P_EXP_SCALE = old * 2f;
+
+
+                }
+            }
+
+        }
+
+        public static CharacterCore.Ptr_CharacterCore GetScanMode(this GhostmonGameContext @this)
+        {
+            var characterCore = @this.CharacterCore.INSTANCE;
+            if (characterCore.Valid() == false)
+            {
+                return GameException.Throw<CharacterCore.Ptr_CharacterCore>("Please enter the game first (3)");
+
+            }
+            if (characterCore.IS_LOCKED || characterCore.SS_ACTIVE)
+            {
+                return GameException.Throw<CharacterCore.Ptr_CharacterCore>("Error game character status");
+            }
+            return characterCore;
+        }
+
+        public static void ChangeScanMode(
+            this GhostmonGameContext @this,
+            UserData.Ptr_UserData userData,
+            CharacterCore.Ptr_CharacterCore characterCore,
+            GameSwitchDisplayDTO gameSwitchDisplay)
+        {
+
+
+            if (gameSwitchDisplay.SwitchValue)
+            {
+                characterCore.EXIT_SCAN_MODE();
+                return;
+            }
+
+
+
+            var func = userData.SYSTEM_FUNCTION;
+            try
+            {
+                //临时开启游戏功能
+                if ((func & (int)EnumGameSystemFunction.ScanMode) != (int)EnumGameSystemFunction.ScanMode)
+                {
+                    userData.SYSTEM_FUNCTION |= (int)EnumGameSystemFunction.ScanMode;
+                }
+
+
+                characterCore.ENRTY_SCAN_MODE();
+
+                //CD清空  可能存在精度问题? 改-1f?
+                characterCore.SS_CD = -1f;
+                //储蓄时间60
+                characterCore.SS_DURATION = 60F;
+            }
+            finally
+            {
+                //恢复游戏功能
+                userData.SYSTEM_FUNCTION = func;
+            }
+
+        }
+
         #endregion
     }
 
