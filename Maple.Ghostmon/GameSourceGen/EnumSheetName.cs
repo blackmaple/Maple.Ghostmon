@@ -26,15 +26,20 @@
         /// <summary>
         /// 灵气
         /// </summary>
-        REIKI,
+        REIKI = 99,
 
-        AbilityConfig,
+        AbilityConfig = 100,
+        CuisineConfig = 101,
+        BuffConfig = 102,
+
+
+        MaxLoadConfig = 999,
+        //load
+
         AreaTipConfig,
-        BuffConfig,
         BuildingsConfig,
         CharmBookConfig,
 
-        CuisineConfig,
         DialogConfig,
         EntrustConfig,
         EvolveConfig,
@@ -63,9 +68,10 @@
         TipsConfig,
         TradeConfig,
 
-        Skill = 98,
-        Monster = 99,
-        Player = 100,
+        //add
+        Skill = 1001,
+        Monster = 1002,
+        Player = 1003,
     };
 
 

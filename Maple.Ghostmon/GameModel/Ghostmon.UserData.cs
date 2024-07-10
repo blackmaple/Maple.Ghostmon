@@ -10,6 +10,12 @@ using System.Threading.Tasks;
 namespace Maple.Ghostmon
 {
 
+    [Flags]
+    public enum EnumGameSystemFunction
+    {
+        ReleaseCharm = 1,
+        ScanMode = 2,
+    }
 
     /// <summary>
     /// class ["Assembly-CSharp.dll"."Ghostmon"."UserData"]
@@ -33,7 +39,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(Ghostmon.V2),"savePos", "SAVE_POS")]
 
     // struct 0x28 System.Int32 systemFunction
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"systemFunction", "SYSTEM_FUNCTION")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "systemFunction", "SYSTEM_FUNCTION", IsReadOnly = false)]
 
     // struct 0x2C System.Int32 lev_rank
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "lev_rank", "LEV_RANK")]

@@ -33,7 +33,8 @@ namespace Maple.Ghostmon
 
     [JsonSerializable(typeof(AbilityConfig))]
 
-    
+    [JsonSerializable(typeof(CuisineConfig))]
+
     public partial class ConfigJsonSerializerContext : JsonSerializerContext
     {
 
