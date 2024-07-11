@@ -531,13 +531,21 @@ namespace Maple.Ghostmon
         }
 
 
-
+        static bool CanPlayGame(this GhostmonGameContext @this)
+        {
+            var regionManager = @this.RegionManager.INSTANCE;
+            return regionManager;
+        }
         public static UserDataManager.Ptr_UserDataManager GetUserDataManager(this GhostmonGameContext @this)
         {
+            if (false == @this.CanPlayGame())
+            {
+                return GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first");
+            }
             var userDataManager = @this.UserDataManager.INSTANCE;
             if (false == userDataManager)
             {
-                return GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first (0)");
+                return GameException.Throw<UserDataManager.Ptr_UserDataManager>("Error UserDataManager");
             }
             return userDataManager;
         }
@@ -546,7 +554,7 @@ namespace Maple.Ghostmon
             var userData = userDataManager.USER_DATA;
             if (false == userData)
             {
-                GameException.Throw<UserDataManager.Ptr_UserDataManager>("Please enter the game first (1)");
+                GameException.Throw<UserDataManager.Ptr_UserDataManager>("Error UserData");
             }
             return userData;
         }

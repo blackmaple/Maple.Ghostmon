@@ -105,13 +105,17 @@ namespace Maple.Ghostmon
 
         #region Game Data
 
-        public async Task<UserDataManager.Ptr_UserDataManager> GetUserDataManagerAsync()
+        private async Task<UserDataManager.Ptr_UserDataManager> GetUserDataManagerAsync()
         {
             var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
-            return userDataMgr ? userDataMgr : GameException.Throw<UserDataManager.Ptr_UserDataManager>("UserDataManager IS NULL");
+            return userDataMgr;
         }
-
-        public async ValueTask PlayMessageAsync(string? msg)
+        private async Task<UserData.Ptr_UserData> GetUserDataAsync(UserDataManager.Ptr_UserDataManager userDataManager)
+        {
+            var userDataMgr = await this.MonoTaskAsync((p, userDataManager) => userDataManager.GetUserData(), (userDataManager)).ConfigureAwait(false);
+            return userDataMgr;
+        }
+        private async ValueTask PlayMessageAsync(string? msg)
         {
             if (string.IsNullOrEmpty(msg))
             {
@@ -135,7 +139,7 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> GetCurrencyInfoAsync(GameCurrencyObjectDTO currencyObjectDTO)
         {
-            var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             var data = await this.MonoTaskAsync((gameContext, args) =>
                 gameContext.GetCurrencyInfo(args.userDataMgr, args.currencyObjectDTO)
                 , (userDataMgr, currencyObjectDTO)).ConfigureAwait(false);
@@ -143,7 +147,7 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> UpdateCurrencyInfoAsync(GameCurrencyModifyDTO currencyModifyDTO)
         {
-            var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
 
             var data = await this.MonoTaskAsync(
                 (gameContext, args)
@@ -168,12 +172,12 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
         {
-            var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             return this.GameContext.GetInventoryInfo(userDataMgr, inventoryObjectDTO);
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
-            var userDataMgr = await GetUserDataManagerAsync().ConfigureAwait(false);
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
             var data = await this.MonoTaskAsync((gameContext, args) =>
             gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO),
             (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
@@ -253,6 +257,8 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameSkillDisplayDTO> AddSkillDisplayAsync(GameSkillObjectDTO gameSkillObject)
         {
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+
             var data = await this.MonoTaskAsync((p, gameSkillObject) => p.AddSkillDisplay(gameSkillObject), gameSkillObject).ConfigureAwait(false);
             return data;
         }
@@ -273,7 +279,11 @@ namespace Maple.Ghostmon
             {
                 return GameException.Throw<GameSwitchDisplayDTO>($"NOT FOUND {gameSwitchModify.SwitchObjectId} (1)");
             }
-            else if (gameSwitchName == EnumGameSwitchName.RandomBuff)
+
+            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+
+
+            if (gameSwitchName == EnumGameSwitchName.RandomBuff)
             {
                 var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
@@ -286,7 +296,7 @@ namespace Maple.Ghostmon
             }
             else if (gameSwitchName == EnumGameSwitchName.DoubleMoveSpeed)
             {
-                var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
+
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
@@ -300,7 +310,6 @@ namespace Maple.Ghostmon
             }
             else if (gameSwitchName == EnumGameSwitchName.DoubleMonsterExp)
             {
-                var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
@@ -314,8 +323,7 @@ namespace Maple.Ghostmon
             }
             else if (gameSwitchName == EnumGameSwitchName.ScanMode)
             {
-                var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
-                var userData = await this.MonoTaskAsync((p, userDataMgr) => userDataMgr.GetUserData(), userDataMgr).ConfigureAwait(false);
+                var userData = await this.GetUserDataAsync(userDataMgr).ConfigureAwait(false);
                 var character = await this.MonoTaskAsync(p => p.GetScanMode()).ConfigureAwait(false);
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
@@ -329,6 +337,17 @@ namespace Maple.Ghostmon
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{gameSwitchModify.SwitchValue}").ConfigureAwait(false);
 
 
+            }
+            else if (gameSwitchName == EnumGameSwitchName.MapWeather)
+            {
+                if (Enum.TryParse<MapWeather>(gameSwitchModify.ContentValue, out var mapWeather))
+                {
+                    await this.MonoTaskAsync((p, mapWeather) => p.SetMapWeather(mapWeather), mapWeather).ConfigureAwait(false);
+                }
+                else
+                {
+                    return GameException.Throw<GameSwitchDisplayDTO>($"NOT FOUND Map Weather");
+                }
             }
             switchDisplay.ContentValue = gameSwitchModify.ContentValue;
 
