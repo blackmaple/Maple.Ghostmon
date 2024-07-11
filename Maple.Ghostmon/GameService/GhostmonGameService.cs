@@ -269,71 +269,68 @@ namespace Maple.Ghostmon
             {
                 return GameException.Throw<GameSwitchDisplayDTO>($"NOT FOUND {gameSwitchModify.SwitchObjectId} (0)");
             }
-            if (false == Enum.TryParse<EnumGameSwitchName>(gameSwitchModify.SwitchObjectId, out var switchName))
+            if (false == Enum.TryParse<EnumGameSwitchName>(switchDisplay.ObjectId, out var gameSwitchName))
             {
                 return GameException.Throw<GameSwitchDisplayDTO>($"NOT FOUND {gameSwitchModify.SwitchObjectId} (1)");
             }
-            else if (switchName == EnumGameSwitchName.RandomBuff)
+            else if (gameSwitchName == EnumGameSwitchName.RandomBuff)
             {
                 var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
             }
-            else if (switchName == EnumGameSwitchName.RandomDeBuff)
+            else if (gameSwitchName == EnumGameSwitchName.RandomDeBuff)
             {
                 var name = await this.MonoTaskAsync(p => p.SetDeBuff2Enemy()).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add DeBuff:{name}").ConfigureAwait(false);
 
             }
-            else if (switchName == EnumGameSwitchName.DoubleMoveSpeed)
+            else if (gameSwitchName == EnumGameSwitchName.DoubleMoveSpeed)
             {
-                if (switchDisplay.SwitchValue != gameSwitchModify.SwitchValue)
+                var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
+                var on = gameSwitchModify.SwitchValue;
+                if (on)
                 {
-                    var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
-                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.userDataMgr, args.switchDisplay), (userDataMgr, switchDisplay)).ConfigureAwait(false);
-                    await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{switchDisplay.SwitchValue}").ConfigureAwait(false);
-                    switchDisplay.ContentValue = gameSwitchModify.ContentValue;
-                }
-            }
-            else if (switchName == EnumGameSwitchName.DoubleMonsterExp)
-            {
-                if (switchDisplay.SwitchValue != gameSwitchModify.SwitchValue)
-                {
-                    var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.userDataMgr, args.switchDisplay), (userDataMgr, switchDisplay)).ConfigureAwait(false);
-                    await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{switchDisplay.SwitchValue}").ConfigureAwait(false);
-                    switchDisplay.ContentValue = gameSwitchModify.ContentValue;
-
-                }
-
-            }
-            else if (switchName == EnumGameSwitchName.ScanMode)
-            {
-                if (switchDisplay.SwitchValue != gameSwitchModify.SwitchValue)
-                {
-                    var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
-                    var userData = await this.MonoTaskAsync((p, userDataMgr) => userDataMgr.GetUserData(), userDataMgr).ConfigureAwait(false);
-                    var character = await this.MonoTaskAsync(p => p.GetScanMode()).ConfigureAwait(false);
-
-                    await this.UnityTaskAsync((p, args) => p.ChangeScanMode(args.userData, args.character, args.switchDisplay), (userData, character, switchDisplay)).ConfigureAwait(false);
-                    await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{switchDisplay.SwitchValue}").ConfigureAwait(false);
-                    switchDisplay.ContentValue = gameSwitchModify.ContentValue;
-                }
-
-            }
-            else if (switchName == EnumGameSwitchName.MapWeather)
-            {
-                if (Enum.TryParse<MapWeather>(gameSwitchModify.ContentValue, out var mapWeather))
-                {
-                    var name = await this.MonoTaskAsync((p, mapWeather) => p.SetMapWeather(mapWeather), mapWeather).ConfigureAwait(false);
-                    await this.PlayMessageAsync($"Weather:{name}").ConfigureAwait(false);
-                    switchDisplay.ContentValue = gameSwitchModify.ContentValue;
+                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.PlayMessageAsync("Error Weather").ConfigureAwait(false);
-
+                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
                 }
+                await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
             }
+            else if (gameSwitchName == EnumGameSwitchName.DoubleMonsterExp)
+            {
+                var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
+                var on = gameSwitchModify.SwitchValue;
+                if (on)
+                {
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                }
+                else
+                {
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                }
+                await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
+            }
+            else if (gameSwitchName == EnumGameSwitchName.ScanMode)
+            {
+                var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
+                var userData = await this.MonoTaskAsync((p, userDataMgr) => userDataMgr.GetUserData(), userDataMgr).ConfigureAwait(false);
+                var character = await this.MonoTaskAsync(p => p.GetScanMode()).ConfigureAwait(false);
+                var on = gameSwitchModify.SwitchValue;
+                if (on)
+                {
+                    await this.UnityTaskAsync((p, args) => p.ChangeScanMode(args.userData, args.character, true), (userData, character)).ConfigureAwait(false);
+                }
+                else
+                {
+                    await this.UnityTaskAsync((p, args) => p.ChangeScanMode(args.userData, args.character, false), (userData, character)).ConfigureAwait(false);
+                }
+                await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{gameSwitchModify.SwitchValue}").ConfigureAwait(false);
+
+
+            }
+            switchDisplay.ContentValue = gameSwitchModify.ContentValue;
 
             return switchDisplay;
         }
@@ -345,12 +342,15 @@ namespace Maple.Ghostmon
             DoubleMoveSpeed,
             DoubleMonsterExp,
             ScanMode,
-            MapWeather,
+            MapWeather
         }
 
 
         protected override GameSwitchDisplayDTO[] InitListGameSwitch()
         {
+
+
+
             return [
                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.ScanMode.ToString(), ButtonType = false, DisplayName = "1分钟灵视(F10)" , DisplayDesc=   "直接进入灵视|时长约为:60s" ,SwitchValue = false,},
                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomBuff.ToString(), ButtonType = true, DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方妖精|仅限战斗准备阶段使用" ,SwitchValue = false,},
@@ -359,6 +359,16 @@ namespace Maple.Ghostmon
                  new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMoveSpeed.ToString(), ButtonType = false, DisplayName = "人物双倍移速" , DisplayDesc=  "移速*2" ,SwitchValue = false,},
                  new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMonsterExp.ToString(), ButtonType = false, DisplayName = "妖精双倍经验值" , DisplayDesc=  "经验值*2" ,SwitchValue = false,},
 
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MapWeather.ToString(),   DisplayName = "天气" , DisplayDesc=  "天气" ,ContentValue =   MapWeather.CLEAR.ToString(),
+                 SelectedContents = [
+                     new GameValueInfoDTO(){ ObjectId= MapWeather.CLEAR.ToString(), DisplayName = "天气-晴天",DisplayValue = MapWeather.CLEAR.ToString(),},
+                     new GameValueInfoDTO(){ ObjectId= MapWeather.CLOUDY.ToString(), DisplayName = "天气-多云",DisplayValue = MapWeather.CLOUDY.ToString(),},
+                     new GameValueInfoDTO(){ ObjectId= MapWeather.LIGHT_RAIN.ToString(), DisplayName = "天气-小雨",DisplayValue = MapWeather.LIGHT_RAIN.ToString(),},
+                     new GameValueInfoDTO(){ ObjectId= MapWeather.MODERATE_RAIN.ToString(), DisplayName = "天气-中雨",DisplayValue = MapWeather.MODERATE_RAIN.ToString(),},
+                     new GameValueInfoDTO(){ ObjectId= MapWeather.HEAVY_RAIN.ToString(), DisplayName = "天气-大雨",DisplayValue = MapWeather.HEAVY_RAIN.ToString(),},
+
+                     ]
+                 },
 
 
                 // new GameSwitchDisplayDTO(){ ObjectId = MapWeather.CLEAR.ToString(), ButtonType = true, DisplayName = "天气-晴天" , DisplayDesc=  "天气-晴天" ,SwitchValue = false,},
@@ -367,16 +377,6 @@ namespace Maple.Ghostmon
                 // new GameSwitchDisplayDTO(){ ObjectId = MapWeather.MODERATE_RAIN.ToString(), ButtonType = true, DisplayName = "天气-中雨" , DisplayDesc=  "天气-中雨" ,SwitchValue = false,},
                 //new GameSwitchDisplayDTO(){ ObjectId = MapWeather.HEAVY_RAIN.ToString(), ButtonType = true, DisplayName = "天气-大雨" , DisplayDesc=  "天气-大雨" ,SwitchValue = false,},
 
-                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MapWeather.ToString(),   DisplayName = "天气" , DisplayDesc=  "天气" ,ContentValue= MapWeather.CLEAR.ToString(),
-                SelectedContents=[
-                     new GameValueInfoDTO(){ ObjectId = MapWeather.CLEAR.ToString(), DisplayName="天气-晴天" ,DisplayValue = MapWeather.CLEAR.ToString()},
-                      new GameValueInfoDTO(){ ObjectId = MapWeather.CLOUDY.ToString(), DisplayName="天气-多云" ,DisplayValue = MapWeather.CLOUDY.ToString()},
-                     new GameValueInfoDTO(){ ObjectId = MapWeather.LIGHT_RAIN.ToString(), DisplayName="天气-小雨" ,DisplayValue = MapWeather.LIGHT_RAIN.ToString()},
-                     new GameValueInfoDTO(){ ObjectId = MapWeather.MODERATE_RAIN.ToString(), DisplayName="天气-中雨" ,DisplayValue = MapWeather.MODERATE_RAIN.ToString()},
-                     new GameValueInfoDTO(){ ObjectId = MapWeather.HEAVY_RAIN.ToString(), DisplayName="天气-大雨" ,DisplayValue = MapWeather.HEAVY_RAIN.ToString()},
-
-                    ]
-                },
 
             ];
         }

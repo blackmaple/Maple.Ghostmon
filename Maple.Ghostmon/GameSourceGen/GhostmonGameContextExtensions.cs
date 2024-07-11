@@ -1569,7 +1569,7 @@ namespace Maple.Ghostmon
                        new GameValueInfoDTO(){  ObjectId =nameof(CuisineConfig.lifeTime),DisplayName = nameof(CuisineConfig.lifeTime), DisplayValue = skillObj.lifeTime.ToString()  },
                         ]
             };
-            
+
         }
         #endregion
 
@@ -1633,7 +1633,7 @@ namespace Maple.Ghostmon
         public static void ChangelayerDoubleMoveSpeed(
             this GhostmonGameContext @this,
             UserDataManager.Ptr_UserDataManager userDataManager,
-            GameSwitchDisplayDTO gameSwitchDisplay)
+            GameSwitchDisplayDTO gameSwitchDisplay, bool on)
         {
             var player = userDataManager.PLAYER_PROPERTY;
             if (false == player.Valid())
@@ -1642,17 +1642,16 @@ namespace Maple.Ghostmon
             }
             else
             {
-                if (gameSwitchDisplay.SwitchValue)
-                {
-                    player.P_MOVE_SPEED_SCALE = gameSwitchDisplay.FloatCache;
-
-                }
-                else
+                if (on)
                 {
                     var old = player.P_MOVE_SPEED_SCALE;
                     gameSwitchDisplay.FloatCache = old;
                     player.P_MOVE_SPEED_SCALE = old * 2f;
-
+                }
+                else
+                {
+                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1F);
+                    player.P_MOVE_SPEED_SCALE = val;
                 }
             }
 
@@ -1662,7 +1661,8 @@ namespace Maple.Ghostmon
         public static void ChangeMonsterDoubleExp(
             this GhostmonGameContext @this,
             UserDataManager.Ptr_UserDataManager userDataManager,
-            GameSwitchDisplayDTO gameSwitchDisplay)
+            GameSwitchDisplayDTO gameSwitchDisplay,
+            bool on)
         {
             var player = userDataManager.PLAYER_PROPERTY;
             if (false == player.Valid())
@@ -1671,19 +1671,17 @@ namespace Maple.Ghostmon
             }
             else
             {
-                if (gameSwitchDisplay.SwitchValue)
-                {
-
-                    player.P_EXP_SCALE = gameSwitchDisplay.FloatCache;
-
-                }
-                else
+                if (on)
                 {
                     var old = player.P_EXP_SCALE;
                     gameSwitchDisplay.FloatCache = old;
                     player.P_EXP_SCALE = old * 2f;
+                }
+                else
+                {
 
-
+                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
+                    player.P_EXP_SCALE = val;
                 }
             }
 
@@ -1697,7 +1695,7 @@ namespace Maple.Ghostmon
                 return GameException.Throw<CharacterCore.Ptr_CharacterCore>("Please enter the game first (3)");
 
             }
-            if (characterCore.IS_LOCKED || characterCore.SS_ACTIVE)
+            if (characterCore.IS_LOCKED)
             {
                 return GameException.Throw<CharacterCore.Ptr_CharacterCore>("Error game character status");
             }
@@ -1708,11 +1706,11 @@ namespace Maple.Ghostmon
             this GhostmonGameContext @this,
             UserData.Ptr_UserData userData,
             CharacterCore.Ptr_CharacterCore characterCore,
-            GameSwitchDisplayDTO gameSwitchDisplay)
+            bool on)
         {
 
 
-            if (gameSwitchDisplay.SwitchValue)
+            if (!on)
             {
                 characterCore.EXIT_SCAN_MODE();
                 return;
