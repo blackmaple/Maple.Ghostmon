@@ -34,6 +34,7 @@
         AbilityConfig = 100,
         CuisineConfig = 101,
         BuffConfig = 102,
+        IllustrationConfig = 103,
 
         /// <summary>
         /// 读取以上游戏中的JSON 反序列成对象
@@ -52,7 +53,6 @@
         FishingPoolConfig,
         GoodsConfig,
         GuideConfig,
-        IllustrationConfig,
         LanguageConfig,
         MonsterPoolConfig,
         MonsterTypeConfig,

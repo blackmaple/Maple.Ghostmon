@@ -127,6 +127,20 @@ namespace Maple.Ghostmon
 
         #region WebApi
 
+        #region Game Res
+        public sealed override async ValueTask<GameSessionInfoDTO> LoadResourceAsync()
+        {
+            var gameImageDatas = await  this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
+            var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
+                (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
+            foreach (var gameIcon in imageObjs)
+            {
+                this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
+            }
+            return this.GameSettings.GetGameSessionInfo();
+        }
+        #endregion
+
         #region Currency
 
 
@@ -342,7 +356,7 @@ namespace Maple.Ghostmon
             {
                 if (Enum.TryParse<MapWeather>(gameSwitchModify.ContentValue, out var mapWeather))
                 {
-                    await this.MonoTaskAsync((p, mapWeather) => p.SetMapWeather(mapWeather), mapWeather).ConfigureAwait(false);
+                    await this.MonoTaskAsync(static (p, mapWeather) => p.SetMapWeather(mapWeather), mapWeather).ConfigureAwait(false);
                 }
                 else
                 {

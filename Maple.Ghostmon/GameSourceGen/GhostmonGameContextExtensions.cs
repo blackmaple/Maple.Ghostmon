@@ -1,4 +1,5 @@
-﻿using Maple.MonoGameAssistant.Core;
+﻿using Maple.MonoGameAssistant.Common;
+using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
@@ -87,7 +88,6 @@ namespace Maple.Ghostmon
         {
             var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
             var suffix = @this.T(Skill_Suffix);
-
             foreach (var illustration in listIllustrationConfig)
             {
                 var prefab = illustration.prefab;
