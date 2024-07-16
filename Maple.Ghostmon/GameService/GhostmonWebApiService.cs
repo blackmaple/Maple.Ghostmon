@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace Maple.Ghostmon
 {
     internal sealed class GhostmonWebApiService()
-        : GameWebApi<GhostmonWebApiService, GhostmonGameService, GhostmonGameContext>("妖之乡 Demo")
+        : GameWebApi<GhostmonWebApiService, GhostmonGameService, GhostmonGameContext>("Yaoling Mythical Journey 0.95a")
     {
 
         [ModuleInitializer]

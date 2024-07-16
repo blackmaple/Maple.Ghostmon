@@ -74,7 +74,7 @@
 	<Target Name="PostPublishActions" AfterTargets="Publish">
 		<PropertyGroup>
 			<Time>$([System.DateTime]::Now.ToString("yyyyMMddHHmmss"))</Time>
-			<TargetDir>C:\Program Files (x86)\Steam\steamapps\common\妖之乡 Demo\</TargetDir>
+			<TargetDir>C:\Program Files (x86)\Steam\steamapps\common\Yaoling Mythical Journey\</TargetDir>
 			<PublishDllPath>$(PublishDir)$(AssemblyName).dll</PublishDllPath>
 			<TargetFileName>$(AssemblyName).dll</TargetFileName>
 			<BackupFileName>$(AssemblyName).dll.bak_$(Time)</BackupFileName>

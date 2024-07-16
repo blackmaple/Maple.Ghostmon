@@ -21,7 +21,7 @@ namespace Maple.Ghostmon
 
 
     // struct 0x10 System.UInt64 dataID
-    [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "dataID", "DATA_ID")]
+   // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "dataID", "DATA_ID")]
 
     // struct 0x18 System.UInt64 configID
     [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "configID", "CONFIG_ID")]

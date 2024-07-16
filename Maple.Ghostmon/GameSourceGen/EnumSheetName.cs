@@ -74,9 +74,9 @@
         TradeConfig,
 
         //add
-        Skill = 1001,
-        Monster = 1002,
-        Player = 1003,
+        Skill = 10001,
+        Monster = 10002,
+        Player = 10003,
     };
 
 
