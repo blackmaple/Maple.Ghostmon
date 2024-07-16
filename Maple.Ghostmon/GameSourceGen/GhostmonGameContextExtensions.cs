@@ -1442,6 +1442,7 @@ namespace Maple.Ghostmon
                 {
                     var skillId = EnumSheetName.Skill.ToString();
                     var name = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(monster.M_TITLE).ToString();
+                    name = prefab.EndsWith("Demon") ? name : $"{name} Demon";
                     yield return new GameMonsterDisplayDTO()
                     {
                         ObjectId = prefab,

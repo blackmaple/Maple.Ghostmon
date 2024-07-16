@@ -76,7 +76,9 @@
         //add
         Skill = 10001,
         Monster = 10002,
+
         Player = 10003,
+        Demon = 10004,
     };
 
 
