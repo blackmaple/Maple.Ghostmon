@@ -6,6 +6,7 @@
 
       -  [妖之乡](https://store.steampowered.com/app/2816950/_/) 修改器源代码
       -  DEMO 版本
+      -  支持0.95版本
 1.  要求
 
     -  一个VS2022
