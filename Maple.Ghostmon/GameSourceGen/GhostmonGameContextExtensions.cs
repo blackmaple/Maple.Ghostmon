@@ -1127,15 +1127,15 @@ namespace Maple.Ghostmon
 
 
                         var rank = 0;
-                        var UpRank = characterModifyDTO.BoolValue ?? false;  
+                        var upRank = characterModifyDTO.BoolValue ?? false;  
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
                         {
-                            monster.U_FLASH = UpRank;
+                            monster.U_FLASH = upRank;
                             rank = 6;
                         }
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
                         {;
-                            monster.U_VARI_COLOR = UpRank;
+                            monster.U_VARI_COLOR = upRank;
                             rank = 3;
                         }
                         if (rank > 0)
@@ -1147,7 +1147,7 @@ namespace Maple.Ghostmon
                             }
 
                          
-                            if (UpRank)
+                            if (upRank)
                             {
                                 monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_ATK, (int)EnumMonsterGrowthType.GROWTH_ATK);
                                 monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_DEF, (int)EnumMonsterGrowthType.GROWTH_DEF);
