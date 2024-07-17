@@ -4,6 +4,7 @@ using Maple.MonoGameAssistant.MonoCollectorDataV2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -127,6 +128,16 @@ namespace Maple.Ghostmon
 
     // struct 0xBC System.Single growth_crit
     [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_crit", "GROWTH_CRIT", IsReadOnly = false)]
+
+
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_atk", "RANK_ATK", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_magic", "RANK_MAGIC", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_def", "RANK_DEF", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_wp", "RANK_WP", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_hp", "RANK_HP", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_crit", "RANK_CRIT", IsReadOnly = false)]
+
+
 
     // struct 0xC0 System.Int32 u_atk_type
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_atk_type", "U_ATK_TYPE")]
@@ -421,10 +432,20 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="range">struct UnityEngine.Vector2</param>
         /// <returns>struct System.Single</returns>
+        
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetGrowthValue")]
-        extern System.Single GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
+        // extern System.Single GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
+        //add 0.95B
+        extern PMonoArray<System.Single> GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
+
+        //add 0.95B
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OrderGrowthValue")]
+        extern void ORDER_GROWTH_VALUE(int rank, REF_MONO_VECTOR2 range, int type);
 
 
+        //add 0.95B
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCurrentBasicProperty")]
+        extern void GetCurrentBasicProperty(MonsterObject.Ptr_MonsterObject m);
         /// <summary>
         ///   System.String GetProfessionalName()
         /// </summary>

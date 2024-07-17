@@ -1138,7 +1138,22 @@ namespace Maple.Ghostmon
                         {
                             monster.U_FAVORABILITY = characterModifyDTO.IntValue;
                         }
-                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
+
+
+
+                        var rank = 0;
+                        var UpRank = characterModifyDTO.BoolValue ?? false;  
+                        if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
+                        {
+                            monster.U_FLASH = UpRank;
+                            rank = 6;
+                        }
+                        if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
+                        {;
+                            monster.U_VARI_COLOR = UpRank;
+                            rank = 3;
+                        }
+                        if (rank > 0)
                         {
 
                             if (false == @this.TryGetMonsterObject(monster.U_PREFAB, out var monsterObj))
@@ -1146,57 +1161,55 @@ namespace Maple.Ghostmon
                                 return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
                             }
 
-                            float growth_atk;
-                            float growth_magic;
-                            float growth_def;
-                            float growth_wp;
-                            float growth_hp;
-                            float growth_crit;
-                            var flash = characterModifyDTO.BoolValue ?? false;
-                            if (flash)
+                         
+                            if (UpRank)
                             {
-                                monster.U_FLASH = true;
-                                growth_atk = monsterObj.GROWTH_ATK.y;
-                                growth_magic = monsterObj.GROWTH_MAGIC.y;
-                                growth_def = monsterObj.GROWTH_DEF.y;
-                                growth_wp = monsterObj.GROWTH_WP.y;
-                                growth_hp = monsterObj.GROWTH_HP.y;
-                                growth_crit = monsterObj.GROWTH_CRIT.y;
+                                monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_ATK, (int)EnumMonsterGrowthType.GROWTH_ATK);
+                                monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_DEF, (int)EnumMonsterGrowthType.GROWTH_DEF);
+                                monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_HP, (int)EnumMonsterGrowthType.GROWTH_HP);
+                                monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_MAGIC, (int)EnumMonsterGrowthType.GROWTH_MAGIC);
+                                monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_WP, (int)EnumMonsterGrowthType.GROWTH_WP);
+                                monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_CRIT, (int)EnumMonsterGrowthType.GROWTH_CRIT);
+
                             }
                             else
                             {
-                                monster.U_FLASH = false;
-                                growth_atk = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_ATK);
-                                growth_magic = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_MAGIC);
-                                growth_def = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_DEF);
-                                growth_wp = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_WP);
-                                growth_hp = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_HP);
-                                growth_crit = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_CRIT);
+                                var growth_atk = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_ATK);
+                                monster.RANK_ATK = (int)growth_atk[0];
+                                monster.GROWTH_ATK = growth_atk[1];
+                                //
+                                var growth_def = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_DEF);
+                                monster.RANK_DEF = (int)growth_def[0];
+                                monster.GROWTH_DEF = growth_def[1];
+                                //
+                                var growth_hp = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_HP);
+                                monster.RANK_HP = (int)growth_hp[0];
+                                monster.GROWTH_HP = growth_hp[1];
+                                //
+                                var growth_magic = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_MAGIC);
+                                monster.RANK_MAGIC = (int)growth_magic[0];
+                                monster.GROWTH_MAGIC = growth_magic[1];
+                                //
+                                var growth_wp = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_WP);
+                                monster.RANK_WP = (int)growth_wp[0];
+                                monster.GROWTH_WP = growth_wp[1];
+                                //
+                                var growth_crit = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_CRIT);
+                                monster.RANK_CRIT = (int)growth_crit[0];
+                                monster.GROWTH_CRIT = growth_wp[1];
+
                             }
 
-                            monster.GROWTH_ATK = growth_atk;
-                            monster.GROWTH_MAGIC = growth_magic;
-                            monster.GROWTH_DEF = growth_def;
-                            monster.GROWTH_WP = growth_wp;
-                            monster.GROWTH_HP = growth_hp;
-                            monster.GROWTH_CRIT = growth_crit;
 
-                            float lv = monster.U_LEVEL;
 
-                            monster.U_ATK = monsterObj.BASE_ATK + lv * growth_atk;
-                            monster.U_MAGIC = monsterObj.BASE_MAGIC + lv * growth_magic;
-                            monster.U_DEF = monsterObj.BASE_DEF + lv * growth_def;
-                            monster.U_WP = monsterObj.BASE_WP + lv * growth_wp;
-                            monster.U_MAX_HP = monsterObj.BASE_HP + lv * growth_hp;
-                            monster.U_HP = monster.U_MAX_HP;
-                            monster.U_CRIT = monsterObj.BASE_CRIT + lv * growth_crit;
+                            monster.GetCurrentBasicProperty(monsterObj);
+                       
 
 
                         }
-                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
-                        {
-                            monster.U_VARI_COLOR = characterModifyDTO.BoolValue ?? false;
-                        }
+
+
+
                         return new GameCharacterStatusDTO()
                         {
                             ObjectId = characterModifyDTO.CharacterId,
@@ -1367,12 +1380,6 @@ namespace Maple.Ghostmon
 
                     var monsterData = total.Value;
                     var addSkillId = characterModifyDTO.ULongValue;
-
-                    {
-                        var newSkills = @this.SystemUInt64.NewArray<UInt64>(0, out var ptrSkills);
-                        monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
-
-                    }
 
                     if (addSkillId == 0LU)
                     {
@@ -1778,5 +1785,13 @@ namespace Maple.Ghostmon
         #endregion
     }
 
-
+    enum EnumMonsterGrowthType
+    {
+        GROWTH_ATK = 0,
+        GROWTH_MAGIC = 1,
+        GROWTH_DEF = 2,
+        GROWTH_WP = 3,
+        GROWTH_HP = 4,
+        GROWTH_CRIT = 5,
+    }
 }
