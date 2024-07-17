@@ -177,7 +177,7 @@ namespace Maple.Ghostmon
             const string EggUIAtlas = "EggUIAtlas";
             const string ItemRecipeUIAtlas = "ItemRecipeUIAtlas";
             const string BuffUIAtlas = "BuffUIAtlas";
-            const string ItemUIAtlas = "ItemUIAtlas";
+            //    const string ItemUIAtlas = "ItemUIAtlas";
             const string TravelUIAtlas = "TravelUIAtlas";
             foreach (var monster in @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray())
             {
@@ -258,7 +258,7 @@ namespace Maple.Ghostmon
                     {
                         Category = EnumSheetName.AbilityBookConfig.ToString(),
                         ObjectId = skill.configID.ToString(),
-                        AtlasName = AbilityBookUIAtlas,
+                        AtlasName = MaterialUIAtlas,
                         SpriteName = prefab,
                         Ptr_Sprite = nint.Zero
                     };
@@ -306,7 +306,7 @@ namespace Maple.Ghostmon
                     {
                         Category = EnumSheetName.MenuConfig.ToString(),
                         ObjectId = menu.configID.ToString(),
-                        AtlasName = MenuUIAtlas,
+                        AtlasName = MaterialUIAtlas,
                         SpriteName = prefab,
                         Ptr_Sprite = nint.Zero
                     };
@@ -338,7 +338,7 @@ namespace Maple.Ghostmon
                     {
                         Category = EnumSheetName.ItemRecipeConfig.ToString(),
                         ObjectId = itemRecipe.configID.ToString(),
-                        AtlasName = ItemRecipeUIAtlas,
+                        AtlasName = MaterialUIAtlas,
                         SpriteName = prefab,
                         Ptr_Sprite = nint.Zero
                     };
@@ -383,7 +383,7 @@ namespace Maple.Ghostmon
             {
                 Category = EnumSheetName.GEM.ToString(),
                 ObjectId = EnumSheetName.GEM.ToString(),
-                AtlasName = ItemUIAtlas,
+                AtlasName = MaterialUIAtlas,
                 SpriteName = "icon_largeGem",
                 Ptr_Sprite = nint.Zero
             };
@@ -391,16 +391,24 @@ namespace Maple.Ghostmon
             {
                 Category = EnumSheetName.COIN.ToString(),
                 ObjectId = EnumSheetName.COIN.ToString(),
-                AtlasName = ItemUIAtlas,
+                AtlasName = MaterialUIAtlas,
                 SpriteName = "icon_largeCoin",
+                Ptr_Sprite = nint.Zero
+            };
+            yield return new GameImageData()
+            {
+                Category = EnumSheetName.HeartStone.ToString(),
+                ObjectId = EnumSheetName.HeartStone.ToString(),
+                AtlasName = MaterialUIAtlas,
+                SpriteName = "icon_bigHeart",
                 Ptr_Sprite = nint.Zero
             };
             yield return new GameImageData()
             {
                 Category = EnumSheetName.REIKI.ToString(),
                 ObjectId = EnumSheetName.REIKI.ToString(),
-                AtlasName = TravelUIAtlas,
-                SpriteName = "icon_0",
+                AtlasName = CharmItemUIAtlas,
+                SpriteName = "icon_blue",
                 Ptr_Sprite = nint.Zero
             };
         }
@@ -591,15 +599,21 @@ namespace Maple.Ghostmon
             {
                 ObjectId  = EnumSheetName.GEM.ToString(),
                 DisplayCategory= EnumSheetName.GEM.ToString(),
-                DisplayName= "灵石".ToString(),
+                DisplayName= "灵石" ,
                 DisplayDesc= "灵石由特殊的矿石加工而成，比金币更加稀有，具有特殊的力量，可在修行台吸收，也可在特殊商店处交易物品。",
 
             },
             new GameCurrencyDisplayDTO()
             {   ObjectId  = EnumSheetName.COIN.ToString(),
                 DisplayCategory= EnumSheetName.COIN.ToString(),
-                DisplayName= "金币".ToString(),
+                DisplayName= "金币" ,
                 DisplayDesc= "金币由特殊的矿石加工而成，作为通用的货币，可在所有商人处购买物品。",
+            },
+            new GameCurrencyDisplayDTO()
+            {   ObjectId  = EnumSheetName.HeartStone.ToString(),
+                DisplayCategory= EnumSheetName.HeartStone.ToString(),
+                DisplayName= "同心石" ,
+                DisplayDesc= "与玉树神像互动，消耗同心石即可进行祈福，祈福会获得石材，天赋玉，妖灵蛋等物品。提升妖灵的好感度会获得同心石。",
             },
             new GameCurrencyDisplayDTO()
             {   ObjectId  = EnumSheetName.REIKI.ToString(),
@@ -630,6 +644,10 @@ namespace Maple.Ghostmon
             {
                 count = userData.REIKI.ToString();
             }
+            else if (obj == EnumSheetName.HeartStone)
+            {
+                count = userData.HEART_STONE_NUM.ToString();
+            }
             else
             {
                 count = string.Empty;
@@ -655,6 +673,10 @@ namespace Maple.Ghostmon
             else if (obj == EnumSheetName.REIKI)
             {
                 userData.REIKI = currencyModifyDTO.FloatValue;
+            }
+            else if (obj == EnumSheetName.HeartStone)
+            {
+                userData.HEART_STONE_NUM = currencyModifyDTO.IntValue;
             }
 
             //        @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
@@ -1016,19 +1038,12 @@ namespace Maple.Ghostmon
                     DisplayDesc = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(monster.U_PROFESSIONAL).ToString(),
                     DisplayImage = monster.U_PREFAB.ToString(),
                     CharacterAttributes = [
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString()  },
-                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString(),CanPreview = true,  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
-
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  "属性*异色",DisplayValue = monster.U_VARI_COLOR.ToString()  },
+                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName = "属性*闪光",DisplayValue = monster.U_FLASH.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  "属性*等级",DisplayValue = monster.U_LEVEL.ToString(),CanPreview = true,  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName = "属性*当前经验",DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  "属性*累计经验",DisplayValue = monster.U_TOTAL_EXP.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  "属性*亲密",DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
 
 
@@ -1066,20 +1081,20 @@ namespace Maple.Ghostmon
                         {
                             ObjectId = characterObjectDTO.CharacterId,
                             CharacterAttributes = [
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString() ,CanWrite = true },
-                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  ,CanWrite = true},
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  "属性*异色",DisplayValue = monster.U_VARI_COLOR.ToString() ,CanWrite = true },
+                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  "属性*闪光",DisplayValue = monster.U_FLASH.ToString()  ,CanWrite = true},
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  "属性*等级",DisplayValue = monster.U_LEVEL.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  "属性*当前经验",DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  "属性*累计经验",DisplayValue = monster.U_TOTAL_EXP.ToString()  },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  "属性*亲密",DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
 
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  "成长*攻击",DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  "成长*妖力",DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  "成长*防御",DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  "成长*意志",DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  "成长*生命",DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  "成长*会心",DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
 
                         ]
                         };
@@ -1194,12 +1209,20 @@ namespace Maple.Ghostmon
                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
 
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  "成长*攻击",DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  "成长*妖力",DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  "成长*防御",DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  "成长*意志",DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  "成长*生命",DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  "成长*会心",DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+
+
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
+                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
 
                         ]
                         };
@@ -1442,7 +1465,7 @@ namespace Maple.Ghostmon
                 {
                     var skillId = EnumSheetName.Skill.ToString();
                     var name = ConfigDataStore.Ptr_ConfigDataStore.GET_LANGUAGE_TEXT(monster.M_TITLE).ToString();
-                    name = prefab.EndsWith("Demon") ? name : $"{name} Demon";
+                    name = prefab.EndsWith("Demon") ? $"{name} Demon" : name;
                     yield return new GameMonsterDisplayDTO()
                     {
                         ObjectId = prefab,
@@ -1450,15 +1473,15 @@ namespace Maple.Ghostmon
                         DisplayCategory = category,
                         DisplayDesc = name,
                         MonsterAttributes = [
-                            new (){ ObjectId = nameof(monster.M_RANK), DisplayName= nameof(monster.M_RANK),DisplayValue = monster.M_RANK.ToString(),CanPreview = true },
-                            new (){ ObjectId = nameof(monster.BASE_CRIT), DisplayName= nameof(monster.BASE_CRIT),DisplayValue = monster.BASE_CRIT.ToString(),CanPreview = true },
-                            new (){ ObjectId = nameof(monster.LEVEL_RANGE), DisplayName= nameof(monster.LEVEL_RANGE),DisplayValue = $"{monster.LEVEL_RANGE.m_X}~{monster.LEVEL_RANGE.m_Y}",CanPreview = false },
-                            new (){ ObjectId = nameof(monster.GROWTH_HP), DisplayName= nameof(monster.GROWTH_HP),DisplayValue = $"{monster.GROWTH_HP.x}~{monster.GROWTH_HP.y}",CanPreview = false },
-                            new (){ ObjectId = nameof(monster.GROWTH_WP), DisplayName= nameof(monster.GROWTH_WP),DisplayValue = $"{monster.GROWTH_WP.x}~{monster.GROWTH_WP.y}",CanPreview = false },
-                            new (){ ObjectId = nameof(monster.GROWTH_ATK), DisplayName= nameof(monster.GROWTH_ATK),DisplayValue = $"{monster.GROWTH_ATK.x}~{monster.GROWTH_ATK.y}",CanPreview = false },
-                            new (){ ObjectId = nameof(monster.GROWTH_DEF), DisplayName= nameof(monster.GROWTH_DEF),DisplayValue = $"{monster.GROWTH_DEF.x}~{monster.GROWTH_DEF.y}",CanPreview = false },
-                            new (){ ObjectId = nameof(monster.GROWTH_MAGIC), DisplayName= nameof(monster.GROWTH_MAGIC),DisplayValue = $"{monster.GROWTH_MAGIC.x}~{monster.GROWTH_MAGIC.y}",CanPreview = false },
-                            new (){ ObjectId = nameof(monster.GROWTH_CRIT), DisplayName= nameof(monster.GROWTH_CRIT),DisplayValue = $"{monster.GROWTH_CRIT.x}~{monster.GROWTH_CRIT.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.M_RANK), DisplayName= "等级",DisplayValue = monster.M_RANK.ToString(),CanPreview = true },
+                            new (){ ObjectId = nameof(monster.BASE_CRIT), DisplayName= "基础*会心",DisplayValue = monster.BASE_CRIT.ToString(),CanPreview = true },
+                            new (){ ObjectId = nameof(monster.LEVEL_RANGE), DisplayName= "等级*范围",DisplayValue = $"{monster.LEVEL_RANGE.m_X}~{monster.LEVEL_RANGE.m_Y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_HP), DisplayName= "成长*生命",DisplayValue = $"{monster.GROWTH_HP.x}~{monster.GROWTH_HP.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_WP), DisplayName= "成长*意志",DisplayValue = $"{monster.GROWTH_WP.x}~{monster.GROWTH_WP.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_ATK), DisplayName= "成长*攻击",DisplayValue = $"{monster.GROWTH_ATK.x}~{monster.GROWTH_ATK.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_DEF), DisplayName= "成长*防御",DisplayValue = $"{monster.GROWTH_DEF.x}~{monster.GROWTH_DEF.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_MAGIC), DisplayName= "成长*妖力",DisplayValue = $"{monster.GROWTH_MAGIC.x}~{monster.GROWTH_MAGIC.y}",CanPreview = false },
+                            new (){ ObjectId = nameof(monster.GROWTH_CRIT), DisplayName= "成长*会心",DisplayValue = $"{monster.GROWTH_CRIT.x}~{monster.GROWTH_CRIT.y}",CanPreview = false },
 
 
                             ],

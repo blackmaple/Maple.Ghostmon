@@ -27,6 +27,10 @@
         /// </summary>
         COIN = 22,
         /// <summary>
+        /// 
+        /// </summary>
+        HeartStone = 23,
+        /// <summary>
         /// 灵气
         /// </summary>
         REIKI = 99,

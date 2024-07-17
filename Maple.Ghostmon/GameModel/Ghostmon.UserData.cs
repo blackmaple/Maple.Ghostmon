@@ -71,6 +71,9 @@ namespace Maple.Ghostmon
     // struct 0x5C System.Int32 gem_num
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "gem_num", "GEM_NUM", IsReadOnly = false)]
 
+    //0.95追加 同心石
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "heartStone_num", "HEART_STONE_NUM", IsReadOnly = false)]
+
     // struct 0x60 System.Single reiki
     [MonoCollectorSearchFieldAttribute(typeof(System.Single), "reiki", "REIKI", IsReadOnly = false)]
 
