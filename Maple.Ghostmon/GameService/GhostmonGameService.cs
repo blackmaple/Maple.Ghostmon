@@ -127,17 +127,24 @@ namespace Maple.Ghostmon
 
         #region WebApi
 
+        public sealed override ValueTask<GameSessionInfoDTO> GetSessionInfoAsync()
+        {
+            var api = this.GameContext.ApiVersion;
+            var data = this.GameSettings.GetGameSessionInfo(api);
+            return ValueTask.FromResult(data);
+        }
+
         #region Game Res
         public sealed override async ValueTask<GameSessionInfoDTO> LoadResourceAsync()
         {
-            var gameImageDatas = await  this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
+            var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
             var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
                 (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
             foreach (var gameIcon in imageObjs)
             {
                 this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
             }
-            return this.GameSettings.GetGameSessionInfo();
+            return await this.GetSessionInfoAsync().ConfigureAwait(false);
         }
         #endregion
 

@@ -130,12 +130,12 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(System.Single), "growth_crit", "GROWTH_CRIT", IsReadOnly = false)]
 
 
-    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_atk", "RANK_ATK", IsReadOnly = false)]
-    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_magic", "RANK_MAGIC", IsReadOnly = false)]
-    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_def", "RANK_DEF", IsReadOnly = false)]
-    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_wp", "RANK_WP", IsReadOnly = false)]
-    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_hp", "RANK_HP", IsReadOnly = false)]
-    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "rank_crit", "RANK_CRIT", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "rank_atk", "RANK_ATK", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "rank_magic", "RANK_MAGIC", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "rank_def", "RANK_DEF", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "rank_wp", "RANK_WP", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "rank_hp", "RANK_HP", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "rank_crit", "RANK_CRIT", IsReadOnly = false)]
 
 
 
