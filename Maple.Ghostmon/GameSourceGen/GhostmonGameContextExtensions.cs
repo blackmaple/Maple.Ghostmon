@@ -1054,6 +1054,10 @@ namespace Maple.Ghostmon
             }
 
         }
+        //public static IEnumerable<GameCharacterDisplayDTO> RemoveCharacterMember(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+        //{ 
+
+        //}
         public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = userDataManager.GetUserData();
@@ -1142,14 +1146,15 @@ namespace Maple.Ghostmon
 
 
                         var rank = 0;
-                        var upRank = characterModifyDTO.BoolValue ?? false;  
+                        var upRank = characterModifyDTO.BoolValue ?? false;
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_FLASH))
                         {
                             monster.U_FLASH = upRank;
                             rank = 6;
                         }
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
-                        {;
+                        {
+                            ;
                             monster.U_VARI_COLOR = upRank;
                             rank = 3;
                         }
@@ -1161,7 +1166,7 @@ namespace Maple.Ghostmon
                                 return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
                             }
 
-                         
+
                             if (upRank)
                             {
                                 monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_ATK, (int)EnumMonsterGrowthType.GROWTH_ATK);
@@ -1203,7 +1208,7 @@ namespace Maple.Ghostmon
 
 
                             monster.GetCurrentBasicProperty(monsterObj);
-                       
+
 
 
                         }
@@ -1317,10 +1322,10 @@ namespace Maple.Ghostmon
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
 
-                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
-                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
-                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
-                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
 
 
                 ];
@@ -1381,31 +1386,25 @@ namespace Maple.Ghostmon
                     var monsterData = total.Value;
                     var addSkillId = characterModifyDTO.ULongValue;
 
-                    if (addSkillId == 0LU)
+                    //fix skill
+                    IEnumerable<ulong> skills;
+                    if (monsterData.U_ABILITIES.Size > 4)
                     {
-                        //remove
-                        var skills = RemoveTheSkill(monsterData, removeSkillId).ToArray();
-                        if (skills.Length != 0)
-                        {
-                            var newSkills = @this.SystemUInt64.NewArray<UInt64>(skills.Length, out var ptrSkills);
-                            skills.AsSpan().CopyTo(newSkills);
-                            monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
-                        }
-                        else
-                        {
-                            var newSkills = @this.SystemUInt64.NewArray<UInt64>(0, out var ptrSkills);
-                            monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
-                        }
+                        skills = [];
+                    }
+                    else if (addSkillId == 0LU)
+                    {
+                        skills = RemoveTheSkill(monsterData, removeSkillId);
                     }
                     else
                     {
-                        //add
-                        var skills = AddTheSkill(monsterData, addSkillId, removeSkillId).ToArray();
-                        var newSkills = @this.SystemUInt64.NewArray<UInt64>(skills.Length, out var ptrSkills);
-                        skills.AsSpan().CopyTo(newSkills);
-                        monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
-
+                        skills = AddTheSkill(monsterData, addSkillId, removeSkillId);
                     }
+                    var strSkill = string.Join(',', skills);
+                    var monoString = @this.T(strSkill);
+                    var ptrSkills = GameBasicUtil.Ptr_GameBasicUtil.STRING_TO_LONG_ARRAY(monoString, ',');
+                    monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
+
 
                     return new GameCharacterSkillDTO()
                     {
@@ -1457,6 +1456,8 @@ namespace Maple.Ghostmon
 
 
         }
+
+
         #endregion
 
         #region Monster
@@ -1535,6 +1536,8 @@ namespace Maple.Ghostmon
 
             };
         }
+
+
         #endregion
 
         #region Skill

@@ -13,22 +13,24 @@ namespace Maple.Ghostmon
 		//// Token: 0x04001933 RID: 6451
 		public float cooldown;
 
-		//// Token: 0x04001934 RID: 6452
-		//public string? formula;
 
-		//// Token: 0x04001935 RID: 6453
-		//public string[]? conditions;
+        //public string? tag;
+        //// Token: 0x04001934 RID: 6452
+        //public string? formula;
 
-		//// Token: 0x04001936 RID: 6454
-		//public string[]? parameter;
+        //// Token: 0x04001935 RID: 6453
+        //public string[]? conditions;
 
-		//// Token: 0x04001937 RID: 6455
-		//public string[]? tag;
+        //// Token: 0x04001936 RID: 6454
+        //public string[]? parameter;
 
-		//// Token: 0x04001938 RID: 6456
-		//public string? CSScript;
+        //// Token: 0x04001937 RID: 6455
+        //public string[]? tag;
 
-		//// Token: 0x04001939 RID: 6457
-		//public string? subAbility;
-	}
+        //// Token: 0x04001938 RID: 6456
+        //public string? CSScript;
+
+        //// Token: 0x04001939 RID: 6457
+        //public string? subAbility;
+    }
 }

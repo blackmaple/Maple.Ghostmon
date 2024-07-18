@@ -5,7 +5,6 @@ using Maple.MonoGameAssistant.Model;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
 using Maple.MonoGameAssistant.UnityCore;
 using Microsoft.Extensions.Logging;
-using System.Xml.Linq;
 
 
 namespace Maple.Ghostmon

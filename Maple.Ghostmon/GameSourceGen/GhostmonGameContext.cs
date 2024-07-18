@@ -60,6 +60,8 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(JudgeControl))]
     [MonoCollectorType(typeof(BUnit))]
 
+
+    [MonoCollectorType(typeof(GameBasicUtil))]
     internal partial class GhostmonGameContext
     {
     }
