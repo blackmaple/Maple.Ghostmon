@@ -23,8 +23,9 @@
 
 
         public List<CuisineConfig> ListCuisineConfig { get; } = new(512);
+        public List<EvoMaterialConfig> ListEvoMaterialConfig { get; } = new(512);
 
-
+        
         public void AddConfig(ReadOnlySpan<char> json, EnumSheetName enumSheetName)
         {
             if (json.IsEmpty)
@@ -72,6 +73,14 @@
                 if (data is not null)
                 {
                     this.ListTreasureConfig.Add(data);
+                }
+            }
+            else if (enumSheetName == EnumSheetName.EvoMaterialConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.EvoMaterialConfig);
+                if (data is not null)
+                {
+                    this.ListEvoMaterialConfig.Add(data);
                 }
             }
             else if (enumSheetName == EnumSheetName.ClothingConfig)

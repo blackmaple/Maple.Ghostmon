@@ -100,7 +100,7 @@ namespace Maple.Ghostmon
                 }
             }
             //加个延迟等待task完成
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             var monsterConfig = @this.ConfigDataStore.MONSTER_CFG_STORE;
             var skillConfig = @this.ConfigDataStore.SKILL_CFG_STORE;
             var count = 0;
@@ -173,12 +173,12 @@ namespace Maple.Ghostmon
             const string RareItemUIAtlas = "RareItemUIAtlas";
             const string TreasureUIAtlas = "TreasureUIAtlas";
             const string ClothingUIAtlas = "ClothingUIAtlas";
-            const string MenuUIAtlas = "MenuUIAtlas";
+            //   const string MenuUIAtlas = "MenuUIAtlas";
             const string EggUIAtlas = "EggUIAtlas";
-            const string ItemRecipeUIAtlas = "ItemRecipeUIAtlas";
+            //     const string ItemRecipeUIAtlas = "ItemRecipeUIAtlas";
             const string BuffUIAtlas = "BuffUIAtlas";
             //    const string ItemUIAtlas = "ItemUIAtlas";
-            const string TravelUIAtlas = "TravelUIAtlas";
+            //     const string TravelUIAtlas = "TravelUIAtlas";
             foreach (var monster in @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray())
             {
                 var monsterObj = monster.Value;
@@ -853,6 +853,22 @@ namespace Maple.Ghostmon
                 yield return data;
             }
 
+            foreach (var config in GameConfigStore.ListEvoMaterialConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = EnumSheetName.EvoMaterialConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+
+                    new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
         }
         private static int GetInventoryCount(UserData.Ptr_UserData userData, EnumSheetName category, ulong configId)
         {
@@ -967,6 +983,16 @@ namespace Maple.Ghostmon
                     }
                 }
             }
+            else if (category == EnumSheetName.EvoMaterialConfig)
+            {
+                foreach (var data in userData.TOTAL_EVO_MATERIALS.AsRefArray())
+                {
+                    if (data.Key == configId && data.Value)
+                    {
+                        count = data.Value.NUM;
+                    }
+                }
+            }
             return count;
         }
         public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryObjectDTO inventoryObjectDTO)
@@ -1010,6 +1036,76 @@ namespace Maple.Ghostmon
         #endregion
 
         #region Character
+
+        static List<GameValueInfoDTO> MonsterRanks { get; } =
+ [
+
+     new GameValueInfoDTO{ ObjectId = EnumMonsterRank.Rank1.ToString(), DisplayName =EnumMonsterRank.Rank1.ToString(),IntValue =(int)EnumMonsterRank.Rank1   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterRank.Rank2.ToString(), DisplayName =EnumMonsterRank.Rank2.ToString(),IntValue =(int)EnumMonsterRank.Rank2   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterRank.Rank3.ToString(), DisplayName =EnumMonsterRank.Rank3.ToString(),IntValue =(int)EnumMonsterRank.Rank3   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterRank.Rank4.ToString(), DisplayName =EnumMonsterRank.Rank4.ToString(),IntValue =(int)EnumMonsterRank.Rank4   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterRank.Rank5.ToString(), DisplayName =EnumMonsterRank.Rank5.ToString(),IntValue =(int)EnumMonsterRank.Rank5   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterRank.Rank6.ToString(), DisplayName =EnumMonsterRank.Rank6.ToString(),IntValue =(int)EnumMonsterRank.Rank6   },
+
+                ];
+        static List<GameValueInfoDTO> MonsterResists { get; } =
+            [
+            new GameValueInfoDTO{ ObjectId = EnumMonsterResist.易感.ToString(), DisplayName =EnumMonsterResist.易感.ToString(),IntValue =(int)EnumMonsterResist.易感  },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterResist.普通.ToString(), DisplayName =EnumMonsterResist.普通.ToString(),IntValue =(int)EnumMonsterResist.普通  },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterResist.免疫.ToString(), DisplayName =EnumMonsterResist.免疫.ToString(),IntValue =(int)EnumMonsterResist.免疫  },
+
+                    ];
+        static List<GameValueInfoDTO> MonsterTypes { get; } =
+            [
+            new GameValueInfoDTO{ ObjectId = EnumMonsterType.普通.ToString(), DisplayName =EnumMonsterType.普通.ToString(),IntValue = (int)EnumMonsterType.普通   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterType.首领.ToString(), DisplayName =EnumMonsterType.首领.ToString(),IntValue = (int)EnumMonsterType.首领   },
+                    new GameValueInfoDTO{ ObjectId = EnumMonsterType.邪魔.ToString(), DisplayName =EnumMonsterType.邪魔.ToString(),IntValue = (int)EnumMonsterType.邪魔   },
+                    ];
+
+        static List<GameValueInfoDTO> MonsterWeight { get; } =
+            [
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.迷你.ToString(), DisplayName =EnumMonsterWeight.迷你.ToString(),IntValue = (int)EnumMonsterWeight.迷你   },
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.超小.ToString(), DisplayName =EnumMonsterWeight.超小.ToString(),IntValue = (int)EnumMonsterWeight.超小   },
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.小.ToString(), DisplayName =EnumMonsterWeight.小.ToString(),IntValue = (int)EnumMonsterWeight.小   },
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.中.ToString(), DisplayName =EnumMonsterWeight.中.ToString(),IntValue = (int)EnumMonsterWeight.中   },
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.大.ToString(), DisplayName =EnumMonsterWeight.大.ToString(),IntValue = (int)EnumMonsterWeight.大   },
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.超大.ToString(), DisplayName =EnumMonsterWeight.超大.ToString(),IntValue = (int)EnumMonsterWeight.超大   },
+            new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.巨大.ToString(), DisplayName =EnumMonsterWeight.巨大.ToString(),IntValue = (int)EnumMonsterWeight.巨大   },
+
+            ];
+        static List<GameValueInfoDTO> MonsterAtkForces { get; } =
+    [
+            new GameValueInfoDTO{ ObjectId = EnumMonsterAtkForce.超弱.ToString(), DisplayName =EnumMonsterAtkForce.超弱.ToString(),IntValue = (int)EnumMonsterAtkForce.超弱   },
+            new GameValueInfoDTO{ ObjectId = EnumMonsterAtkForce.弱.ToString(), DisplayName =EnumMonsterAtkForce.弱.ToString(),IntValue = (int)EnumMonsterAtkForce.弱   },
+            new GameValueInfoDTO{ ObjectId = EnumMonsterAtkForce.中.ToString(), DisplayName =EnumMonsterAtkForce.中.ToString(),IntValue = (int)EnumMonsterAtkForce.中   },
+            new GameValueInfoDTO{ ObjectId = EnumMonsterAtkForce.强.ToString(), DisplayName =EnumMonsterAtkForce.强.ToString(),IntValue = (int)EnumMonsterAtkForce.强   },
+
+    ];
+
+        static List<GameValueInfoDTO> MonsterYINGYANGs { get; } =
+    [
+            new GameValueInfoDTO{ ObjectId = EnumMonsterYINGYANG.阴.ToString(), DisplayName =EnumMonsterYINGYANG.阴.ToString(),IntValue = (int)EnumMonsterYINGYANG.阴   },
+            new GameValueInfoDTO{ ObjectId = EnumMonsterYINGYANG.阳.ToString(), DisplayName =EnumMonsterYINGYANG.阳.ToString(),IntValue = (int)EnumMonsterYINGYANG.阳   },
+
+    ];
+
+        static List<GameValueInfoDTO> MonsterArkType { get; } =
+    [
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.震荡.ToString(), DisplayName =BattleDamageType.震荡.ToString(),IntValue = (int)BattleDamageType.震荡   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.穿刺.ToString(), DisplayName =BattleDamageType.穿刺.ToString(),IntValue = (int)BattleDamageType.穿刺   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.撕开.ToString(), DisplayName =BattleDamageType.撕开.ToString(),IntValue = (int)BattleDamageType.撕开   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.火焰.ToString(), DisplayName =BattleDamageType.火焰.ToString(),IntValue = (int)BattleDamageType.火焰   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.冰霜.ToString(), DisplayName =BattleDamageType.冰霜.ToString(),IntValue = (int)BattleDamageType.冰霜   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.雷电.ToString(), DisplayName =BattleDamageType.雷电.ToString(),IntValue = (int)BattleDamageType.雷电   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.狂风.ToString(), DisplayName =BattleDamageType.狂风.ToString(),IntValue = (int)BattleDamageType.狂风   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.毒药.ToString(), DisplayName =BattleDamageType.毒药.ToString(),IntValue = (int)BattleDamageType.毒药   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.黑暗.ToString(), DisplayName =BattleDamageType.黑暗.ToString(),IntValue = (int)BattleDamageType.黑暗   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.固定.ToString(), DisplayName =BattleDamageType.固定.ToString(),IntValue = (int)BattleDamageType.固定   },
+            new GameValueInfoDTO{ ObjectId = BattleDamageType.治疗.ToString(), DisplayName =BattleDamageType.治疗.ToString(),IntValue = (int)BattleDamageType.治疗   },
+
+    ];
+
+
         public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
         {
             var userData = userDataManager.GetUserData();
@@ -1058,6 +1154,67 @@ namespace Maple.Ghostmon
         //{ 
 
         //}
+
+        private static GameCharacterStatusDTO GetCharacterStatus(GameCharacterObjectDTO characterObjectDTO, MonsterData.Ptr_MonsterData monster)
+        {
+            return new GameCharacterStatusDTO()
+            {
+                ObjectId = characterObjectDTO.CharacterId,
+                CharacterAttributes = [
+                           new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  "属性*异色",ContentValue = monster.U_VARI_COLOR.ToString() ,UIType = (int)EnumGameSwitchUIType.Switches },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  "属性*闪光",ContentValue = monster.U_FLASH.ToString()  ,UIType = (int)EnumGameSwitchUIType.Switches},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_LUCK),DisplayName =  "属性*幸运",ContentValue = monster.U_LUCK.ToString() ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  "属性*经验",ContentValue = monster.U_EXP.ToString() ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  "属性*亲密",ContentValue = monster.U_FAVORABILITY.ToString() ,UIType = (int)EnumGameSwitchUIType.TextEditor},
+
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_YING_YANG),DisplayName =  "属性*阴阳",ContentValue = monster.U_YING_YANG.ToString(),SelectedContents = MonsterYINGYANGs ,UIType = (int)EnumGameSwitchUIType.Selects},
+
+
+
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_TYPE),DisplayName =  "属性*类型",ContentValue = monster.U_TYPE.ToString() ,SelectedContents =MonsterTypes ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_ATK_FORCE),DisplayName =  "属性*力量",ContentValue = monster.U_ATK_FORCE.ToString() ,SelectedContents =MonsterAtkForces ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_WEIGHT),DisplayName =  "属性*体型",ContentValue = monster.U_WEIGHT.ToString() ,SelectedContents =MonsterWeight ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_ATK_TYPE),DisplayName =  "攻击*方式",ContentValue = monster.U_ATK_TYPE.ToString(),SelectedContents = MonsterArkType ,UIType = (int)EnumGameSwitchUIType.Selects},
+
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  "成长*攻击",ContentValue = monster.GROWTH_ATK.ToString(),UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  "成长*防御",ContentValue = monster.GROWTH_DEF.ToString(),UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  "成长*生命",ContentValue = monster.GROWTH_HP.ToString(),UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  "成长*意志",ContentValue = monster.GROWTH_WP.ToString() ,UIType = (int)EnumGameSwitchUIType.TextEditor},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  "成长*妖术",ContentValue = monster.GROWTH_MAGIC.ToString() ,UIType = (int)EnumGameSwitchUIType.TextEditor},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  "成长*会心",ContentValue = monster.GROWTH_CRIT.ToString(),UIType = (int)EnumGameSwitchUIType.TextEditor },
+
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.RANK_ATK),DisplayName =  "级别*攻击",ContentValue = monster.RANK_ATK.ToString() ,SelectedContents =MonsterRanks ,UIType = (int)EnumGameSwitchUIType.Selects },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.RANK_DEF),DisplayName =  "级别*防御",ContentValue = monster.RANK_DEF.ToString(),SelectedContents =MonsterRanks ,UIType = (int)EnumGameSwitchUIType.Selects },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.RANK_HP),DisplayName =  "级别*生命",ContentValue = monster.RANK_HP.ToString(),SelectedContents =MonsterRanks  ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.RANK_WP),DisplayName =  "级别*意志",ContentValue = monster.RANK_WP.ToString() ,SelectedContents =MonsterRanks ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.RANK_MAGIC),DisplayName =  "级别*妖术",ContentValue = monster.RANK_MAGIC.ToString() ,SelectedContents =MonsterRanks ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.RANK_CRIT),DisplayName =  "级别*会心",ContentValue = monster.RANK_CRIT.ToString() ,SelectedContents =MonsterRanks ,UIType = (int)EnumGameSwitchUIType.Selects},
+
+
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_FIRE_RESIST),DisplayName =  "抵抗*火焰",ContentValue = monster.U_FIRE_RESIST.ToString() ,SelectedContents =MonsterResists,UIType = (int)EnumGameSwitchUIType.Selects },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_COLD_RESIST),DisplayName =  "抵抗*冰霜",ContentValue = monster.U_COLD_RESIST.ToString() ,SelectedContents =MonsterResists ,UIType = (int)EnumGameSwitchUIType.Selects },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_LTNG_RESIST),DisplayName =  "抵抗*雷电",ContentValue = monster.U_LTNG_RESIST.ToString(),SelectedContents =MonsterResists  ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_WIND_RESIST),DisplayName =  "抵抗*狂风",ContentValue = monster.U_WIND_RESIST.ToString() ,SelectedContents =MonsterResists,UIType = (int)EnumGameSwitchUIType.Selects },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_POISON_RESIST),DisplayName =  "抵抗*剧毒",ContentValue = monster.U_POISON_RESIST.ToString() ,SelectedContents =MonsterResists ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_DARK_RESIST),DisplayName =  "抵抗*黑暗",ContentValue = monster.U_DARK_RESIST.ToString() ,SelectedContents =MonsterResists ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_PUNCTURE_RESIST),DisplayName =  "抵抗*穿刺",ContentValue = monster.U_PUNCTURE_RESIST.ToString() ,SelectedContents =MonsterResists ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_SHOCK_RESIST),DisplayName =  "抵抗*震荡",ContentValue = monster.U_SHOCK_RESIST.ToString() ,SelectedContents =MonsterResists ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_TEAR_RESIST),DisplayName =  "抵抗*撕裂",ContentValue = monster.U_TEAR_RESIST.ToString() ,SelectedContents =MonsterResists ,UIType = (int)EnumGameSwitchUIType.Selects},
+                        //new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_DEBUFF_RESIST),DisplayName =  "抵抗*减益",ContentValue = monster.U_DEBUFF_RESIST.ToString(),SelectedContents =MonsterResists  },
+
+
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_COOK),DisplayName =  "技艺*厨艺",ContentValue = monster.U_COOK.ToString()  ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_DRAW),DisplayName =  "技艺*符咒",ContentValue = monster.U_DRAW.ToString()  ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_PLANT),DisplayName =  "技艺*种植",ContentValue = monster.U_PLANT.ToString() ,UIType = (int)EnumGameSwitchUIType.TextEditor  },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_EXPLOIT),DisplayName =  "技艺*开采",ContentValue = monster.U_EXPLOIT.ToString()   ,UIType = (int)EnumGameSwitchUIType.TextEditor},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_UNDERSTANDING),DisplayName =  "技艺*悟性",ContentValue = monster.U_UNDERSTANDING.ToString()  ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_GUARD),DisplayName =  "技艺*护卫",ContentValue = monster.U_GUARD.ToString()   ,UIType = (int)EnumGameSwitchUIType.TextEditor},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_TRADE),DisplayName =  "技艺*游商",ContentValue = monster.U_TRADE.ToString()  ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(monster.U_HUNT),DisplayName =  "技艺*狩猎",ContentValue = monster.U_HUNT.ToString()  ,UIType = (int)EnumGameSwitchUIType.TextEditor },
+
+                        ]
+            };
+        }
         public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = userDataManager.GetUserData();
@@ -1067,41 +1224,26 @@ namespace Maple.Ghostmon
                 {
                     ObjectId = characterObjectDTO.CharacterId,
                     CharacterAttributes = [
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),DisplayValue = userData.LEV_RANK.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),DisplayValue = userData.RANK_VALUE.ToString(),CanWrite = true },
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),DisplayValue = userData.TOTAL_RANK_VALUE.ToString(), },
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),DisplayValue = userData.LEV_SEAL.ToString(), },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),ContentValue = userData.LEV_RANK.ToString()  },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),ContentValue = userData.RANK_VALUE.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),ContentValue = userData.TOTAL_RANK_VALUE.ToString(), },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),ContentValue = userData.LEV_SEAL.ToString(), },
                         ]
                 };
             }
             else
             {
+
+
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
                     if (total.Key == characterObjectDTO.UCharacterId && total.Value.Valid())
                     {
-                        var monster = total.Value;
-                        return new GameCharacterStatusDTO()
-                        {
-                            ObjectId = characterObjectDTO.CharacterId,
-                            CharacterAttributes = [
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  "属性*异色",DisplayValue = monster.U_VARI_COLOR.ToString() ,CanWrite = true },
-                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  "属性*闪光",DisplayValue = monster.U_FLASH.ToString()  ,CanWrite = true},
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  "属性*等级",DisplayValue = monster.U_LEVEL.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  "属性*当前经验",DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  "属性*累计经验",DisplayValue = monster.U_TOTAL_EXP.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  "属性*亲密",DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
 
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  "成长*攻击",DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  "成长*妖力",DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  "成长*防御",DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  "成长*意志",DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  "成长*生命",DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  "成长*会心",DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+                        return GetCharacterStatus(characterObjectDTO, total.Value);
 
-                        ]
-                        };
+
                     }
                 }
             }
@@ -1119,10 +1261,10 @@ namespace Maple.Ghostmon
                     {
                         ObjectId = characterModifyDTO.CharacterId,
                         CharacterAttributes = [
-                         new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),DisplayValue = userData.LEV_RANK.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),DisplayValue = userData.RANK_VALUE.ToString(),CanWrite = true },
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),DisplayValue = userData.TOTAL_RANK_VALUE.ToString(), },
-                        new GameValueInfoDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),DisplayValue = userData.LEV_SEAL.ToString(), },
+                         new GameSwitchDisplayDTO(){ObjectId = nameof(userData.LEV_RANK),DisplayName =  nameof(userData.LEV_RANK),ContentValue = userData.LEV_RANK.ToString()  },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.RANK_VALUE),DisplayName =  nameof(userData.RANK_VALUE),ContentValue = userData.RANK_VALUE.ToString() , UIType = (int)EnumGameSwitchUIType.TextEditor},
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.TOTAL_RANK_VALUE),DisplayName =  nameof(userData.TOTAL_RANK_VALUE),ContentValue = userData.TOTAL_RANK_VALUE.ToString(), },
+                        new GameSwitchDisplayDTO(){ObjectId = nameof(userData.LEV_SEAL),DisplayName =  nameof(userData.LEV_SEAL),ContentValue = userData.LEV_SEAL.ToString(), },
                         ]
                     };
                 }
@@ -1133,7 +1275,13 @@ namespace Maple.Ghostmon
                 {
                     if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
                     {
+
                         var monster = total.Value;
+                        if (false == @this.TryGetMonsterObject(monster.U_PREFAB, out var monsterObj))
+                        {
+                            return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
+                        }
+
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_EXP))
                         {
                             monster.U_EXP = characterModifyDTO.IntValue;
@@ -1142,8 +1290,151 @@ namespace Maple.Ghostmon
                         {
                             monster.U_FAVORABILITY = characterModifyDTO.IntValue;
                         }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_LUCK))
+                        {
+                            monster.U_LUCK = characterModifyDTO.FloatValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_YING_YANG))
+                        {
+                            monster.U_YING_YANG = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_TYPE))
+                        {
+                            monster.U_TYPE = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_ATK_FORCE))
+                        {
+                            monster.U_ATK_FORCE = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_WEIGHT))
+                        {
+                            monster.U_WEIGHT = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_ATK_TYPE))
+                        {
+                            monster.U_ATK_TYPE = characterModifyDTO.IntValue;
+                        }
 
 
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_ATK))
+                        {
+                            monster.GROWTH_ATK = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_DEF))
+                        {
+                            monster.GROWTH_DEF = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_HP))
+                        {
+                            monster.GROWTH_HP = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_WP))
+                        {
+                            monster.GROWTH_WP = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_MAGIC))
+                        {
+                            monster.GROWTH_MAGIC = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_CRIT))
+                        {
+                            monster.GROWTH_CRIT = characterModifyDTO.IntValue;
+                        }
+
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_ATK))
+                        {
+                            monster.RANK_ATK = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_DEF))
+                        {
+                            monster.RANK_DEF = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_HP))
+                        {
+                            monster.RANK_HP = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_WP))
+                        {
+                            monster.RANK_WP = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_MAGIC))
+                        {
+                            monster.RANK_MAGIC = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_CRIT))
+                        {
+                            monster.RANK_CRIT = characterModifyDTO.IntValue;
+                        }
+
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_FIRE_RESIST))
+                        {
+                            monster.U_FIRE_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_COLD_RESIST))
+                        {
+                            monster.U_COLD_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_LTNG_RESIST))
+                        {
+                            monster.U_LTNG_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_WIND_RESIST))
+                        {
+                            monster.U_WIND_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_POISON_RESIST))
+                        {
+                            monster.U_POISON_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_DARK_RESIST))
+                        {
+                            monster.U_DARK_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_PUNCTURE_RESIST))
+                        {
+                            monster.U_PUNCTURE_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_SHOCK_RESIST))
+                        {
+                            monster.U_SHOCK_RESIST = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_TEAR_RESIST))
+                        {
+                            monster.U_TEAR_RESIST = characterModifyDTO.IntValue;
+                        }
+
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_COOK))
+                        {
+                            monster.U_COOK = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_DRAW))
+                        {
+                            monster.U_DRAW = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_PLANT))
+                        {
+                            monster.U_PLANT = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_EXPLOIT))
+                        {
+                            monster.U_EXPLOIT = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_UNDERSTANDING))
+                        {
+                            monster.U_UNDERSTANDING = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_GUARD))
+                        {
+                            monster.U_GUARD = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_TRADE))
+                        {
+                            monster.U_TRADE = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(monster.U_HUNT))
+                        {
+                            monster.U_HUNT = characterModifyDTO.IntValue;
+                        }
 
                         var rank = 0;
                         var upRank = characterModifyDTO.BoolValue ?? false;
@@ -1154,19 +1445,11 @@ namespace Maple.Ghostmon
                         }
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_VARI_COLOR))
                         {
-                            ;
                             monster.U_VARI_COLOR = upRank;
                             rank = 3;
                         }
                         if (rank > 0)
                         {
-
-                            if (false == @this.TryGetMonsterObject(monster.U_PREFAB, out var monsterObj))
-                            {
-                                return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
-                            }
-
-
                             if (upRank)
                             {
                                 monster.ORDER_GROWTH_VALUE(rank, monsterObj.GROWTH_ATK, (int)EnumMonsterGrowthType.GROWTH_ATK);
@@ -1204,46 +1487,19 @@ namespace Maple.Ghostmon
                                 monster.GROWTH_CRIT = growth_wp[1];
 
                             }
-
-
-
-                            monster.GetCurrentBasicProperty(monsterObj);
-
-
-
                         }
 
+                        //基础属性重新计算
+                        monster.GetCurrentBasicProperty(monsterObj);
 
 
-                        return new GameCharacterStatusDTO()
-                        {
-                            ObjectId = characterModifyDTO.CharacterId,
-                            CharacterAttributes = [
-                       new GameValueInfoDTO(){ObjectId = nameof(monster.U_VARI_COLOR),DisplayName =  nameof(monster.U_VARI_COLOR),DisplayValue = monster.U_VARI_COLOR.ToString() ,CanWrite = true },
-                         new GameValueInfoDTO(){ObjectId = nameof(monster.U_FLASH),DisplayName =  nameof(monster.U_FLASH),DisplayValue = monster.U_FLASH.ToString()  ,CanWrite = true},
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_LEVEL),DisplayName =  nameof(monster.U_LEVEL),DisplayValue = monster.U_LEVEL.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_EXP),DisplayName =  nameof(monster.U_EXP),DisplayValue = monster.U_EXP.ToString() ,CanWrite = true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_TOTAL_EXP),DisplayName =  nameof(monster.U_TOTAL_EXP),DisplayValue = monster.U_TOTAL_EXP.ToString()  },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.U_FAVORABILITY),DisplayName =  nameof(monster.U_FAVORABILITY),DisplayValue = monster.U_FAVORABILITY.ToString(),CanWrite= true },
 
 
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  "成长*攻击",DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  "成长*妖力",DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  "成长*防御",DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  "成长*意志",DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  "成长*生命",DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  "成长*会心",DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
+
+                        return GetCharacterStatus(characterModifyDTO, total.Value);
 
 
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_ATK),DisplayName =  nameof(monster.GROWTH_ATK),DisplayValue = monster.GROWTH_ATK.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_MAGIC),DisplayName =  nameof(monster.GROWTH_MAGIC),DisplayValue = monster.GROWTH_MAGIC.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_DEF),DisplayName =  nameof(monster.GROWTH_DEF),DisplayValue = monster.GROWTH_DEF.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_WP),DisplayName =  nameof(monster.GROWTH_WP),DisplayValue = monster.GROWTH_WP.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_HP),DisplayName =  nameof(monster.GROWTH_HP),DisplayValue = monster.GROWTH_HP.ToString(),CanPreview= true },
-                        //new GameValueInfoDTO(){ObjectId = nameof(monster.GROWTH_CRIT),DisplayName =  nameof(monster.GROWTH_CRIT),DisplayValue = monster.GROWTH_CRIT.ToString(),CanPreview= true },
 
-                        ]
-                        };
                     }
                 }
             }
@@ -1322,11 +1578,15 @@ namespace Maple.Ghostmon
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
                     new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
 
-                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
-                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
-                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
-                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
 
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
+                    //new (){ ObjectId = ability,DisplayCategory = ability,CanWrite =true},
 
                 ];
 
@@ -1388,11 +1648,12 @@ namespace Maple.Ghostmon
 
                     //fix skill
                     IEnumerable<ulong> skills;
-                    if (monsterData.U_ABILITIES.Size > 4)
-                    {
-                        skills = [];
-                    }
-                    else if (addSkillId == 0LU)
+                    //if (monsterData.U_ABILITIES.Size > 4)
+                    //{
+                    //    skills = [];
+                    //}
+                    //else
+                    if (addSkillId == 0LU)
                     {
                         skills = RemoveTheSkill(monsterData, removeSkillId);
                     }
@@ -1403,7 +1664,11 @@ namespace Maple.Ghostmon
                     var strSkill = string.Join(',', skills);
                     var monoString = @this.T(strSkill);
                     var ptrSkills = GameBasicUtil.Ptr_GameBasicUtil.STRING_TO_LONG_ARRAY(monoString, ',');
-                    monsterData.U_ABILITIES = new PMonoArray<ulong>(ptrSkills);
+
+
+                    using var gchandle = @this.RuntimeContext.CreateMonoGCHandle(ptrSkills, true);
+                    var newPtrSkills = gchandle.GetTarget<PMonoArray<UInt64>>();
+                    monsterData.U_ABILITIES = newPtrSkills;
 
 
                     return new GameCharacterSkillDTO()
@@ -1729,6 +1994,63 @@ namespace Maple.Ghostmon
 
         }
 
+
+        public static void ChangeMonsterFlash(
+            this GhostmonGameContext @this,
+            UserDataManager.Ptr_UserDataManager userDataManager,
+            GameSwitchDisplayDTO gameSwitchDisplay,
+            bool on)
+        {
+            var player = userDataManager.PLAYER_PROPERTY;
+            if (false == player.Valid())
+            {
+                GameException.Throw<MapWeather>("Please enter the game first (1)");
+            }
+            else
+            {
+                if (on)
+                {
+                    var old = player.P_FLASH_SCALE;
+                    gameSwitchDisplay.FloatCache = old;
+                    player.P_FLASH_SCALE = 1000F;
+                }
+                else
+                {
+
+                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
+                    player.P_FLASH_SCALE = val;
+                }
+            }
+
+        }
+        public static void ChangeMonsterColor(
+    this GhostmonGameContext @this,
+    UserDataManager.Ptr_UserDataManager userDataManager,
+    GameSwitchDisplayDTO gameSwitchDisplay,
+    bool on)
+        {
+            var player = userDataManager.PLAYER_PROPERTY;
+            if (false == player.Valid())
+            {
+                GameException.Throw<MapWeather>("Please enter the game first (1)");
+            }
+            else
+            {
+                if (on)
+                {
+                    var old = player.P_COLORFUL_SCALE;
+                    gameSwitchDisplay.FloatCache = old;
+                    player.P_COLORFUL_SCALE = 500F;
+                }
+                else
+                {
+
+                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
+                    player.P_COLORFUL_SCALE = val;
+                }
+            }
+
+        }
         public static CharacterCore.Ptr_CharacterCore GetScanMode(this GhostmonGameContext @this)
         {
             var characterCore = @this.CharacterCore.INSTANCE;

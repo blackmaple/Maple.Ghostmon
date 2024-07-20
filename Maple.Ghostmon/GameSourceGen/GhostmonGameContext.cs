@@ -27,7 +27,7 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(USkillObject))]
 
 
-
+    [MonoCollectorType(typeof(EvoMaterialData))]
     [MonoCollectorType(typeof(MaterialData))]
 
     [MonoCollectorType(typeof(AbilityBookData))]

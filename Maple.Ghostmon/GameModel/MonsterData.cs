@@ -4,8 +4,110 @@ using Maple.MonoGameAssistant.MonoCollectorDataV2;
 
 namespace Maple.Ghostmon
 {
+    public enum BattleDamageType
+    {
+        
+        // Token: 0x04001B44 RID: 6980
+        /// <summary>
+        /// SHOCK,
+        /// </summary>
+        Õðµ´,
+        // Token: 0x04001B45 RID: 6981
+        /// <summary>
+        /// PUNCTURE,
+        /// </summary>
+        ´©´Ì,
+        // Token: 0x04001B46 RID: 6982
+        /// <summary>
+        /// TEAR,
+        /// </summary>
+        Ëº¿ª,
+        // Token: 0x04001B47 RID: 6983
+        /// <summary>
+        /// FIRE,
+        /// </summary>
+        »ðÑæ,
+        // Token: 0x04001B48 RID: 6984
+        /// <summary>
+        /// FROST,
+        /// </summary>
+        ±ùËª,
+        // Token: 0x04001B49 RID: 6985
+        /// <summary>
+        /// LIGHTNING,
+        /// </summary>
+        À×µç,
+        // Token: 0x04001B4A RID: 6986
+        /// <summary>
+        /// WIND,
+        /// </summary>
+        ¿ñ·ç,
+        // Token: 0x04001B4B RID: 6987
+        /// <summary>
+        /// POISON,
+        /// </summary>
+        ¶¾Ò©,
+        // Token: 0x04001B4C RID: 6988
+        /// <summary>
+        /// DARKNESS,
+        /// </summary>
+        ºÚ°µ,
+        // Token: 0x04001B4D RID: 6989
+        /// <summary>
+        /// FIXED,
+        /// </summary>
+        ¹Ì¶¨,
+        // Token: 0x04001B4E RID: 6990
+        ///TREAT,
+        ÖÎÁÆ
+    }
 
+    public enum EnumMonsterResist
+    {
+        Ò×¸Ð = -1,
+        ÆÕÍ¨ = 0,
+        ÃâÒß = 1,
+    }
 
+    public enum EnumMonsterType
+    {
+        ÆÕÍ¨ = 0,
+        Ê×Áì = 1,
+        Ð°Ä§ = 2,
+    }
+    public enum EnumMonsterRank
+    {
+        Rank1 = 1,
+        Rank2 = 2,
+        Rank3 = 3,
+        Rank4 = 4,
+        Rank5 = 5,
+        Rank6 = 6,
+    }
+    public enum EnumMonsterWeight
+    {
+        ÃÔÄã = 1,
+        ³¬Ð¡ = 2,
+        Ð¡ = 3,
+        ÖÐ = 4,
+        ´ó = 5,
+        ³¬´ó = 6,
+        ¾Þ´ó = 7,
+    }
+
+    public enum EnumMonsterAtkForce
+    {
+        ³¬Èõ = 0,
+        Èõ = 1,
+        ÖÐ = 2,
+        Ç¿ = 3,
+    }
+
+    public enum EnumMonsterYINGYANG
+    {
+        Òõ = 0,
+        Ñô = 1,
+    }
     /// <summary>
     /// class ["Assembly-CSharp.dll".""."MonsterData"]
     /// [System.Object]
@@ -14,6 +116,310 @@ namespace Maple.Ghostmon
     //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000124U)]
     [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [77, 111, 110, 115, 116, 101, 114, 68, 97, 116, 97])]
 
+    #region 0.95C
+    // struct 0x10 System.UInt64 dataID
+    // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"dataID", "DATA_ID")]
+
+    // class 0x18 System.String u_name
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_name", "U_NAME")]
+
+    // class 0x20 System.String u_prefab
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_prefab", "U_PREFAB")]
+
+    // struct 0x28 System.UInt64 u_professional
+    // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"u_professional", "U_PROFESSIONAL")]
+
+    // struct 0x30 System.Int32 u_race
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_race", "U_RACE")]
+
+    // struct 0x34 System.Int32 u_job
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_job", "U_JOB")]
+
+    // struct 0x38 System.Int32 u_rank
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_rank", "U_RANK")]
+
+    // struct 0x3C System.Int32 u_YingYang
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_YingYang", "U_YING_YANG")]
+
+    // struct 0x40 System.Boolean u_flash
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"u_flash", "U_FLASH")]
+
+    // struct 0x41 System.Boolean u_vari_color
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"u_vari_color", "U_VARI_COLOR")]
+
+    // struct 0x42 System.Boolean u_upLv
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"u_upLv", "U_UP_LV")]
+
+    // struct 0x44 System.Int32 u_exploit
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_exploit", "U_EXPLOIT")]
+
+    // struct 0x48 System.Int32 u_plant
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_plant", "U_PLANT")]
+
+    // struct 0x4C System.Int32 u_hunt
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_hunt", "U_HUNT")]
+
+    // struct 0x50 System.Int32 u_cook
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_cook", "U_COOK")]
+
+    // struct 0x54 System.Int32 u_understanding
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_understanding", "U_UNDERSTANDING")]
+
+    // struct 0x58 System.Int32 u_draw
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_draw", "U_DRAW")]
+
+    // struct 0x5C System.Int32 u_guard
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_guard", "U_GUARD")]
+
+    // struct 0x60 System.Int32 u_trade
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_trade", "U_TRADE")]
+
+    // enum 0x64 MonsterJob monsterJob
+    // [MonoCollectorSearchFieldAttribute(typeof(MonsterJob),"monsterJob", "MONSTER_JOB")]
+
+    // struct 0x68 System.Single u_capture_prob
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_capture_prob", "U_CAPTURE_PROB")]
+
+    // struct 0x6C System.Int32 u_type
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_type", "U_TYPE", IsReadOnly = false)]
+
+    // class 0x70 System.String[] u_friends
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_friends", "U_FRIENDS")]
+
+    // struct 0x78 System.Int32 u_friends_num
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_friends_num", "U_FRIENDS_NUM")]
+
+    // struct 0x7C System.Int32 u_level
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_level", "U_LEVEL")]
+
+    // struct 0x80 System.Int32 u_exp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_exp", "U_EXP")]
+
+    // struct 0x84 System.Int32 u_total_exp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_total_exp", "U_TOTAL_EXP")]
+
+    // struct 0x88 System.Single u_favorability
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_favorability", "U_FAVORABILITY")]
+
+    // struct 0x90 System.Int64 u_gainTime
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int64),"u_gainTime", "U_GAIN_TIME")]
+
+    // class 0x98 System.Int32[] u_ability_tags
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_ability_tags", "U_ABILITY_TAGS")]
+
+    // class 0xA0 System.UInt64[] u_abilities
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_abilities", "U_ABILITIES")]
+
+    // struct 0xA8 System.Single growth_atk
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_atk", "GROWTH_ATK")]
+
+    // struct 0xAC System.Single growth_magic
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_magic", "GROWTH_MAGIC")]
+
+    // struct 0xB0 System.Single growth_def
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_def", "GROWTH_DEF")]
+
+    // struct 0xB4 System.Single growth_wp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_wp", "GROWTH_WP")]
+
+    // struct 0xB8 System.Single growth_hp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_hp", "GROWTH_HP")]
+
+    // struct 0xBC System.Single growth_crit
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"growth_crit", "GROWTH_CRIT")]
+
+    // struct 0xC0 System.Int32 rank_atk
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"rank_atk", "RANK_ATK")]
+
+    // struct 0xC4 System.Int32 rank_magic
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"rank_magic", "RANK_MAGIC")]
+
+    // struct 0xC8 System.Int32 rank_def
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"rank_def", "RANK_DEF")]
+
+    // struct 0xCC System.Int32 rank_wp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"rank_wp", "RANK_WP")]
+
+    // struct 0xD0 System.Int32 rank_hp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"rank_hp", "RANK_HP")]
+
+    // struct 0xD4 System.Int32 rank_crit
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"rank_crit", "RANK_CRIT")]
+
+    // struct 0xD8 System.Int32 u_atk_type
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_atk_type", "U_ATK_TYPE")]
+
+    // struct 0xDC System.Single u_atk
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_atk", "U_ATK")]
+
+    // struct 0xE0 System.Single u_magic
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_magic", "U_MAGIC")]
+
+    // struct 0xE4 System.Single u_def
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_def", "U_DEF")]
+
+    // struct 0xE8 System.Single u_wp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_wp", "U_WP")]
+
+    // struct 0xEC System.Single u_maxHp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_maxHp", "U_MAX_HP")]
+
+    // struct 0xF0 System.Int32 u_fire_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_fire_resist", "U_FIRE_RESIST", IsReadOnly = false)]
+
+    // struct 0xF4 System.Int32 u_cold_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_cold_resist", "U_COLD_RESIST", IsReadOnly = false)]
+
+    // struct 0xF8 System.Int32 u_ltng_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_ltng_resist", "U_LTNG_RESIST", IsReadOnly = false)]
+
+    // struct 0xFC System.Int32 u_wind_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_wind_resist", "U_WIND_RESIST", IsReadOnly = false)]
+
+    // struct 0x100 System.Int32 u_poison_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_poison_resist", "U_POISON_RESIST", IsReadOnly = false)]
+
+    // struct 0x104 System.Int32 u_dark_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_dark_resist", "U_DARK_RESIST", IsReadOnly = false)]
+
+    // struct 0x108 System.Int32 u_puncture_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_puncture_resist", "U_PUNCTURE_RESIST", IsReadOnly = false)]
+
+    // struct 0x10C System.Int32 u_shock_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_shock_resist", "U_SHOCK_RESIST", IsReadOnly = false)]
+
+    // struct 0x110 System.Int32 u_tear_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_tear_resist", "U_TEAR_RESIST", IsReadOnly = false)]
+
+    // struct 0x114 System.Single u_fire_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_fire_increase", "U_FIRE_INCREASE")]
+
+    // struct 0x118 System.Single u_cold_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_cold_increase", "U_COLD_INCREASE")]
+
+    // struct 0x11C System.Single u_ltng_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_ltng_increase", "U_LTNG_INCREASE")]
+
+    // struct 0x120 System.Single u_wind_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_wind_increase", "U_WIND_INCREASE")]
+
+    // struct 0x124 System.Single u_poison_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_poison_increase", "U_POISON_INCREASE")]
+
+    // struct 0x128 System.Single u_dark_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_dark_increase", "U_DARK_INCREASE")]
+
+    // struct 0x12C System.Single u_puncture_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_puncture_increase", "U_PUNCTURE_INCREASE")]
+
+    // struct 0x130 System.Single u_shock_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_shock_increase", "U_SHOCK_INCREASE")]
+
+    // struct 0x134 System.Single u_tear_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_tear_increase", "U_TEAR_INCREASE")]
+
+    // struct 0x138 System.Single u_hp
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_hp", "U_HP")]
+
+    // struct 0x13C System.Single u_crit
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_crit", "U_CRIT")]
+
+    // struct 0x140 System.Single u_critDmg
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_critDmg", "U_CRIT_DMG")]
+
+    // struct 0x144 System.Single u_luck
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_luck", "U_LUCK", IsReadOnly = false)]
+
+    // struct 0x148 System.Single u_move_speed
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_move_speed", "U_MOVE_SPEED", IsReadOnly = false)]
+
+    // struct 0x14C System.Single u_atk_speed_freq
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_atk_speed_freq", "U_ATK_SPEED_FREQ")]
+
+    // struct 0x150 System.Single u_atk_speed
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_atk_speed", "U_ATK_SPEED", IsReadOnly = false)]
+
+    // struct 0x154 System.Single u_atk_range
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_atk_range", "U_ATK_RANGE", IsReadOnly = false)]
+
+    // struct 0x158 System.Single u_mana_gather
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_mana_gather", "U_MANA_GATHER")]
+
+    // struct 0x15C System.Single u_hp_gather
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_hp_gather", "U_HP_GATHER")]
+
+    // struct 0x160 System.Single u_skill_cost
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_skill_cost", "U_SKILL_COST")]
+
+    // struct 0x164 System.Boolean u_atk_remote
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"u_atk_remote", "U_ATK_REMOTE")]
+
+    // struct 0x168 System.Single u_drain_life
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_drain_life", "U_DRAIN_LIFE")]
+
+    // struct 0x16C System.Int32 u_dmg_block
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_dmg_block", "U_DMG_BLOCK")]
+
+    // struct 0x170 System.Int32 u_armor_penetration
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_armor_penetration", "U_ARMOR_PENETRATION")]
+
+    // struct 0x174 System.Single u_treatment_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_treatment_increase", "U_TREATMENT_INCREASE")]
+
+    // struct 0x178 System.Single u_recover_increase
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_recover_increase", "U_RECOVER_INCREASE")]
+
+    // struct 0x17C System.Single u_ele_block_rate
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_ele_block_rate", "U_ELE_BLOCK_RATE")]
+
+    // struct 0x180 System.Single u_debuff_resist
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_debuff_resist", "U_DEBUFF_RESIST", IsReadOnly = false)]
+
+    // struct 0x188 System.UInt64 u_bullet_ID
+    // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"u_bullet_ID", "U_BULLET_ID")]
+
+    // class 0x190 System.String u_hit_effect
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_hit_effect", "U_HIT_EFFECT")]
+
+    // class 0x198 System.String u_hit_sound
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_hit_sound", "U_HIT_SOUND")]
+
+    // class 0x1A0 System.String u_atk_sound
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_atk_sound", "U_ATK_SOUND")]
+
+    // class 0x1A8 System.String u_spell_sound
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_spell_sound", "U_SPELL_SOUND")]
+
+    // class 0x1B0 System.String u_deploy_sound
+    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_deploy_sound", "U_DEPLOY_SOUND")]
+
+    // struct 0x1B8 System.Single u_move_per
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_move_per", "U_MOVE_PER")]
+
+    // struct 0x1BC System.Single u_atk_preTime
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_atk_preTime", "U_ATK_PRE_TIME")]
+
+    // struct 0x1C0 System.Single u_atk_aniTime
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_atk_aniTime", "U_ATK_ANI_TIME")]
+
+    // struct 0x1C4 System.Single u_spell_preTime
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_spell_preTime", "U_SPELL_PRE_TIME")]
+
+    // struct 0x1C8 System.Single u_spell_aniTime
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_spell_aniTime", "U_SPELL_ANI_TIME")]
+
+    // struct 0x1CC System.Single u_radius
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_radius", "U_RADIUS")]
+
+    // struct 0x1D0 System.Int32 u_weight
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_weight", "U_WEIGHT", IsReadOnly = false)]
+
+    // struct 0x1D4 System.Int32 u_atk_force
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_atk_force", "U_ATK_FORCE", IsReadOnly = false)]
+
+    // struct 0x1D8 System.Single u_scale
+    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_scale", "U_SCALE")]
+    #endregion
 
     // struct 0x10 System.UInt64 dataID
     [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "dataID", "DATA_ID")]
@@ -34,7 +440,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_job", "U_JOB")]
 
     // struct 0x38 System.Int32 u_YingYang
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_YingYang", "U_YING_YANG")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_YingYang", "U_YING_YANG", IsReadOnly = false)]
 
     // struct 0x3C System.Boolean u_flash
     [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "u_flash", "U_FLASH", IsReadOnly = false)]
@@ -43,28 +449,28 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "u_vari_color", "U_VARI_COLOR", IsReadOnly = false)]
 
     // struct 0x40 System.Int32 u_exploit
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_exploit", "U_EXPLOIT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_exploit", "U_EXPLOIT", IsReadOnly = false)]
 
     // struct 0x44 System.Int32 u_plant
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_plant", "U_PLANT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_plant", "U_PLANT", IsReadOnly = false)]
 
     // struct 0x48 System.Int32 u_hunt
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_hunt", "U_HUNT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_hunt", "U_HUNT", IsReadOnly = false)]
 
     // struct 0x4C System.Int32 u_cook
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_cook", "U_COOK")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_cook", "U_COOK", IsReadOnly = false)]
 
     // struct 0x50 System.Int32 u_understanding
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_understanding", "U_UNDERSTANDING")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_understanding", "U_UNDERSTANDING", IsReadOnly = false)]
 
     // struct 0x54 System.Int32 u_draw
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_draw", "U_DRAW")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_draw", "U_DRAW", IsReadOnly = false)]
 
     // struct 0x58 System.Int32 u_guard
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_guard", "U_GUARD")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_guard", "U_GUARD", IsReadOnly = false)]
 
     // struct 0x5C System.Int32 u_trade
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_trade", "U_TRADE")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_trade", "U_TRADE", IsReadOnly = false)]
 
     // enum 0x60 MonsterJob monsterJob
     // [MonoCollectorSearchFieldAttribute(typeof(MonsterJob),"monsterJob", "MONSTER_JOB")]
@@ -134,7 +540,7 @@ namespace Maple.Ghostmon
 
 
     // struct 0xC0 System.Int32 u_atk_type
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_atk_type", "U_ATK_TYPE")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_atk_type", "U_ATK_TYPE", IsReadOnly = false)]
 
     // struct 0xC4 System.Single u_atk
     [MonoCollectorSearchFieldAttribute(typeof(System.Single), "u_atk", "U_ATK", IsReadOnly = false)]
@@ -426,7 +832,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="range">struct UnityEngine.Vector2</param>
         /// <returns>struct System.Single</returns>
-        
+
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetGrowthValue")]
         // extern System.Single GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
         //add 0.95B

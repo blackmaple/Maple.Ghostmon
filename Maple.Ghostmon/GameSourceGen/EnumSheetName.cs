@@ -12,6 +12,7 @@
         RareConfig = 3,
         AbilityBookConfig = 4,
         TreasureConfig = 5,
+        EvoMaterialConfig = 7,
         ClothingConfig = 8,
         MenuConfig = 9,
         EggConfig = 10,

@@ -23,10 +23,7 @@ namespace Maple.Ghostmon
         protected sealed override GhostmonGameContext LoadGameContext()
            => GhostmonGameContext.LoadGhostmonGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Ver_Common, this.Logger);
 
-        //protected sealed override GameSwitchDisplayDTO[] InitListGameSwitch()
-        //{
-        //    return Enumerable.Range(0, 10).Select(p => new GameSwitchDisplayDTO { ObjectId = p.ToString(), DisplayName = $"DisplayName_{p}", DisplayDesc = $"DisplayDesc_{p}", SwitchValue = false }).ToArray();
-        //}
+ 
 
         protected sealed override async ValueTask LoadGameDataAsync()
         {
@@ -341,6 +338,32 @@ namespace Maple.Ghostmon
                 }
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
             }
+            else if (gameSwitchName == EnumGameSwitchName.MonsterFlash)
+            {
+                var on = gameSwitchModify.SwitchValue;
+                if (on)
+                {
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterFlash(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                }
+                else
+                {
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterFlash(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                }
+                await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
+            }
+            else if (gameSwitchName == EnumGameSwitchName.MonsterColor)
+            {
+                var on = gameSwitchModify.SwitchValue;
+                if (on)
+                {
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterColor(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                }
+                else
+                {
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterColor(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                }
+                await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
+            }
             else if (gameSwitchName == EnumGameSwitchName.ScanMode)
             {
                 var userData = await this.GetUserDataAsync(userDataMgr).ConfigureAwait(false);
@@ -381,7 +404,9 @@ namespace Maple.Ghostmon
             DoubleMoveSpeed,
             DoubleMonsterExp,
             ScanMode,
-            MapWeather
+            MapWeather,
+            MonsterFlash,
+            MonsterColor
         }
 
 
@@ -391,14 +416,17 @@ namespace Maple.Ghostmon
 
 
             return [
-                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.ScanMode.ToString(), ButtonType = false, DisplayName = "1分钟灵视(F10)" , DisplayDesc=   "直接进入灵视|时长约为:60s" ,SwitchValue = false,},
-                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomBuff.ToString(), ButtonType = true, DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方妖精|仅限战斗准备阶段使用" ,SwitchValue = false,},
-                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomDeBuff.ToString(), ButtonType = true, DisplayName = "随机减益(F12)" , DisplayDesc=  "随机DeBuff给敌方妖怪|仅限战斗准备阶段使用" ,SwitchValue = false,},
+                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.ScanMode.ToString(),   DisplayName = "1分钟灵视(F10)" , DisplayDesc=   "直接进入灵视|时长约为:60s" ,SwitchValue = false, UIType = (int)EnumGameSwitchUIType.Switches},
+                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomBuff.ToString(),   DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方妖精|仅限战斗准备阶段使用" ,SwitchValue = false,  UIType = (int)EnumGameSwitchUIType.Button},
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomDeBuff.ToString(),   DisplayName = "随机减益(F12)" , DisplayDesc=  "随机DeBuff给敌方妖怪|仅限战斗准备阶段使用" ,SwitchValue = false, UIType = (int)EnumGameSwitchUIType.Button},
 
-                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMoveSpeed.ToString(), ButtonType = false, DisplayName = "人物双倍移速" , DisplayDesc=  "移速*2" ,SwitchValue = false,},
-                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMonsterExp.ToString(), ButtonType = false, DisplayName = "妖精双倍经验值" , DisplayDesc=  "经验值*2" ,SwitchValue = false,},
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMoveSpeed.ToString(),   DisplayName = "人物双倍移速" , DisplayDesc=  "移速*2" ,SwitchValue = false,UIType = (int)EnumGameSwitchUIType.Switches},
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMonsterExp.ToString(),   DisplayName = "妖精双倍经验值" , DisplayDesc=  "经验值*2" ,SwitchValue = false,UIType = (int)EnumGameSwitchUIType.Switches},
 
-                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MapWeather.ToString(),   DisplayName = "天气" , DisplayDesc=  "天气" ,ContentValue =   MapWeather.CLEAR.ToString(),
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MonsterFlash.ToString(),   DisplayName = "全地图闪光妖精" , DisplayDesc=  "传送/切换地图后生效" ,SwitchValue = false,UIType = (int)EnumGameSwitchUIType.Switches},
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MonsterColor.ToString(),   DisplayName = "全地图异色妖精" , DisplayDesc=  "传送/切换地图后生效" ,SwitchValue = false,UIType = (int)EnumGameSwitchUIType.Switches},
+
+                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MapWeather.ToString(),   DisplayName = "天气" , DisplayDesc=  "天气" ,ContentValue =   MapWeather.CLEAR.ToString(),UIType = (int)EnumGameSwitchUIType.Selects,
                  SelectedContents = [
                      new GameValueInfoDTO(){ ObjectId= MapWeather.CLEAR.ToString(), DisplayName = "天气-晴天",DisplayValue = MapWeather.CLEAR.ToString(),},
                      new GameValueInfoDTO(){ ObjectId= MapWeather.CLOUDY.ToString(), DisplayName = "天气-多云",DisplayValue = MapWeather.CLOUDY.ToString(),},
@@ -410,12 +438,7 @@ namespace Maple.Ghostmon
                  },
 
 
-                // new GameSwitchDisplayDTO(){ ObjectId = MapWeather.CLEAR.ToString(), ButtonType = true, DisplayName = "天气-晴天" , DisplayDesc=  "天气-晴天" ,SwitchValue = false,},
-                // new GameSwitchDisplayDTO(){ ObjectId = MapWeather.CLOUDY.ToString(), ButtonType = true, DisplayName = "天气-多云" , DisplayDesc=  "天气-多云" ,SwitchValue = false,},
-                //new GameSwitchDisplayDTO(){ ObjectId = MapWeather.LIGHT_RAIN.ToString(), ButtonType = true, DisplayName = "天气-小雨" , DisplayDesc=  "天气-小雨" ,SwitchValue = false,},
-                // new GameSwitchDisplayDTO(){ ObjectId = MapWeather.MODERATE_RAIN.ToString(), ButtonType = true, DisplayName = "天气-中雨" , DisplayDesc=  "天气-中雨" ,SwitchValue = false,},
-                //new GameSwitchDisplayDTO(){ ObjectId = MapWeather.HEAVY_RAIN.ToString(), ButtonType = true, DisplayName = "天气-大雨" , DisplayDesc=  "天气-大雨" ,SwitchValue = false,},
-
+ 
 
             ];
         }

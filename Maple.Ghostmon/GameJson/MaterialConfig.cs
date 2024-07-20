@@ -2,8 +2,8 @@
 
 namespace Maple.Ghostmon
 {
-	// Token: 0x02000285 RID: 645
-	public class MaterialConfig : BaseConfig
+    // Token: 0x02000285 RID: 645
+    public class MaterialConfig : BaseConfig
 	{
 		// Token: 0x04001A87 RID: 6791
 		public int price;

@@ -19,7 +19,11 @@ namespace Maple.Ghostmon
     //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000126U)]
     [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [80, 108, 97, 121, 101, 114, 80, 114, 111, 112, 101, 114, 116, 121])]
 
+    // struct 0x10 System.Single p_flash_scale
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "p_flash_scale", "P_FLASH_SCALE", IsReadOnly = false)]
 
+    // struct 0x14 System.Single p_colorful_scale
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "p_colorful_scale", "P_COLORFUL_SCALE", IsReadOnly = false)]
     // struct 0x10 System.Single p_move_speed_scale
     [MonoCollectorSearchFieldAttribute(typeof(System.Single), "p_move_speed_scale", "P_MOVE_SPEED_SCALE", IsReadOnly = false)]
 
