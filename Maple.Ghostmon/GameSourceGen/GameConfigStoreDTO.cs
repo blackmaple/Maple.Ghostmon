@@ -25,7 +25,20 @@
         public List<CuisineConfig> ListCuisineConfig { get; } = new(512);
         public List<EvoMaterialConfig> ListEvoMaterialConfig { get; } = new(512);
 
-        
+        public GameConfigStoreDTO()
+        {
+
+            this.ListIllustrationConfig.AddRange([
+                    new IllustrationConfig(){ prefab = "Monster_JQR" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_100_TheBoss" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_101_TheBoss" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_102_TheBoss" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_103_TheBoss" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_104_TheBoss" }  ,
+
+                ]);
+        }
+
         public void AddConfig(ReadOnlySpan<char> json, EnumSheetName enumSheetName)
         {
             if (json.IsEmpty)

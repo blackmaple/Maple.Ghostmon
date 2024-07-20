@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 using static Maple.Ghostmon.GhostmonGameContextExtensions;
 
 namespace Maple.Ghostmon
@@ -27,6 +28,15 @@ namespace Maple.Ghostmon
         const string Icon_Prefix = "icon_";
 
         const string CharmItemUIAtlas = "CharmItemUIAtlas";
+        const string RareItemUIAtlas = "RareItemUIAtlas";
+        const string TreasureUIAtlas = "TreasureUIAtlas";
+        const string ClothingUIAtlas = "ClothingUIAtlas";
+        //   const string MenuUIAtlas = "MenuUIAtlas";
+        const string EggUIAtlas = "EggUIAtlas";
+        //     const string ItemRecipeUIAtlas = "ItemRecipeUIAtlas";
+        const string BuffUIAtlas = "BuffUIAtlas";
+        //    const string ItemUIAtlas = "ItemUIAtlas";
+        //     const string TravelUIAtlas = "TravelUIAtlas";
 
         public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
 
@@ -102,16 +112,16 @@ namespace Maple.Ghostmon
             //加个延迟等待task完成
             Thread.Sleep(3000);
             var monsterConfig = @this.ConfigDataStore.MONSTER_CFG_STORE;
-            var skillConfig = @this.ConfigDataStore.SKILL_CFG_STORE;
+            //var skillConfig = @this.ConfigDataStore.SKILL_CFG_STORE;
             var count = 0;
             if (monsterConfig.Valid())
             {
                 count += monsterConfig.AsRef().Size;
             }
-            if (skillConfig.Valid())
-            {
-                count += skillConfig.AsRef().Size;
-            }
+            //if (skillConfig.Valid())
+            //{
+            //    count += skillConfig.AsRef().Size;
+            //}
             return count;
         }
         #endregion
@@ -170,15 +180,6 @@ namespace Maple.Ghostmon
 
         static IEnumerable<GameImageData> InitListGameImageData(this GhostmonGameContext @this)
         {
-            const string RareItemUIAtlas = "RareItemUIAtlas";
-            const string TreasureUIAtlas = "TreasureUIAtlas";
-            const string ClothingUIAtlas = "ClothingUIAtlas";
-            //   const string MenuUIAtlas = "MenuUIAtlas";
-            const string EggUIAtlas = "EggUIAtlas";
-            //     const string ItemRecipeUIAtlas = "ItemRecipeUIAtlas";
-            const string BuffUIAtlas = "BuffUIAtlas";
-            //    const string ItemUIAtlas = "ItemUIAtlas";
-            //     const string TravelUIAtlas = "TravelUIAtlas";
             foreach (var monster in @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray())
             {
                 var monsterObj = monster.Value;
@@ -354,6 +355,22 @@ namespace Maple.Ghostmon
                     {
                         Category = EnumSheetName.FishLureConfig.ToString(),
                         ObjectId = fishLure.configID.ToString(),
+                        AtlasName = MaterialUIAtlas,
+                        SpriteName = $"{Icon_Prefix}{prefab}",
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+            foreach (var evo in GameConfigStore.ListEvoMaterialConfig)
+            {
+                var prefab = evo.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.EvoMaterialConfig.ToString(),
+                        ObjectId = evo.configID.ToString(),
                         AtlasName = MaterialUIAtlas,
                         SpriteName = $"{Icon_Prefix}{prefab}",
                         Ptr_Sprite = nint.Zero
@@ -1028,7 +1045,7 @@ namespace Maple.Ghostmon
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
             }
-            userDataManager.GAIN_ITEM((int)category, configId, addCount);
+            userDataManager.GAIN_ITEM((int)category, configId, addCount, false);
             //       @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
             return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
 
@@ -1105,6 +1122,30 @@ namespace Maple.Ghostmon
 
     ];
 
+        static List<GameValueInfoDTO> EggPropertyRanks { get; } =
+    [
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank1.ToString(), DisplayName =EnumEggPropertyRank.Rank1.ToString(),IntValue = (int)EnumEggPropertyRank.Rank1   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank2.ToString(), DisplayName =EnumEggPropertyRank.Rank2.ToString(),IntValue = (int)EnumEggPropertyRank.Rank2   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank3.ToString(), DisplayName =EnumEggPropertyRank.Rank3.ToString(),IntValue = (int)EnumEggPropertyRank.Rank3   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank4.ToString(), DisplayName =EnumEggPropertyRank.Rank4.ToString(),IntValue = (int)EnumEggPropertyRank.Rank4   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank5.ToString(), DisplayName =EnumEggPropertyRank.Rank5.ToString(),IntValue = (int)EnumEggPropertyRank.Rank5   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank6.ToString(), DisplayName =EnumEggPropertyRank.Rank6.ToString(),IntValue = (int)EnumEggPropertyRank.Rank6   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank7.ToString(), DisplayName =EnumEggPropertyRank.Rank7.ToString(),IntValue = (int)EnumEggPropertyRank.Rank7   },
+            new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank8.ToString(), DisplayName =EnumEggPropertyRank.Rank8.ToString(),IntValue = (int)EnumEggPropertyRank.Rank8   },
+ 
+    ];
+        static List<GameValueInfoDTO>  EggAbilityRanks { get; } =
+    [
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank1.ToString(), DisplayName =EnumEggAbilityRank.Rank1.ToString(),IntValue = (int)EnumEggAbilityRank.Rank1   },
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank2.ToString(), DisplayName =EnumEggAbilityRank.Rank2.ToString(),IntValue = (int)EnumEggAbilityRank.Rank2   },
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank3.ToString(), DisplayName =EnumEggAbilityRank.Rank3.ToString(),IntValue = (int)EnumEggAbilityRank.Rank3   },
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank4.ToString(), DisplayName =EnumEggAbilityRank.Rank4.ToString(),IntValue = (int)EnumEggAbilityRank.Rank4   },
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank5.ToString(), DisplayName =EnumEggAbilityRank.Rank5.ToString(),IntValue = (int)EnumEggAbilityRank.Rank5   },
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank6.ToString(), DisplayName =EnumEggAbilityRank.Rank6.ToString(),IntValue = (int)EnumEggAbilityRank.Rank6   },
+            new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank7.ToString(), DisplayName =EnumEggAbilityRank.Rank7.ToString(),IntValue = (int)EnumEggAbilityRank.Rank7   },
+
+    ];
+
 
         public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
         {
@@ -1148,6 +1189,33 @@ namespace Maple.Ghostmon
                         ]
                 };
             }
+            foreach (var total in userData.TOTAL_EGG.AsRefArray())
+            {
+                var egg = total.Value;
+                var configId = egg.CONFIG_ID;
+                var eggConfig = GameConfigStore.ListEggConfig.Find(p => p.configID == configId);
+                if (eggConfig is not null)
+                {
+                    yield return new GameCharacterDisplayDTO()
+                    {
+                        ObjectId = total.Key.ToString(),
+                        DisplayCategory = EnumSheetName.EggConfig.ToString(),
+                        DisplayName = eggConfig.name,
+                        DisplayDesc = eggConfig.description,
+                        DisplayImage = eggConfig.prefab,
+                        CharacterAttributes = [
+                             new GameValueInfoDTO(){ ObjectId  = nameof(egg.PROPERTY_RANK), DisplayName="品质", IntValue = egg.PROPERTY_RANK ,CanPreview = true},
+                             new GameValueInfoDTO(){ ObjectId  = nameof(egg.ABILITY_RANK), DisplayName="天赋", IntValue = egg.ABILITY_RANK ,CanPreview = true},
+
+                             new GameValueInfoDTO(){ ObjectId  = nameof(egg.FLASH), DisplayName="闪光", BoolValue = egg.FLASH ,CanPreview = true},
+                             new GameValueInfoDTO(){ ObjectId  = nameof(egg.VARI_COLOR), DisplayName="异色", BoolValue = egg.VARI_COLOR ,CanPreview = true},
+                             new GameValueInfoDTO(){ ObjectId  = nameof(egg.LEADER), DisplayName="首领", BoolValue = egg.LEADER ,CanPreview = true},
+
+                            ]
+                    };
+                }
+
+            }
 
         }
         //public static IEnumerable<GameCharacterDisplayDTO> RemoveCharacterMember(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
@@ -1155,7 +1223,7 @@ namespace Maple.Ghostmon
 
         //}
 
-        private static GameCharacterStatusDTO GetCharacterStatus(GameCharacterObjectDTO characterObjectDTO, MonsterData.Ptr_MonsterData monster)
+        private static GameCharacterStatusDTO GetCharacterStatus_Monster(GameCharacterObjectDTO characterObjectDTO, MonsterData.Ptr_MonsterData monster)
         {
             return new GameCharacterStatusDTO()
             {
@@ -1215,10 +1283,32 @@ namespace Maple.Ghostmon
                         ]
             };
         }
+        private static GameCharacterStatusDTO GetCharacterStatus_Egg(GameCharacterObjectDTO characterObjectDTO, EggData.Ptr_EggData eggData)
+        {
+            return new GameCharacterStatusDTO()
+            {
+                ObjectId = characterObjectDTO.CharacterId,
+                CharacterAttributes = [
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.FLASH), DisplayName="属性*闪光",SwitchValue = eggData.FLASH, UIType = (int)EnumGameSwitchUIType.Switches },
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.VARI_COLOR), DisplayName="属性*异色",SwitchValue = eggData.VARI_COLOR, UIType = (int)EnumGameSwitchUIType.Switches },
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.LEADER), DisplayName="属性*首领",SwitchValue = eggData.LEADER, UIType = (int)EnumGameSwitchUIType.Switches },
+
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.PROPERTY_RANK), DisplayName="属性*品质",ContentValue = eggData.PROPERTY_RANK.ToString(), UIType = (int)EnumGameSwitchUIType.Selects,SelectedContents= EggPropertyRanks },
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.ABILITY_RANK), DisplayName="属性*天赋",ContentValue = eggData.ABILITY_RANK.ToString(), UIType = (int)EnumGameSwitchUIType.Selects ,SelectedContents= EggAbilityRanks},
+
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.TOTAL_TIME), DisplayName="孵化*总计",ContentValue = eggData.TOTAL_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor,  },
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.REMAINING_TIME), DisplayName="孵化*剩余",ContentValue = eggData.REMAINING_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor  },
+
+
+
+                    ]
+            };
+        }
+
         public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = userDataManager.GetUserData();
-            if (characterObjectDTO.CharacterId == EnumSheetName.Player.ToString())
+            if (characterObjectDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 return new GameCharacterStatusDTO()
                 {
@@ -1231,22 +1321,28 @@ namespace Maple.Ghostmon
                         ]
                 };
             }
-            else
+            else if (characterObjectDTO.CharacterCategory == EnumSheetName.Monster.ToString())
             {
-
 
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
                     if (total.Key == characterObjectDTO.UCharacterId && total.Value.Valid())
                     {
-
-
-                        return GetCharacterStatus(characterObjectDTO, total.Value);
-
-
+                        return GetCharacterStatus_Monster(characterObjectDTO, total.Value);
                     }
                 }
             }
+            else if (characterObjectDTO.CharacterCategory == EnumSheetName.EggConfig.ToString())
+            {
+                foreach (var total in userData.TOTAL_EGG.AsRefArray())
+                {
+                    if (total.Key == characterObjectDTO.UCharacterId && total.Value.Valid())
+                    {
+                        return GetCharacterStatus_Egg(characterObjectDTO, total.Value);
+                    }
+                }
+            }
+
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
         }
         public static GameCharacterStatusDTO UpdateCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
@@ -1496,7 +1592,7 @@ namespace Maple.Ghostmon
 
 
 
-                        return GetCharacterStatus(characterModifyDTO, total.Value);
+                        return GetCharacterStatus_Monster(characterModifyDTO, total.Value);
 
 
 

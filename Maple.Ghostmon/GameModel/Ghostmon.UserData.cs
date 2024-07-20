@@ -159,7 +159,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_charms", "TOTAL_CHARMS")]
 
     // class 0x130 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.EvoMaterialData> total_evoMaterials
-      [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, EvoMaterialData.Ptr_EvoMaterialData>),"total_evoMaterials", "TOTAL_EVO_MATERIALS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, EvoMaterialData.Ptr_EvoMaterialData>), "total_evoMaterials", "TOTAL_EVO_MATERIALS")]
 
     // class 0x138 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.AbilityBookData> total_abilityBooks
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_abilityBooks", "TOTAL_ABILITY_BOOKS")]
@@ -168,7 +168,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_fishLure", "TOTAL_FISH_LURE")]
 
     // class 0x148 System.Collections.Generic.Dictionary<System.UInt64,Ghostmon.EggData> total_egg
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_egg", "TOTAL_EGG")]
+    //[MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<UInt64, EggData.Ptr_EggData>), "total_egg", "TOTAL_EGG")]
 
     // class 0x150 System.Collections.Generic.List<System.UInt64> total_menu
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"total_menu", "TOTAL_MENU")]
