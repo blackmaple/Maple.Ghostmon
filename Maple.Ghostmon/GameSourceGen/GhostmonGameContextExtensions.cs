@@ -12,7 +12,150 @@ using static Maple.Ghostmon.GhostmonGameContextExtensions;
 
 namespace Maple.Ghostmon
 {
+    #region 数据枚举
 
+    enum EnumMonsterGrowthType
+    {
+        GROWTH_ATK = 0,
+        GROWTH_MAGIC = 1,
+        GROWTH_DEF = 2,
+        GROWTH_WP = 3,
+        GROWTH_HP = 4,
+        GROWTH_CRIT = 5,
+    }
+    enum EnumEggPropertyRank
+    {
+        Rank1 = 1,
+        Rank2,
+        Rank3,
+        Rank4,
+        Rank5,
+        Rank6,
+        Rank7,
+        Rank8,
+    }
+    enum EnumEggAbilityRank
+    {
+        Rank1 = 1,
+        Rank2,
+        Rank3,
+        Rank4,
+        Rank5,
+        Rank6,
+        Rank7,
+
+    }
+    enum BattleDamageType
+    {
+
+        // Token: 0x04001B44 RID: 6980
+        /// <summary>
+        /// SHOCK,
+        /// </summary>
+        震荡,
+        // Token: 0x04001B45 RID: 6981
+        /// <summary>
+        /// PUNCTURE,
+        /// </summary>
+        穿刺,
+        // Token: 0x04001B46 RID: 6982
+        /// <summary>
+        /// TEAR,
+        /// </summary>
+        撕开,
+        // Token: 0x04001B47 RID: 6983
+        /// <summary>
+        /// FIRE,
+        /// </summary>
+        火焰,
+        // Token: 0x04001B48 RID: 6984
+        /// <summary>
+        /// FROST,
+        /// </summary>
+        冰霜,
+        // Token: 0x04001B49 RID: 6985
+        /// <summary>
+        /// LIGHTNING,
+        /// </summary>
+        雷电,
+        // Token: 0x04001B4A RID: 6986
+        /// <summary>
+        /// WIND,
+        /// </summary>
+        狂风,
+        // Token: 0x04001B4B RID: 6987
+        /// <summary>
+        /// POISON,
+        /// </summary>
+        毒药,
+        // Token: 0x04001B4C RID: 6988
+        /// <summary>
+        /// DARKNESS,
+        /// </summary>
+        黑暗,
+        // Token: 0x04001B4D RID: 6989
+        /// <summary>
+        /// FIXED,
+        /// </summary>
+        固定,
+        // Token: 0x04001B4E RID: 6990
+        ///TREAT,
+        治疗
+    }
+
+    enum EnumMonsterResist
+    {
+        易感 = -1,
+        普通 = 0,
+        免疫 = 1,
+    }
+
+    enum EnumMonsterType
+    {
+        普通 = 0,
+        首领 = 1,
+        邪魔 = 2,
+    }
+    enum EnumMonsterRank
+    {
+        Rank1 = 1,
+        Rank2 = 2,
+        Rank3 = 3,
+        Rank4 = 4,
+        Rank5 = 5,
+        Rank6 = 6,
+    }
+    enum EnumMonsterWeight
+    {
+        迷你 = 1,
+        超小 = 2,
+        小 = 3,
+        中 = 4,
+        大 = 5,
+        超大 = 6,
+        巨大 = 7,
+    }
+
+    enum EnumMonsterAtkForce
+    {
+        超弱 = 0,
+        弱 = 1,
+        中 = 2,
+        强 = 3,
+    }
+
+    enum EnumMonsterYINGYANG
+    {
+        阴 = 0,
+        阳 = 1,
+    }
+
+    enum EnumPlayMessageType
+    {
+        普通 = 0,
+        条纹 = 1,
+    }
+    #endregion
 
     internal static class GhostmonGameContextExtensions
     {
@@ -541,12 +684,8 @@ namespace Maple.Ghostmon
         #endregion
 
         #region  Game DATA
-        public enum EnumPlayMessageType
-        {
-            普通 = 0,
-            等待 = 1,
-        }
-        public static void PlayMessage(this GhostmonGameContext @this, string? msg, EnumPlayMessageType type = 0)
+
+        public static void PlayMessage(this GhostmonGameContext @this, string? msg, EnumPlayMessageType type = EnumPlayMessageType.条纹)
         {
             if (string.IsNullOrEmpty(msg))
             {
@@ -1211,7 +1350,7 @@ namespace Maple.Ghostmon
                         DisplayCategory = EnumSheetName.EggConfig.ToString(),
                         DisplayName = eggConfig.name,
                         DisplayDesc = eggConfig.description,
-                        DisplayImage = eggConfig.prefab,
+                        DisplayImage = configId.ToString(),
                         CharacterAttributes = [
                              new GameValueInfoDTO(){ ObjectId  = nameof(egg.PROPERTY_RANK), DisplayName="品质", IntValue = egg.PROPERTY_RANK ,CanPreview = true},
                              new GameValueInfoDTO(){ ObjectId  = nameof(egg.ABILITY_RANK), DisplayName="天赋", IntValue = egg.ABILITY_RANK ,CanPreview = true},
@@ -1294,8 +1433,12 @@ namespace Maple.Ghostmon
         }
         private static GameCharacterStatusDTO GetCharacterStatus_Egg(GameCharacterObjectDTO characterObjectDTO, EggData.Ptr_EggData eggData)
         {
+            //var name = eggData.MONSTER.ToString();
+            //var monsterName = GameConfigStore.ListIllustrationConfig.Find(p => p.prefab == name)?.name ?? name;
+
             return new GameCharacterStatusDTO()
             {
+
                 ObjectId = characterObjectDTO.CharacterId,
                 CharacterAttributes = [
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.FLASH), DisplayName="属性*闪光",SwitchValue = eggData.FLASH, UIType = (int)EnumGameSwitchUIType.Switches },
@@ -1305,9 +1448,11 @@ namespace Maple.Ghostmon
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.PROPERTY_RANK), DisplayName="属性*品质",ContentValue = eggData.PROPERTY_RANK.ToString(), UIType = (int)EnumGameSwitchUIType.Selects,SelectedContents= EggPropertyRanks },
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.ABILITY_RANK), DisplayName="属性*天赋",ContentValue = eggData.ABILITY_RANK.ToString(), UIType = (int)EnumGameSwitchUIType.Selects ,SelectedContents= EggAbilityRanks},
 
-                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.TOTAL_TIME), DisplayName="孵化*总计",ContentValue = eggData.TOTAL_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.Label,  },
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.TOTAL_TIME), DisplayName="孵化*总计",ContentValue = eggData.TOTAL_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor,  },
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.REMAINING_TIME), DisplayName="孵化*剩余",ContentValue = eggData.REMAINING_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor  },
 
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.DAMAGE_TYPE), DisplayName="属性*攻击",ContentValue = eggData.DAMAGE_TYPE.ToString(), UIType = (int)EnumGameSwitchUIType.Selects ,SelectedContents= MonsterArkType},
+  //                   new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.MONSTER), DisplayName="属性*妖灵",ContentValue = monsterName, UIType = (int)EnumGameSwitchUIType.Selects  },
 
 
                     ]
@@ -1393,7 +1538,7 @@ namespace Maple.Ghostmon
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_FAVORABILITY))
                         {
-                            monster.U_FAVORABILITY = characterModifyDTO.IntValue;
+                            monster.U_FAVORABILITY = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_LUCK))
                         {
@@ -1423,27 +1568,27 @@ namespace Maple.Ghostmon
 
                         else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_ATK))
                         {
-                            monster.GROWTH_ATK = characterModifyDTO.IntValue;
+                            monster.GROWTH_ATK = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_DEF))
                         {
-                            monster.GROWTH_DEF = characterModifyDTO.IntValue;
+                            monster.GROWTH_DEF = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_HP))
                         {
-                            monster.GROWTH_HP = characterModifyDTO.IntValue;
+                            monster.GROWTH_HP = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_WP))
                         {
-                            monster.GROWTH_WP = characterModifyDTO.IntValue;
+                            monster.GROWTH_WP = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_MAGIC))
                         {
-                            monster.GROWTH_MAGIC = characterModifyDTO.IntValue;
+                            monster.GROWTH_MAGIC = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.GROWTH_CRIT))
                         {
-                            monster.GROWTH_CRIT = characterModifyDTO.IntValue;
+                            monster.GROWTH_CRIT = characterModifyDTO.FloatValue;
                         }
 
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_ATK))
@@ -1617,11 +1762,21 @@ namespace Maple.Ghostmon
                         var egg = total.Value;
                         if (characterModifyDTO.ModifyObject == nameof(egg.FLASH))
                         {
-                            egg.FLASH = characterModifyDTO.BoolValue ?? false;
+                            var b = characterModifyDTO.BoolValue ?? false;
+                            egg.FLASH = b;
+                            if (b)
+                            {
+                                egg.ABILITY_RANK = (int)EnumEggAbilityRank.Rank7;
+                            }
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(egg.VARI_COLOR))
                         {
-                            egg.VARI_COLOR = characterModifyDTO.BoolValue ?? false;
+                            var b = characterModifyDTO.BoolValue ?? false;
+                            egg.VARI_COLOR = b;
+                            //if (b)
+                            //{
+                            //    egg.ABILITY_RANK = (int)EnumEggAbilityRank.Rank3;
+                            //}
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(egg.LEADER))
                         {
@@ -1629,17 +1784,81 @@ namespace Maple.Ghostmon
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(egg.PROPERTY_RANK))
                         {
-                            egg.PROPERTY_RANK = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            egg.PROPERTY_RANK = r;
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(egg.ABILITY_RANK))
                         {
-                            egg.ABILITY_RANK = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            egg.ABILITY_RANK = r;
+                            if (r == (int)EnumEggPropertyRank.Rank7)
+                            {
+                                egg.FLASH = true;
+                                //随机两个 prop =6;
+                            }
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.TOTAL_TIME))
+                        {
+                            egg.TOTAL_TIME = characterModifyDTO.FloatValue;
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(egg.REMAINING_TIME))
                         {
                             egg.REMAINING_TIME = characterModifyDTO.FloatValue;
                         }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.DAMAGE_TYPE))
+                        {
+                            egg.DAMAGE_TYPE = characterModifyDTO.IntValue;
+                        }
                         //刷新egg属性
+
+                        if (egg.PROPERTY.Valid())
+                        {
+                            var refProperty = egg.PROPERTY.AsSpan();
+                            int rank;
+                            if (egg.PROPERTY_RANK == (int)EnumEggPropertyRank.Rank8)
+                            {
+                                //edit 6
+                                rank = (int)EnumMonsterRank.Rank6;
+                                refProperty.Fill(rank);
+                            }
+                            else if (egg.PROPERTY_RANK == (int)EnumEggPropertyRank.Rank7)
+                            {
+                                //edit 3
+                                rank = (int)EnumMonsterRank.Rank6;
+                                refProperty.Fill(rank);
+                                refProperty[3] = Random.Shared.Next(1, rank);
+                                refProperty[4] = Random.Shared.Next(1, rank);
+                                refProperty[5] = Random.Shared.Next(1, rank);
+
+                            }
+                            else
+                            {
+                                rank = egg.PROPERTY_RANK;
+                                refProperty[0] = Random.Shared.Next(1, rank);
+                                refProperty[1] = Random.Shared.Next(1, rank);
+                                refProperty[2] = Random.Shared.Next(1, rank);
+                                refProperty[3] = Random.Shared.Next(1, rank);
+                                refProperty[4] = Random.Shared.Next(1, rank);
+                                refProperty[5] = Random.Shared.Next(1, rank);
+
+                            }
+
+                            if (egg.ABILITY_RANK == (int)EnumEggAbilityRank.Rank7)
+                            {
+                                //edit 2
+                                rank = (int)EnumMonsterRank.Rank6;
+                                refProperty[4] = rank;
+                                refProperty[5] = rank;
+
+                            }
+
+                            Random.Shared.Shuffle(refProperty);
+
+
+                        }
+
+
 
                         return GetCharacterStatus_Egg(characterModifyDTO, egg);
                     }
@@ -2252,13 +2471,5 @@ namespace Maple.Ghostmon
         #endregion
     }
 
-    enum EnumMonsterGrowthType
-    {
-        GROWTH_ATK = 0,
-        GROWTH_MAGIC = 1,
-        GROWTH_DEF = 2,
-        GROWTH_WP = 3,
-        GROWTH_HP = 4,
-        GROWTH_CRIT = 5,
-    }
+
 }

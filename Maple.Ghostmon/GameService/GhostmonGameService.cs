@@ -31,7 +31,7 @@ namespace Maple.Ghostmon
             this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
             var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
             this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
-            await this.UnityTaskAsync((p, count) => p.PlayMessage($"初始化成功,加载了{count}个妖精", GhostmonGameContextExtensions.EnumPlayMessageType.等待), count).ConfigureAwait(false);
+            await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖精").ConfigureAwait(false);
         }
         #endregion
 

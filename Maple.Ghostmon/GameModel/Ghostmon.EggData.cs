@@ -9,28 +9,6 @@ using System.Threading.Tasks;
 
 namespace Maple.Ghostmon
 {
-    public enum EnumEggPropertyRank
-    {
-        Rank1 = 1,
-        Rank2,
-        Rank3,
-        Rank4,
-        Rank5,
-        Rank6,
-        Rank7,
-        Rank8,
-    }
-    public enum EnumEggAbilityRank
-    {
-        Rank1 = 1,
-        Rank2,
-        Rank3,
-        Rank4,
-        Rank5,
-        Rank6,
-        Rank7,
- 
-    }
 
     /// <summary>
     /// class ["Assembly-CSharp.dll"."Ghostmon"."EggData"]
@@ -53,13 +31,13 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "abilityRank", "ABILITY_RANK", IsReadOnly = false)]
 
     // class 0x28 System.String monster
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"monster", "MONSTER")]
+     [MonoCollectorSearchFieldAttribute(typeof(PMonoString),"monster", "MONSTER")]
 
     // class 0x30 System.UInt64[] ablity
     [MonoCollectorSearchFieldAttribute(typeof(nint), "ablity", "ABLITY", IsReadOnly = false)]
 
     // class 0x38 System.Int32[] property
-    [MonoCollectorSearchFieldAttribute(typeof(nint), "property", "PROPERTY", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<int>), "property", "PROPERTY", IsReadOnly = false)]
 
     // struct 0x40 System.Int32 damageType
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "damageType", "DAMAGE_TYPE", IsReadOnly = false)]
