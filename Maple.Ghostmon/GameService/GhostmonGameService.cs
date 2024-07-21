@@ -23,7 +23,7 @@ namespace Maple.Ghostmon
         protected sealed override GhostmonGameContext LoadGameContext()
            => GhostmonGameContext.LoadGhostmonGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Ver_Common, this.Logger);
 
- 
+
 
         protected sealed override async ValueTask LoadGameDataAsync()
         {
@@ -31,7 +31,7 @@ namespace Maple.Ghostmon
             this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
             var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
             this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
-
+            await this.UnityTaskAsync((p, count) => p.PlayMessage($"初始化成功,加载了{count}个妖精", GhostmonGameContextExtensions.EnumPlayMessageType.等待), count).ConfigureAwait(false);
         }
         #endregion
 
@@ -438,7 +438,7 @@ namespace Maple.Ghostmon
                  },
 
 
- 
+
 
             ];
         }

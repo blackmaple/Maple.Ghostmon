@@ -541,7 +541,12 @@ namespace Maple.Ghostmon
         #endregion
 
         #region  Game DATA
-        public static void PlayMessage(this GhostmonGameContext @this, string? msg)
+        public enum EnumPlayMessageType
+        {
+            普通 = 0,
+            等待 = 1,
+        }
+        public static void PlayMessage(this GhostmonGameContext @this, string? msg, EnumPlayMessageType type = 0)
         {
             if (string.IsNullOrEmpty(msg))
             {
@@ -551,7 +556,7 @@ namespace Maple.Ghostmon
             if (p)
             {
                 var txt = @this.T(msg);
-                p.PLAY_MESSAGE(txt, 0);
+                p.PLAY_MESSAGE(txt, (int)type);
             }
         }
 
@@ -1045,6 +1050,10 @@ namespace Maple.Ghostmon
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
             }
+            if (category == EnumSheetName.EggConfig)
+            {
+                addCount = 1;
+            }
             userDataManager.GAIN_ITEM((int)category, configId, addCount, false);
             //       @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
             return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
@@ -1132,9 +1141,9 @@ namespace Maple.Ghostmon
             new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank6.ToString(), DisplayName =EnumEggPropertyRank.Rank6.ToString(),IntValue = (int)EnumEggPropertyRank.Rank6   },
             new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank7.ToString(), DisplayName =EnumEggPropertyRank.Rank7.ToString(),IntValue = (int)EnumEggPropertyRank.Rank7   },
             new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank8.ToString(), DisplayName =EnumEggPropertyRank.Rank8.ToString(),IntValue = (int)EnumEggPropertyRank.Rank8   },
- 
+
     ];
-        static List<GameValueInfoDTO>  EggAbilityRanks { get; } =
+        static List<GameValueInfoDTO> EggAbilityRanks { get; } =
     [
             new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank1.ToString(), DisplayName =EnumEggAbilityRank.Rank1.ToString(),IntValue = (int)EnumEggAbilityRank.Rank1   },
             new GameValueInfoDTO{ ObjectId = EnumEggAbilityRank.Rank2.ToString(), DisplayName =EnumEggAbilityRank.Rank2.ToString(),IntValue = (int)EnumEggAbilityRank.Rank2   },
@@ -1296,7 +1305,7 @@ namespace Maple.Ghostmon
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.PROPERTY_RANK), DisplayName="属性*品质",ContentValue = eggData.PROPERTY_RANK.ToString(), UIType = (int)EnumGameSwitchUIType.Selects,SelectedContents= EggPropertyRanks },
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.ABILITY_RANK), DisplayName="属性*天赋",ContentValue = eggData.ABILITY_RANK.ToString(), UIType = (int)EnumGameSwitchUIType.Selects ,SelectedContents= EggAbilityRanks},
 
-                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.TOTAL_TIME), DisplayName="孵化*总计",ContentValue = eggData.TOTAL_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor,  },
+                     new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.TOTAL_TIME), DisplayName="孵化*总计",ContentValue = eggData.TOTAL_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.Label,  },
                      new GameSwitchDisplayDTO(){ObjectId = nameof(eggData.REMAINING_TIME), DisplayName="孵化*剩余",ContentValue = eggData.REMAINING_TIME.ToString(), UIType = (int)EnumGameSwitchUIType.TextEditor  },
 
 
@@ -1348,7 +1357,7 @@ namespace Maple.Ghostmon
         public static GameCharacterStatusDTO UpdateCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
         {
             var userData = userDataManager.GetUserData();
-            if (characterModifyDTO.CharacterId == EnumSheetName.Player.ToString())
+            if (characterModifyDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 if (characterModifyDTO.ModifyObject == nameof(userData.RANK_VALUE))
                 {
@@ -1365,7 +1374,7 @@ namespace Maple.Ghostmon
                     };
                 }
             }
-            else
+            else if (characterModifyDTO.CharacterCategory == EnumSheetName.Monster.ToString())
             {
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
@@ -1580,7 +1589,7 @@ namespace Maple.Ghostmon
                                 //
                                 var growth_crit = monster.GET_GROWTH_VALUE(monsterObj.GROWTH_CRIT);
                                 monster.RANK_CRIT = (int)growth_crit[0];
-                                monster.GROWTH_CRIT = growth_wp[1];
+                                monster.GROWTH_CRIT = growth_crit[1];
 
                             }
                         }
@@ -1596,6 +1605,43 @@ namespace Maple.Ghostmon
 
 
 
+                    }
+                }
+            }
+            else if (characterModifyDTO.CharacterCategory == EnumSheetName.EggConfig.ToString())
+            {
+                foreach (var total in userData.TOTAL_EGG.AsRefArray())
+                {
+                    if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
+                    {
+                        var egg = total.Value;
+                        if (characterModifyDTO.ModifyObject == nameof(egg.FLASH))
+                        {
+                            egg.FLASH = characterModifyDTO.BoolValue ?? false;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.VARI_COLOR))
+                        {
+                            egg.VARI_COLOR = characterModifyDTO.BoolValue ?? false;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.LEADER))
+                        {
+                            egg.LEADER = characterModifyDTO.BoolValue ?? false;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.PROPERTY_RANK))
+                        {
+                            egg.PROPERTY_RANK = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.ABILITY_RANK))
+                        {
+                            egg.ABILITY_RANK = characterModifyDTO.IntValue;
+                        }
+                        else if (characterModifyDTO.ModifyObject == nameof(egg.REMAINING_TIME))
+                        {
+                            egg.REMAINING_TIME = characterModifyDTO.FloatValue;
+                        }
+                        //刷新egg属性
+
+                        return GetCharacterStatus_Egg(characterModifyDTO, egg);
                     }
                 }
             }
