@@ -1187,7 +1187,7 @@ namespace Maple.Ghostmon
             var addCount = newCount - oldCount;
             if (addCount <= 0)
             {
-                return GameException.Throw<GameInventoryInfoDTO>($"REMOVE ERROR {inventoryModifyDTO.InventoryCategory}");
+                return GameException.Throw<GameInventoryInfoDTO>($"ERROR NUM:{inventoryModifyDTO.InventoryCategory}");
             }
             if (category == EnumSheetName.EggConfig)
             {
@@ -1532,6 +1532,8 @@ namespace Maple.Ghostmon
                             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.CharacterId}");
                         }
 
+
+
                         if (characterModifyDTO.ModifyObject == nameof(monster.U_EXP))
                         {
                             monster.U_EXP = characterModifyDTO.IntValue;
@@ -1593,27 +1595,45 @@ namespace Maple.Ghostmon
 
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_ATK))
                         {
-                            monster.RANK_ATK = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            monster.RANK_ATK = r;
+                            monster.ORDER_GROWTH_VALUE(r, monsterObj.GROWTH_ATK, (int)EnumMonsterGrowthType.GROWTH_ATK);
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_DEF))
                         {
-                            monster.RANK_DEF = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            monster.RANK_DEF = r;
+                            monster.ORDER_GROWTH_VALUE(r, monsterObj.GROWTH_DEF, (int)EnumMonsterGrowthType.GROWTH_DEF);
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_HP))
                         {
-                            monster.RANK_HP = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            monster.RANK_HP = r;
+                            monster.ORDER_GROWTH_VALUE(r, monsterObj.GROWTH_HP, (int)EnumMonsterGrowthType.GROWTH_HP);
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_WP))
                         {
-                            monster.RANK_WP = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            monster.RANK_WP = r;
+                            monster.ORDER_GROWTH_VALUE(r, monsterObj.GROWTH_MAGIC, (int)EnumMonsterGrowthType.GROWTH_MAGIC);
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_MAGIC))
                         {
-                            monster.RANK_MAGIC = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            monster.RANK_MAGIC = r;
+                            monster.ORDER_GROWTH_VALUE(r, monsterObj.GROWTH_WP, (int)EnumMonsterGrowthType.GROWTH_WP);
+
                         }
                         else if (characterModifyDTO.ModifyObject == nameof(monster.RANK_CRIT))
                         {
-                            monster.RANK_CRIT = characterModifyDTO.IntValue;
+                            var r = characterModifyDTO.IntValue;
+                            monster.RANK_CRIT = r;
+                            monster.ORDER_GROWTH_VALUE(r, monsterObj.GROWTH_CRIT, (int)EnumMonsterGrowthType.GROWTH_CRIT);
+
                         }
 
                         else if (characterModifyDTO.ModifyObject == nameof(monster.U_FIRE_RESIST))
@@ -1815,6 +1835,7 @@ namespace Maple.Ghostmon
                         if (egg.PROPERTY.Valid())
                         {
                             var refProperty = egg.PROPERTY.AsSpan();
+                            var length = refProperty.Length;
                             int rank;
                             if (egg.PROPERTY_RANK == (int)EnumEggPropertyRank.Rank8)
                             {
@@ -1827,20 +1848,20 @@ namespace Maple.Ghostmon
                                 //edit 3
                                 rank = (int)EnumMonsterRank.Rank6;
                                 refProperty.Fill(rank);
-                                refProperty[3] = Random.Shared.Next(1, rank);
-                                refProperty[4] = Random.Shared.Next(1, rank);
-                                refProperty[5] = Random.Shared.Next(1, rank);
+                                refProperty[3 % length] = Random.Shared.Next(1, rank);
+                                refProperty[4 % length] = Random.Shared.Next(1, rank);
+                                refProperty[5 % length] = Random.Shared.Next(1, rank);
 
                             }
                             else
                             {
                                 rank = egg.PROPERTY_RANK;
-                                refProperty[0] = Random.Shared.Next(1, rank);
-                                refProperty[1] = Random.Shared.Next(1, rank);
-                                refProperty[2] = Random.Shared.Next(1, rank);
-                                refProperty[3] = Random.Shared.Next(1, rank);
-                                refProperty[4] = Random.Shared.Next(1, rank);
-                                refProperty[5] = Random.Shared.Next(1, rank);
+                                refProperty[0 % length] = Random.Shared.Next(1, rank);
+                                refProperty[1 % length] = Random.Shared.Next(1, rank);
+                                refProperty[2 % length] = Random.Shared.Next(1, rank);
+                                refProperty[3 % length] = Random.Shared.Next(1, rank);
+                                refProperty[4 % length] = Random.Shared.Next(1, rank);
+                                refProperty[5 % length] = Random.Shared.Next(1, rank);
 
                             }
 
@@ -1848,8 +1869,8 @@ namespace Maple.Ghostmon
                             {
                                 //edit 2
                                 rank = (int)EnumMonsterRank.Rank6;
-                                refProperty[4] = rank;
-                                refProperty[5] = rank;
+                                refProperty[4 % length] = rank;
+                                refProperty[5 % length] = rank;
 
                             }
 
