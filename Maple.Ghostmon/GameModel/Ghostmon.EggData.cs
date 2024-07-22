@@ -31,10 +31,10 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "abilityRank", "ABILITY_RANK", IsReadOnly = false)]
 
     // class 0x28 System.String monster
-     [MonoCollectorSearchFieldAttribute(typeof(PMonoString),"monster", "MONSTER")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "monster", "MONSTER")]
 
     // class 0x30 System.UInt64[] ablity
-    [MonoCollectorSearchFieldAttribute(typeof(nint), "ablity", "ABLITY", IsReadOnly = false)]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<UInt64>), "ablity", "ABLITY", IsReadOnly = false)]
 
     // class 0x38 System.Int32[] property
     [MonoCollectorSearchFieldAttribute(typeof(PMonoArray<int>), "property", "PROPERTY", IsReadOnly = false)]

@@ -21,7 +21,7 @@ namespace Maple.Ghostmon
         //   protected sealed override bool EnableService => true;
 
         protected sealed override GhostmonGameContext LoadGameContext()
-           => GhostmonGameContext.LoadGhostmonGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Ver_Common, this.Logger);
+           => GhostmonGameContext.LoadGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Game, this.Logger);
 
 
 
