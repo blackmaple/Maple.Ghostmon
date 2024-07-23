@@ -5,7 +5,7 @@
 0.  描述
 
       -  [妖之乡](https://store.steampowered.com/app/2816950/_/) 修改器源代码
-      -  DEMO 版本
+      -  DEMO 版本(Obsolete)
       -  支持0.95版本
 1.  要求
 
