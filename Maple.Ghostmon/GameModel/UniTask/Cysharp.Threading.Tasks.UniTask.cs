@@ -1,4 +1,5 @@
 ﻿using Maple.MonoGameAssistant.Core;
+using Maple.MonoGameAssistant.RawDotNet;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Maple.Ghostmon
 {
+
+    #region UniTask<T_ARGS,T_DATA>
+
     [StructLayout(LayoutKind.Sequential)]
     public unsafe readonly partial struct Ref_AsyncUniTaskMethodBuilder<T_DATA>
         where T_DATA : unmanaged
@@ -75,52 +79,6 @@ namespace Maple.Ghostmon
         public readonly Ref_Awaiter<T_DATA> AWAITE;
 
     }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public unsafe readonly partial struct Ref_AsyncStateMachine<T_DATA>
-    where T_DATA : unmanaged
-    {
-        /// const string Name_Field_<>1__state = "<>1__state";
-        /// <summary>
-        /// struct 0x10 System.Int32 <>1__state
-        /// </summary>
-        [MarshalAs(UnmanagedType.I4)]
-        public readonly System.Int32 STATE;
-
-
-        /// const string Name_Field_<>t__builder = "<>t__builder";
-        /// <summary>
-        /// struct 0x18 Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<MonsterObject> <>t__builder
-        /// </summary>
-        //[System.Runtime.InteropServices.FieldOffsetAttribute(0x8)]
-        public readonly Ref_AsyncUniTaskMethodBuilder<T_DATA> BUILDER;
-
-
-        /// const string Name_Field_<>u__1 = "<>u__1";
-        /// <summary>
-        /// struct 0x40 Cysharp.Threading.Tasks.UniTask.Awaiter<MonsterObject> <>u__1
-        /// </summary>
-        public readonly Ref_Awaiter<T_DATA> AWAITE;
-
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public unsafe readonly partial struct Ref_UniTask(nint source, short token)
-    {
-        /// const string Name_Field_source = "source";
-        /// <summary>
-        /// interface 0x10 Cysharp.Threading.Tasks.IUniTaskSource source
-        /// </summary>
-        public readonly Ptr_AsyncUniTask SOURCE = source;
-
-        /// const string Name_Field_token = "token";
-        /// <summary>
-        /// struct 0x20 System.Int16 token
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I2)]
-        public readonly System.Int16 TOKEN = token;
-    }
-
     /// <summary>
     /// SizeOf<>()=0x18
     /// </summary>
@@ -190,8 +148,6 @@ namespace Maple.Ghostmon
         }
 
     }
-
-
     [StructLayout(LayoutKind.Sequential)]
     public unsafe readonly partial struct Ptr_UniTask<T_DATA>(nint ptr)
         where T_DATA : unmanaged
@@ -225,11 +181,6 @@ namespace Maple.Ghostmon
 
 
     }
-
-    /// <summary>
-    /// SizeOf<>()=0x18
-    /// </summary>
-    /// <typeparam name="T_DATA"></typeparam>
     [StructLayout(LayoutKind.Sequential)]
     public unsafe readonly partial struct Ref_Awaiter<T_DATA> where T_DATA : unmanaged
     {
@@ -334,6 +285,10 @@ namespace Maple.Ghostmon
 
     }
 
+    #endregion
+
+    #region error
+
     [Description("error")]
     [System.Runtime.InteropServices.StructLayoutAttribute(LayoutKind.Sequential)]
     public readonly unsafe partial struct Ref_AsyncUniTask<T_DATA>
@@ -376,6 +331,87 @@ namespace Maple.Ghostmon
 
         //[MarshalAs(UnmanagedType.SysInt)]
         //public readonly nint MOVE_NEXT;
+
+    }
+
+    [Description("error")]
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_AsyncStateMachine<T_DATA>
+        where T_DATA : unmanaged
+    {
+        /// const string Name_Field_<>1__state = "<>1__state";
+        /// <summary>
+        /// struct 0x10 System.Int32 <>1__state
+        /// </summary>
+        [MarshalAs(UnmanagedType.I4)]
+        public readonly System.Int32 STATE;
+
+
+        /// const string Name_Field_<>t__builder = "<>t__builder";
+        /// <summary>
+        /// struct 0x18 Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<MonsterObject> <>t__builder
+        /// </summary>
+        //[System.Runtime.InteropServices.FieldOffsetAttribute(0x8)]
+        public readonly Ref_AsyncUniTaskMethodBuilder<T_DATA> BUILDER;
+
+
+        /// const string Name_Field_<>u__1 = "<>u__1";
+        /// <summary>
+        /// struct 0x40 Cysharp.Threading.Tasks.UniTask.Awaiter<MonsterObject> <>u__1
+        /// </summary>
+        public readonly Ref_Awaiter<T_DATA> AWAITE;
+
+    }
+
+    #endregion
+
+    #region UniTask
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_Awaiter
+    {
+
+        /// const string Name_Field_task = "task";
+        /// <summary>
+        /// struct 0x10 Cysharp.Threading.Tasks.UniTask<MonsterObject> task
+        /// </summary>
+        public readonly Ref_UniTask Task;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_UniTask(nint source, short token)
+    {
+        /// const string Name_Field_source = "source";
+        /// <summary>
+        /// interface 0x10 Cysharp.Threading.Tasks.IUniTaskSource source
+        /// </summary>
+        public readonly Ptr_AsyncUniTask SOURCE = source;
+
+        /// const string Name_Field_token = "token";
+        /// <summary>
+        /// struct 0x20 System.Int16 token
+        /// </summary>
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I2)]
+        public readonly System.Int16 TOKEN = token;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ptr_UniTask(nint ptr)
+    {
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.SysInt)]
+        readonly nint _ptr = ptr;
+        public static implicit operator Ptr_UniTask(nint ptr) => new(ptr);
+        public static implicit operator nint(Ptr_UniTask obj) => obj._ptr;
+        public static implicit operator bool(Ptr_UniTask obj) => obj.Valid();
+
+        public override string ToString()
+        {
+            return _ptr.ToString("X8");
+        }
+
+        [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public bool Valid() => _ptr != nint.Zero;
+ 
 
     }
 
@@ -463,7 +499,9 @@ namespace Maple.Ghostmon
         [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Valid() => _ptr != nint.Zero;
     }
+    #endregion
 
+    #region Args
 
     [StructLayout(LayoutKind.Sequential)]
     public unsafe readonly partial struct Ref_LoadMonsterObjectArgs
@@ -486,6 +524,7 @@ namespace Maple.Ghostmon
     }
 
 
+    [StructLayout(LayoutKind.Sequential)]
     public unsafe readonly partial struct Ref_LoadSkillArgs
     {
         [MarshalAs(UnmanagedType.SysInt)]
@@ -495,4 +534,132 @@ namespace Maple.Ghostmon
         public readonly nint SUFFIX;
 
     }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_TeleportArgs
+    {
+        public readonly REF_MONO_VECTOR3 POS;
+
+        public readonly nint REGION_MANAGER;
+    }
+    #endregion
+
+    #region UniTask<void>
+
+    [System.Runtime.InteropServices.StructLayoutAttribute(LayoutKind.Sequential)]
+    public unsafe partial struct Ref_AsyncUniTask_Void<T_ARGS>
+    where T_ARGS : struct
+    {
+        public readonly REF_MONO_OBJECT OBJECT;
+
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint RETURN_DELEGATE;
+
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint NEXT_NODE;
+
+        public Ref_AsyncStateMachine_Void<T_ARGS> ASYNC_STATE_MACHINE;
+
+        public Ref_UniTaskCompletionSourceCore<Ref_AsyncUnit> CORE;
+
+        //[MarshalAs(UnmanagedType.SysInt)]
+        //public readonly nint MOVE_NEXT;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_AsyncUniTaskMethodBuilder_Void
+    {
+        /// <summary>
+        /// IStateMachineRunnerPromise<T> runnerPromise
+        /// </summary>
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint RUNNER_PROMISE;
+
+        /// <summary>
+        /// Exception ex
+        /// </summary>
+        [MarshalAs(UnmanagedType.SysInt)]
+        public readonly nint EX;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_AsyncStateMachine_Void<T_ARGS>
+        where T_ARGS : struct
+    {
+        /// const string Name_Field_<>1__state = "<>1__state";
+        /// <summary>
+        /// struct 0x10 System.Int32 <>1__state
+        /// </summary>
+        [MarshalAs(UnmanagedType.I4)]
+        public readonly System.Int32 STATE;
+
+
+        /// const string Name_Field_<>t__builder = "<>t__builder";
+        /// <summary>
+        /// struct 0x18 Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<MonsterObject> <>t__builder
+        /// </summary>
+        //[System.Runtime.InteropServices.FieldOffsetAttribute(0x8)]
+        public readonly Ref_AsyncUniTaskMethodBuilder_Void BUILDER;
+
+
+        ///// const string Name_Field_name = "name";
+        ///// <summary>
+        ///// class 0x30 System.String name
+        ///// </summary>
+        //[System.Runtime.InteropServices.FieldOffsetAttribute(0x20)]
+        //public readonly nint name;
+        ///// const string Name_Field_<key>5__2 = "<key>5__2";
+        ///// <summary>
+        ///// class 0x38 System.String <key>5__2
+        ///// </summary>
+        //[System.Runtime.InteropServices.FieldOffsetAttribute(0x28)]
+        //public readonly nint key5__2;
+        public readonly T_ARGS ARGS;
+
+
+        /// const string Name_Field_<>u__1 = "<>u__1";
+        /// <summary>
+        /// struct 0x40 Cysharp.Threading.Tasks.UniTask.Awaiter<MonsterObject> <>u__1
+        /// </summary>
+        public readonly Ref_Awaiter AWAITE;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_AsyncStateMachine_Void
+    {
+        /// const string Name_Field_<>1__state = "<>1__state";
+        /// <summary>
+        /// struct 0x10 System.Int32 <>1__state
+        /// </summary>
+        [MarshalAs(UnmanagedType.I4)]
+        public readonly System.Int32 STATE;
+
+
+        /// const string Name_Field_<>t__builder = "<>t__builder";
+        /// <summary>
+        /// struct 0x18 Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<MonsterObject> <>t__builder
+        /// </summary>
+        //[System.Runtime.InteropServices.FieldOffsetAttribute(0x8)]
+        public readonly Ref_AsyncUniTaskMethodBuilder_Void BUILDER;
+
+
+        /// const string Name_Field_<>u__1 = "<>u__1";
+        /// <summary>
+        /// struct 0x40 Cysharp.Threading.Tasks.UniTask.Awaiter<MonsterObject> <>u__1
+        /// </summary>
+        public readonly Ref_Awaiter AWAITE;
+
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe readonly partial struct Ref_AsyncUnit
+    { 
+    
+    }
+    #endregion
+
 }

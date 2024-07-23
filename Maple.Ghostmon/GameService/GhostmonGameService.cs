@@ -87,15 +87,16 @@ namespace Maple.Ghostmon
 
         protected override async ValueTask F5_KeyDown()
         {
-            var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
-            var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
-                (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
-            foreach (var gameIcon in imageObjs)
-            {
-                this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
-            }
-
-
+            //var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
+            //var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
+            //    (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
+            //foreach (var gameIcon in imageObjs)
+            //{
+            //    this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
+            //}
+            
+            await this.MonoTaskAsync(p => p.MapTeleport()).ConfigureAwait(false);
+            await this.MonoTaskAsync(p => p.IsLocked()).ConfigureAwait(false);
         }
         #endregion
 

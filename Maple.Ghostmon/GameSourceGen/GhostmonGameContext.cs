@@ -62,6 +62,7 @@ typeof(MonoCollectorClassInfo)
 
 
     [MonoCollectorType(typeof(GameBasicUtil))]
+    [MonoCollectorType(typeof(GhostmonPortalConfig))]
     internal partial class GhostmonGameContext
     {
     }

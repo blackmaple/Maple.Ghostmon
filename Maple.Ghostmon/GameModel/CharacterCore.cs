@@ -53,7 +53,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.UInt32),"hairColor", "HAIR_COLOR")]
 
     // struct 0x5C System.Boolean <isLocked>k__BackingField
-    [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "<isLocked>k__BackingField", "IS_LOCKED")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "<isLocked>k__BackingField", "IS_LOCKED", IsReadOnly = false)]
 
     // struct 0x5D System.Boolean <isInEvilChase>k__BackingField
     // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"<isInEvilChase>k__BackingField", "IS_IN_EVIL_CHASE")]

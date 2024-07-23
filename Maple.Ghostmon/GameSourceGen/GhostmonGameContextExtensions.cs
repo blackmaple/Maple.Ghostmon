@@ -2543,10 +2543,10 @@ namespace Maple.Ghostmon
 
         }
         public static void ChangeMonsterColor(
-    this GhostmonGameContext @this,
-    UserDataManager.Ptr_UserDataManager userDataManager,
-    GameSwitchDisplayDTO gameSwitchDisplay,
-    bool on)
+            this GhostmonGameContext @this,
+            UserDataManager.Ptr_UserDataManager userDataManager,
+            GameSwitchDisplayDTO gameSwitchDisplay,
+            bool on)
         {
             var player = userDataManager.PLAYER_PROPERTY;
             if (false == player.Valid())
@@ -2625,6 +2625,47 @@ namespace Maple.Ghostmon
             }
 
         }
+
+
+        public static void MapTeleport(this GhostmonGameContext @this)
+        {
+            var regionManager = @this.RegionManager.INSTANCE;
+            if (regionManager)
+            {
+                var characterCore = @this.CharacterCore.INSTANCE;
+                if (characterCore)
+                {
+                    characterCore.IS_LOCKED = false;
+                    var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.GhostmonPortalConfig.New(true));
+                    var config = gchandle.Target;
+                    config.IS_TRAVEL = true;
+                    config.WORLD_POS = new MonoGameAssistant.RawDotNet.REF_MONO_VECTOR3()
+                    {
+                        x = 619,
+                        y = 0,
+                        z = 256
+                    };
+                    regionManager.TELEPORT_TO_SHELTER(gchandle, nint.Zero);
+                }
+            }
+        }
+
+        public static bool IsLocked(this GhostmonGameContext @this)
+        {
+            var regionManager = @this.RegionManager.INSTANCE;
+            if (!regionManager)
+            {
+                return false;
+            }
+            var characterCore = @this.CharacterCore.INSTANCE;
+            if (!characterCore)
+            {
+                return false;
+            }
+            return SpinWait.SpinUntil(() => characterCore.IS_LOCKED, 5000);
+
+        }
+
 
         #endregion
     }
