@@ -201,7 +201,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"ts_map_demon", "TS_MAP_DEMON")]
 
     // class 0x1A0 System.Collections.Generic.List<Ghostmon.MapMarkData> mapMarkers
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"mapMarkers", "MAP_MARKERS")]
+     [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<MapMarkData.Ptr_MapMarkData>),"mapMarkers", "MAP_MARKERS")]
 
     // class 0x1A8 System.Collections.Generic.Dictionary<System.UInt64,System.Collections.Generic.List<Ghostmon.CommonData>> shop_goods
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"shop_goods", "SHOP_GOODS")]

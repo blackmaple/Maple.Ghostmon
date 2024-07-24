@@ -647,8 +647,13 @@ namespace Maple.Ghostmon
         ///   System.Void OnTeleportComplete()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnTeleportComplete")]
-        ///  extern void ON_TELEPORT_COMPLETE ();
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnTeleportComplete")]
+        extern void ON_TELEPORT_COMPLETE();
+        public static unsafe nint GetDelegate_OnTeleportComplete()
+        { 
+            
+            return Func_ON_TELEPORT_COMPLETE.AsPointer();
+        }
 
 
         /// <summary>

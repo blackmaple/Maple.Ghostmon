@@ -95,7 +95,7 @@ namespace Maple.Ghostmon
             //    this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
             //}
             
-            await this.MonoTaskAsync(p => p.MapTeleport()).ConfigureAwait(false);
+            await this.UnityTaskAsync(p => p.MapTeleport()).ConfigureAwait(false);
             await this.MonoTaskAsync(p => p.IsLocked()).ConfigureAwait(false);
         }
         #endregion

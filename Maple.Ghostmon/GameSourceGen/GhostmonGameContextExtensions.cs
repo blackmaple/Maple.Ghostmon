@@ -3,6 +3,7 @@ using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -2630,24 +2631,54 @@ namespace Maple.Ghostmon
         public static void MapTeleport(this GhostmonGameContext @this)
         {
             var regionManager = @this.RegionManager.INSTANCE;
-            if (regionManager)
+            if (false == regionManager)
             {
-                var characterCore = @this.CharacterCore.INSTANCE;
-                if (characterCore)
-                {
-                    characterCore.IS_LOCKED = false;
-                    var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.GhostmonPortalConfig.New(true));
-                    var config = gchandle.Target;
-                    config.IS_TRAVEL = true;
-                    config.WORLD_POS = new MonoGameAssistant.RawDotNet.REF_MONO_VECTOR3()
-                    {
-                        x = 619,
-                        y = 0,
-                        z = 256
-                    };
-                    regionManager.TELEPORT_TO_SHELTER(gchandle, nint.Zero);
-                }
+                return;
             }
+            var characterCore = @this.CharacterCore.INSTANCE;
+            if (false == characterCore)
+            {
+                return;
+
+            }
+            characterCore.IS_LOCKED = false;
+
+            var userdataMgr = @this.UserDataManager.INSTANCE;
+            if (false == userdataMgr)
+            {
+                return;
+            }
+            var userdata = userdataMgr.USER_DATA;
+            if (false == userdata)
+            {
+                return;
+            }
+            var markDatas = userdata.MAP_MARKERS;
+            if (!markDatas.Valid() || markDatas.Size == 0)
+            {
+                return;
+            }
+            var lastMarkData = markDatas.AsReadOnlySpan()[^1];
+            if (lastMarkData == false)
+            {
+                return;
+            }
+            var pos = lastMarkData.MARK_POS;
+            using var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.GhostmonPortalConfig.New(true));
+            var config = gchandle.Target;
+            config.IS_TRAVEL = true;
+            config.WORLD_POS = new MonoGameAssistant.RawDotNet.REF_MONO_VECTOR3()
+            {
+                x = pos.x / 3.125F,
+                y = 0,
+                z = pos.z / 3.125F,
+            };
+
+            using var actionHandle = @this.RuntimeContext.CreateMonoGCHandle(@this.SystemAction.New(false));
+            var action = actionHandle.Target;
+            var p = RegionManager.GetDelegate_OnTeleportComplete();
+            action.CTOR(regionManager, p);
+            regionManager.TELEPORT_TO_SHELTER(gchandle, action);
         }
 
         public static bool IsLocked(this GhostmonGameContext @this)
