@@ -6,6 +6,7 @@ using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -14,6 +15,18 @@ using static Maple.Ghostmon.GhostmonGameContextExtensions;
 namespace Maple.Ghostmon
 {
     #region 数据枚举
+    public enum EnumBattleBuffType
+    {
+        增益 = 1,
+        减益 = 2,
+        食物 = 3,
+    }
+    [Flags]
+    public enum EnumGameSystemFunction
+    {
+        ReleaseCharm = 1,
+        ScanMode = 2,
+    }
 
     enum EnumMonsterGrowthType
     {
@@ -197,6 +210,8 @@ namespace Maple.Ghostmon
             sheetName = EnumSheetName.None;
             return false;
         }
+
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static bool LoadGameConfigStore(this GhostmonGameContext @this)
         {
 
@@ -238,6 +253,8 @@ namespace Maple.Ghostmon
 
             return true;
         }
+
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static int LoadListMonsterInfo(this GhostmonGameContext @this)
         {
             var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
@@ -270,7 +287,7 @@ namespace Maple.Ghostmon
         }
         #endregion
 
-        #region help
+        #region HELPER
 
         public static bool TryGetSkillObject<T_SKILL_OBJECT>(this GhostmonGameContext @this, ReadOnlySpan<char> name, out T_SKILL_OBJECT ptr_Skill)
         {
@@ -574,66 +591,7 @@ namespace Maple.Ghostmon
             };
         }
 
-        //public static IReadOnlyList<MonsterObject.Ptr_MonsterObject> GetListMonsterConfig(this GhostmonGameContext @this)
-        //{
-        //    var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
-        //    var count = listIllustrationConfig.Count;
-        //    var uniTasks = (stackalloc Ref_UniTask<MonsterObject.Ptr_MonsterObject>[count]);
-        //    for (int i = 0; i < count; ++i)
-        //    {
-        //        var monsterName = @this.T(listIllustrationConfig[i % count].prefab!);
-        //        ref var uniTask = ref uniTasks[i % count];
-        //        _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out uniTask, monsterName);
-        //    }
-        //    //延迟2S等待异步完成
-        //    Thread.Sleep(2000);
-        //    List<MonsterObject.Ptr_MonsterObject> list = new(count);
-        //    foreach (ref var uniTask in uniTasks)
-        //    {
-        //        var ret = uniTask.GetResult_State<Ref_LoadMonsterObjectArgs>();
-        //        if (ret)
-        //        {
-        //            list.Add(ret);
-        //        }
-        //    }
-
-
-        //    return list;
-        //}
-        //public static IReadOnlyList<UnitySpriteData> LoadListMonsterAvater(this GhostmonGameContext @this)
-        //{
-        //    //var pAtlasName = @this.T(MonsterAvaterUIAtlas);
-        //    //var monsterObjects = @this.ConfigDataStore.MONSTER_CFG_STORE.AsRefArray();
-        //    //var count = monsterObjects.Length;
-        //    //List<UnitySpriteData> list = new(count);
-        //    //var uniTasks = (stackalloc Ref_UniTask<Sprite.Ptr_Sprite>[count]);
-        //    //for (int i = 0; i < count; ++i)
-        //    //{
-        //    //    var prefab = monsterObjects[i % count].Value.M_PREFAB.ToString();
-
-        //    //    list.Add(new UnitySpriteData() { Category = EnumSheetName.Monster.ToString(), Name = prefab, });
-
-        //    //    var spriteName = $"{prefab}{sMonsterAvaterUIAtlas_Suffix}";
-        //    //    var pSpriteName = @this.T(spriteName);
-        //    //    ref var uniTask = ref uniTasks[i % count];
-        //    //    _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(out uniTask, pAtlasName, pSpriteName);
-        //    //}
-
-        //    //Thread.Sleep(2000);
-        //    //for (int i = 0; i < count; ++i)
-        //    //{
-        //    //    ref var uniTask = ref uniTasks[i % count];
-        //    //    var ret = uniTask.GetResult_State<Ref_LoadSpriteArgs>();
-        //    //    if (ret.Valid())
-        //    //    {
-        //    //        list[i % count].Ptr_Sprite = ret;
-        //    //    }
-        //    //}
-
-
-        //    //return list;
-        //}
-
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameImageData[] GetListGameImageData(this GhostmonGameContext @this)
         {
             var gameImageDatas = @this.InitListGameImageData().ToArray();
@@ -656,6 +614,8 @@ namespace Maple.Ghostmon
 
 
         }
+
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.UnityTaskScheduler)]
         public static IEnumerable<UnitySpriteImageData> GetListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, GameImageData[] spriteDatas)
         {
             foreach (var spriteData in spriteDatas)
@@ -685,7 +645,7 @@ namespace Maple.Ghostmon
         #endregion
 
         #region  Game DATA
-
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.UnityTaskScheduler)]
         public static void PlayMessage(this GhostmonGameContext @this, string? msg, EnumPlayMessageType type = EnumPlayMessageType.条纹)
         {
             if (string.IsNullOrEmpty(msg))
@@ -700,12 +660,13 @@ namespace Maple.Ghostmon
             }
         }
 
-
+        [Obsolete("remove...")]
         static bool CanPlayGame(this GhostmonGameContext @this)
         {
             var regionManager = @this.RegionManager.INSTANCE;
             return regionManager;
         }
+        [Obsolete("remove...")]
         public static UserDataManager.Ptr_UserDataManager GetUserDataManager(this GhostmonGameContext @this)
         {
             if (false == @this.CanPlayGame())
@@ -719,6 +680,7 @@ namespace Maple.Ghostmon
             }
             return userDataManager;
         }
+        [Obsolete("remove...")]
         public static UserData.Ptr_UserData GetUserData(this UserDataManager.Ptr_UserDataManager userDataManager)
         {
             var userData = userDataManager.USER_DATA;
@@ -728,6 +690,7 @@ namespace Maple.Ghostmon
             }
             return userData;
         }
+        [Obsolete("remove...")]
         public static JudgeControl.Ptr_JudgeControl GetJudgeControl(this GhostmonGameContext @this, BattlePhase battlePhase)
         {
             var battle = @this.BattleCore.INSTANCE;
@@ -749,11 +712,16 @@ namespace Maple.Ghostmon
 
         }
 
-
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GhostmonGameEnvironment GetGhostmonGameEnvironment(this GhostmonGameContext @this)
+        {
+            return new GhostmonGameEnvironment(@this);
+        }
         #endregion
 
         #region Currency
 
+        [ApiTaskScheduler]
         public static GameCurrencyDisplayDTO[] GetListCurrencyDisplay(this GhostmonGameContext @this)
         {
             return [
@@ -785,10 +753,10 @@ namespace Maple.Ghostmon
             }
             ];
         }
-        public static GameCurrencyInfoDTO GetCurrencyInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCurrencyObjectDTO currencyObjectDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCurrencyInfoDTO GetCurrencyInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCurrencyObjectDTO currencyObjectDTO)
         {
-
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             if (false == Enum.TryParse<EnumSheetName>(currencyObjectDTO.CurrencyObject, out var obj))
             {
                 return GameException.Throw<GameCurrencyInfoDTO>($"NOT FOUND {currencyObjectDTO.CurrencyObject}");
@@ -816,9 +784,11 @@ namespace Maple.Ghostmon
             }
             return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = count };
         }
-        public static GameCurrencyInfoDTO UpdateCurrencyInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCurrencyModifyDTO currencyModifyDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCurrencyInfoDTO UpdateCurrencyInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCurrencyModifyDTO currencyModifyDTO)
         {
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
+
             if (false == Enum.TryParse<EnumSheetName>(currencyModifyDTO.CurrencyObject, out var obj))
             {
                 return GameException.Throw<GameCurrencyInfoDTO>($"NOT FOUND {currencyModifyDTO.CurrencyObject}");
@@ -849,7 +819,7 @@ namespace Maple.Ghostmon
         #endregion
 
         #region Inventory
-
+        [ApiTaskScheduler]
         public static IEnumerable<GameInventoryDisplayDTO> GetListInventoryDisplay(this GhostmonGameContext @this)
         {
             foreach (var config in GameConfigStore.ListMaterialConfig)
@@ -1157,7 +1127,8 @@ namespace Maple.Ghostmon
             }
             return count;
         }
-        public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryObjectDTO inventoryObjectDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameInventoryObjectDTO inventoryObjectDTO)
         {
             if (false == Enum.TryParse<EnumSheetName>(inventoryObjectDTO.InventoryCategory, out var category))
             {
@@ -1168,11 +1139,12 @@ namespace Maple.Ghostmon
                 return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryObjectDTO.InventoryObject}");
             }
 
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             var count = GetInventoryCount(userData, category, configId);
             return new GameInventoryInfoDTO() { ObjectId = inventoryObjectDTO.InventoryObject, InventoryCount = count };
         }
-        public static GameInventoryInfoDTO UpdateInventoryInfo(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameInventoryModifyDTO inventoryModifyDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameInventoryInfoDTO UpdateInventoryInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameInventoryModifyDTO inventoryModifyDTO)
         {
             if (false == Enum.TryParse<EnumSheetName>(inventoryModifyDTO.InventoryCategory, out var category))
             {
@@ -1182,7 +1154,7 @@ namespace Maple.Ghostmon
             {
                 return GameException.Throw<GameInventoryInfoDTO>($"NOT FOUND {inventoryModifyDTO.InventoryObject}");
             }
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             var oldCount = GetInventoryCount(userData, category, configId);
             var newCount = inventoryModifyDTO.InventoryCount;
             var addCount = newCount - oldCount;
@@ -1194,15 +1166,13 @@ namespace Maple.Ghostmon
             {
                 addCount = 1;
             }
-            userDataManager.GAIN_ITEM((int)category, configId, addCount, false);
-            //       @this.PlayMessage($"{category}:{inventoryModifyDTO.NewValue}");
+            gameEnvironment.Ptr_UserDataManager.GAIN_ITEM((int)category, configId, addCount, false);
             return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
 
         }
         #endregion
 
         #region Character
-
         static List<GameValueInfoDTO> MonsterRanks { get; } =
  [
 
@@ -1227,7 +1197,6 @@ namespace Maple.Ghostmon
                     new GameValueInfoDTO{ ObjectId = EnumMonsterType.首领.ToString(), DisplayName =EnumMonsterType.首领.ToString(),IntValue = (int)EnumMonsterType.首领   },
                     new GameValueInfoDTO{ ObjectId = EnumMonsterType.邪魔.ToString(), DisplayName =EnumMonsterType.邪魔.ToString(),IntValue = (int)EnumMonsterType.邪魔   },
                     ];
-
         static List<GameValueInfoDTO> MonsterWeight { get; } =
             [
             new GameValueInfoDTO{ ObjectId =EnumMonsterWeight.迷你.ToString(), DisplayName =EnumMonsterWeight.迷你.ToString(),IntValue = (int)EnumMonsterWeight.迷你   },
@@ -1247,14 +1216,12 @@ namespace Maple.Ghostmon
             new GameValueInfoDTO{ ObjectId = EnumMonsterAtkForce.强.ToString(), DisplayName =EnumMonsterAtkForce.强.ToString(),IntValue = (int)EnumMonsterAtkForce.强   },
 
     ];
-
         static List<GameValueInfoDTO> MonsterYINGYANGs { get; } =
     [
             new GameValueInfoDTO{ ObjectId = EnumMonsterYINGYANG.阴.ToString(), DisplayName =EnumMonsterYINGYANG.阴.ToString(),IntValue = (int)EnumMonsterYINGYANG.阴   },
             new GameValueInfoDTO{ ObjectId = EnumMonsterYINGYANG.阳.ToString(), DisplayName =EnumMonsterYINGYANG.阳.ToString(),IntValue = (int)EnumMonsterYINGYANG.阳   },
 
     ];
-
         static List<GameValueInfoDTO> MonsterArkType { get; } =
     [
             new GameValueInfoDTO{ ObjectId = BattleDamageType.震荡.ToString(), DisplayName =BattleDamageType.震荡.ToString(),IntValue = (int)BattleDamageType.震荡   },
@@ -1270,7 +1237,6 @@ namespace Maple.Ghostmon
             new GameValueInfoDTO{ ObjectId = BattleDamageType.治疗.ToString(), DisplayName =BattleDamageType.治疗.ToString(),IntValue = (int)BattleDamageType.治疗   },
 
     ];
-
         static List<GameValueInfoDTO> EggPropertyRanks { get; } =
     [
             new GameValueInfoDTO{ ObjectId = EnumEggPropertyRank.Rank1.ToString(), DisplayName =EnumEggPropertyRank.Rank1.ToString(),IntValue = (int)EnumEggPropertyRank.Rank1   },
@@ -1296,9 +1262,10 @@ namespace Maple.Ghostmon
     ];
 
 
-        public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
         {
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             var playerName = userData.PLAYER_NAME.ToString() ?? "???";
             yield return new GameCharacterDisplayDTO()
             {
@@ -1459,10 +1426,10 @@ namespace Maple.Ghostmon
                     ]
             };
         }
-
-        public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterObjectDTO characterObjectDTO)
         {
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             if (characterObjectDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 return new GameCharacterStatusDTO()
@@ -1500,9 +1467,10 @@ namespace Maple.Ghostmon
 
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
         }
-        public static GameCharacterStatusDTO UpdateCharacterStatus(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCharacterStatusDTO UpdateCharacterStatus(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterModifyDTO characterModifyDTO)
         {
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             if (characterModifyDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 if (characterModifyDTO.ModifyObject == nameof(userData.RANK_VALUE))
@@ -1888,9 +1856,12 @@ namespace Maple.Ghostmon
             }
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.UCharacterId}:{characterModifyDTO.ModifyObject}");
         }
-        public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterObjectDTO characterObjectDTO)
         {
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
+
             if (characterObjectDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 return new GameCharacterEquipmentDTO()
@@ -1917,15 +1888,14 @@ namespace Maple.Ghostmon
             {
                 foreach (var total in userData.TOTAL_EGG.AsRefArray())
                 {
-
-                    return new GameCharacterEquipmentDTO()
+                    if (total.Key == characterObjectDTO.UCharacterId)
                     {
-                        ObjectId = characterObjectDTO.CharacterId,
-                        EquipmentInfos = []
-                    };
-
-
-
+                        return new GameCharacterEquipmentDTO()
+                        {
+                            ObjectId = characterObjectDTO.CharacterId,
+                            EquipmentInfos = []
+                        };
+                    }
                 }
             }
 
@@ -1933,9 +1903,10 @@ namespace Maple.Ghostmon
 
 
         }
-        public static GameCharacterSkillDTO GetCharacterSkill(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterObjectDTO characterObjectDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCharacterSkillDTO GetCharacterSkill(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterObjectDTO characterObjectDTO)
         {
-            var userData = userDataManager.GetUserData();
+            var userData = gameEnvironment.Ptr_UserData;
             if (characterObjectDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 return new GameCharacterSkillDTO()
@@ -2092,21 +2063,23 @@ namespace Maple.Ghostmon
             return skillInfos;
         }
 
-        public static GameCharacterSkillDTO UpdateCharacterSkill(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameCharacterModifyDTO characterModifyDTO)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCharacterSkillDTO UpdateCharacterSkill(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterModifyDTO characterModifyDTO)
         {
 
             if (false == ulong.TryParse(characterModifyDTO.ModifyObject, out var removeSkillId) && string.IsNullOrEmpty(characterModifyDTO.NewValue))
             {
                 return GameException.Throw<GameCharacterSkillDTO>("ERROR");
             }
-
             if (characterModifyDTO.CharacterCategory == EnumSheetName.Player.ToString())
             {
                 return GameException.Throw<GameCharacterSkillDTO>($"ERROR {characterModifyDTO.CharacterCategory}");
             }
-            else if (characterModifyDTO.CharacterCategory == EnumSheetName.Monster.ToString())
+
+            var userData = gameEnvironment.Ptr_UserData;
+            if (characterModifyDTO.CharacterCategory == EnumSheetName.Monster.ToString())
             {
-                var userData = userDataManager.GetUserData();
+
                 foreach (var total in userData.TOTAL_MONSTERS.AsRefArray())
                 {
                     if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
@@ -2151,7 +2124,7 @@ namespace Maple.Ghostmon
             }
             else if (characterModifyDTO.CharacterCategory == EnumSheetName.EggConfig.ToString())
             {
-                var userData = userDataManager.GetUserData();
+
                 foreach (var total in userData.TOTAL_EGG.AsRefArray())
                 {
                     if (total.Key == characterModifyDTO.UCharacterId && total.Value.Valid())
@@ -2196,7 +2169,7 @@ namespace Maple.Ghostmon
             }
             return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {characterModifyDTO.CharacterCategory}");
 
-            IEnumerable<ulong> RemoveTheSkill(PMonoArray<UInt64> abilities, ulong removeSkill)
+            static IEnumerable<ulong> RemoveTheSkill(PMonoArray<UInt64> abilities, ulong removeSkill)
             {
                 //只移除一个
                 if (abilities.Valid())
@@ -2214,7 +2187,7 @@ namespace Maple.Ghostmon
                     }
                 }
             }
-            IEnumerable<ulong> AddTheSkill(PMonoArray<UInt64> abilities, ulong AddSkill, ulong removeSkill = 0)
+            static IEnumerable<ulong> AddTheSkill(PMonoArray<UInt64> abilities, ulong AddSkill, ulong removeSkill = 0)
             {
                 yield return AddSkill;
                 if (abilities.Valid())
@@ -2299,12 +2272,15 @@ namespace Maple.Ghostmon
                 return new GameSkillInfoDTO() { ObjectId = skillId, DisplayCategory = skillId, DisplayDesc = skillDesc, DisplayName = skillName };
             }
         }
-        public static GameCharacterSkillDTO AddMonsterMember(this GhostmonGameContext @this, UserDataManager.Ptr_UserDataManager userDataManager, GameMonsterObjectDTO monsterObjectDTO)
+
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static GameCharacterSkillDTO AddMonsterMember(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameMonsterObjectDTO monsterObjectDTO)
         {
             if (false == @this.TryGetMonsterObject(monsterObjectDTO.MonsterObject, out var monsterObject))
             {
                 return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {monsterObjectDTO.MonsterObject}");
             }
+            var userDataManager = gameEnvironment.Ptr_UserDataManager;
 
             //固定不释放
             var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.MonsterData.New(false));
@@ -2314,6 +2290,7 @@ namespace Maple.Ghostmon
             monsterData.GET_ABILITIES();
             userDataManager.SET_MONSTER_INFO(monsterData);
             userDataManager.ADD_MONSTER(monsterData);
+
             return new GameCharacterSkillDTO()
             {
                 ObjectId = monsterData.DATA_ID.ToString(),
@@ -2401,9 +2378,9 @@ namespace Maple.Ghostmon
         #endregion
 
         #region switch
-        public static string SetBuff2Character(this GhostmonGameContext @this)
+        public static string SetBuff2Character(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
         {
-            var judge = @this.GetJudgeControl(BattlePhase.Deploy);
+            var judge = gameEnvironment.Ptr_JudgeControl;
 
             var listBuff = GameConfigStore.ListBuffConfig.Where(p => p.buffType != (int)EnumBattleBuffType.减益).ToArray();
             if (listBuff.Length == 0)
@@ -2417,11 +2394,10 @@ namespace Maple.Ghostmon
                 unit.ADD_BUFF_ITEM(buff.configID, unit);
             }
             return buff.name!;
-            //     @this.PlayMessage($"Add Buff:{buff.name}");
         }
-        public static string SetDeBuff2Enemy(this GhostmonGameContext @this)
+        public static string SetDeBuff2Enemy(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
         {
-            var judge = @this.GetJudgeControl(BattlePhase.Deploy);
+            var judge = gameEnvironment.Ptr_JudgeControl;
 
             var listBuff = GameConfigStore.ListBuffConfig.Where(p => p.buffType == (int)EnumBattleBuffType.减益).ToArray();
             if (listBuff.Length == 0)
@@ -2435,23 +2411,12 @@ namespace Maple.Ghostmon
                 unit.ADD_BUFF_ITEM(buff.configID, unit);
             }
             return buff.name!;
-            //  @this.PlayMessage($"Add DeBuff:{buff.name}");
-
         }
 
 
-        public static MapWeather SetMapWeather(this GhostmonGameContext @this, MapWeather mapWeather)
+        public static MapWeather SetMapWeather(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, MapWeather mapWeather)
         {
-            var regionManager = @this.RegionManager.INSTANCE;
-            if (!regionManager)
-            {
-                return GameException.Throw<MapWeather>("Please enter the game first (0)");
-            }
-            var environmentCtrl = regionManager.ENVIRONMENT_CTRL;
-            if (!environmentCtrl)
-            {
-                return GameException.Throw<MapWeather>("Please enter the game first (1)");
-            }
+            var environmentCtrl = gameEnvironment.Ptr_EnvironmentCtrl;
             environmentCtrl.SET_WEATHER(mapWeather, true);
             return mapWeather;
         }
@@ -2459,27 +2424,20 @@ namespace Maple.Ghostmon
 
         public static void ChangelayerDoubleMoveSpeed(
             this GhostmonGameContext @this,
-            UserDataManager.Ptr_UserDataManager userDataManager,
+            GhostmonGameEnvironment gameEnvironment,
             GameSwitchDisplayDTO gameSwitchDisplay, bool on)
         {
-            var player = userDataManager.PLAYER_PROPERTY;
-            if (false == player.Valid())
+            var player = gameEnvironment.Ptr_PlayerProperty;
+            if (on)
             {
-                GameException.Throw<MapWeather>("Please enter the game first (1)");
+                var old = player.P_MOVE_SPEED_SCALE;
+                gameSwitchDisplay.FloatCache = old;
+                player.P_MOVE_SPEED_SCALE = old * 2f;
             }
             else
             {
-                if (on)
-                {
-                    var old = player.P_MOVE_SPEED_SCALE;
-                    gameSwitchDisplay.FloatCache = old;
-                    player.P_MOVE_SPEED_SCALE = old * 2f;
-                }
-                else
-                {
-                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1F);
-                    player.P_MOVE_SPEED_SCALE = val;
-                }
+                var val = Math.Min(gameSwitchDisplay.FloatCache, 1F);
+                player.P_MOVE_SPEED_SCALE = val;
             }
 
         }
@@ -2487,29 +2445,22 @@ namespace Maple.Ghostmon
 
         public static void ChangeMonsterDoubleExp(
             this GhostmonGameContext @this,
-            UserDataManager.Ptr_UserDataManager userDataManager,
+            GhostmonGameEnvironment gameEnvironment,
             GameSwitchDisplayDTO gameSwitchDisplay,
             bool on)
         {
-            var player = userDataManager.PLAYER_PROPERTY;
-            if (false == player.Valid())
+            var player = gameEnvironment.Ptr_PlayerProperty;
+            if (on)
             {
-                GameException.Throw<MapWeather>("Please enter the game first (1)");
+                var old = player.P_EXP_SCALE;
+                gameSwitchDisplay.FloatCache = old;
+                player.P_EXP_SCALE = old * 2f;
             }
             else
             {
-                if (on)
-                {
-                    var old = player.P_EXP_SCALE;
-                    gameSwitchDisplay.FloatCache = old;
-                    player.P_EXP_SCALE = old * 2f;
-                }
-                else
-                {
 
-                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
-                    player.P_EXP_SCALE = val;
-                }
+                var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
+                player.P_EXP_SCALE = val;
             }
 
         }
@@ -2517,94 +2468,58 @@ namespace Maple.Ghostmon
 
         public static void ChangeMonsterFlash(
             this GhostmonGameContext @this,
-            UserDataManager.Ptr_UserDataManager userDataManager,
+            GhostmonGameEnvironment gameEnvironment,
             GameSwitchDisplayDTO gameSwitchDisplay,
             bool on)
         {
-            var player = userDataManager.PLAYER_PROPERTY;
-            if (false == player.Valid())
+            var player = gameEnvironment.Ptr_PlayerProperty;
+            if (on)
             {
-                GameException.Throw<MapWeather>("Please enter the game first (1)");
+                var old = player.P_FLASH_SCALE;
+                gameSwitchDisplay.FloatCache = old;
+                player.P_FLASH_SCALE = 1000F;
             }
             else
             {
-                if (on)
-                {
-                    var old = player.P_FLASH_SCALE;
-                    gameSwitchDisplay.FloatCache = old;
-                    player.P_FLASH_SCALE = 1000F;
-                }
-                else
-                {
 
-                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
-                    player.P_FLASH_SCALE = val;
-                }
+                var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
+                player.P_FLASH_SCALE = val;
             }
 
         }
         public static void ChangeMonsterColor(
             this GhostmonGameContext @this,
-            UserDataManager.Ptr_UserDataManager userDataManager,
+            GhostmonGameEnvironment gameEnvironment,
             GameSwitchDisplayDTO gameSwitchDisplay,
             bool on)
         {
-            var player = userDataManager.PLAYER_PROPERTY;
-            if (false == player.Valid())
+            var player = gameEnvironment.Ptr_PlayerProperty;
+            if (on)
             {
-                GameException.Throw<MapWeather>("Please enter the game first (1)");
+                var old = player.P_COLORFUL_SCALE;
+                gameSwitchDisplay.FloatCache = old;
+                player.P_COLORFUL_SCALE = 500F;
             }
             else
             {
-                if (on)
-                {
-                    var old = player.P_COLORFUL_SCALE;
-                    gameSwitchDisplay.FloatCache = old;
-                    player.P_COLORFUL_SCALE = 500F;
-                }
-                else
-                {
 
-                    var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
-                    player.P_COLORFUL_SCALE = val;
-                }
+                var val = Math.Min(gameSwitchDisplay.FloatCache, 1f);
+                player.P_COLORFUL_SCALE = val;
             }
 
         }
-        public static CharacterCore.Ptr_CharacterCore GetScanMode(this GhostmonGameContext @this)
-        {
-            var characterCore = @this.CharacterCore.INSTANCE;
-            if (characterCore.Valid() == false)
-            {
-                return GameException.Throw<CharacterCore.Ptr_CharacterCore>("Please enter the game first (3)");
 
-            }
-            if (characterCore.IS_LOCKED)
-            {
-                return GameException.Throw<CharacterCore.Ptr_CharacterCore>("Error game character status");
-            }
-            return characterCore;
-        }
 
         public static void ChangeScanMode(
             this GhostmonGameContext @this,
-            UserData.Ptr_UserData userData,
-            CharacterCore.Ptr_CharacterCore characterCore,
+            GhostmonGameEnvironment gameEnvironment,
             bool on)
         {
-
-
-            if (!on)
+            var characterCore = gameEnvironment.Ptr_CharacterCore;
+            if (on)
             {
-                characterCore.EXIT_SCAN_MODE();
-                return;
-            }
-
-
-
-            var func = userData.SYSTEM_FUNCTION;
-            try
-            {
+                var userData = gameEnvironment.Ptr_UserData;
+                var func = userData.SYSTEM_FUNCTION;
                 //临时开启游戏功能
                 if ((func & (int)EnumGameSystemFunction.ScanMode) != (int)EnumGameSystemFunction.ScanMode)
                 {
@@ -2618,88 +2533,89 @@ namespace Maple.Ghostmon
                 characterCore.SS_CD = -1f;
                 //储蓄时间60
                 characterCore.SS_DURATION = 60F;
-            }
-            finally
-            {
                 //恢复游戏功能
                 userData.SYSTEM_FUNCTION = func;
             }
+            else
+            {
+                characterCore.EXIT_SCAN_MODE();
+            }
+
 
         }
 
-
-        public static void MapTeleport(this GhostmonGameContext @this)
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
+        public static (bool has, Ref_V2 pos) GetLastMarkDataPos(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
         {
-            var regionManager = @this.RegionManager.INSTANCE;
-            if (false == regionManager)
-            {
-                return;
-            }
-            var characterCore = @this.CharacterCore.INSTANCE;
-            if (false == characterCore)
-            {
-                return;
-
-            }
-            characterCore.IS_LOCKED = false;
-
-            var userdataMgr = @this.UserDataManager.INSTANCE;
-            if (false == userdataMgr)
-            {
-                return;
-            }
-            var userdata = userdataMgr.USER_DATA;
-            if (false == userdata)
-            {
-                return;
-            }
+            var userdata = gameEnvironment.Ptr_UserData;
             var markDatas = userdata.MAP_MARKERS;
             if (!markDatas.Valid() || markDatas.Size == 0)
             {
-                return;
+                return (false, default);
             }
             var lastMarkData = markDatas.AsReadOnlySpan()[^1];
             if (lastMarkData == false)
             {
-                return;
+                return (false, default);
             }
-            var pos = lastMarkData.MARK_POS;
+            return (true, lastMarkData.MARK_POS);
+        }
+
+        [ApiTaskScheduler(EnumApiTaskSchedulerType.UnityTaskScheduler)]
+        public static void MapTeleport(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, in Ref_V2 pos)
+        {
+            const float ZoomRate = 3.125F;
+            var characterCore = gameEnvironment.Ptr_CharacterCore;
+            var regionManager = gameEnvironment.Ptr_RegionManager;
+            characterCore.IS_LOCKED = false;
             using var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.GhostmonPortalConfig.New(true));
             var config = gchandle.Target;
             config.IS_TRAVEL = true;
             config.WORLD_POS = new MonoGameAssistant.RawDotNet.REF_MONO_VECTOR3()
             {
-                x = pos.x / 3.125F,
+                x = pos.x / ZoomRate,
                 y = 0,
-                z = pos.z / 3.125F,
+                z = pos.z / ZoomRate,
             };
+
+            SetMainUI(@this, gameEnvironment);
 
             using var actionHandle = @this.RuntimeContext.CreateMonoGCHandle(@this.SystemAction.New(false));
             var action = actionHandle.Target;
-            var p = RegionManager.GetDelegate_OnTeleportComplete();
-            action.CTOR(regionManager, p);
+            action.CTOR(regionManager, RegionManager.GetDelegate_OnTeleportComplete());
             regionManager.TELEPORT_TO_SHELTER(gchandle, action);
+
+            SetMapUI(@this, gameEnvironment);
+
+            static void SetMainUI(GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
+            {
+                var regionManager = gameEnvironment.Ptr_RegionManager;
+                var mainUI = regionManager.MAIN_UI;
+                if (mainUI)
+                {
+                    mainUI.SHOW_RECOVER_RIKI();
+                    mainUI.REFRESH_HP_FILL_AMOUNT();
+                }
+            }
+
+            static void SetMapUI(GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
+            {
+                var mainMapCore = @this.MainMapCore.INSTANCE;
+                if (mainMapCore)
+                {
+                    var mapUI = mainMapCore.MAPUI;
+                    if (mapUI)
+                    {
+                        mapUI.HIDE_INFO_UI();
+                    }
+                    mainMapCore.HIDE_MAP_UI();
+                }
+            }
         }
 
-        public static bool IsLocked(this GhostmonGameContext @this)
-        {
-            var regionManager = @this.RegionManager.INSTANCE;
-            if (!regionManager)
-            {
-                return false;
-            }
-            var characterCore = @this.CharacterCore.INSTANCE;
-            if (!characterCore)
-            {
-                return false;
-            }
-            return SpinWait.SpinUntil(() => characterCore.IS_LOCKED, 5000);
 
-        }
 
 
         #endregion
     }
-
-
 }

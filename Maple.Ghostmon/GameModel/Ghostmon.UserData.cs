@@ -10,12 +10,7 @@ using System.Threading.Tasks;
 namespace Maple.Ghostmon
 {
 
-    [Flags]
-    public enum EnumGameSystemFunction
-    {
-        ReleaseCharm = 1,
-        ScanMode = 2,
-    }
+
 
     /// <summary>
     /// class ["Assembly-CSharp.dll"."Ghostmon"."UserData"]

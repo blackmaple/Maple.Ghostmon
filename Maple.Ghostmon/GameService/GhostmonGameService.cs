@@ -1,4 +1,5 @@
 ﻿using Maple.GameContext;
+using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.Model;
@@ -27,36 +28,26 @@ namespace Maple.Ghostmon
 
         protected sealed override async ValueTask LoadGameDataAsync()
         {
-            var load = await this.MonoTaskAsync(p => p.LoadGameConfigStore()).ConfigureAwait(false);
-            this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
-            var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
-            this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
-            await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖精").ConfigureAwait(false);
+            using (this.Logger.Running())
+            {
+                var load = await this.MonoTaskAsync(p => p.LoadGameConfigStore()).ConfigureAwait(false);
+                this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
+                var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
+                this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
+                await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖精").ConfigureAwait(false);
+            }
         }
         #endregion
 
         #region HotKey
-        //protected sealed override   ValueTask F10_KeyDown()
-        //{
-        //    //try
-        //    //{
-        //    //    var name = await  this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
-        //    //    await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
-        //    //}
-        //    //catch (GameException ex)
-        //    //{
-        //    //    await this.PlayMessageAsync(ex.Message).ConfigureAwait(false);
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    this.Logger.LogError("{ex}", ex);
-        //    //}
-        //}
         protected sealed override async ValueTask F11_KeyDown()
         {
             try
             {
-                var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
+                var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+                game_env.ThrowIfNotLoaded();
+                game_env.ThrowIfNotInBattle();
+                var name = await this.MonoTaskAsync((p, game_env) => p.SetBuff2Character(game_env), game_env).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
             }
             catch (GameException ex)
@@ -72,7 +63,11 @@ namespace Maple.Ghostmon
         {
             try
             {
-                var name = await this.MonoTaskAsync(p => p.SetDeBuff2Enemy()).ConfigureAwait(false);
+                var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+                game_env.ThrowIfNotLoaded();
+                game_env.ThrowIfNotInBattle();
+
+                var name = await this.MonoTaskAsync((p, game_env) => p.SetDeBuff2Enemy(game_env), game_env).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add DeBuff:{name}").ConfigureAwait(false);
             }
             catch (GameException ex)
@@ -85,33 +80,38 @@ namespace Maple.Ghostmon
             }
         }
 
-        protected override async ValueTask F5_KeyDown()
+        protected override async ValueTask F9_KeyDown()
         {
-            //var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
-            //var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
-            //    (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
-            //foreach (var gameIcon in imageObjs)
-            //{
-            //    this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
-            //}
-            
-            await this.UnityTaskAsync(p => p.MapTeleport()).ConfigureAwait(false);
-            await this.MonoTaskAsync(p => p.IsLocked()).ConfigureAwait(false);
+            try
+            {
+                var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+                game_env.ThrowIfNotLoaded();
+
+                var pos = await this.MonoTaskAsync((p, game_env) => p.GetLastMarkDataPos(game_env), game_env).ConfigureAwait(false);
+                if (false == pos.has)
+                {
+                    await this.PlayMessageAsync($"NOT FOUND MARK DATA").ConfigureAwait(false);
+                }
+                else
+                {
+                    //await this.PlayMessageAsync($"Teleport:{pos.pos.x},{pos.pos.z}").ConfigureAwait(false);
+                    
+                    await this.UnityTaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
+                }
+
+            }
+            catch (GameException ex)
+            {
+                await this.PlayMessageAsync(ex.Message).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogError("{ex}", ex);
+            }
         }
         #endregion
 
         #region Game Data
-
-        private async Task<UserDataManager.Ptr_UserDataManager> GetUserDataManagerAsync()
-        {
-            var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
-            return userDataMgr;
-        }
-        private async Task<UserData.Ptr_UserData> GetUserDataAsync(UserDataManager.Ptr_UserDataManager userDataManager)
-        {
-            var userDataMgr = await this.MonoTaskAsync((p, userDataManager) => userDataManager.GetUserData(), (userDataManager)).ConfigureAwait(false);
-            return userDataMgr;
-        }
         private async ValueTask PlayMessageAsync(string? msg)
         {
             if (string.IsNullOrEmpty(msg))
@@ -120,9 +120,30 @@ namespace Maple.Ghostmon
             }
             await this.UnityTaskAsync((p, msg) => p.PlayMessage(msg), msg).ConfigureAwait(false);
         }
+
+        [Obsolete("remove...")]
+        private async Task<UserDataManager.Ptr_UserDataManager> GetUserDataManagerAsync()
+        {
+            var userDataMgr = await this.MonoTaskAsync(p => p.GetUserDataManager()).ConfigureAwait(false);
+            return userDataMgr;
+        }
+        [Obsolete("remove...")]
+        private async Task<UserData.Ptr_UserData> GetUserDataAsync(UserDataManager.Ptr_UserDataManager userDataManager)
+        {
+            var userDataMgr = await this.MonoTaskAsync((p, userDataManager) => userDataManager.GetUserData(), (userDataManager)).ConfigureAwait(false);
+            return userDataMgr;
+        }
+
+
+        private Task<GhostmonGameEnvironment> GetGameEnvironmentAsync()
+        {
+            return this.MonoTaskAsync(p => p.GetGhostmonGameEnvironment());
+        }
         #endregion
 
         #region WebApi
+
+        #region SessionInfo
 
         public sealed override ValueTask<GameSessionInfoDTO> GetSessionInfoAsync()
         {
@@ -130,6 +151,7 @@ namespace Maple.Ghostmon
             var data = this.GameSettings.GetGameSessionInfo(api);
             return ValueTask.FromResult(data);
         }
+        #endregion
 
         #region Game Res
         public sealed override async ValueTask<GameSessionInfoDTO> LoadResourceAsync()
@@ -157,20 +179,17 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> GetCurrencyInfoAsync(GameCurrencyObjectDTO currencyObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            var data = await this.MonoTaskAsync((gameContext, args) =>
-                gameContext.GetCurrencyInfo(args.userDataMgr, args.currencyObjectDTO)
-                , (userDataMgr, currencyObjectDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+            var data = await this.MonoTaskAsync((gameContext, args) => gameContext.GetCurrencyInfo(args.game_env, args.currencyObjectDTO), (game_env, currencyObjectDTO)).ConfigureAwait(false);
             return data;
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> UpdateCurrencyInfoAsync(GameCurrencyModifyDTO currencyModifyDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
 
-            var data = await this.MonoTaskAsync(
-                (gameContext, args)
-                    => gameContext.UpdateCurrencyInfo(args.userDataMgr, args.currencyModifyDTO),
-                (userDataMgr, currencyModifyDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((gameContext, args) => gameContext.UpdateCurrencyInfo(args.game_env, args.currencyModifyDTO), (game_env, currencyModifyDTO)).ConfigureAwait(false);
 
             await this.PlayMessageAsync($@"{data.ObjectId}:{data.DisplayValue}").ConfigureAwait(false);
 
@@ -190,15 +209,17 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return this.GameContext.GetInventoryInfo(userDataMgr, inventoryObjectDTO);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+            return this.GameContext.GetInventoryInfo(game_env, inventoryObjectDTO);
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            var data = await this.MonoTaskAsync((gameContext, args) =>
-            gameContext.UpdateInventoryInfo(args.userDataMgr, args.inventoryObjectDTO),
-            (userDataMgr, inventoryObjectDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            var data = await this.MonoTaskAsync((gameContext, args) => gameContext.UpdateInventoryInfo(args.game_env, args.inventoryObjectDTO), (game_env, inventoryObjectDTO)).ConfigureAwait(false);
+
             await this.PlayMessageAsync($@"{data.ObjectId}:{data.DisplayValue}").ConfigureAwait(false);
             return data;
         }
@@ -208,38 +229,50 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameCharacterDisplayDTO[]> GetListCharacterDisplayAsync()
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            var datas = await this.MonoTaskAsync((p, userDataMgr) => p.GetListCharacterDisplay(userDataMgr).ToArray(), userDataMgr).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+            var datas = await this.MonoTaskAsync((p, game_env) => p.GetListCharacterDisplay(game_env).ToArray(), game_env).ConfigureAwait(false);
             this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
             return datas;
         }
         public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, args) => p.GetCharacterEquipment(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            return await this.MonoTaskAsync((p, args) => p.GetCharacterEquipment(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
 
         }
         public sealed override async ValueTask<GameCharacterSkillDTO> GetCharacterSkillAsync(GameCharacterObjectDTO characterObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, args) => p.GetCharacterSkill(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            return await this.MonoTaskAsync((p, args) => p.GetCharacterSkill(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
         }
         public sealed override async ValueTask<GameCharacterStatusDTO> GetCharacterStatusAsync(GameCharacterObjectDTO characterObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.userDataMgr, args.characterObjectDTO), (userDataMgr, characterObjectDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
         }
         public sealed override async ValueTask<GameCharacterStatusDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.game_env, args.characterModifyDTO), (game_env, characterModifyDTO)).ConfigureAwait(false);
             await this.PlayMessageAsync($@"CharacterStatus:{data.ObjectId}").ConfigureAwait(false);
             return data;
         }
         public sealed override async ValueTask<GameCharacterSkillDTO> UpdateCharacterSkillAsync(GameCharacterModifyDTO characterModifyDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterSkill(args.userDataMgr, args.characterModifyDTO), (userDataMgr, characterModifyDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterSkill(args.game_env, args.characterModifyDTO), (game_env, characterModifyDTO)).ConfigureAwait(false);
+
             await this.PlayMessageAsync($@"CharacterSkill:{data.ObjectId}").ConfigureAwait(false);
             return data;
         }
@@ -257,9 +290,11 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameCharacterSkillDTO> AddMonsterMemberAsync(GameMonsterObjectDTO monsterObjectDTO)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-            var data = await this.MonoTaskAsync((p, args) => p.AddMonsterMember(args.userDataMgr, args.monsterObjectDTO), (userDataMgr, monsterObjectDTO)).ConfigureAwait(false);
-            await this.PlayMessageAsync($@"CharacterSkill:{data.ObjectId}").ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
+
+            var data = await this.MonoTaskAsync((p, args) => p.AddMonsterMember(args.game_env, args.monsterObjectDTO), (game_env, monsterObjectDTO)).ConfigureAwait(false);
+            await this.PlayMessageAsync($@"AddMonsterMember:{data.ObjectId}").ConfigureAwait(false);
             return data;
         }
         #endregion
@@ -275,8 +310,6 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameSkillDisplayDTO> AddSkillDisplayAsync(GameSkillObjectDTO gameSkillObject)
         {
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
-
             var data = await this.MonoTaskAsync((p, gameSkillObject) => p.AddSkillDisplay(gameSkillObject), gameSkillObject).ConfigureAwait(false);
             return data;
         }
@@ -298,32 +331,35 @@ namespace Maple.Ghostmon
                 return GameException.Throw<GameSwitchDisplayDTO>($"NOT FOUND {gameSwitchModify.SwitchObjectId} (1)");
             }
 
-            var userDataMgr = await this.GetUserDataManagerAsync().ConfigureAwait(false);
+            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
+            game_env.ThrowIfNotLoaded();
 
 
             if (gameSwitchName == EnumGameSwitchName.RandomBuff)
             {
-                var name = await this.MonoTaskAsync(p => p.SetBuff2Character()).ConfigureAwait(false);
+                game_env.ThrowIfNotInBattle();
+                var name = await this.MonoTaskAsync((p, game_env) => p.SetBuff2Character(game_env), game_env).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add Buff:{name}").ConfigureAwait(false);
             }
             else if (gameSwitchName == EnumGameSwitchName.RandomDeBuff)
             {
-                var name = await this.MonoTaskAsync(p => p.SetDeBuff2Enemy()).ConfigureAwait(false);
+                game_env.ThrowIfNotInBattle();
+                var name = await this.MonoTaskAsync((p, game_env) => p.SetDeBuff2Enemy(game_env), game_env).ConfigureAwait(false);
                 await this.PlayMessageAsync($"Add DeBuff:{name}").ConfigureAwait(false);
 
             }
             else if (gameSwitchName == EnumGameSwitchName.DoubleMoveSpeed)
             {
-
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.game_env, args.switchDisplay, true), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangelayerDoubleMoveSpeed(args.game_env, args.switchDisplay, false), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
+
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
             }
             else if (gameSwitchName == EnumGameSwitchName.DoubleMonsterExp)
@@ -331,11 +367,11 @@ namespace Maple.Ghostmon
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.game_env, args.switchDisplay, true), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterDoubleExp(args.game_env, args.switchDisplay, false), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
             }
@@ -344,11 +380,11 @@ namespace Maple.Ghostmon
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterFlash(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterFlash(args.game_env, args.switchDisplay, true), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterFlash(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterFlash(args.game_env, args.switchDisplay, false), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
             }
@@ -357,26 +393,27 @@ namespace Maple.Ghostmon
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterColor(args.userDataMgr, args.switchDisplay, true), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterColor(args.game_env, args.switchDisplay, true), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterColor(args.userDataMgr, args.switchDisplay, false), (userDataMgr, switchDisplay)).ConfigureAwait(false);
+                    await this.MonoTaskAsync((p, args) => p.ChangeMonsterColor(args.game_env, args.switchDisplay, false), (game_env, switchDisplay)).ConfigureAwait(false);
                 }
+
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{on}").ConfigureAwait(false);
             }
             else if (gameSwitchName == EnumGameSwitchName.ScanMode)
             {
-                var userData = await this.GetUserDataAsync(userDataMgr).ConfigureAwait(false);
-                var character = await this.MonoTaskAsync(p => p.GetScanMode()).ConfigureAwait(false);
+                game_env.ThrowIfIsLocked();
+
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
-                    await this.UnityTaskAsync((p, args) => p.ChangeScanMode(args.userData, args.character, true), (userData, character)).ConfigureAwait(false);
+                    await this.UnityTaskAsync((p, game_env) => p.ChangeScanMode(game_env, true), game_env).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.UnityTaskAsync((p, args) => p.ChangeScanMode(args.userData, args.character, false), (userData, character)).ConfigureAwait(false);
+                    await this.UnityTaskAsync((p, game_env) => p.ChangeScanMode(game_env, false), game_env).ConfigureAwait(false);
                 }
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{gameSwitchModify.SwitchValue}").ConfigureAwait(false);
 
@@ -386,11 +423,24 @@ namespace Maple.Ghostmon
             {
                 if (Enum.TryParse<MapWeather>(gameSwitchModify.ContentValue, out var mapWeather))
                 {
-                    await this.MonoTaskAsync(static (p, mapWeather) => p.SetMapWeather(mapWeather), mapWeather).ConfigureAwait(false);
+                    await this.MonoTaskAsync(static (p, args) => p.SetMapWeather(args.game_env, args.mapWeather), (game_env, mapWeather)).ConfigureAwait(false);
                 }
                 else
                 {
-                    return GameException.Throw<GameSwitchDisplayDTO>($"NOT FOUND Map Weather");
+                    return GameException.Throw<GameSwitchDisplayDTO>("NOT FOUND Map Weather");
+                }
+            }
+            else if (gameSwitchName == EnumGameSwitchName.MarkTeleport)
+            {
+                var pos = await this.MonoTaskAsync((p, game_env) => p.GetLastMarkDataPos(game_env), game_env).ConfigureAwait(false);
+                if (false == pos.has)
+                {
+                    return GameException.Throw<GameSwitchDisplayDTO>("NOT FOUND MARK DATA");
+                }
+                else
+                {
+                    //await this.PlayMessageAsync($"Teleport:{pos.pos.x},{pos.pos.z}").ConfigureAwait(false);
+                    await this.UnityTaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
                 }
             }
             switchDisplay.ContentValue = gameSwitchModify.ContentValue;
@@ -407,7 +457,8 @@ namespace Maple.Ghostmon
             ScanMode,
             MapWeather,
             MonsterFlash,
-            MonsterColor
+            MonsterColor,
+            MarkTeleport
         }
 
 
@@ -417,9 +468,11 @@ namespace Maple.Ghostmon
 
 
             return [
-                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.ScanMode.ToString(),   DisplayName = "1分钟灵视(F10)" , DisplayDesc=   "直接进入灵视|时长约为:60s" ,SwitchValue = false, UIType = (int)EnumGameSwitchUIType.Switches},
+                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.MarkTeleport.ToString(),   DisplayName = "标记点传送(F9)" , DisplayDesc=   "传送到最后标记的地点" ,SwitchValue = false, UIType = (int)EnumGameSwitchUIType.Button},
                 new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomBuff.ToString(),   DisplayName = "随机增益(F11)" , DisplayDesc=  "随机Buff给我方妖精|仅限战斗准备阶段使用" ,SwitchValue = false,  UIType = (int)EnumGameSwitchUIType.Button},
                  new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.RandomDeBuff.ToString(),   DisplayName = "随机减益(F12)" , DisplayDesc=  "随机DeBuff给敌方妖怪|仅限战斗准备阶段使用" ,SwitchValue = false, UIType = (int)EnumGameSwitchUIType.Button},
+
+                new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.ScanMode.ToString(),   DisplayName = "1分钟灵视" , DisplayDesc=   "直接进入灵视|时长约为:60s" ,SwitchValue = false, UIType = (int)EnumGameSwitchUIType.Switches},
 
                  new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMoveSpeed.ToString(),   DisplayName = "人物双倍移速" , DisplayDesc=  "移速*2" ,SwitchValue = false,UIType = (int)EnumGameSwitchUIType.Switches},
                  new GameSwitchDisplayDTO(){ ObjectId = EnumGameSwitchName.DoubleMonsterExp.ToString(),   DisplayName = "妖精双倍经验值" , DisplayDesc=  "经验值*2" ,SwitchValue = false,UIType = (int)EnumGameSwitchUIType.Switches},

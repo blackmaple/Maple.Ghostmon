@@ -52,10 +52,5 @@
     }
 
 
-    public enum EnumBattleBuffType
-    {
-        增益 = 1,
-        减益 = 2,
-        食物 = 3,
-    }
+
 }

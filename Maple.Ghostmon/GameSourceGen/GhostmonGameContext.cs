@@ -66,6 +66,13 @@ typeof(MonoCollectorClassInfo)
 
     [MonoCollectorType(typeof(SystemAction))]
     [MonoCollectorType(typeof(MapMarkData))]
+
+    [MonoCollectorType(typeof(MainMapCore))]
+    [MonoCollectorType(typeof(MainUI))]
+    [MonoCollectorType(typeof(MapUI))]
+
+
+
     internal partial class GhostmonGameContext
     {
     }

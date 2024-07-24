@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Maple.Ghostmon
 {
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly unsafe partial struct Ref_V2
+    public readonly unsafe partial struct Ref_V2(float xx, float zz)
     {
 
 
@@ -21,7 +21,7 @@ namespace Maple.Ghostmon
         /// struct 0x10 System.Single x
         /// </summary>
         [MarshalAs(UnmanagedType.R4)]
-        public readonly System.Single x;
+        public readonly System.Single x = xx;
 
 
         /// const string Name_Field_z = "z";
@@ -29,7 +29,7 @@ namespace Maple.Ghostmon
         /// struct 0x14 System.Single z
         /// </summary>
         [MarshalAs(UnmanagedType.R4)]
-        public readonly System.Single z;
+        public readonly System.Single z = zz;
 
     }
 
