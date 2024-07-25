@@ -2578,7 +2578,7 @@ namespace Maple.Ghostmon
                 z = pos.z / ZoomRate,
             };
 
-            SetMainUI(@this, gameEnvironment);
+        //    SetMainUI(@this, gameEnvironment);
 
             using var actionHandle = @this.RuntimeContext.CreateMonoGCHandle(@this.SystemAction.New(false));
             var action = actionHandle.Target;
@@ -2603,11 +2603,11 @@ namespace Maple.Ghostmon
                 var mainMapCore = @this.MainMapCore.INSTANCE;
                 if (mainMapCore)
                 {
-                    var mapUI = mainMapCore.MAPUI;
-                    if (mapUI)
-                    {
-                        mapUI.HIDE_INFO_UI();
-                    }
+                    //var mapUI = mainMapCore.MAPUI;
+                    //if (mapUI)
+                    //{
+                    //    mapUI.HIDE_INFO_UI();
+                    //}
                     mainMapCore.HIDE_MAP_UI();
                 }
             }
