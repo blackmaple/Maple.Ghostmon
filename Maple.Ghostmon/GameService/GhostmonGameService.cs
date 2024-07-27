@@ -22,7 +22,7 @@ namespace Maple.Ghostmon
         //   protected sealed override bool EnableService => true;
 
         protected sealed override GhostmonGameContext LoadGameContext()
-           => GhostmonGameContext.LoadGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.Game, this.Logger);
+           => GhostmonGameContext.LoadGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.APP, this.Logger);
 
 
 
@@ -30,6 +30,10 @@ namespace Maple.Ghostmon
         {
             using (this.Logger.Running())
             {
+
+                this.Logger.LogInformation("MonoString:{info}", MonoStringExtensions.GetMonoStringStructLayout());
+                this.Logger.LogInformation("MonoArray:{info}", MonoArrayExtensions.GetMonoArrayStructLayout());
+
                 var load = await this.MonoTaskAsync(p => p.LoadGameConfigStore()).ConfigureAwait(false);
                 this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
                 var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
