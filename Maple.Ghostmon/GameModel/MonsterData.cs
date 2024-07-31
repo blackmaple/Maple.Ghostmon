@@ -730,19 +730,19 @@ namespace Maple.Ghostmon
         /// <param name="range">struct UnityEngine.Vector2</param>
         /// <returns>struct System.Single</returns>
 
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetGrowthValue")]
+        //  [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetGrowthValue")]
         // extern System.Single GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
         //add 0.95B
-        extern PMonoArray<System.Single> GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
+        //  extern PMonoArray<System.Single> GET_GROWTH_VALUE(REF_MONO_VECTOR2 range);
 
         //add 0.95B
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OrderGrowthValue")]
-        extern void ORDER_GROWTH_VALUE(int rank, REF_MONO_VECTOR2 range, int type);
+        // [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OrderGrowthValue")]
+        // extern void ORDER_GROWTH_VALUE(int rank, REF_MONO_VECTOR2 range, int type);
 
 
         //add 0.95B
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCurrentBasicProperty")]
-        extern void GetCurrentBasicProperty(MonsterObject.Ptr_MonsterObject m);
+        // [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCurrentBasicProperty")]
+        // extern void GetCurrentBasicProperty(MonsterObject.Ptr_MonsterObject m);
         /// <summary>
         ///   System.String GetProfessionalName()
         /// </summary>
@@ -800,5 +800,175 @@ namespace Maple.Ghostmon
 
     }
 
+    /// <summary>
+    /// ["Assembly-CSharp.dll".""."MonsterData"]
+    /// </summary>
+    public partial class MonsterData
+    {
+
+
+
+        /// <summary>
+        ///   System.Void .ctor(MonsterObject m, System.Int32 level, System.Int32 type, System.Boolean randomCheck)
+        /// </summary>
+        /// <param name="m">class MonsterObject</param>
+        /// <param name="level">struct System.Int32</param>
+        /// <param name="type">struct System.Int32</param>
+        /// <param name="randomCheck">struct System.Boolean</param>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        ///  extern void .CTOR (nint m, System.Int32 level, System.Int32 type, System.Boolean randomCheck);
+
+
+        /// <summary>
+        ///   System.Boolean <CheckUpConditions>b__114_0(Newtonsoft.Json.Linq.JToken t)
+        /// </summary>
+        /// <param name="t">abstract class Newtonsoft.Json.Linq.JToken</param>
+        /// <returns>struct System.Boolean</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("<CheckUpConditions>b__114_0")]
+        ///  extern System.Boolean <CHECK_UP_CONDITIONS>B__114_0 (nint t);
+
+
+        /// <summary>
+        ///   System.Void <SetShiner>g__SetMax|106_0(System.Int32 index)
+        /// </summary>
+        /// <param name="index">struct System.Int32</param>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("<SetShiner>g__SetMax|106_0")]
+        ///  extern void <SET_SHINER>G__SET_MAX|106_0 (System.Int32 index);
+
+
+        /// <summary>
+        ///   System.Boolean CheckAbilityEligible(System.UInt64 a)
+        /// </summary>
+        /// <param name="a">struct System.UInt64</param>
+        /// <returns>struct System.Boolean</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckAbilityEligible")]
+        ///  extern System.Boolean CHECK_ABILITY_ELIGIBLE (System.UInt64 a);
+
+
+        /// <summary>
+        ///   System.Boolean CheckUpConditions(System.Collections.Generic.List<System.String>& evolvePrefabs)
+        /// </summary>
+        /// <param name="evolvePrefabs">class System.Collections.Generic.List<System.String>&</param>
+        /// <returns>struct System.Boolean</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckUpConditions")]
+        ///  extern System.Boolean CHECK_UP_CONDITIONS (nint evolvePrefabs);
+
+
+        /// <summary>
+        /// static  MonsterData Clone(MonsterData data)
+        /// </summary>
+        /// <param name="data">class MonsterData</param>
+        /// <returns>class MonsterData</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Clone")]
+        /// static extern nint CLONE (nint data);
+
+
+        /// <summary>
+        ///   System.Void GetAbilities()
+        /// </summary>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAbilities")]
+        ///  extern void GET_ABILITIES ();
+
+
+        /// <summary>
+        ///   System.String GetProfessionalName()
+        /// </summary>
+        /// <returns>class System.String</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetProfessionalName")]
+        ///  extern nint GET_PROFESSIONAL_NAME ();
+
+
+        /// <summary>
+        ///   System.Int32 GetRandomAptitudeRank()
+        /// </summary>
+        /// <returns>struct System.Int32</returns>
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetRandomAptitudeRank")]
+        extern System.Int32 GET_RANDOM_APTITUDE_RANK();
+
+
+        /// <summary>
+        ///   System.Void InitRandomFeature()
+        /// </summary>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitRandomFeature")]
+        ///  extern void INIT_RANDOM_FEATURE ();
+
+
+        /// <summary>
+        ///   System.Void OrderAbilities(System.Int32 num, System.Int32 rank)
+        /// </summary>
+        /// <param name="num">struct System.Int32</param>
+        /// <param name="rank">struct System.Int32</param>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OrderAbilities")]
+        ///  extern void ORDER_ABILITIES (System.Int32 num, System.Int32 rank);
+
+
+        /// <summary>
+        ///   System.Void OrderGrowthValue(System.Int32[] rankArray, MonsterObject config)
+        /// </summary>
+        /// <param name="rankArray">class System.Int32[]</param>
+        /// <param name="config">class MonsterObject</param>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OrderGrowthValue")]
+        ///  extern void ORDER_GROWTH_VALUE (nint rankArray, nint config);
+
+
+        /// <summary>
+        ///   System.Void RefreshProperty(MonsterObject m)
+        /// </summary>
+        /// <param name="m">class MonsterObject</param>
+        /// <returns>struct System.Void</returns>
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshProperty")]
+        extern void REFRESH_PROPERTY(MonsterObject.Ptr_MonsterObject m);
+
+
+        /// <summary>
+        ///   System.Single SetGrowthValue(System.Int32 rank, UnityEngine.Vector2 range)
+        /// </summary>
+        /// <param name="rank">struct System.Int32</param>
+        /// <param name="range">struct UnityEngine.Vector2</param>
+        /// <returns>struct System.Single</returns>
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetGrowthValue")]
+        extern System.Single SET_GROWTH_VALUE(System.Int32 rank, REF_MONO_VECTOR2 range);
+
+
+        /// <summary>
+        ///   System.Void SetLeader()
+        /// </summary>
+        /// <returns>struct System.Void</returns>
+        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLeader")]
+        extern void SET_LEADER();
+
+
+        /// <summary>
+        ///   System.Void SetShiner()
+        /// </summary>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetShiner")]
+        ///  extern void SET_SHINER ();
+
+
+        /// <summary>
+        ///   System.Void SetVariColor()
+        /// </summary>
+        /// <returns>struct System.Void</returns>
+        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetVariColor")]
+        ///  extern void SET_VARI_COLOR ();
+
+
+
+
+        /// public static partial class Search_MonsterData
+        /// {
+        /// 
+        ///     
+        /// 
+        /// }
+
+    }
 
 }

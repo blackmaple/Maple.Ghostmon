@@ -99,7 +99,7 @@ namespace Maple.Ghostmon
                 else
                 {
                     //await this.PlayMessageAsync($"Teleport:{pos.pos.x},{pos.pos.z}").ConfigureAwait(false);
-                    
+
                     await this.UnityTaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
                 }
 
@@ -147,19 +147,23 @@ namespace Maple.Ghostmon
 
         #region WebApi
 
-        #region SessionInfo
+        //#region SessionInfo
 
-        public sealed override ValueTask<GameSessionInfoDTO> GetSessionInfoAsync()
-        {
-            var api = this.GameContext.ApiVersion;
-            var data = this.GameSettings.GetGameSessionInfo(api);
-            return ValueTask.FromResult(data);
-        }
-        #endregion
+        //public sealed override ValueTask<GameSessionInfoDTO> GetSessionInfoAsync()
+        //{
+        //    var api = this.GameContext.ApiVersion;
+        //    var data = this.GameSettings.GetGameSessionInfo(api);
+        //    return ValueTask.FromResult(data);
+        //}
+        //#endregion
 
         #region Game Res
         public sealed override async ValueTask<GameSessionInfoDTO> LoadResourceAsync()
         {
+            if (this.UnityEngineContext is null)
+            {
+                return GameException.Throw<GameSessionInfoDTO>("LOADED ERRR");
+            }
             var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
             var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
                 (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
