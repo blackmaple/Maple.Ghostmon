@@ -10,7 +10,7 @@
 1.  要求
 
     -  一个VS2022
-    -  一个DotNet8 SDK 需要安装AOT
+    -  一个dotNet8 SDK 需要安装AOT
     -  [一个UnityGame的通用修改框架](https://github.com/blackmaple/Maple.MonoGameAssistant)
    
 2.  项目
