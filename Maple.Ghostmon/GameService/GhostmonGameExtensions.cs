@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Maple.Ghostmon
 {
-    internal sealed class GhostmonGameExtensions()
+    internal sealed class GhostmonGameExtensions
     {
         internal static async Task RunWebApiServiceAsync(int millisecondsDelay = 8000)
         {
