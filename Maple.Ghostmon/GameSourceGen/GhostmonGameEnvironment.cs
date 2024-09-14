@@ -7,7 +7,6 @@ namespace Maple.Ghostmon
     sealed class GhostmonGameEnvironment
     {
 
-        [method: ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public GhostmonGameEnvironment(GhostmonGameContext @this)
         {
             var userDataManager = @this.UserDataManager.INSTANCE;

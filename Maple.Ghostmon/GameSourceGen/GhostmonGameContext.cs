@@ -1,7 +1,7 @@
 ﻿using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollector;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
-using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 
 namespace Maple.Ghostmon
 {
@@ -73,7 +73,8 @@ typeof(MonoCollectorClassInfo)
 
 
 
-    internal partial class GhostmonGameContext
+    internal partial class GhostmonGameContext  
     {
+     
     }
 }

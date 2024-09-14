@@ -1,20 +1,38 @@
-﻿using Maple.GameContext;
-using Maple.MonoGameAssistant.Common;
+﻿using Maple.MonoGameAssistant.GameContext;
+using Maple.MonoGameAssistant.WebApi;
+using Maple.MonoGameAssistant.WinApi;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace Maple.Ghostmon
 {
-    internal sealed class GhostmonWebApiService()
-        : GameWebApi<GhostmonWebApiService, GhostmonGameService, GhostmonGameContext>("Yaoling Mythical Journey 0.95//QQ群:136107898")
+    internal sealed class GhostmonGameExtensions()
     {
+        internal static async Task RunWebApiServiceAsync(int millisecondsDelay = 8000)
+        {
+            var webapp = WebApiServiceExtensions.AsRunWebApiService(p =>
+            {
+                p.GameName = "Yaoling Mythical Journey";
+                p.QQ = "0";
+                p.Http = true;
+                p.AutoOpenUrl = true;
+               
+            }, services =>
+            {
+                services.UseGameContextService<GhostmonGameService>();
+            });
+
+            //延迟启动
+            await Task.Delay(millisecondsDelay).ConfigureAwait(false);
+            await webapp.RunAsync().ConfigureAwait(false);
+
+        }
 
         [ModuleInitializer]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2255:不应在库中使用 “ModuleInitializer” 属性", Justification = "<挂起>")]
         public static void Initializer()
         {
-            Maple.MonoGameAssistant.DllExportTmp.DllExport.LoadApis();
-            Initializer(8000);
+            _ = RunWebApiServiceAsync();
         }
 
         [UnmanagedCallersOnly(CallConvs = [typeof(CallConvStdcall)], EntryPoint = nameof(DllMain))]

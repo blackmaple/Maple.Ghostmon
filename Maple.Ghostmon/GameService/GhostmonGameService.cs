@@ -1,20 +1,18 @@
-﻿using Maple.GameContext;
-using Maple.MonoGameAssistant.Common;
+﻿using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
+using Maple.MonoGameAssistant.GameContext;
 using Maple.MonoGameAssistant.GameDTO;
+using Maple.MonoGameAssistant.HotKey;
 using Maple.MonoGameAssistant.Model;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
-using Maple.MonoGameAssistant.UnityCore;
+using Maple.MonoGameAssistant.UITask;
 using Microsoft.Extensions.Logging;
 
 
 namespace Maple.Ghostmon
 {
-    internal sealed partial class GhostmonGameService(
-        ILogger<GhostmonGameService> logger,
-        MonoRuntimeContext runtimeContext,
-        MonoGameSettings gameSettings)
-        : GameService<GhostmonGameContext>(logger, runtimeContext, gameSettings)
+    internal sealed partial class GhostmonGameService(ILogger<GhostmonGameService> logger, MonoRuntimeContext runtimeContext, MonoTaskScheduler monoTaskScheduler, MonoGameSettings gameSettings, HookWinMsgFactory hookWinMsgFactory)
+                : GameContextService<GhostmonGameContext>(logger, runtimeContext, monoTaskScheduler, gameSettings, hookWinMsgFactory)
     {
 
         #region LoadService
@@ -31,14 +29,14 @@ namespace Maple.Ghostmon
             using (this.Logger.Running())
             {
 
-                this.Logger.LogInformation("MonoString:{info}", MonoStringExtensions.GetMonoStringStructLayout());
-                this.Logger.LogInformation("MonoArray:{info}", MonoArrayExtensions.GetMonoArrayStructLayout());
+                //this.Logger.LogInformation("MonoString:{info}", MonoStringExtensions.GetMonoStringStructLayout());
+                //this.Logger.LogInformation("MonoArray:{info}", MonoArrayExtensions.GetMonoArrayStructLayout());
 
                 var load = await this.MonoTaskAsync(p => p.LoadGameConfigStore()).ConfigureAwait(false);
                 this.Logger.LogInformation("LoadGameConfigStore=>{load}", load);
                 var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
                 this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
-                await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖精").ConfigureAwait(false);
+                await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖灵").ConfigureAwait(false);
             }
         }
         #endregion
@@ -100,7 +98,7 @@ namespace Maple.Ghostmon
                 {
                     //await this.PlayMessageAsync($"Teleport:{pos.pos.x},{pos.pos.z}").ConfigureAwait(false);
 
-                    await this.UnityTaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
+                    await this.UITaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
                 }
 
             }
@@ -122,7 +120,7 @@ namespace Maple.Ghostmon
             {
                 return;
             }
-            await this.UnityTaskAsync((p, msg) => p.PlayMessage(msg), msg).ConfigureAwait(false);
+            await this.UITaskAsync((p, msg) => p.PlayMessage(msg), msg).ConfigureAwait(false);
         }
 
         [Obsolete("remove...")]
@@ -165,7 +163,7 @@ namespace Maple.Ghostmon
                 return GameException.Throw<GameSessionInfoDTO>("LOADED ERRR");
             }
             var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
-            var imageObjs = await this.UnityTaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
+            var imageObjs = await this.UITaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
                 (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
             foreach (var gameIcon in imageObjs)
             {
@@ -180,7 +178,7 @@ namespace Maple.Ghostmon
 
         public sealed override ValueTask<GameCurrencyDisplayDTO[]> GetListCurrencyDisplayAsync()
         {
-            var datas = this.GameContext.GetListCurrencyDisplay();
+            var datas = this.Context.GetListCurrencyDisplay();
             this.UpdateListGameImage(datas);
             return ValueTask.FromResult(datas);
 
@@ -211,7 +209,7 @@ namespace Maple.Ghostmon
 
         public sealed override ValueTask<GameInventoryDisplayDTO[]> GetListInventoryDisplayAsync()
         {
-            var datas = this.GameContext.GetListInventoryDisplay().ToArray();
+            var datas = this.Context.GetListInventoryDisplay().ToArray();
             this.UpdateListGameImage(datas);
             return ValueTask.FromResult(datas);
         }
@@ -219,7 +217,7 @@ namespace Maple.Ghostmon
         {
             var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
             game_env.ThrowIfNotLoaded();
-            return this.GameContext.GetInventoryInfo(game_env, inventoryObjectDTO);
+            return this.Context.GetInventoryInfo(game_env, inventoryObjectDTO);
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
@@ -291,7 +289,7 @@ namespace Maple.Ghostmon
 
         public sealed override ValueTask<GameMonsterDisplayDTO[]> GetListMonsterDisplayAsync()
         {
-            var datas = this.GameContext.GetListMonsterDisplay().ToArray();
+            var datas = this.Context.GetListMonsterDisplay().ToArray();
             this.UpdateListGameImage(datas);
             return ValueTask.FromResult(datas);
         }
@@ -311,7 +309,7 @@ namespace Maple.Ghostmon
 
         public sealed override ValueTask<GameSkillDisplayDTO[]> GetListSkillDisplayAsync()
         {
-            var datas = this.GameContext.GetListGameSkillDisplay().ToArray();
+            var datas = this.Context.GetListGameSkillDisplay().ToArray();
             this.UpdateListGameImage(datas);
             return ValueTask.FromResult(datas);
         }
@@ -417,11 +415,11 @@ namespace Maple.Ghostmon
                 var on = gameSwitchModify.SwitchValue;
                 if (on)
                 {
-                    await this.UnityTaskAsync((p, game_env) => p.ChangeScanMode(game_env, true), game_env).ConfigureAwait(false);
+                    await this.UITaskAsync((p, game_env) => p.ChangeScanMode(game_env, true), game_env).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.UnityTaskAsync((p, game_env) => p.ChangeScanMode(game_env, false), game_env).ConfigureAwait(false);
+                    await this.UITaskAsync((p, game_env) => p.ChangeScanMode(game_env, false), game_env).ConfigureAwait(false);
                 }
                 await this.PlayMessageAsync($"{gameSwitchModify.SwitchObjectId}:{gameSwitchModify.SwitchValue}").ConfigureAwait(false);
 
@@ -448,7 +446,7 @@ namespace Maple.Ghostmon
                 else
                 {
                     //await this.PlayMessageAsync($"Teleport:{pos.pos.x},{pos.pos.z}").ConfigureAwait(false);
-                    await this.UnityTaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
+                    await this.UITaskAsync((p, args) => p.MapTeleport(args.game_env, args.pos.pos), (game_env, pos)).ConfigureAwait(false);
                 }
             }
             switchDisplay.ContentValue = gameSwitchModify.ContentValue;

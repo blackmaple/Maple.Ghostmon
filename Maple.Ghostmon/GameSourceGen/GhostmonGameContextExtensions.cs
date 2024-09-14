@@ -1,16 +1,8 @@
-﻿using Maple.MonoGameAssistant.Common;
-using Maple.MonoGameAssistant.Core;
+﻿using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Logging;
-using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Threading;
-using static Maple.Ghostmon.GhostmonGameContextExtensions;
 
 namespace Maple.Ghostmon
 {
@@ -211,7 +203,6 @@ namespace Maple.Ghostmon
             return false;
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static bool LoadGameConfigStore(this GhostmonGameContext @this)
         {
 
@@ -254,7 +245,6 @@ namespace Maple.Ghostmon
             return true;
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static int LoadListMonsterInfo(this GhostmonGameContext @this)
         {
             var listIllustrationConfig = GameConfigStore.ListIllustrationConfig;
@@ -591,7 +581,6 @@ namespace Maple.Ghostmon
             };
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameImageData[] GetListGameImageData(this GhostmonGameContext @this)
         {
             var gameImageDatas = @this.InitListGameImageData().ToArray();
@@ -615,7 +604,6 @@ namespace Maple.Ghostmon
 
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.UnityTaskScheduler)]
         public static IEnumerable<UnitySpriteImageData> GetListUnitySpriteImageData(this GhostmonGameContext @this, UnityEngineContext unityEngine, GameImageData[] spriteDatas)
         {
             foreach (var spriteData in spriteDatas)
@@ -645,7 +633,6 @@ namespace Maple.Ghostmon
         #endregion
 
         #region  Game DATA
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.UnityTaskScheduler)]
         public static void PlayMessage(this GhostmonGameContext @this, string? msg, EnumPlayMessageType type = EnumPlayMessageType.条纹)
         {
             if (string.IsNullOrEmpty(msg))
@@ -712,7 +699,6 @@ namespace Maple.Ghostmon
 
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GhostmonGameEnvironment GetGhostmonGameEnvironment(this GhostmonGameContext @this)
         {
             return new GhostmonGameEnvironment(@this);
@@ -721,7 +707,6 @@ namespace Maple.Ghostmon
 
         #region Currency
 
-        [ApiTaskScheduler]
         public static GameCurrencyDisplayDTO[] GetListCurrencyDisplay(this GhostmonGameContext @this)
         {
             return [
@@ -753,7 +738,6 @@ namespace Maple.Ghostmon
             }
             ];
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCurrencyInfoDTO GetCurrencyInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCurrencyObjectDTO currencyObjectDTO)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -784,7 +768,6 @@ namespace Maple.Ghostmon
             }
             return new GameCurrencyInfoDTO() { ObjectId = currencyObjectDTO.CurrencyObject, DisplayValue = count };
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCurrencyInfoDTO UpdateCurrencyInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCurrencyModifyDTO currencyModifyDTO)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -819,7 +802,6 @@ namespace Maple.Ghostmon
         #endregion
 
         #region Inventory
-        [ApiTaskScheduler]
         public static IEnumerable<GameInventoryDisplayDTO> GetListInventoryDisplay(this GhostmonGameContext @this)
         {
             foreach (var config in GameConfigStore.ListMaterialConfig)
@@ -1127,7 +1109,6 @@ namespace Maple.Ghostmon
             }
             return count;
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameInventoryObjectDTO inventoryObjectDTO)
         {
             if (false == Enum.TryParse<EnumSheetName>(inventoryObjectDTO.InventoryCategory, out var category))
@@ -1143,7 +1124,6 @@ namespace Maple.Ghostmon
             var count = GetInventoryCount(userData, category, configId);
             return new GameInventoryInfoDTO() { ObjectId = inventoryObjectDTO.InventoryObject, InventoryCount = count };
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameInventoryInfoDTO UpdateInventoryInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameInventoryModifyDTO inventoryModifyDTO)
         {
             if (false == Enum.TryParse<EnumSheetName>(inventoryModifyDTO.InventoryCategory, out var category))
@@ -1262,7 +1242,6 @@ namespace Maple.Ghostmon
     ];
 
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static IEnumerable<GameCharacterDisplayDTO> GetListCharacterDisplay(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -1426,7 +1405,6 @@ namespace Maple.Ghostmon
                     ]
             };
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCharacterStatusDTO GetCharacterStatus(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -1467,7 +1445,6 @@ namespace Maple.Ghostmon
 
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCharacterStatusDTO UpdateCharacterStatus(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterModifyDTO characterModifyDTO)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -1874,7 +1851,6 @@ namespace Maple.Ghostmon
             return GameException.Throw<GameCharacterStatusDTO>($"NOT FOUND {characterModifyDTO.UCharacterId}:{characterModifyDTO.ModifyObject}");
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCharacterEquipmentDTO GetCharacterEquipment(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -1920,7 +1896,6 @@ namespace Maple.Ghostmon
 
 
         }
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCharacterSkillDTO GetCharacterSkill(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterObjectDTO characterObjectDTO)
         {
             var userData = gameEnvironment.Ptr_UserData;
@@ -2079,8 +2054,6 @@ namespace Maple.Ghostmon
 
             return skillInfos;
         }
-
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCharacterSkillDTO UpdateCharacterSkill(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameCharacterModifyDTO characterModifyDTO)
         {
 
@@ -2290,7 +2263,6 @@ namespace Maple.Ghostmon
             }
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static GameCharacterSkillDTO AddMonsterMember(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameMonsterObjectDTO monsterObjectDTO)
         {
             if (false == @this.TryGetMonsterObject(monsterObjectDTO.MonsterObject, out var monsterObject))
@@ -2561,7 +2533,6 @@ namespace Maple.Ghostmon
 
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.MonoTaskScheduler)]
         public static (bool has, Ref_V2 pos) GetLastMarkDataPos(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
         {
             var userdata = gameEnvironment.Ptr_UserData;
@@ -2578,7 +2549,6 @@ namespace Maple.Ghostmon
             return (true, lastMarkData.MARK_POS);
         }
 
-        [ApiTaskScheduler(EnumApiTaskSchedulerType.UnityTaskScheduler)]
         public static void MapTeleport(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, in Ref_V2 pos)
         {
             const float ZoomRate = 3.125F;
