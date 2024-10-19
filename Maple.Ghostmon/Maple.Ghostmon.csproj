@@ -10,7 +10,7 @@
 		<PublishAot>true</PublishAot>
 		<IsAotCompatible>true</IsAotCompatible>
 		<OutputType>Library</OutputType>
-		<AssemblyName>Maple</AssemblyName>
+		<AssemblyName>winhttp</AssemblyName>
 
 
 		<DebuggerSupport>false</DebuggerSupport>
@@ -47,7 +47,12 @@
 	 
 	</ItemGroup>
 
+	<ItemGroup>
+		<NativeLibrary Include="Lib\Maple.MonoGameAssistant.DllProxyStaticLib.lib" />
+		<LinkerArg Include="/LTCG" />
+		<LinkerArg Include="/MAP" />
 
+	</ItemGroup>
 
 
 	<Target Name="PostPublishActions" AfterTargets="Publish">

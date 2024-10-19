@@ -1,7 +1,6 @@
 <Solution>
-  <Configurations>
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
-  </Configurations>
-  <Project Path="Maple.Ghostmon\Maple.Ghostmon.csproj" Type="Classic C#" />
+  <Properties Name="Visual Studio">
+    <Property Name="OpenWith" Value="Visual Studio Version 17" />
+  </Properties>
+  <Project Path="Maple.Ghostmon\Maple.Ghostmon.csproj" />
 </Solution>
