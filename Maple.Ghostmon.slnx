@@ -1,6 +1,4 @@
 <Solution>
-  <Properties Name="Visual Studio">
-    <Property Name="OpenWith" Value="Visual Studio Version 17" />
-  </Properties>
+  <Project Path="Maple.Ghostmon.Metadata/Maple.Ghostmon.Metadata.csproj" Id="de13182d-97a1-4c8b-916e-780958fda166" />
   <Project Path="Maple.Ghostmon\Maple.Ghostmon.csproj" />
 </Solution>

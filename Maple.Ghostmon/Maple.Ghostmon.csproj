@@ -9,19 +9,31 @@
 
 		<PublishAot>true</PublishAot>
 		<IsAotCompatible>true</IsAotCompatible>
+		<OptimizationPreference>Speed</OptimizationPreference>
+
 		<OutputType>Library</OutputType>
 		<AssemblyName>winhttp</AssemblyName>
 
+		<!--https://learn.microsoft.com/zh-cn/dotnet/core/deploying/trimming/trimming-options?pivots=dotnet-8-0-->
 
 		<DebuggerSupport>false</DebuggerSupport>
-		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
 		<EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
 		<EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
 		<EventSourceSupport>false</EventSourceSupport>
+		<!--<HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>-->
 		<InvariantGlobalization>true</InvariantGlobalization>
 		<MetadataUpdaterSupport>false</MetadataUpdaterSupport>
-		<StackTraceSupport>false</StackTraceSupport>
+		<MetricsSupport>false</MetricsSupport>
+		<!--<StackTraceSupport>false</StackTraceSupport>-->
+		<!--<UseNativeHttpHandler>true</UseNativeHttpHandler>-->
 		<UseSystemResourceKeys>true</UseSystemResourceKeys>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		<!--<XmlResolverIsNetworkingEnabledByDefault>false</XmlResolverIsNetworkingEnabledByDefault>-->
+
+		<BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+		<CustomResourceTypesSupport>false</CustomResourceTypesSupport>
+		<EnableUnsafeBinaryFormatterInDesigntimeLicenseContextSerialization>false</EnableUnsafeBinaryFormatterInDesigntimeLicenseContextSerialization>
+		<StartupHookSupport>false</StartupHookSupport>
 
 
 		<EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
@@ -30,29 +42,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="GameModel\UniTask\ConfigDataStore._GetMonsterConfig_d__13.cs" />
-		<Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask_TStateMachine,T_.cs" />
-		<Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTask.Awaiter_MonsterObject_.cs" />
-		<Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTaskCompletionSourceCore_T_.cs" />
-		<Compile Remove="GameModel\UniTask\Cysharp.Threading.Tasks.UniTask_MonsterObject_.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="GameModel\SystemCore\" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Maple.MonoGameAssistant.GameContext" Version="1.0.0-rc" />
-		<PackageReference Include="Maple.MonoGameAssistant.MonoCollectorDataV2" Version="1.0.1-rc" />
-		<PackageReference Include="Maple.MonoGameAssistant.MonoCollectorGeneratorV2" Version="1.0.2-rc" />
-		<PackageReference Include="Maple.MonoGameAssistant.WebApi" Version="1.0.1-rc" />
-	 
+		<PackageReference Include="Maple.MonoGameAssistant.DllProxyStaticLib" Version="1.0.3-rc" />
+		<PackageReference Include="Maple.MonoGameAssistant.WebApi" Version="1.0.90-rc" />
+		<PackageReference Include="Maple.MonoGameAssistant.Windows" Version="1.0.90-rc" />
+
+
 	</ItemGroup>
 
 	<ItemGroup>
-		<NativeLibrary Include="Lib\Maple.MonoGameAssistant.DllProxyStaticLib.lib" />
-		<LinkerArg Include="/LTCG" />
-		<LinkerArg Include="/MAP" />
-
+	  <ProjectReference Include="..\Maple.Ghostmon.Metadata\Maple.Ghostmon.Metadata.csproj" />
 	</ItemGroup>
+
 
 
 	<Target Name="PostPublishActions" AfterTargets="Publish">
@@ -67,7 +67,7 @@
 		<Message Text="自动部署功能已经启动 $(PublishDir)" Importance="high" />
 
 		<Exec Command="if exist &quot;$(TargetDir)$(TargetFileName)&quot; move &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(TargetDir)$(BackupFileName)&quot;" />
-		<Exec Command="copy &quot;$(PublishDllPath)&quot; &quot;$(TargetDir)$(TargetFileName)&quot;" />
+		<Exec Command="if exist &quot;$(TargetDir)&quot; copy &quot;$(PublishDllPath)&quot; &quot;$(TargetDir)$(TargetFileName)&quot;" />
 	</Target>
 
 

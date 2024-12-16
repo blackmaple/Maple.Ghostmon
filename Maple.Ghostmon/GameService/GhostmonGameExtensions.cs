@@ -1,6 +1,5 @@
-﻿using Maple.MonoGameAssistant.GameContext;
-using Maple.MonoGameAssistant.WebApi;
-using Maple.MonoGameAssistant.WinApi;
+﻿using Maple.MonoGameAssistant.WebApi;
+using Maple.MonoGameAssistant.Windows.Service;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -13,7 +12,7 @@ namespace Maple.Ghostmon
             var webapp = WebApiServiceExtensions.AsRunWebApiService(p =>
             {
                 p.GameName = "Yaoling Mythical Journey";
-                p.QQ = "0";
+                p.QQ = "QQ:75351663";
                 p.Http = true;
                 p.AutoOpenUrl = true;
                
