@@ -9,6 +9,10 @@ using Maple.MonoGameAssistant.Windows.Service;
 using Maple.MonoGameAssistant.Windows.UITask;
 using Microsoft.Extensions.Logging;
 using Maple.Ghostmon.Metadata.MetadataContext;
+using Microsoft.VisualBasic;
+using System.Buffers.Text;
+using Microsoft.Extensions.Caching.Memory;
+using System.Buffers;
 
 namespace Maple.Ghostmon
 {
@@ -180,7 +184,11 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameCurrencyDisplayDTO[]> GetListCurrencyDisplayAsync()
         {
             var datas = this.Context.GetListCurrencyDisplay();
-            this.UpdateListGameImage(datas);
+            //        this.UpdateListGameImage(datas);
+            foreach (var data in datas)
+            {
+                data.DisplayImage = default;
+            }
             return ValueTask.FromResult(datas);
 
         }
@@ -211,7 +219,11 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameInventoryDisplayDTO[]> GetListInventoryDisplayAsync()
         {
             var datas = this.Context.GetListInventoryDisplay().ToArray();
-            this.UpdateListGameImage(datas);
+            //          this.UpdateListGameImage(datas);
+            foreach (var data in datas)
+            {
+                data.DisplayImage = default;
+            }
             return ValueTask.FromResult(datas);
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
@@ -239,7 +251,11 @@ namespace Maple.Ghostmon
             var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
             game_env.ThrowIfNotLoaded();
             var datas = await this.MonoTaskAsync((p, game_env) => p.GetListCharacterDisplay(game_env).ToArray(), game_env).ConfigureAwait(false);
-            this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
+            //   this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
+            foreach (var data in datas)
+            {
+                data.DisplayImage = default;
+            }
             return datas;
         }
         public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
@@ -291,7 +307,11 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameMonsterDisplayDTO[]> GetListMonsterDisplayAsync()
         {
             var datas = this.Context.GetListMonsterDisplay().ToArray();
-            this.UpdateListGameImage(datas);
+            //         this.UpdateListGameImage(datas);
+            foreach (var data in datas)
+            {
+                data.DisplayImage = default;
+            }
             return ValueTask.FromResult(datas);
         }
 
@@ -311,7 +331,11 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameSkillDisplayDTO[]> GetListSkillDisplayAsync()
         {
             var datas = this.Context.GetListGameSkillDisplay().ToArray();
-            this.UpdateListGameImage(datas);
+            //           this.UpdateListGameImage(datas);
+            foreach (var data in datas)
+            {
+                data.DisplayImage = default;
+            }
             return ValueTask.FromResult(datas);
         }
 
@@ -516,5 +540,36 @@ namespace Maple.Ghostmon
         #endregion
     }
 
+    //public class ImageBase64CacheService(MonoGameSettings gameSettings)
+    //{
+    //    public const string ImageBase64 = "data:image/png;base64,";
 
+    //    public Dictionary<string, string> Cache { get; } = [];
+    //    public MonoGameSettings Settings { get; } = gameSettings;
+    //    public async ValueTask LoadAsync()
+    //    {
+    //        if (string.IsNullOrEmpty(Settings.WebRootPath))
+    //        {
+    //            return;
+    //        }
+
+    //        string path = Path.Combine(Settings.WebRootPath, Settings.GameResource ?? "GameResource");
+    //        var directoryInfo = new DirectoryInfo(path);
+    //        if (false == directoryInfo.Exists)
+    //        {
+    //            return;
+    //        }
+
+    //        foreach (var data in directoryInfo.GetFiles("*.png", SearchOption.AllDirectories))
+    //        {
+    //            using var fs = data.OpenRead();
+    //            using var ms = new MemoryStream();
+    //            await fs.CopyToAsync(ms).ConfigureAwait(false);
+    //            var bytes = ms.ToArray();
+    //            Cache.Add(fs.Name, $"{ImageBase64}{Convert.ToBase64String(bytes)}");
+
+    //        }
+
+    //    }
+    //}
 }
