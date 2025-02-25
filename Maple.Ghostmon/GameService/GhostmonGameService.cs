@@ -13,6 +13,7 @@ using Microsoft.VisualBasic;
 using System.Buffers.Text;
 using Microsoft.Extensions.Caching.Memory;
 using System.Buffers;
+using System.Runtime;
 
 namespace Maple.Ghostmon
 {
@@ -42,6 +43,8 @@ namespace Maple.Ghostmon
                 var count = await this.MonoTaskAsync(p => p.LoadListMonsterInfo()).ConfigureAwait(false);
                 this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
                 await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖灵").ConfigureAwait(false);
+
+                this.Logger.LogInformation("gc=>{IsServerGC},{mode}", GCSettings.IsServerGC, GCSettings.LatencyMode);
             }
         }
         #endregion
@@ -184,11 +187,8 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameCurrencyDisplayDTO[]> GetListCurrencyDisplayAsync()
         {
             var datas = this.Context.GetListCurrencyDisplay();
-            //        this.UpdateListGameImage(datas);
-            foreach (var data in datas)
-            {
-                data.DisplayImage = default;
-            }
+            this.UpdateListGameImage(datas);
+
             return ValueTask.FromResult(datas);
 
         }
@@ -219,11 +219,8 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameInventoryDisplayDTO[]> GetListInventoryDisplayAsync()
         {
             var datas = this.Context.GetListInventoryDisplay().ToArray();
-            //          this.UpdateListGameImage(datas);
-            foreach (var data in datas)
-            {
-                data.DisplayImage = default;
-            }
+            this.UpdateListGameImage(datas);
+
             return ValueTask.FromResult(datas);
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
@@ -251,11 +248,8 @@ namespace Maple.Ghostmon
             var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
             game_env.ThrowIfNotLoaded();
             var datas = await this.MonoTaskAsync((p, game_env) => p.GetListCharacterDisplay(game_env).ToArray(), game_env).ConfigureAwait(false);
-            //   this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
-            foreach (var data in datas)
-            {
-                data.DisplayImage = default;
-            }
+            this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
+
             return datas;
         }
         public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
@@ -307,11 +301,8 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameMonsterDisplayDTO[]> GetListMonsterDisplayAsync()
         {
             var datas = this.Context.GetListMonsterDisplay().ToArray();
-            //         this.UpdateListGameImage(datas);
-            foreach (var data in datas)
-            {
-                data.DisplayImage = default;
-            }
+            this.UpdateListGameImage(datas);
+
             return ValueTask.FromResult(datas);
         }
 
@@ -331,11 +322,8 @@ namespace Maple.Ghostmon
         public sealed override ValueTask<GameSkillDisplayDTO[]> GetListSkillDisplayAsync()
         {
             var datas = this.Context.GetListGameSkillDisplay().ToArray();
-            //           this.UpdateListGameImage(datas);
-            foreach (var data in datas)
-            {
-                data.DisplayImage = default;
-            }
+            this.UpdateListGameImage(datas);
+
             return ValueTask.FromResult(datas);
         }
 
