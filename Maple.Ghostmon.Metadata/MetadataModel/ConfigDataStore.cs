@@ -1,4 +1,5 @@
 using Maple.Ghostmon.Metadata.MetadataModel.UniTask;
+using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
 
@@ -263,7 +264,7 @@ namespace Maple.Ghostmon
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<MonsterObject></returns>
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMonsterConfig")]
-        static extern Ptr_UniTask<MonsterObject.Ptr_MonsterObject> GET_MONSTER_CONFIG(out Ref_UniTask<MonsterObject.Ptr_MonsterObject> ref_UniTask_MonsterObject, PMonoString name);
+        static extern Ptr_UniTask<MonsterObject.Ptr_MonsterObject> GET_MONSTER_CONFIG(Maple.MonoGameAssistant.Common.MapleOut<Ref_UniTask<MonsterObject.Ptr_MonsterObject>> ref_UniTask_MonsterObject, PMonoString name);
 
 
         //[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Explicit)]
@@ -321,7 +322,7 @@ namespace Maple.Ghostmon
         /// <param name="suffix">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<SkillObject></returns>
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSkillConfig")]
-        static extern Ptr_UniTask<SkillObject.Ptr_SkillObject> GET_SKILL_CONFIG(out Ref_UniTask<SkillObject.Ptr_SkillObject> ref_UniTask, PMonoString name, PMonoString suffix);
+        static extern Ptr_UniTask<SkillObject.Ptr_SkillObject> GET_SKILL_CONFIG(MapleOut<Ref_UniTask<SkillObject.Ptr_SkillObject>>  ref_UniTask, PMonoString name, PMonoString suffix);
 
 
         /// <summary>

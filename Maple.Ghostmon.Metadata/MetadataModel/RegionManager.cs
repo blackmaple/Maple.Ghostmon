@@ -1,4 +1,5 @@
 using Maple.Ghostmon.Metadata.MetadataModel.UniTask;
+using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
 
@@ -862,7 +863,7 @@ namespace Maple.Ghostmon
         /// <param name="pos">struct UnityEngine.Vector3</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask</returns>
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Teleport")]
-        extern Ptr_UniTask TELEPORT(out Ref_UniTask uniTask, REF_MONO_VECTOR3 pos);
+        extern Ptr_UniTask TELEPORT(MapleOut<Ref_UniTask>  uniTask, REF_MONO_VECTOR3 pos);
 
 
         /// <summary>

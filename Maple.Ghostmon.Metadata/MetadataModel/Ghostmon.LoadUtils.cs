@@ -1,4 +1,5 @@
 using Maple.Ghostmon.Metadata.MetadataModel.UniTask;
+using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollectorDataV2;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
@@ -151,7 +152,7 @@ namespace Maple.Ghostmon
         /// <param name="spriteName">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<UnityEngine.Sprite></returns>
         [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadSpriteAsync")]
-        static extern Ptr_UniTask<Sprite.Ptr_Sprite> LOAD_SPRITE_ASYNC(out Ref_UniTask<Sprite.Ptr_Sprite> uniTask, nint atlasName, nint spriteName);
+        static extern Ptr_UniTask<Sprite.Ptr_Sprite> LOAD_SPRITE_ASYNC(MapleOut<Ref_UniTask<Sprite.Ptr_Sprite>>  uniTask, nint atlasName, nint spriteName);
 
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Maple.Ghostmon.Metadata.GameJson;
 using Maple.Ghostmon.Metadata.MetadataModel;
 using Maple.Ghostmon.Metadata.MetadataModel.UniTask;
+using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
@@ -153,7 +154,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         强 = 3,
     }
 
-    public  enum EnumMonsterYINGYANG
+    public enum EnumMonsterYINGYANG
     {
         阴 = 0,
         阳 = 1,
@@ -258,8 +259,8 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 if (false == string.IsNullOrEmpty(prefab))
                 {
                     using var monsterName = @this.T2(prefab);
-                    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(out _, monsterName);
-                    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(out _, monsterName, suffix);
+                    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_MONSTER_CONFIG(MapleOut<Ref_UniTask<MonsterObject.Ptr_MonsterObject>>.FromOut(out _), monsterName);
+                    _ = ConfigDataStore.Ptr_ConfigDataStore.GET_SKILL_CONFIG(MapleOut<Ref_UniTask<SkillObject.Ptr_SkillObject>>.FromOut(out _), monsterName, suffix);
 
                 }
             }
@@ -592,7 +593,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 using var pAtlasName = @this.T2(image.AtlasName);
                 using var pSpriteName = @this.T2(image.SpriteName);
                 ref var uniTask = ref image._Ref_UniTask;
-                _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(out uniTask, pAtlasName, pSpriteName);
+                _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(MapleOut<Ref_UniTask<Sprite.Ptr_Sprite>>.FromOut(out _), pAtlasName, pSpriteName);
             }
 
             Thread.Sleep(10_000);
