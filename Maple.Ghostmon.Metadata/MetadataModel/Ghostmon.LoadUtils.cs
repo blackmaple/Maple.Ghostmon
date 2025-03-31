@@ -1,7 +1,7 @@
 using Maple.Ghostmon.Metadata.MetadataModel.UniTask;
 using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
 using System;
 using System.Collections.Generic;
@@ -18,8 +18,8 @@ namespace Maple.Ghostmon
     /// [System.Object]
     /// 
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x0200022FU)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [71, 104, 111, 115, 116, 109, 111, 110], [76, 111, 97, 100, 85, 116, 105, 108, 115])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x0200022FU)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [71, 104, 111, 115, 116, 109, 111, 110], [76, 111, 97, 100, 85, 116, 105, 108, 115])]
 
     //  class static System.Collections.Generic.Dictionary<System.String,Ghostmon.MyAssetInfo> assetInfoDic
     //  [MonoCollectorSearchFieldAttribute(typeof(nint),"assetInfoDic", "ASSET_INFO_DIC", true)]
@@ -80,7 +80,7 @@ namespace Maple.Ghostmon
         /// static  System.Void .cctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
         /// static extern void .CCTOR ();
 
 
@@ -89,7 +89,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="json">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("<LoadConfigAsync>g__ParseString|10_0")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("<LoadConfigAsync>g__ParseString|10_0")]
         /// static extern nint <LOAD_CONFIG_ASYNC>G__PARSE_STRING|10_0 (nint json);
 
 
@@ -98,7 +98,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="key">class System.String</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckAssetExist")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckAssetExist")]
         /// static extern System.Boolean CHECK_ASSET_EXIST (nint key);
 
 
@@ -106,7 +106,7 @@ namespace Maple.Ghostmon
         /// static  System.Void ClearAssetsCache()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearAssetsCache")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearAssetsCache")]
         /// static extern void CLEAR_ASSETS_CACHE ();
 
 
@@ -114,7 +114,7 @@ namespace Maple.Ghostmon
         /// static  System.Void ClearPrefabCache()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearPrefabCache")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearPrefabCache")]
         /// static extern void CLEAR_PREFAB_CACHE ();
 
 
@@ -124,7 +124,7 @@ namespace Maple.Ghostmon
         /// <param name="name">class System.String</param>
         /// <param name="prarent">class UnityEngine.Transform</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<UnityEngine.GameObject></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InstantiateAsync")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InstantiateAsync")]
         /// static extern Cysharp.Threading.Tasks.UniTask<UnityEngine.GameObject> INSTANTIATE_ASYNC (nint name, nint prarent);
 
 
@@ -133,7 +133,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<T></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadAssetAsync")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadAssetAsync")]
         /// static extern Cysharp.Threading.Tasks.UniTask<T> LOAD_ASSET_ASYNC (nint name);
 
 
@@ -141,7 +141,7 @@ namespace Maple.Ghostmon
         /// static  Cysharp.Threading.Tasks.UniTask LoadConfigAsync()
         /// </summary>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadConfigAsync")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadConfigAsync")]
         /// static extern Cysharp.Threading.Tasks.UniTask LOAD_CONFIG_ASYNC ();
 
 
@@ -151,7 +151,7 @@ namespace Maple.Ghostmon
         /// <param name="atlasName">class System.String</param>
         /// <param name="spriteName">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<UnityEngine.Sprite></returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadSpriteAsync")]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadSpriteAsync")]
         static extern Ptr_UniTask<Sprite.Ptr_Sprite> LOAD_SPRITE_ASYNC(MapleOut<Ref_UniTask<Sprite.Ptr_Sprite>>  uniTask, nint atlasName, nint spriteName);
 
 
@@ -160,7 +160,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("PreloadPrefab")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("PreloadPrefab")]
         /// static extern Cysharp.Threading.Tasks.UniTask PRELOAD_PREFAB (nint name);
 
 
@@ -169,7 +169,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">class UnityEngine.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RecycleAsset")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RecycleAsset")]
         /// static extern void RECYCLE_ASSET (nint obj);
 
 
@@ -179,7 +179,7 @@ namespace Maple.Ghostmon
         /// <param name="go">class UnityEngine.GameObject</param>
         /// <param name="recycle">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RecyclePrefab")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RecyclePrefab")]
         /// static extern void RECYCLE_PREFAB (nint go, System.Boolean recycle);
 
 

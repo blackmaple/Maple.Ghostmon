@@ -1,7 +1,6 @@
 ﻿using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollector;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
-using Microsoft.Extensions.Logging;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollector;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 
 namespace Maple.Ghostmon
 {

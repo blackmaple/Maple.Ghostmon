@@ -1,11 +1,4 @@
-
-using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 
 namespace Maple.Ghostmon
 {
@@ -16,8 +9,8 @@ namespace Maple.Ghostmon
     /// [System.Object]
     /// [Ghostmon.ITicker]
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020000F1U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [66, 85, 110, 105, 116])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020000F1U)]
+    [ MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [66, 85, 110, 105, 116])]
 
 
     // struct 0x10 System.Boolean activeSelf
@@ -221,7 +214,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class MonsterData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
         ///  extern void .CTOR (nint data);
 
 
@@ -230,7 +223,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="type">enum Ghostmon.BuffEffectType</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddBuffEffect")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddBuffEffect")]
         ///  extern void ADD_BUFF_EFFECT (Ghostmon.BuffEffectType type);
 
 
@@ -240,7 +233,7 @@ namespace Maple.Ghostmon
         /// <param name="buffID">struct System.UInt64</param>
         /// <param name="giver">class BUnit</param>
         /// <returns>class BBuff</returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddBuffItem")]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddBuffItem")]
         extern nint ADD_BUFF_ITEM(System.UInt64 buffID, nint giver);
 
 
@@ -248,7 +241,7 @@ namespace Maple.Ghostmon
         ///   System.Void AddClickEvent()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddClickEvent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddClickEvent")]
         ///  extern void ADD_CLICK_EVENT ();
 
 
@@ -257,7 +250,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="result">struct Ghostmon.BHitResult</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AfterCauseDamage")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AfterCauseDamage")]
         ///  extern void AFTER_CAUSE_DAMAGE (Ghostmon.BHitResult result);
 
 
@@ -266,7 +259,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="result">struct Ghostmon.BHitResult</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AfterGetDamage")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AfterGetDamage")]
         ///  extern void AFTER_GET_DAMAGE (Ghostmon.BHitResult result);
 
 
@@ -275,7 +268,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="result">struct Ghostmon.BHitResult</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CalcuDebuffAccumFromDmg")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CalcuDebuffAccumFromDmg")]
         ///  extern void CALCU_DEBUFF_ACCUM_FROM_DMG (Ghostmon.BHitResult result);
 
 
@@ -284,7 +277,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="className">class System.String</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckAbilityExist")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckAbilityExist")]
         ///  extern System.Boolean CHECK_ABILITY_EXIST (nint className);
 
 
@@ -293,7 +286,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="buffID">struct System.UInt64</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckBuffExist")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckBuffExist")]
         ///  extern System.Boolean CHECK_BUFF_EXIST (System.UInt64 buffID);
 
 
@@ -302,7 +295,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="effectType">enum Ghostmon.BuffEffectType</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckEffectExist")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckEffectExist")]
         ///  extern System.Boolean CHECK_EFFECT_EXIST (Ghostmon.BuffEffectType effectType);
 
 
@@ -312,7 +305,7 @@ namespace Maple.Ghostmon
         /// <param name="projPos">struct UnityEngine.Vector3</param>
         /// <param name="radius">struct System.Single</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckProjCollider")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckProjCollider")]
         ///  extern System.Boolean CHECK_PROJ_COLLIDER (UnityEngine.Vector3 projPos, System.Single radius);
 
 
@@ -320,7 +313,7 @@ namespace Maple.Ghostmon
         ///   System.Void ClearAbility()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearAbility")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearAbility")]
         ///  extern void CLEAR_ABILITY ();
 
 
@@ -328,7 +321,7 @@ namespace Maple.Ghostmon
         ///   System.Void ClearBuff()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearBuff")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearBuff")]
         ///  extern void CLEAR_BUFF ();
 
 
@@ -336,7 +329,7 @@ namespace Maple.Ghostmon
         ///   System.Void ClearDebuffAccum()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearDebuffAccum")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearDebuffAccum")]
         ///  extern void CLEAR_DEBUFF_ACCUM ();
 
 
@@ -344,7 +337,7 @@ namespace Maple.Ghostmon
         ///   System.Void CloseNmaCollider()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CloseNmaCollider")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CloseNmaCollider")]
         ///  extern void CLOSE_NMA_COLLIDER ();
 
 
@@ -354,7 +347,7 @@ namespace Maple.Ghostmon
         /// <param name="pos">struct UnityEngine.Vector3</param>
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateVisualObject")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateVisualObject")]
         ///  extern Cysharp.Threading.Tasks.UniTask CREATE_VISUAL_OBJECT (UnityEngine.Vector3 pos, nint parent);
 
 
@@ -362,7 +355,7 @@ namespace Maple.Ghostmon
         ///   System.Void Die()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Die")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Die")]
         ///  extern void DIE ();
 
 
@@ -370,7 +363,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 DispelAllBuff()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DispelAllBuff")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DispelAllBuff")]
         ///  extern System.Int32 DISPEL_ALL_BUFF ();
 
 
@@ -378,7 +371,7 @@ namespace Maple.Ghostmon
         ///   System.Void ForcedDie()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ForcedDie")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ForcedDie")]
         ///  extern void FORCED_DIE ();
 
 
@@ -387,7 +380,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainHPRecover")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainHPRecover")]
         ///  extern void GAIN_HP_RECOVER (System.Single value);
 
 
@@ -396,7 +389,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainMana")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainMana")]
         ///  extern void GAIN_MANA (System.Single value);
 
 
@@ -405,7 +398,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainShield")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GainShield")]
         ///  extern void GAIN_SHIELD (System.Single value);
 
 
@@ -413,7 +406,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_cold()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_cold")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_cold")]
         ///  extern System.Single GET_ACCUMULATE_COLD ();
 
 
@@ -421,7 +414,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_dark()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_dark")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_dark")]
         ///  extern System.Single GET_ACCUMULATE_DARK ();
 
 
@@ -429,7 +422,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_fire()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_fire")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_fire")]
         ///  extern System.Single GET_ACCUMULATE_FIRE ();
 
 
@@ -437,7 +430,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_ltng()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_ltng")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_ltng")]
         ///  extern System.Single GET_ACCUMULATE_LTNG ();
 
 
@@ -445,7 +438,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_poison()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_poison")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_poison")]
         ///  extern System.Single GET_ACCUMULATE_POISON ();
 
 
@@ -453,7 +446,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_puncture()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_puncture")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_puncture")]
         ///  extern System.Single GET_ACCUMULATE_PUNCTURE ();
 
 
@@ -461,7 +454,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_shock()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_shock")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_shock")]
         ///  extern System.Single GET_ACCUMULATE_SHOCK ();
 
 
@@ -469,7 +462,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_tear()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_tear")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_tear")]
         ///  extern System.Single GET_ACCUMULATE_TEAR ();
 
 
@@ -477,7 +470,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_accumulate_wind()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_wind")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_accumulate_wind")]
         ///  extern System.Single GET_ACCUMULATE_WIND ();
 
 
@@ -485,7 +478,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean get_ActiveSelf()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_ActiveSelf")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_ActiveSelf")]
         ///  extern System.Boolean GET_ACTIVE_SELF ();
 
 
@@ -493,7 +486,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_final_cost()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_final_cost")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_final_cost")]
         ///  extern System.Single GET_FINAL_COST ();
 
 
@@ -501,7 +494,7 @@ namespace Maple.Ghostmon
         ///   MonsterData get_m_Data()
         /// </summary>
         /// <returns>class MonsterData</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_m_Data")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_m_Data")]
         ///  extern nint GET_M_DATA ();
 
 
@@ -509,7 +502,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_total_atk()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_atk")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_atk")]
         ///  extern System.Single GET_TOTAL_ATK ();
 
 
@@ -517,7 +510,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_total_crit()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_crit")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_crit")]
         ///  extern System.Single GET_TOTAL_CRIT ();
 
 
@@ -525,7 +518,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_total_def()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_def")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_def")]
         ///  extern System.Single GET_TOTAL_DEF ();
 
 
@@ -533,7 +526,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_total_mag()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_mag")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_mag")]
         ///  extern System.Single GET_TOTAL_MAG ();
 
 
@@ -541,7 +534,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_total_maxHp()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_maxHp")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_maxHp")]
         ///  extern System.Single GET_TOTAL_MAX_HP ();
 
 
@@ -549,7 +542,7 @@ namespace Maple.Ghostmon
         ///   System.Single get_total_wp()
         /// </summary>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_wp")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_total_wp")]
         ///  extern System.Single GET_TOTAL_WP ();
 
 
@@ -558,7 +551,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="abilityID">struct System.UInt64</param>
         /// <returns>class Ghostmon.AbilityBase</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAbility")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAbility")]
         ///  extern nint GET_ABILITY (System.UInt64 abilityID);
 
 
@@ -566,7 +559,7 @@ namespace Maple.Ghostmon
         ///   UnityEngine.Bounds GetColliderBound()
         /// </summary>
         /// <returns>struct UnityEngine.Bounds</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetColliderBound")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetColliderBound")]
         ///  extern UnityEngine.Bounds GET_COLLIDER_BOUND ();
 
 
@@ -574,7 +567,7 @@ namespace Maple.Ghostmon
         ///   Ghostmon.BUnitFightCtrl GetFightCtrl()
         /// </summary>
         /// <returns>class Ghostmon.BUnitFightCtrl</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetFightCtrl")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetFightCtrl")]
         ///  extern nint GET_FIGHT_CTRL ();
 
 
@@ -582,7 +575,7 @@ namespace Maple.Ghostmon
         ///   BUnitModelCtrl GetModelCtrl()
         /// </summary>
         /// <returns>class BUnitModelCtrl</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetModelCtrl")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetModelCtrl")]
         ///  extern nint GET_MODEL_CTRL ();
 
 
@@ -590,7 +583,7 @@ namespace Maple.Ghostmon
         ///   UnityEngine.Bounds GetProjColliderBound()
         /// </summary>
         /// <returns>struct UnityEngine.Bounds</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetProjColliderBound")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetProjColliderBound")]
         ///  extern UnityEngine.Bounds GET_PROJ_COLLIDER_BOUND ();
 
 
@@ -598,7 +591,7 @@ namespace Maple.Ghostmon
         ///   BSeekCtrl GetSeekCtrl()
         /// </summary>
         /// <returns>class BSeekCtrl</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSeekCtrl")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSeekCtrl")]
         ///  extern nint GET_SEEK_CTRL ();
 
 
@@ -608,7 +601,7 @@ namespace Maple.Ghostmon
         /// <param name="source">struct UnityEngine.Vector3</param>
         /// <param name="distance">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Knockback")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Knockback")]
         ///  extern void KNOCKBACK (UnityEngine.Vector3 source, System.Single distance);
 
 
@@ -616,7 +609,7 @@ namespace Maple.Ghostmon
         ///   System.Void LifeOver()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LifeOver")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LifeOver")]
         ///  extern void LIFE_OVER ();
 
 
@@ -625,7 +618,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="val">struct System.Single</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LuckyDetection")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LuckyDetection")]
         ///  extern System.Boolean LUCKY_DETECTION (System.Single val);
 
 
@@ -634,7 +627,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="target">class BUnit</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnAttack")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnAttack")]
         ///  extern void ON_ATTACK (nint target);
 
 
@@ -643,7 +636,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="eventData">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnBeginDrag")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnBeginDrag")]
         ///  extern void ON_BEGIN_DRAG (nint eventData);
 
 
@@ -651,7 +644,7 @@ namespace Maple.Ghostmon
         ///   System.Void OnCast()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnCast")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnCast")]
         ///  extern void ON_CAST ();
 
 
@@ -660,7 +653,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="output">class Ghostmon.BHitOutput</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnCauseDamage")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnCauseDamage")]
         ///  extern void ON_CAUSE_DAMAGE (nint output);
 
 
@@ -669,7 +662,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnDrag")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnDrag")]
         ///  extern void ON_DRAG (nint data);
 
 
@@ -678,7 +671,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnEndDrag")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnEndDrag")]
         ///  extern void ON_END_DRAG (nint data);
 
 
@@ -687,7 +680,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnEndSelected")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnEndSelected")]
         ///  extern void ON_END_SELECTED (nint data);
 
 
@@ -696,7 +689,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="output">class Ghostmon.BHitOutput</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnGetDamage")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnGetDamage")]
         ///  extern void ON_GET_DAMAGE (nint output);
 
 
@@ -705,7 +698,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPointEnter")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPointEnter")]
         ///  extern void ON_POINT_ENTER (nint data);
 
 
@@ -714,7 +707,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPointExit")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPointExit")]
         ///  extern void ON_POINT_EXIT (nint data);
 
 
@@ -723,7 +716,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.EventSystems.BaseEventData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnSelected")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnSelected")]
         ///  extern void ON_SELECTED (nint data);
 
 
@@ -732,7 +725,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="summoner">class BUnit&</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnSummon")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnSummon")]
         ///  extern void ON_SUMMON (nint summoner);
 
 
@@ -741,7 +734,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="u">class BUnit</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnUnitDead")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnUnitDead")]
         ///  extern void ON_UNIT_DEAD (nint u);
 
 
@@ -749,7 +742,7 @@ namespace Maple.Ghostmon
         ///   System.Void OnVictory()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnVictory")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnVictory")]
         ///  extern void ON_VICTORY ();
 
 
@@ -757,7 +750,7 @@ namespace Maple.Ghostmon
         ///   System.Void OpenNmaCollider()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OpenNmaCollider")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OpenNmaCollider")]
         ///  extern void OPEN_NMA_COLLIDER ();
 
 
@@ -766,7 +759,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="res">struct Ghostmon.BHitResult</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("PlayHPChange")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("PlayHPChange")]
         ///  extern void PLAY_HP_CHANGE (Ghostmon.BHitResult res);
 
 
@@ -776,7 +769,7 @@ namespace Maple.Ghostmon
         /// <param name="key">enum Ghostmon.AttributeType</param>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("PropertyAdjust")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("PropertyAdjust")]
         ///  extern void PROPERTY_ADJUST (Ghostmon.AttributeType key, System.Single value);
 
 
@@ -784,7 +777,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 PurifyAllBuff()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("PurifyAllBuff")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("PurifyAllBuff")]
         ///  extern System.Int32 PURIFY_ALL_BUFF ();
 
 
@@ -793,7 +786,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="result">struct Ghostmon.BHitResult</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReceiveDamage")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReceiveDamage")]
         ///  extern void RECEIVE_DAMAGE (Ghostmon.BHitResult result);
 
 
@@ -803,7 +796,7 @@ namespace Maple.Ghostmon
         /// <param name="type">enum Ghostmon.BattleDamageType</param>
         /// <param name="val">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReceiveDebuffAccum")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReceiveDebuffAccum")]
         ///  extern void RECEIVE_DEBUFF_ACCUM (Ghostmon.BattleDamageType type, System.Single val);
 
 
@@ -812,7 +805,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="force">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshDragObjVaildState")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshDragObjVaildState")]
         ///  extern void REFRESH_DRAG_OBJ_VAILD_STATE (System.Boolean force);
 
 
@@ -821,7 +814,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="abilityID">struct System.UInt64</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveAbility")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveAbility")]
         ///  extern void REMOVE_ABILITY (System.UInt64 abilityID);
 
 
@@ -830,7 +823,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="type">enum Ghostmon.BuffEffectType</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveBuffEffect")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveBuffEffect")]
         ///  extern void REMOVE_BUFF_EFFECT (Ghostmon.BuffEffectType type);
 
 
@@ -839,7 +832,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="buffID">struct System.UInt64</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveBuffItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveBuffItem")]
         ///  extern void REMOVE_BUFF_ITEM (System.UInt64 buffID);
 
 
@@ -847,7 +840,7 @@ namespace Maple.Ghostmon
         ///   System.Void RemoveClickEvent()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveClickEvent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveClickEvent")]
         ///  extern void REMOVE_CLICK_EVENT ();
 
 
@@ -855,7 +848,7 @@ namespace Maple.Ghostmon
         ///   System.Void RemoveData()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveData")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveData")]
         ///  extern void REMOVE_DATA ();
 
 
@@ -863,7 +856,7 @@ namespace Maple.Ghostmon
         ///   System.Void RemoveModel()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveModel")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveModel")]
         ///  extern void REMOVE_MODEL ();
 
 
@@ -871,7 +864,7 @@ namespace Maple.Ghostmon
         ///   System.Void RemoveSelf()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveSelf")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveSelf")]
         ///  extern void REMOVE_SELF ();
 
 
@@ -881,7 +874,7 @@ namespace Maple.Ghostmon
         /// <param name="buffID">struct System.UInt64</param>
         /// <param name="target">class BUnit</param>
         /// <returns>class BBuff</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SendBuffItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SendBuffItem")]
         ///  extern nint SEND_BUFF_ITEM (System.UInt64 buffID, nint target);
 
 
@@ -890,7 +883,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_cold")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_cold")]
         ///  extern void SET_ACCUMULATE_COLD (System.Single value);
 
 
@@ -899,7 +892,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_dark")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_dark")]
         ///  extern void SET_ACCUMULATE_DARK (System.Single value);
 
 
@@ -908,7 +901,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_fire")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_fire")]
         ///  extern void SET_ACCUMULATE_FIRE (System.Single value);
 
 
@@ -917,7 +910,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_ltng")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_ltng")]
         ///  extern void SET_ACCUMULATE_LTNG (System.Single value);
 
 
@@ -926,7 +919,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_poison")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_poison")]
         ///  extern void SET_ACCUMULATE_POISON (System.Single value);
 
 
@@ -935,7 +928,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_puncture")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_puncture")]
         ///  extern void SET_ACCUMULATE_PUNCTURE (System.Single value);
 
 
@@ -944,7 +937,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_shock")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_shock")]
         ///  extern void SET_ACCUMULATE_SHOCK (System.Single value);
 
 
@@ -953,7 +946,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_tear")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_tear")]
         ///  extern void SET_ACCUMULATE_TEAR (System.Single value);
 
 
@@ -962,7 +955,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_wind")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_accumulate_wind")]
         ///  extern void SET_ACCUMULATE_WIND (System.Single value);
 
 
@@ -971,7 +964,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class MonsterData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_m_Data")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_m_Data")]
         ///  extern void SET_M_DATA (nint value);
 
 
@@ -980,7 +973,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="position">struct UnityEngine.Vector3</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetPosition")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetPosition")]
         ///  extern void SET_POSITION (UnityEngine.Vector3 position);
 
 
@@ -988,7 +981,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetSelectable()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetSelectable")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetSelectable")]
         ///  extern void SET_SELECTABLE ();
 
 
@@ -996,7 +989,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetUnitDefault()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetUnitDefault")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetUnitDefault")]
         ///  extern void SET_UNIT_DEFAULT ();
 
 
@@ -1004,7 +997,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetUnitHighLight()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetUnitHighLight")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetUnitHighLight")]
         ///  extern void SET_UNIT_HIGH_LIGHT ();
 
 
@@ -1012,7 +1005,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetUnselectabl()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetUnselectabl")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetUnselectabl")]
         ///  extern void SET_UNSELECTABL ();
 
 
@@ -1020,7 +1013,7 @@ namespace Maple.Ghostmon
         ///   System.Void StartAttack()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StartAttack")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StartAttack")]
         ///  extern void START_ATTACK ();
 
 
@@ -1028,7 +1021,7 @@ namespace Maple.Ghostmon
         ///   System.Void StartCast()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StartCast")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StartCast")]
         ///  extern void START_CAST ();
 
 
@@ -1037,7 +1030,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="className">class System.String</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryGetAbiltiyByClassName")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryGetAbiltiyByClassName")]
         ///  extern nint TRY_GET_ABILTIY_BY_CLASS_NAME (nint className);
 
 
@@ -1047,7 +1040,7 @@ namespace Maple.Ghostmon
         /// <param name="buffID">struct System.UInt64</param>
         /// <param name="buff">class BBuff&</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryGetBuffITem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryGetBuffITem")]
         ///  extern System.Boolean TRY_GET_BUFF_I_TEM (System.UInt64 buffID, nint buff);
 
 
@@ -1056,7 +1049,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="deltaTime">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("WorkTick")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("WorkTick")]
         ///  extern void WORK_TICK (System.Single deltaTime);
 
 
@@ -1066,7 +1059,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="abilityID">struct System.UInt64</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAbility", Search = typeof(Search_BUnit))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAbility", Search = typeof(Search_BUnit))]
         ///  extern void ADD_ABILITY_00 (System.UInt64 abilityID);
 
 
@@ -1075,7 +1068,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="CSScript">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAbility", Search = typeof(Search_BUnit))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAbility", Search = typeof(Search_BUnit))]
         ///  extern void ADD_ABILITY_01 (nint CSScript);
 
 
@@ -1085,7 +1078,7 @@ namespace Maple.Ghostmon
         /// <param name="a">class Ghostmon.AbilityBase</param>
         /// <param name="CSScript">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAbility", Search = typeof(Search_BUnit))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAbility", Search = typeof(Search_BUnit))]
         ///  extern void ADD_ABILITY_02 (nint a, nint CSScript);
 
 

@@ -1,6 +1,6 @@
 
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +16,8 @@ namespace Maple.Ghostmon
     /// [System.MulticastDelegate]=>[System.Delegate]=>[System.Object]
     /// 
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], 0x0200009DU)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], [83, 121, 115, 116, 101, 109], [65, 99, 116, 105, 111, 110])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], 0x0200009DU)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], [83, 121, 115, 116, 101, 109], [65, 99, 116, 105, 111, 110])]
     
                 
     // struct 0x10 System.IntPtr method_ptr
@@ -113,7 +113,7 @@ namespace Maple.Ghostmon
             /// <param name="object">class System.Object</param>
             /// <param name="method">struct System.IntPtr</param>
             /// <returns>struct System.Void</returns>
-             [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+             [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
               extern void CTOR (nint _object, System.IntPtr method);
 
             
@@ -122,7 +122,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="d">abstract class System.Delegate</param>
             /// <returns>abstract class System.MulticastDelegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AllocDelegateLike_internal")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AllocDelegateLike_internal")]
             /// static extern nint ALLOC_DELEGATE_LIKE_INTERNAL (nint d);
 
             
@@ -132,7 +132,7 @@ namespace Maple.Ghostmon
             /// <param name="delArgType">abstract class System.Type</param>
             /// <param name="argType">abstract class System.Type</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("arg_type_match")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("arg_type_match")]
             /// static extern System.Boolean ARG_TYPE_MATCH (nint delArgType, nint argType);
 
             
@@ -143,7 +143,7 @@ namespace Maple.Ghostmon
             /// <param name="argType">abstract class System.Type</param>
             /// <param name="boxedThis">struct System.Boolean</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("arg_type_match_this")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("arg_type_match_this")]
             /// static extern System.Boolean ARG_TYPE_MATCH_THIS (nint delArgType, nint argType, System.Boolean boxedThis);
 
             
@@ -153,7 +153,7 @@ namespace Maple.Ghostmon
             /// <param name="callback">class System.AsyncCallback</param>
             /// <param name="object">class System.Object</param>
             /// <returns>interface System.IAsyncResult</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("BeginInvoke")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("BeginInvoke")]
             ///  extern nint BEGIN_INVOKE (nint callback, nint object);
 
             
@@ -161,7 +161,7 @@ namespace Maple.Ghostmon
             ///   System.Object Clone()
             /// </summary>
             /// <returns>class System.Object</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Clone")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Clone")]
             ///  extern nint CLONE ();
 
             
@@ -173,7 +173,7 @@ namespace Maple.Ghostmon
             /// <param name="info">abstract class System.Reflection.MethodInfo</param>
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate_internal")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate_internal")]
             /// static extern nint CREATE_DELEGATE_INTERNAL (nint type, nint target, nint info, System.Boolean throwOnBindFailure);
 
             
@@ -184,7 +184,7 @@ namespace Maple.Ghostmon
             /// <param name="firstArgument">class System.Object</param>
             /// <param name="method">abstract class System.Reflection.MethodInfo</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegateNoSecurityCheck")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegateNoSecurityCheck")]
             /// static extern nint CREATE_DELEGATE_NO_SECURITY_CHECK (nint type, nint firstArgument, nint method);
 
             
@@ -193,7 +193,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="args">class System.Object[]</param>
             /// <returns>class System.Object</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DynamicInvoke")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DynamicInvoke")]
             ///  extern nint DYNAMIC_INVOKE (nint args);
 
             
@@ -202,7 +202,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="result">interface System.IAsyncResult</param>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("EndInvoke")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("EndInvoke")]
             ///  extern void END_INVOKE (nint result);
 
             
@@ -210,7 +210,7 @@ namespace Maple.Ghostmon
             ///   System.Reflection.MethodInfo get_Method()
             /// </summary>
             /// <returns>abstract class System.Reflection.MethodInfo</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Method")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Method")]
             ///  extern nint GET_METHOD ();
 
             
@@ -218,7 +218,7 @@ namespace Maple.Ghostmon
             ///   System.Object get_Target()
             /// </summary>
             /// <returns>class System.Object</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Target")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Target")]
             ///  extern nint GET_TARGET ();
 
             
@@ -232,7 +232,7 @@ namespace Maple.Ghostmon
             /// <param name="ignoreCase">struct System.Boolean</param>
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <returns>abstract class System.Reflection.MethodInfo</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCandidateMethod")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCandidateMethod")]
             /// static extern nint GET_CANDIDATE_METHOD (nint type, nint target, nint method, System.Reflection.BindingFlags bflags, System.Boolean ignoreCase, System.Boolean throwOnBindFailure);
 
             
@@ -240,7 +240,7 @@ namespace Maple.Ghostmon
             ///   System.Reflection.MethodInfo GetVirtualMethod_internal()
             /// </summary>
             /// <returns>abstract class System.Reflection.MethodInfo</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetVirtualMethod_internal")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetVirtualMethod_internal")]
             ///  extern nint GET_VIRTUAL_METHOD_INTERNAL ();
 
             
@@ -248,7 +248,7 @@ namespace Maple.Ghostmon
             ///   System.Void InitializeDelegateData()
             /// </summary>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitializeDelegateData")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitializeDelegateData")]
             ///  extern void INITIALIZE_DELEGATE_DATA ();
 
             
@@ -256,7 +256,7 @@ namespace Maple.Ghostmon
             ///   System.Void Invoke()
             /// </summary>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Invoke")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Invoke")]
             ///  extern void INVOKE ();
 
             
@@ -266,7 +266,7 @@ namespace Maple.Ghostmon
             /// <param name="haystack">class System.Delegate[]</param>
             /// <param name="needle">class System.Delegate[]</param>
             /// <returns>struct System.Int32</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LastIndexOf")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LastIndexOf")]
             ///  extern System.Int32 LAST_INDEX_OF (nint haystack, nint needle);
 
             
@@ -276,7 +276,7 @@ namespace Maple.Ghostmon
             /// <param name="d1">abstract class System.Delegate</param>
             /// <param name="d2">abstract class System.Delegate</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Equality")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Equality")]
             /// static extern System.Boolean OP_EQUALITY (nint d1, nint d2);
 
             
@@ -286,7 +286,7 @@ namespace Maple.Ghostmon
             /// <param name="d1">abstract class System.Delegate</param>
             /// <param name="d2">abstract class System.Delegate</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Inequality")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Inequality")]
             /// static extern System.Boolean OP_INEQUALITY (nint d1, nint d2);
 
             
@@ -296,7 +296,7 @@ namespace Maple.Ghostmon
             /// <param name="source">abstract class System.Delegate</param>
             /// <param name="value">abstract class System.Delegate</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove")]
             /// static extern nint REMOVE (nint source, nint value);
 
             
@@ -306,7 +306,7 @@ namespace Maple.Ghostmon
             /// <param name="delReturnType">abstract class System.Type</param>
             /// <param name="returnType">abstract class System.Type</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("return_type_match")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("return_type_match")]
             /// static extern System.Boolean RETURN_TYPE_MATCH (nint delReturnType, nint returnType);
             
             
@@ -317,7 +317,7 @@ namespace Maple.Ghostmon
             /// <param name="a">abstract class System.Delegate</param>
             /// <param name="b">abstract class System.Delegate</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Combine", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Combine", Search = typeof(Search_Action))]
             /// static extern nint COMBINE_00 (nint a, nint b);
 
             
@@ -326,7 +326,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="delegates">class System.Delegate[]</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Combine", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Combine", Search = typeof(Search_Action))]
             /// static extern nint COMBINE_01 (nint delegates);
 
             
@@ -335,7 +335,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="follow">abstract class System.Delegate</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CombineImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CombineImpl", Search = typeof(Search_Action))]
             ///  extern nint COMBINE_IMPL_00 (nint follow);
 
             
@@ -344,7 +344,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="d">abstract class System.Delegate</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CombineImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CombineImpl", Search = typeof(Search_Action))]
             ///  extern nint COMBINE_IMPL_01 (nint d);
 
             
@@ -356,7 +356,7 @@ namespace Maple.Ghostmon
             /// <param name="method">abstract class System.Reflection.MethodInfo</param>
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_00 (nint type, nint firstArgument, nint method, System.Boolean throwOnBindFailure);
 
             
@@ -369,7 +369,7 @@ namespace Maple.Ghostmon
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <param name="allowClosed">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_01 (nint type, nint firstArgument, nint method, System.Boolean throwOnBindFailure, System.Boolean allowClosed);
 
             
@@ -380,7 +380,7 @@ namespace Maple.Ghostmon
             /// <param name="firstArgument">class System.Object</param>
             /// <param name="method">abstract class System.Reflection.MethodInfo</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_02 (nint type, nint firstArgument, nint method);
 
             
@@ -391,7 +391,7 @@ namespace Maple.Ghostmon
             /// <param name="method">abstract class System.Reflection.MethodInfo</param>
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_03 (nint type, nint method, System.Boolean throwOnBindFailure);
 
             
@@ -401,7 +401,7 @@ namespace Maple.Ghostmon
             /// <param name="type">abstract class System.Type</param>
             /// <param name="method">abstract class System.Reflection.MethodInfo</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_04 (nint type, nint method);
 
             
@@ -412,7 +412,7 @@ namespace Maple.Ghostmon
             /// <param name="target">class System.Object</param>
             /// <param name="method">class System.String</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_05 (nint type, nint target, nint method);
 
             
@@ -425,7 +425,7 @@ namespace Maple.Ghostmon
             /// <param name="ignoreCase">struct System.Boolean</param>
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_06 (nint type, nint target, nint method, System.Boolean ignoreCase, System.Boolean throwOnBindFailure);
 
             
@@ -436,7 +436,7 @@ namespace Maple.Ghostmon
             /// <param name="target">abstract class System.Type</param>
             /// <param name="method">class System.String</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_07 (nint type, nint target, nint method);
 
             
@@ -449,7 +449,7 @@ namespace Maple.Ghostmon
             /// <param name="ignoreCase">struct System.Boolean</param>
             /// <param name="throwOnBindFailure">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_08 (nint type, nint target, nint method, System.Boolean ignoreCase, System.Boolean throwOnBindFailure);
 
             
@@ -461,7 +461,7 @@ namespace Maple.Ghostmon
             /// <param name="method">class System.String</param>
             /// <param name="ignoreCase">struct System.Boolean</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateDelegate", Search = typeof(Search_Action))]
             /// static extern nint CREATE_DELEGATE_09 (nint type, nint target, nint method, System.Boolean ignoreCase);
 
             
@@ -470,7 +470,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="args">class System.Object[]</param>
             /// <returns>class System.Object</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DynamicInvokeImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DynamicInvokeImpl", Search = typeof(Search_Action))]
             ///  extern nint DYNAMIC_INVOKE_IMPL_00 (nint args);
 
             
@@ -479,7 +479,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="args">class System.Object[]</param>
             /// <returns>class System.Object</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DynamicInvokeImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DynamicInvokeImpl", Search = typeof(Search_Action))]
             ///  extern nint DYNAMIC_INVOKE_IMPL_01 (nint args);
 
             
@@ -488,7 +488,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="obj">class System.Object</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_Action))]
             ///  extern System.Boolean EQUALS_00 (nint obj);
 
             
@@ -497,7 +497,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="obj">class System.Object</param>
             /// <returns>struct System.Boolean</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_Action))]
             ///  extern System.Boolean EQUALS_01 (nint obj);
 
             
@@ -505,7 +505,7 @@ namespace Maple.Ghostmon
             ///   System.Int32 GetHashCode()
             /// </summary>
             /// <returns>struct System.Int32</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode", Search = typeof(Search_Action))]
             ///  extern System.Int32 GET_HASH_CODE_00 ();
 
             
@@ -513,7 +513,7 @@ namespace Maple.Ghostmon
             ///   System.Int32 GetHashCode()
             /// </summary>
             /// <returns>struct System.Int32</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode", Search = typeof(Search_Action))]
             ///  extern System.Int32 GET_HASH_CODE_01 ();
 
             
@@ -521,7 +521,7 @@ namespace Maple.Ghostmon
             ///   System.Delegate[] GetInvocationList()
             /// </summary>
             /// <returns>class System.Delegate[]</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetInvocationList", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetInvocationList", Search = typeof(Search_Action))]
             ///  extern nint GET_INVOCATION_LIST_00 ();
 
             
@@ -529,7 +529,7 @@ namespace Maple.Ghostmon
             ///   System.Delegate[] GetInvocationList()
             /// </summary>
             /// <returns>class System.Delegate[]</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetInvocationList", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetInvocationList", Search = typeof(Search_Action))]
             ///  extern nint GET_INVOCATION_LIST_01 ();
 
             
@@ -537,7 +537,7 @@ namespace Maple.Ghostmon
             ///   System.Reflection.MethodInfo GetMethodImpl()
             /// </summary>
             /// <returns>abstract class System.Reflection.MethodInfo</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMethodImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMethodImpl", Search = typeof(Search_Action))]
             ///  extern nint GET_METHOD_IMPL_00 ();
 
             
@@ -545,7 +545,7 @@ namespace Maple.Ghostmon
             ///   System.Reflection.MethodInfo GetMethodImpl()
             /// </summary>
             /// <returns>abstract class System.Reflection.MethodInfo</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMethodImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMethodImpl", Search = typeof(Search_Action))]
             ///  extern nint GET_METHOD_IMPL_01 ();
 
             
@@ -555,7 +555,7 @@ namespace Maple.Ghostmon
             /// <param name="info">class System.Runtime.Serialization.SerializationInfo</param>
             /// <param name="context">struct System.Runtime.Serialization.StreamingContext</param>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetObjectData", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetObjectData", Search = typeof(Search_Action))]
             ///  extern void GET_OBJECT_DATA_00 (nint info, System.Runtime.Serialization.StreamingContext context);
 
             
@@ -565,7 +565,7 @@ namespace Maple.Ghostmon
             /// <param name="info">class System.Runtime.Serialization.SerializationInfo</param>
             /// <param name="context">struct System.Runtime.Serialization.StreamingContext</param>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetObjectData", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetObjectData", Search = typeof(Search_Action))]
             ///  extern void GET_OBJECT_DATA_01 (nint info, System.Runtime.Serialization.StreamingContext context);
 
             
@@ -574,7 +574,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="value">abstract class System.Delegate</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveImpl", Search = typeof(Search_Action))]
             ///  extern nint REMOVE_IMPL_00 (nint value);
 
             
@@ -583,7 +583,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="d">abstract class System.Delegate</param>
             /// <returns>abstract class System.Delegate</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveImpl", Search = typeof(Search_Action))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveImpl", Search = typeof(Search_Action))]
             ///  extern nint REMOVE_IMPL_01 (nint d);
 
             

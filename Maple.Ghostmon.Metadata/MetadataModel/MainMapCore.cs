@@ -1,6 +1,6 @@
 
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +16,14 @@ namespace Maple.Ghostmon
     /// [Ghostmon.Framework.Singleton<MainMapCore>]=>[System.Object]
     /// 
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000160U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [77, 97, 105, 110, 77, 97, 112, 67, 111, 114, 101])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000160U)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [77, 97, 105, 110, 77, 97, 112, 67, 111, 114, 101])]
 
     //  class static MainMapCore instance
     [MonoCollectorSearchFieldAttribute(typeof(MainMapCore.Ptr_MainMapCore), "instance", "INSTANCE", true)]
 
     // class 0x10 MapUI mapui
-      [MonoCollectorSearchFieldAttribute(typeof(MapUI.Ptr_MapUI),"mapui", "MAPUI")]
+    [MonoCollectorSearchFieldAttribute(typeof(MapUI.Ptr_MapUI), "mapui", "MAPUI")]
 
     // class 0x18 System.Single[] cameraSizeArray
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"cameraSizeArray", "CAMERA_SIZE_ARRAY")]
@@ -123,7 +123,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="worldPos">struct UnityEngine.Vector3</param>
         /// <returns>struct UnityEngine.Vector2</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CalculatePosInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CalculatePosInMinimap")]
         ///  extern UnityEngine.Vector2 CALCULATE_POS_IN_MINIMAP (UnityEngine.Vector3 worldPos);
 
 
@@ -131,7 +131,7 @@ namespace Maple.Ghostmon
         /// static  MainMapCore CreateInstance()
         /// </summary>
         /// <returns>class MainMapCore</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateInstance")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateInstance")]
         /// static extern nint CREATE_INSTANCE ();
 
 
@@ -139,7 +139,7 @@ namespace Maple.Ghostmon
         /// static  MainMapCore get_Instance()
         /// </summary>
         /// <returns>class MainMapCore</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Instance")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Instance")]
         /// static extern nint GET_INSTANCE ();
 
 
@@ -147,7 +147,7 @@ namespace Maple.Ghostmon
         ///   System.Void HideMapUI()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("HideMapUI")]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("HideMapUI")]
         extern void HIDE_MAP_UI();
 
 
@@ -155,7 +155,7 @@ namespace Maple.Ghostmon
         ///   Cysharp.Threading.Tasks.UniTask InitMapUI()
         /// </summary>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitMapUI")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitMapUI")]
         ///  extern Cysharp.Threading.Tasks.UniTask INIT_MAP_UI ();
 
 
@@ -163,7 +163,7 @@ namespace Maple.Ghostmon
         ///   System.Void InitTaskRegistInMiniMap()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitTaskRegistInMiniMap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitTaskRegistInMiniMap")]
         ///  extern void INIT_TASK_REGIST_IN_MINI_MAP ();
 
 
@@ -171,7 +171,7 @@ namespace Maple.Ghostmon
         /// static  System.Boolean IsActive()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsActive")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsActive")]
         /// static extern System.Boolean IS_ACTIVE ();
 
 
@@ -180,7 +180,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mapMonster">class MapMonster</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutDemonInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutDemonInMinimap")]
         ///  extern void LOGOUT_DEMON_IN_MINIMAP (nint mapMonster);
 
 
@@ -189,7 +189,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mark">class Ghostmon.MapMarkData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutMapMarkerInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutMapMarkerInMinimap")]
         ///  extern void LOGOUT_MAP_MARKER_IN_MINIMAP (nint mark);
 
 
@@ -198,7 +198,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mapShelter">class MapShelter</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutShelterInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutShelterInMinimap")]
         ///  extern void LOGOUT_SHELTER_IN_MINIMAP (nint mapShelter);
 
 
@@ -207,7 +207,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mapSpring">class MapSpring</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutSpringInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutSpringInMinimap")]
         ///  extern void LOGOUT_SPRING_IN_MINIMAP (nint mapSpring);
 
 
@@ -216,7 +216,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="taskID">struct System.UInt64</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutTaskReceiveInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutTaskReceiveInMinimap")]
         ///  extern void LOGOUT_TASK_RECEIVE_IN_MINIMAP (System.UInt64 taskID);
 
 
@@ -225,7 +225,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="taskTarget">class Ghostmon.TaskTargetConfig</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutTaskTargetInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LogoutTaskTargetInMinimap")]
         ///  extern void LOGOUT_TASK_TARGET_IN_MINIMAP (nint taskTarget);
 
 
@@ -233,7 +233,7 @@ namespace Maple.Ghostmon
         ///   System.Void RefreshCharacterPos()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshCharacterPos")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshCharacterPos")]
         ///  extern void REFRESH_CHARACTER_POS ();
 
 
@@ -242,7 +242,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mapMonster">class MapMonster</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistDemonInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistDemonInMinimap")]
         ///  extern void REGIST_DEMON_IN_MINIMAP (nint mapMonster);
 
 
@@ -251,7 +251,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mark">class Ghostmon.MapMarkData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistMapMarkerInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistMapMarkerInMinimap")]
         ///  extern void REGIST_MAP_MARKER_IN_MINIMAP (nint mark);
 
 
@@ -260,7 +260,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mapShelter">class MapShelter</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistShelterInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistShelterInMinimap")]
         ///  extern void REGIST_SHELTER_IN_MINIMAP (nint mapShelter);
 
 
@@ -269,7 +269,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="mapSpring">class MapSpring</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistSpringInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistSpringInMinimap")]
         ///  extern void REGIST_SPRING_IN_MINIMAP (nint mapSpring);
 
 
@@ -278,7 +278,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="task">class Ghostmon.TaskConfig</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistTaskReceiveInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistTaskReceiveInMinimap")]
         ///  extern void REGIST_TASK_RECEIVE_IN_MINIMAP (nint task);
 
 
@@ -287,7 +287,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="taskTarget">class Ghostmon.TaskTargetConfig</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistTaskTargetInMinimap")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RegistTaskTargetInMinimap")]
         ///  extern void REGIST_TASK_TARGET_IN_MINIMAP (nint taskTarget);
 
 
@@ -295,7 +295,7 @@ namespace Maple.Ghostmon
         ///   System.Void Remove()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove")]
         ///  extern void REMOVE ();
 
 
@@ -305,7 +305,7 @@ namespace Maple.Ghostmon
         /// <param name="icon">class UnityEngine.Transform</param>
         /// <param name="worldPos">struct UnityEngine.Vector3</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMiniIconPos")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMiniIconPos")]
         ///  extern void SET_MINI_ICON_POS (nint icon, UnityEngine.Vector3 worldPos);
 
 
@@ -316,7 +316,7 @@ namespace Maple.Ghostmon
         /// <param name="iconName">class System.String</param>
         /// <param name="scale">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMiniIconSprite")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMiniIconSprite")]
         ///  extern void SET_MINI_ICON_SPRITE (nint icon, nint iconName, System.Single scale);
 
 
@@ -324,7 +324,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetMinimapCameraZoomIn()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMinimapCameraZoomIn")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMinimapCameraZoomIn")]
         ///  extern void SET_MINIMAP_CAMERA_ZOOM_IN ();
 
 
@@ -332,7 +332,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetMinimapCameraZoomOut()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMinimapCameraZoomOut")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMinimapCameraZoomOut")]
         ///  extern void SET_MINIMAP_CAMERA_ZOOM_OUT ();
 
 
@@ -340,7 +340,7 @@ namespace Maple.Ghostmon
         ///   System.Void ShowMapUI()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ShowMapUI")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ShowMapUI")]
         ///  extern void SHOW_MAP_UI ();
 
 
@@ -348,7 +348,7 @@ namespace Maple.Ghostmon
         ///   System.Void UpdateIconPos()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("UpdateIconPos")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("UpdateIconPos")]
         ///  extern void UPDATE_ICON_POS ();
 
 
@@ -357,7 +357,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="scale">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("UpdateIconScale")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("UpdateIconScale")]
         ///  extern void UPDATE_ICON_SCALE (System.Single scale);
 
 
@@ -366,7 +366,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_MainMapCore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_MainMapCore))]
         ///  extern void .CTOR_00 ();
 
 
@@ -374,7 +374,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_MainMapCore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_MainMapCore))]
         ///  extern void .CTOR_01 ();
 
 
@@ -382,7 +382,7 @@ namespace Maple.Ghostmon
         ///   System.Void OnInit()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnInit", Search = typeof(Search_MainMapCore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnInit", Search = typeof(Search_MainMapCore))]
         ///  extern void ON_INIT_00 ();
 
 
@@ -390,7 +390,7 @@ namespace Maple.Ghostmon
         ///   System.Void OnInit()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnInit", Search = typeof(Search_MainMapCore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnInit", Search = typeof(Search_MainMapCore))]
         ///  extern void ON_INIT_01 ();
 
 
@@ -398,7 +398,7 @@ namespace Maple.Ghostmon
         ///   System.Void OnRemove()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnRemove", Search = typeof(Search_MainMapCore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnRemove", Search = typeof(Search_MainMapCore))]
         ///  extern void ON_REMOVE_00 ();
 
 
@@ -406,7 +406,7 @@ namespace Maple.Ghostmon
         ///   System.Void OnRemove()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnRemove", Search = typeof(Search_MainMapCore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnRemove", Search = typeof(Search_MainMapCore))]
         ///  extern void ON_REMOVE_01 ();
 
 

@@ -1,6 +1,6 @@
 
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +16,8 @@ namespace Maple.Ghostmon
     /// [UnityEngine.ScriptableObject]=>[UnityEngine.Object]=>[System.Object]
     /// 
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000111U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [83, 107, 105, 108, 108, 79, 98, 106, 101, 99, 116])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000111U)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [83, 107, 105, 108, 108, 79, 98, 106, 101, 99, 116])]
 
     //  struct static System.Int32 OffsetOfInstanceIDInCPlusPlusObject
     //  [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"OffsetOfInstanceIDInCPlusPlusObject", "OFFSET_OF_INSTANCE_ID_IN_C_PLUS_PLUS_OBJECT", true)]
@@ -125,7 +125,7 @@ namespace Maple.Ghostmon
         /// static  System.Void .cctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
         /// static extern void .CCTOR ();
 
 
@@ -135,7 +135,7 @@ namespace Maple.Ghostmon
         /// <param name="arg">class System.Object</param>
         /// <param name="message">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckNullArgument")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckNullArgument")]
         /// static extern void CHECK_NULL_ARGUMENT (nint arg, nint message);
 
 
@@ -145,7 +145,7 @@ namespace Maple.Ghostmon
         /// <param name="lhs">class UnityEngine.Object</param>
         /// <param name="rhs">class UnityEngine.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CompareBaseObjects")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CompareBaseObjects")]
         /// static extern System.Boolean COMPARE_BASE_OBJECTS (nint lhs, nint rhs);
 
 
@@ -154,7 +154,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="self">class UnityEngine.ScriptableObject</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateScriptableObject")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateScriptableObject")]
         /// static extern void CREATE_SCRIPTABLE_OBJECT (nint self);
 
 
@@ -164,7 +164,7 @@ namespace Maple.Ghostmon
         /// <param name="type">abstract class System.Type</param>
         /// <param name="applyDefaultsAndReset">struct System.Boolean</param>
         /// <returns>class UnityEngine.ScriptableObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateScriptableObjectInstanceFromType")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateScriptableObjectInstanceFromType")]
         /// static extern nint CREATE_SCRIPTABLE_OBJECT_INSTANCE_FROM_TYPE (nint type, System.Boolean applyDefaultsAndReset);
 
 
@@ -173,7 +173,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="target">class UnityEngine.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DontDestroyOnLoad")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DontDestroyOnLoad")]
         /// static extern void DONT_DESTROY_ON_LOAD (nint target);
 
 
@@ -182,7 +182,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="other">class System.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals")]
         ///  extern System.Boolean EQUALS (nint other);
 
 
@@ -191,7 +191,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="instanceID">struct System.Int32</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectFromInstanceID")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectFromInstanceID")]
         /// static extern nint FIND_OBJECT_FROM_INSTANCE_ID (System.Int32 instanceID);
 
 
@@ -199,7 +199,7 @@ namespace Maple.Ghostmon
         ///   UnityEngine.HideFlags get_hideFlags()
         /// </summary>
         /// <returns>enum UnityEngine.HideFlags</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_hideFlags")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_hideFlags")]
         ///  extern UnityEngine.HideFlags GET_HIDE_FLAGS ();
 
 
@@ -207,7 +207,7 @@ namespace Maple.Ghostmon
         ///   System.String get_name()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_name")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_name")]
         ///  extern nint GET_NAME ();
 
 
@@ -215,7 +215,7 @@ namespace Maple.Ghostmon
         ///   System.IntPtr GetCachedPtr()
         /// </summary>
         /// <returns>struct System.IntPtr</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCachedPtr")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCachedPtr")]
         ///  extern System.IntPtr GET_CACHED_PTR ();
 
 
@@ -223,7 +223,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 GetHashCode()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode")]
         ///  extern System.Int32 GET_HASH_CODE ();
 
 
@@ -231,7 +231,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 GetInstanceID()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetInstanceID")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetInstanceID")]
         ///  extern System.Int32 GET_INSTANCE_ID ();
 
 
@@ -240,7 +240,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">class UnityEngine.Object</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetName")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetName")]
         /// static extern nint GET_NAME (nint obj);
 
 
@@ -248,7 +248,7 @@ namespace Maple.Ghostmon
         /// static  System.Int32 GetOffsetOfInstanceIDInCPlusPlusObject()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetOffsetOfInstanceIDInCPlusPlusObject")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetOffsetOfInstanceIDInCPlusPlusObject")]
         /// static extern System.Int32 GET_OFFSET_OF_INSTANCE_ID_IN_C_PLUS_PLUS_OBJECT ();
 
 
@@ -257,7 +257,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="data">class UnityEngine.Object</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_CloneSingle")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_CloneSingle")]
         /// static extern nint INTERNAL_CLONE_SINGLE (nint data);
 
 
@@ -268,7 +268,7 @@ namespace Maple.Ghostmon
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <param name="worldPositionStays">struct System.Boolean</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_CloneSingleWithParent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_CloneSingleWithParent")]
         /// static extern nint INTERNAL_CLONE_SINGLE_WITH_PARENT (nint data, nint parent, System.Boolean worldPositionStays);
 
 
@@ -279,7 +279,7 @@ namespace Maple.Ghostmon
         /// <param name="pos">struct UnityEngine.Vector3</param>
         /// <param name="rot">struct UnityEngine.Quaternion</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingle")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingle")]
         /// static extern nint INTERNAL_INSTANTIATE_SINGLE (nint data, UnityEngine.Vector3 pos, UnityEngine.Quaternion rot);
 
 
@@ -290,7 +290,7 @@ namespace Maple.Ghostmon
         /// <param name="pos">struct UnityEngine.Vector3&</param>
         /// <param name="rot">struct UnityEngine.Quaternion&</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingle_Injected")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingle_Injected")]
         /// static extern nint INTERNAL_INSTANTIATE_SINGLE_INJECTED (nint data, UnityEngine.Vector3& pos, UnityEngine.Quaternion& rot);
 
 
@@ -302,7 +302,7 @@ namespace Maple.Ghostmon
         /// <param name="pos">struct UnityEngine.Vector3</param>
         /// <param name="rot">struct UnityEngine.Quaternion</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingleWithParent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingleWithParent")]
         /// static extern nint INTERNAL_INSTANTIATE_SINGLE_WITH_PARENT (nint data, nint parent, UnityEngine.Vector3 pos, UnityEngine.Quaternion rot);
 
 
@@ -314,7 +314,7 @@ namespace Maple.Ghostmon
         /// <param name="pos">struct UnityEngine.Vector3&</param>
         /// <param name="rot">struct UnityEngine.Quaternion&</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingleWithParent_Injected")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Internal_InstantiateSingleWithParent_Injected")]
         /// static extern nint INTERNAL_INSTANTIATE_SINGLE_WITH_PARENT_INJECTED (nint data, nint parent, UnityEngine.Vector3& pos, UnityEngine.Quaternion& rot);
 
 
@@ -323,7 +323,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="o">class UnityEngine.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsNativeObjectAlive")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsNativeObjectAlive")]
         /// static extern System.Boolean IS_NATIVE_OBJECT_ALIVE (nint o);
 
 
@@ -333,7 +333,7 @@ namespace Maple.Ghostmon
         /// <param name="x">class UnityEngine.Object</param>
         /// <param name="y">class UnityEngine.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Equality")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Equality")]
         /// static extern System.Boolean OP_EQUALITY (nint x, nint y);
 
 
@@ -342,7 +342,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="exists">class UnityEngine.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Implicit")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Implicit")]
         /// static extern System.Boolean OP_IMPLICIT (nint exists);
 
 
@@ -352,7 +352,7 @@ namespace Maple.Ghostmon
         /// <param name="x">class UnityEngine.Object</param>
         /// <param name="y">class UnityEngine.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Inequality")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Inequality")]
         /// static extern System.Boolean OP_INEQUALITY (nint x, nint y);
 
 
@@ -361,7 +361,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">enum UnityEngine.HideFlags</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_hideFlags")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_hideFlags")]
         ///  extern void SET_HIDE_FLAGS (UnityEngine.HideFlags value);
 
 
@@ -370,7 +370,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_name")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_name")]
         ///  extern void SET_NAME (nint value);
 
 
@@ -380,7 +380,7 @@ namespace Maple.Ghostmon
         /// <param name="obj">class UnityEngine.Object</param>
         /// <param name="name">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetName")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetName")]
         /// static extern void SET_NAME (nint obj, nint name);
 
 
@@ -389,7 +389,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_SkillObject))]
         ///  extern void .CTOR_00 ();
 
 
@@ -397,7 +397,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_SkillObject))]
         ///  extern void .CTOR_01 ();
 
 
@@ -405,7 +405,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_SkillObject))]
         ///  extern void .CTOR_02 ();
 
 
@@ -414,7 +414,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="type">abstract class System.Type</param>
         /// <returns>class UnityEngine.ScriptableObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateInstance", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateInstance", Search = typeof(Search_SkillObject))]
         /// static extern nint CREATE_INSTANCE_00 (nint type);
 
 
@@ -422,7 +422,7 @@ namespace Maple.Ghostmon
         /// static  T CreateInstance()
         /// </summary>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateInstance", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateInstance", Search = typeof(Search_SkillObject))]
         /// static extern nint CREATE_INSTANCE_01 ();
 
 
@@ -432,7 +432,7 @@ namespace Maple.Ghostmon
         /// <param name="obj">class UnityEngine.Object</param>
         /// <param name="t">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Destroy", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Destroy", Search = typeof(Search_SkillObject))]
         /// static extern void DESTROY_00 (nint obj, System.Single t);
 
 
@@ -441,7 +441,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">class UnityEngine.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Destroy", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Destroy", Search = typeof(Search_SkillObject))]
         /// static extern void DESTROY_01 (nint obj);
 
 
@@ -451,7 +451,7 @@ namespace Maple.Ghostmon
         /// <param name="obj">class UnityEngine.Object</param>
         /// <param name="allowDestroyingAssets">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DestroyImmediate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DestroyImmediate", Search = typeof(Search_SkillObject))]
         /// static extern void DESTROY_IMMEDIATE_00 (nint obj, System.Boolean allowDestroyingAssets);
 
 
@@ -460,7 +460,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">class UnityEngine.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DestroyImmediate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DestroyImmediate", Search = typeof(Search_SkillObject))]
         /// static extern void DESTROY_IMMEDIATE_01 (nint obj);
 
 
@@ -468,7 +468,7 @@ namespace Maple.Ghostmon
         /// static  T FindObjectOfType()
         /// </summary>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectOfType", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectOfType", Search = typeof(Search_SkillObject))]
         /// static extern nint FIND_OBJECT_OF_TYPE_00 ();
 
 
@@ -478,7 +478,7 @@ namespace Maple.Ghostmon
         /// <param name="type">abstract class System.Type</param>
         /// <param name="includeInactive">struct System.Boolean</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectOfType", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectOfType", Search = typeof(Search_SkillObject))]
         /// static extern nint FIND_OBJECT_OF_TYPE_01 (nint type, System.Boolean includeInactive);
 
 
@@ -487,7 +487,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="type">abstract class System.Type</param>
         /// <returns>class UnityEngine.Object[]</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
         /// static extern nint FIND_OBJECTS_OF_TYPE_00 (nint type);
 
 
@@ -497,7 +497,7 @@ namespace Maple.Ghostmon
         /// <param name="type">abstract class System.Type</param>
         /// <param name="includeInactive">struct System.Boolean</param>
         /// <returns>class UnityEngine.Object[]</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
         /// static extern nint FIND_OBJECTS_OF_TYPE_01 (nint type, System.Boolean includeInactive);
 
 
@@ -505,7 +505,7 @@ namespace Maple.Ghostmon
         /// static  T[] FindObjectsOfType()
         /// </summary>
         /// <returns>class T[]</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
         /// static extern nint FIND_OBJECTS_OF_TYPE_02 ();
 
 
@@ -514,7 +514,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="includeInactive">struct System.Boolean</param>
         /// <returns>class T[]</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("FindObjectsOfType", Search = typeof(Search_SkillObject))]
         /// static extern nint FIND_OBJECTS_OF_TYPE_03 (System.Boolean includeInactive);
 
 
@@ -525,7 +525,7 @@ namespace Maple.Ghostmon
         /// <param name="position">struct UnityEngine.Vector3</param>
         /// <param name="rotation">struct UnityEngine.Quaternion</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_00 (nint original, UnityEngine.Vector3 position, UnityEngine.Quaternion rotation);
 
 
@@ -537,7 +537,7 @@ namespace Maple.Ghostmon
         /// <param name="rotation">struct UnityEngine.Quaternion</param>
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_01 (nint original, UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, nint parent);
 
 
@@ -546,7 +546,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="original">class UnityEngine.Object</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_02 (nint original);
 
 
@@ -557,7 +557,7 @@ namespace Maple.Ghostmon
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <param name="instantiateInWorldSpace">struct System.Boolean</param>
         /// <returns>class UnityEngine.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_03 (nint original, nint parent, System.Boolean instantiateInWorldSpace);
 
 
@@ -566,7 +566,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="original">class T</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_04 (nint original);
 
 
@@ -577,7 +577,7 @@ namespace Maple.Ghostmon
         /// <param name="position">struct UnityEngine.Vector3</param>
         /// <param name="rotation">struct UnityEngine.Quaternion</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_05 (nint original, UnityEngine.Vector3 position, UnityEngine.Quaternion rotation);
 
 
@@ -589,7 +589,7 @@ namespace Maple.Ghostmon
         /// <param name="rotation">struct UnityEngine.Quaternion</param>
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_06 (nint original, UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, nint parent);
 
 
@@ -599,7 +599,7 @@ namespace Maple.Ghostmon
         /// <param name="original">class T</param>
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_07 (nint original, nint parent);
 
 
@@ -610,7 +610,7 @@ namespace Maple.Ghostmon
         /// <param name="parent">class UnityEngine.Transform</param>
         /// <param name="worldPositionStays">struct System.Boolean</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Instantiate", Search = typeof(Search_SkillObject))]
         /// static extern nint INSTANTIATE_08 (nint original, nint parent, System.Boolean worldPositionStays);
 
 
@@ -618,7 +618,7 @@ namespace Maple.Ghostmon
         ///   System.String ToString()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_SkillObject))]
         ///  extern nint TO_STRING_00 ();
 
 
@@ -627,7 +627,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">class UnityEngine.Object</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_SkillObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_SkillObject))]
         /// static extern nint TO_STRING_01 (nint obj);
 
 

@@ -1,6 +1,6 @@
 
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +16,8 @@ namespace Maple.Ghostmon
     /// [Newtonsoft.Json.Linq.JContainer]=>[Newtonsoft.Json.Linq.JToken]=>[System.Object]
     /// [System.Collections.Generic.IDictionary<System.String,Newtonsoft.Json.Linq.JToken>]=>[System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>]=>[System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>]=>[System.Collections.IEnumerable]=>[System.ComponentModel.ICustomTypeDescriptor]
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([78, 101, 119, 116, 111, 110, 115, 111, 102, 116, 46, 74, 115, 111, 110, 46, 100, 108, 108], 0x020000D1U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([78, 101, 119, 116, 111, 110, 115, 111, 102, 116, 46, 74, 115, 111, 110, 46, 100, 108, 108], [78, 101, 119, 116, 111, 110, 115, 111, 102, 116, 46, 74, 115, 111, 110, 46, 76, 105, 110, 113], [74, 79, 98, 106, 101, 99, 116])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([78, 101, 119, 116, 111, 110, 115, 111, 102, 116, 46, 74, 115, 111, 110, 46, 100, 108, 108], 0x020000D1U)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([78, 101, 119, 116, 111, 110, 115, 111, 102, 116, 46, 74, 115, 111, 110, 46, 100, 108, 108], [78, 101, 119, 116, 111, 110, 115, 111, 102, 116, 46, 74, 115, 111, 110, 46, 76, 105, 110, 113], [74, 79, 98, 106, 101, 99, 116])]
 
     //  class static Newtonsoft.Json.Linq.JTokenType[] BooleanTypes
     //  [MonoCollectorSearchFieldAttribute(typeof(nint),"BooleanTypes", "BOOLEAN_TYPES", true)]
@@ -137,7 +137,7 @@ namespace Maple.Ghostmon
         /// static  System.Void .cctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
         /// static extern void .CCTOR ();
 
 
@@ -146,7 +146,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="token">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAndSkipParentCheck")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAndSkipParentCheck")]
         ///  extern void ADD_AND_SKIP_PARENT_CHECK (nint token);
 
 
@@ -155,7 +155,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="annotation">class System.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAnnotation")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddAnnotation")]
         ///  extern void ADD_ANNOTATION (nint annotation);
 
 
@@ -166,7 +166,7 @@ namespace Maple.Ghostmon
         /// <param name="content">class System.Object</param>
         /// <param name="skipParentCheck">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddInternal")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("AddInternal")]
         ///  extern void ADD_INTERNAL (System.Int32 index, nint content, System.Boolean skipParentCheck);
 
 
@@ -174,7 +174,7 @@ namespace Maple.Ghostmon
         ///   T Annotation()
         /// </summary>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Annotation")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Annotation")]
         ///  extern nint ANNOTATION ();
 
 
@@ -182,7 +182,7 @@ namespace Maple.Ghostmon
         ///   System.Void CheckReentrancy()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckReentrancy")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckReentrancy")]
         ///  extern void CHECK_REENTRANCY ();
 
 
@@ -190,7 +190,7 @@ namespace Maple.Ghostmon
         ///   System.Void ClearItems()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearItems")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ClearItems")]
         ///  extern void CLEAR_ITEMS ();
 
 
@@ -199,7 +199,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ContainsItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ContainsItem")]
         ///  extern System.Boolean CONTAINS_ITEM (nint item);
 
 
@@ -208,7 +208,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="propertyName">class System.String</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ContainsKey")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ContainsKey")]
         ///  extern System.Boolean CONTAINS_KEY (nint propertyName);
 
 
@@ -218,7 +218,7 @@ namespace Maple.Ghostmon
         /// <param name="array">abstract class System.Array</param>
         /// <param name="arrayIndex">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CopyItemsTo")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CopyItemsTo")]
         ///  extern void COPY_ITEMS_TO (nint array, System.Int32 arrayIndex);
 
 
@@ -227,7 +227,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="content">class System.Object</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateFromContent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateFromContent")]
         /// static extern nint CREATE_FROM_CONTENT (nint content);
 
 
@@ -235,7 +235,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.JsonReader CreateReader()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.JsonReader</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateReader")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CreateReader")]
         ///  extern nint CREATE_READER ();
 
 
@@ -243,7 +243,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken DeepClone()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("DeepClone")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("DeepClone")]
         ///  extern nint DEEP_CLONE ();
 
 
@@ -253,7 +253,7 @@ namespace Maple.Ghostmon
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="skipParentCheck">struct System.Boolean</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("EnsureParentToken")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("EnsureParentToken")]
         ///  extern nint ENSURE_PARENT_TOKEN (nint item, System.Boolean skipParentCheck);
 
 
@@ -261,7 +261,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 get_Count()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Count")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Count")]
         ///  extern System.Int32 GET_COUNT ();
 
 
@@ -269,7 +269,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_Next()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Next")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Next")]
         ///  extern nint GET_NEXT ();
 
 
@@ -277,7 +277,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JContainer get_Parent()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JContainer</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Parent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Parent")]
         ///  extern nint GET_PARENT ();
 
 
@@ -285,7 +285,7 @@ namespace Maple.Ghostmon
         ///   System.String get_Path()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Path")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Path")]
         ///  extern nint GET_PATH ();
 
 
@@ -293,7 +293,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_Previous()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Previous")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Previous")]
         ///  extern nint GET_PREVIOUS ();
 
 
@@ -301,7 +301,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_Root()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Root")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Root")]
         ///  extern nint GET_ROOT ();
 
 
@@ -309,7 +309,7 @@ namespace Maple.Ghostmon
         ///   System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>> GetEnumerator()
         /// </summary>
         /// <returns>interface System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetEnumerator")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetEnumerator")]
         ///  extern nint GET_ENUMERATOR ();
 
 
@@ -318,7 +318,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="index">struct System.Int32</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetItem")]
         ///  extern nint GET_ITEM (System.Int32 index);
 
 
@@ -327,7 +327,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="token">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetType")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetType")]
         /// static extern nint GET_TYPE (nint token);
 
 
@@ -336,7 +336,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="childProperty">class Newtonsoft.Json.Linq.JProperty</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InternalPropertyChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InternalPropertyChanged")]
         ///  extern void INTERNAL_PROPERTY_CHANGED (nint childProperty);
 
 
@@ -345,7 +345,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="childProperty">class Newtonsoft.Json.Linq.JProperty</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InternalPropertyChanging")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InternalPropertyChanging")]
         ///  extern void INTERNAL_PROPERTY_CHANGING (nint childProperty);
 
 
@@ -354,7 +354,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="content">class System.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsMultiContent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsMultiContent")]
         ///  extern System.Boolean IS_MULTI_CONTENT (nint content);
 
 
@@ -364,7 +364,7 @@ namespace Maple.Ghostmon
         /// <param name="currentValue">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="newValue">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsTokenUnchanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("IsTokenUnchanged")]
         /// static extern System.Boolean IS_TOKEN_UNCHANGED (nint currentValue, nint newValue);
 
 
@@ -374,7 +374,7 @@ namespace Maple.Ghostmon
         /// <param name="reader">abstract class Newtonsoft.Json.JsonReader</param>
         /// <param name="settings">class Newtonsoft.Json.Linq.JsonLoadSettings</param>
         /// <returns>class Newtonsoft.Json.Linq.JObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Load")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Load")]
         /// static extern nint LOAD (nint reader, nint settings);
 
 
@@ -382,7 +382,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 Newtonsoft.Json.IJsonLineInfo.get_LineNumber()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Newtonsoft.Json.IJsonLineInfo.get_LineNumber")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Newtonsoft.Json.IJsonLineInfo.get_LineNumber")]
         ///  extern System.Int32 NEWTONSOFT.JSON.I_JSON_LINE_INFO.GET_LINE_NUMBER ();
 
 
@@ -390,7 +390,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 Newtonsoft.Json.IJsonLineInfo.get_LinePosition()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Newtonsoft.Json.IJsonLineInfo.get_LinePosition")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Newtonsoft.Json.IJsonLineInfo.get_LinePosition")]
         ///  extern System.Int32 NEWTONSOFT.JSON.I_JSON_LINE_INFO.GET_LINE_POSITION ();
 
 
@@ -398,7 +398,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean Newtonsoft.Json.IJsonLineInfo.HasLineInfo()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Newtonsoft.Json.IJsonLineInfo.HasLineInfo")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Newtonsoft.Json.IJsonLineInfo.HasLineInfo")]
         ///  extern System.Boolean NEWTONSOFT.JSON.I_JSON_LINE_INFO.HAS_LINE_INFO ();
 
 
@@ -407,7 +407,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="e">class System.Collections.Specialized.NotifyCollectionChangedEventArgs</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnCollectionChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnCollectionChanged")]
         ///  extern void ON_COLLECTION_CHANGED (nint e);
 
 
@@ -416,7 +416,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="e">class System.ComponentModel.ListChangedEventArgs</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnListChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnListChanged")]
         ///  extern void ON_LIST_CHANGED (nint e);
 
 
@@ -425,7 +425,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="propertyName">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPropertyChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPropertyChanged")]
         ///  extern void ON_PROPERTY_CHANGED (nint propertyName);
 
 
@@ -434,7 +434,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="propertyName">class System.String</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPropertyChanging")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("OnPropertyChanging")]
         ///  extern void ON_PROPERTY_CHANGING (nint propertyName);
 
 
@@ -442,7 +442,7 @@ namespace Maple.Ghostmon
         ///   System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JProperty> Properties()
         /// </summary>
         /// <returns>interface System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JProperty></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Properties")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Properties")]
         ///  extern nint PROPERTIES ();
 
 
@@ -452,7 +452,7 @@ namespace Maple.Ghostmon
         /// <param name="r">abstract class Newtonsoft.Json.JsonReader</param>
         /// <param name="settings">class Newtonsoft.Json.Linq.JsonLoadSettings</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadContentFrom")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadContentFrom")]
         ///  extern void READ_CONTENT_FROM (nint r, nint settings);
 
 
@@ -464,7 +464,7 @@ namespace Maple.Ghostmon
         /// <param name="lineInfo">interface Newtonsoft.Json.IJsonLineInfo</param>
         /// <param name="parent">abstract class Newtonsoft.Json.Linq.JContainer</param>
         /// <returns>class Newtonsoft.Json.Linq.JProperty</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadProperty")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadProperty")]
         /// static extern nint READ_PROPERTY (nint r, nint settings, nint lineInfo, nint parent);
 
 
@@ -474,7 +474,7 @@ namespace Maple.Ghostmon
         /// <param name="reader">abstract class Newtonsoft.Json.JsonReader</param>
         /// <param name="options">class Newtonsoft.Json.Linq.JsonLoadSettings</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadTokenFrom")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadTokenFrom")]
         ///  extern void READ_TOKEN_FROM (nint reader, nint options);
 
 
@@ -482,7 +482,7 @@ namespace Maple.Ghostmon
         ///   System.Void RemoveAll()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveAll")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveAll")]
         ///  extern void REMOVE_ALL ();
 
 
@@ -491,7 +491,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveItem")]
         ///  extern System.Boolean REMOVE_ITEM (nint item);
 
 
@@ -500,7 +500,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="index">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveItemAt")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveItemAt")]
         ///  extern void REMOVE_ITEM_AT (System.Int32 index);
 
 
@@ -509,7 +509,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Replace")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Replace")]
         ///  extern void REPLACE (nint value);
 
 
@@ -519,7 +519,7 @@ namespace Maple.Ghostmon
         /// <param name="existing">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="replacement">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReplaceItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReplaceItem")]
         ///  extern void REPLACE_ITEM (nint existing, nint replacement);
 
 
@@ -529,7 +529,7 @@ namespace Maple.Ghostmon
         /// <param name="propertyName">class System.String</param>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Item")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Item")]
         ///  extern void SET_ITEM (nint propertyName, nint value);
 
 
@@ -538,7 +538,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Next")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Next")]
         ///  extern void SET_NEXT (nint value);
 
 
@@ -547,7 +547,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JContainer</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Parent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Parent")]
         ///  extern void SET_PARENT (nint value);
 
 
@@ -556,7 +556,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Previous")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("set_Previous")]
         ///  extern void SET_PREVIOUS (nint value);
 
 
@@ -566,7 +566,7 @@ namespace Maple.Ghostmon
         /// <param name="index">struct System.Int32</param>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetItem")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetItem")]
         ///  extern void SET_ITEM (System.Int32 index, nint item);
 
 
@@ -575,7 +575,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Add")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Add")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<NEWTONSOFT.JSON.LINQ.J_TOKEN>.ADD (nint item);
 
 
@@ -583,7 +583,7 @@ namespace Maple.Ghostmon
         ///   System.Void System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Clear()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Clear")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Clear")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<NEWTONSOFT.JSON.LINQ.J_TOKEN>.CLEAR ();
 
 
@@ -592,7 +592,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Contains")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Contains")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<NEWTONSOFT.JSON.LINQ.J_TOKEN>.CONTAINS (nint item);
 
 
@@ -602,7 +602,7 @@ namespace Maple.Ghostmon
         /// <param name="array">class Newtonsoft.Json.Linq.JToken[]</param>
         /// <param name="arrayIndex">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.CopyTo")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.CopyTo")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<NEWTONSOFT.JSON.LINQ.J_TOKEN>.COPY_TO (nint array, System.Int32 arrayIndex);
 
 
@@ -610,7 +610,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.get_IsReadOnly()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.get_IsReadOnly")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.get_IsReadOnly")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<NEWTONSOFT.JSON.LINQ.J_TOKEN>.GET_IS_READ_ONLY ();
 
 
@@ -619,7 +619,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Remove")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken>.Remove")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<NEWTONSOFT.JSON.LINQ.J_TOKEN>.REMOVE (nint item);
 
 
@@ -628,7 +628,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">struct System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken></param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Add")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Add")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<SYSTEM.COLLECTIONS.GENERIC.KEY_VALUE_PAIR<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>>.ADD (System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken> item);
 
 
@@ -636,7 +636,7 @@ namespace Maple.Ghostmon
         ///   System.Void System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Clear()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Clear")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Clear")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<SYSTEM.COLLECTIONS.GENERIC.KEY_VALUE_PAIR<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>>.CLEAR ();
 
 
@@ -645,7 +645,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">struct System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken></param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Contains")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Contains")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<SYSTEM.COLLECTIONS.GENERIC.KEY_VALUE_PAIR<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>>.CONTAINS (System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken> item);
 
 
@@ -655,7 +655,7 @@ namespace Maple.Ghostmon
         /// <param name="array">class System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>[]</param>
         /// <param name="arrayIndex">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.CopyTo")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.CopyTo")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<SYSTEM.COLLECTIONS.GENERIC.KEY_VALUE_PAIR<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>>.COPY_TO (nint array, System.Int32 arrayIndex);
 
 
@@ -663,7 +663,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.get_IsReadOnly()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.get_IsReadOnly")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.get_IsReadOnly")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<SYSTEM.COLLECTIONS.GENERIC.KEY_VALUE_PAIR<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>>.GET_IS_READ_ONLY ();
 
 
@@ -672,7 +672,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">struct System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken></param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Remove")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken>>.Remove")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.GENERIC.I_COLLECTION<SYSTEM.COLLECTIONS.GENERIC.KEY_VALUE_PAIR<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>>.REMOVE (System.Collections.Generic.KeyValuePair<System.String,Newtonsoft.Json.Linq.JToken> item);
 
 
@@ -680,7 +680,7 @@ namespace Maple.Ghostmon
         ///   System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken> System.Collections.Generic.IDictionary<System.String,Newtonsoft.Json.Linq.JToken>.get_Values()
         /// </summary>
         /// <returns>interface System.Collections.Generic.ICollection<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IDictionary<System.String,Newtonsoft.Json.Linq.JToken>.get_Values")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IDictionary<System.String,Newtonsoft.Json.Linq.JToken>.get_Values")]
         ///  extern nint SYSTEM.COLLECTIONS.GENERIC.I_DICTIONARY<SYSTEM.STRING,NEWTONSOFT.JSON.LINQ.J_TOKEN>.GET_VALUES ();
 
 
@@ -688,7 +688,7 @@ namespace Maple.Ghostmon
         ///   System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken> System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JToken>.GetEnumerator()
         /// </summary>
         /// <returns>interface System.Collections.Generic.IEnumerator<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JToken>.GetEnumerator")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IEnumerable<Newtonsoft.Json.Linq.JToken>.GetEnumerator")]
         ///  extern nint SYSTEM.COLLECTIONS.GENERIC.I_ENUMERABLE<NEWTONSOFT.JSON.LINQ.J_TOKEN>.GET_ENUMERATOR ();
 
 
@@ -697,7 +697,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="index">struct System.Int32</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.get_Item")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.get_Item")]
         ///  extern nint SYSTEM.COLLECTIONS.GENERIC.I_LIST<NEWTONSOFT.JSON.LINQ.J_TOKEN>.GET_ITEM (System.Int32 index);
 
 
@@ -706,7 +706,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.IndexOf")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.IndexOf")]
         ///  extern System.Int32 SYSTEM.COLLECTIONS.GENERIC.I_LIST<NEWTONSOFT.JSON.LINQ.J_TOKEN>.INDEX_OF (nint item);
 
 
@@ -716,7 +716,7 @@ namespace Maple.Ghostmon
         /// <param name="index">struct System.Int32</param>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.Insert")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.Insert")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_LIST<NEWTONSOFT.JSON.LINQ.J_TOKEN>.INSERT (System.Int32 index, nint item);
 
 
@@ -725,7 +725,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="index">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.RemoveAt")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.RemoveAt")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_LIST<NEWTONSOFT.JSON.LINQ.J_TOKEN>.REMOVE_AT (System.Int32 index);
 
 
@@ -735,7 +735,7 @@ namespace Maple.Ghostmon
         /// <param name="index">struct System.Int32</param>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.set_Item")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken>.set_Item")]
         ///  extern void SYSTEM.COLLECTIONS.GENERIC.I_LIST<NEWTONSOFT.JSON.LINQ.J_TOKEN>.SET_ITEM (System.Int32 index, nint value);
 
 
@@ -745,7 +745,7 @@ namespace Maple.Ghostmon
         /// <param name="array">abstract class System.Array</param>
         /// <param name="index">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.ICollection.CopyTo")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.ICollection.CopyTo")]
         ///  extern void SYSTEM.COLLECTIONS.I_COLLECTION.COPY_TO (nint array, System.Int32 index);
 
 
@@ -753,7 +753,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean System.Collections.ICollection.get_IsSynchronized()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.ICollection.get_IsSynchronized")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.ICollection.get_IsSynchronized")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.I_COLLECTION.GET_IS_SYNCHRONIZED ();
 
 
@@ -761,7 +761,7 @@ namespace Maple.Ghostmon
         ///   System.Object System.Collections.ICollection.get_SyncRoot()
         /// </summary>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.ICollection.get_SyncRoot")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.ICollection.get_SyncRoot")]
         ///  extern nint SYSTEM.COLLECTIONS.I_COLLECTION.GET_SYNC_ROOT ();
 
 
@@ -769,7 +769,7 @@ namespace Maple.Ghostmon
         ///   System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         /// </summary>
         /// <returns>interface System.Collections.IEnumerator</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IEnumerable.GetEnumerator")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IEnumerable.GetEnumerator")]
         ///  extern nint SYSTEM.COLLECTIONS.I_ENUMERABLE.GET_ENUMERATOR ();
 
 
@@ -778,7 +778,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Add")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Add")]
         ///  extern System.Int32 SYSTEM.COLLECTIONS.I_LIST.ADD (nint value);
 
 
@@ -786,7 +786,7 @@ namespace Maple.Ghostmon
         ///   System.Void System.Collections.IList.Clear()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Clear")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Clear")]
         ///  extern void SYSTEM.COLLECTIONS.I_LIST.CLEAR ();
 
 
@@ -795,7 +795,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Contains")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Contains")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.I_LIST.CONTAINS (nint value);
 
 
@@ -803,7 +803,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean System.Collections.IList.get_IsFixedSize()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.get_IsFixedSize")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.get_IsFixedSize")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.I_LIST.GET_IS_FIXED_SIZE ();
 
 
@@ -811,7 +811,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean System.Collections.IList.get_IsReadOnly()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.get_IsReadOnly")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.get_IsReadOnly")]
         ///  extern System.Boolean SYSTEM.COLLECTIONS.I_LIST.GET_IS_READ_ONLY ();
 
 
@@ -820,7 +820,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="index">struct System.Int32</param>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.get_Item")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.get_Item")]
         ///  extern nint SYSTEM.COLLECTIONS.I_LIST.GET_ITEM (System.Int32 index);
 
 
@@ -829,7 +829,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.IndexOf")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.IndexOf")]
         ///  extern System.Int32 SYSTEM.COLLECTIONS.I_LIST.INDEX_OF (nint value);
 
 
@@ -839,7 +839,7 @@ namespace Maple.Ghostmon
         /// <param name="index">struct System.Int32</param>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Insert")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Insert")]
         ///  extern void SYSTEM.COLLECTIONS.I_LIST.INSERT (System.Int32 index, nint value);
 
 
@@ -848,7 +848,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Remove")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.Remove")]
         ///  extern void SYSTEM.COLLECTIONS.I_LIST.REMOVE (nint value);
 
 
@@ -857,7 +857,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="index">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.RemoveAt")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.RemoveAt")]
         ///  extern void SYSTEM.COLLECTIONS.I_LIST.REMOVE_AT (System.Int32 index);
 
 
@@ -867,7 +867,7 @@ namespace Maple.Ghostmon
         /// <param name="index">struct System.Int32</param>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.set_Item")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Collections.IList.set_Item")]
         ///  extern void SYSTEM.COLLECTIONS.I_LIST.SET_ITEM (System.Int32 index, nint value);
 
 
@@ -875,7 +875,7 @@ namespace Maple.Ghostmon
         ///   System.ComponentModel.AttributeCollection System.ComponentModel.ICustomTypeDescriptor.GetAttributes()
         /// </summary>
         /// <returns>class System.ComponentModel.AttributeCollection</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetAttributes")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetAttributes")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_ATTRIBUTES ();
 
 
@@ -883,7 +883,7 @@ namespace Maple.Ghostmon
         ///   System.String System.ComponentModel.ICustomTypeDescriptor.GetClassName()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetClassName")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetClassName")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_CLASS_NAME ();
 
 
@@ -891,7 +891,7 @@ namespace Maple.Ghostmon
         ///   System.String System.ComponentModel.ICustomTypeDescriptor.GetComponentName()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetComponentName")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetComponentName")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_COMPONENT_NAME ();
 
 
@@ -899,7 +899,7 @@ namespace Maple.Ghostmon
         ///   System.ComponentModel.TypeConverter System.ComponentModel.ICustomTypeDescriptor.GetConverter()
         /// </summary>
         /// <returns>class System.ComponentModel.TypeConverter</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetConverter")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetConverter")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_CONVERTER ();
 
 
@@ -907,7 +907,7 @@ namespace Maple.Ghostmon
         ///   System.ComponentModel.EventDescriptor System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent()
         /// </summary>
         /// <returns>abstract class System.ComponentModel.EventDescriptor</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_DEFAULT_EVENT ();
 
 
@@ -915,7 +915,7 @@ namespace Maple.Ghostmon
         ///   System.ComponentModel.PropertyDescriptor System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty()
         /// </summary>
         /// <returns>abstract class System.ComponentModel.PropertyDescriptor</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_DEFAULT_PROPERTY ();
 
 
@@ -924,7 +924,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="editorBaseType">abstract class System.Type</param>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetEditor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetEditor")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_EDITOR (nint editorBaseType);
 
 
@@ -933,7 +933,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="pd">abstract class System.ComponentModel.PropertyDescriptor</param>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner")]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_PROPERTY_OWNER (nint pd);
 
 
@@ -942,7 +942,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="parameter">abstract class System.Linq.Expressions.Expression</param>
         /// <returns>class System.Dynamic.DynamicMetaObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject")]
         ///  extern nint SYSTEM.DYNAMIC.I_DYNAMIC_META_OBJECT_PROVIDER.GET_META_OBJECT (nint parameter);
 
 
@@ -950,7 +950,7 @@ namespace Maple.Ghostmon
         ///   System.Object System.ICloneable.Clone()
         /// </summary>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ICloneable.Clone")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ICloneable.Clone")]
         ///  extern nint SYSTEM.I_CLONEABLE.CLONE ();
 
 
@@ -959,7 +959,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Numerics.BigInteger</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToBigInteger")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToBigInteger")]
         /// static extern System.Numerics.BigInteger TO_BIG_INTEGER (nint value);
 
 
@@ -968,7 +968,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Numerics.BigInteger></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToBigIntegerNullable")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToBigIntegerNullable")]
         /// static extern System.Nullable<System.Numerics.BigInteger> TO_BIG_INTEGER_NULLABLE (nint value);
 
 
@@ -978,7 +978,7 @@ namespace Maple.Ghostmon
         /// <param name="propertyName">class System.String</param>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken&</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryGetValue")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryGetValue")]
         ///  extern System.Boolean TRY_GET_VALUE (nint propertyName, nint value);
 
 
@@ -987,7 +987,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
         ///  extern void .CTOR_00 ();
 
 
@@ -996,7 +996,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="other">class Newtonsoft.Json.Linq.JObject</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
         ///  extern void .CTOR_01 (nint other);
 
 
@@ -1004,7 +1004,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
         ///  extern void .CTOR_02 ();
 
 
@@ -1013,7 +1013,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="other">abstract class Newtonsoft.Json.Linq.JContainer</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
         ///  extern void .CTOR_03 (nint other);
 
 
@@ -1021,7 +1021,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_JObject))]
         ///  extern void .CTOR_04 ();
 
 
@@ -1031,7 +1031,7 @@ namespace Maple.Ghostmon
         /// <param name="propertyName">class System.String</param>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Add", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Add", Search = typeof(Search_JObject))]
         ///  extern void ADD_00 (nint propertyName, nint value);
 
 
@@ -1040,7 +1040,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="content">class System.Object</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Add", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Add", Search = typeof(Search_JObject))]
         ///  extern void ADD_01 (nint content);
 
 
@@ -1048,7 +1048,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JEnumerable<Newtonsoft.Json.Linq.JToken> Children()
         /// </summary>
         /// <returns>struct Newtonsoft.Json.Linq.JEnumerable<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Children", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Children", Search = typeof(Search_JObject))]
         ///  extern Newtonsoft.Json.Linq.JEnumerable<Newtonsoft.Json.Linq.JToken> CHILDREN_00 ();
 
 
@@ -1056,7 +1056,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JEnumerable<Newtonsoft.Json.Linq.JToken> Children()
         /// </summary>
         /// <returns>struct Newtonsoft.Json.Linq.JEnumerable<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Children", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Children", Search = typeof(Search_JObject))]
         ///  extern Newtonsoft.Json.Linq.JEnumerable<Newtonsoft.Json.Linq.JToken> CHILDREN_01 ();
 
 
@@ -1064,7 +1064,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken CloneToken()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CloneToken", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CloneToken", Search = typeof(Search_JObject))]
         ///  extern nint CLONE_TOKEN_00 ();
 
 
@@ -1072,7 +1072,7 @@ namespace Maple.Ghostmon
         ///  abstract Newtonsoft.Json.Linq.JToken CloneToken()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CloneToken", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CloneToken", Search = typeof(Search_JObject))]
         ///  extern nint CLONE_TOKEN_01 ();
 
 
@@ -1081,7 +1081,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.Object</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("EnsureValue", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("EnsureValue", Search = typeof(Search_JObject))]
         ///  extern nint ENSURE_VALUE_00 (nint value);
 
 
@@ -1090,7 +1090,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>class Newtonsoft.Json.Linq.JValue</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("EnsureValue", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("EnsureValue", Search = typeof(Search_JObject))]
         /// static extern nint ENSURE_VALUE_01 (nint value);
 
 
@@ -1098,7 +1098,7 @@ namespace Maple.Ghostmon
         ///   System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken> get_ChildrenTokens()
         /// </summary>
         /// <returns>interface System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_ChildrenTokens", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_ChildrenTokens", Search = typeof(Search_JObject))]
         ///  extern nint GET_CHILDREN_TOKENS_00 ();
 
 
@@ -1106,7 +1106,7 @@ namespace Maple.Ghostmon
         ///  abstract System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken> get_ChildrenTokens()
         /// </summary>
         /// <returns>interface System.Collections.Generic.IList<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_ChildrenTokens", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_ChildrenTokens", Search = typeof(Search_JObject))]
         ///  extern nint GET_CHILDREN_TOKENS_01 ();
 
 
@@ -1114,7 +1114,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_First()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_First", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_First", Search = typeof(Search_JObject))]
         ///  extern nint GET_FIRST_00 ();
 
 
@@ -1122,7 +1122,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_First()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_First", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_First", Search = typeof(Search_JObject))]
         ///  extern nint GET_FIRST_01 ();
 
 
@@ -1130,7 +1130,7 @@ namespace Maple.Ghostmon
         ///   System.Boolean get_HasValues()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_HasValues", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_HasValues", Search = typeof(Search_JObject))]
         ///  extern System.Boolean GET_HAS_VALUES_00 ();
 
 
@@ -1138,7 +1138,7 @@ namespace Maple.Ghostmon
         ///  abstract System.Boolean get_HasValues()
         /// </summary>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_HasValues", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_HasValues", Search = typeof(Search_JObject))]
         ///  extern System.Boolean GET_HAS_VALUES_01 ();
 
 
@@ -1147,7 +1147,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="key">class System.Object</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Item", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Item", Search = typeof(Search_JObject))]
         ///  extern nint GET_ITEM_00 (nint key);
 
 
@@ -1156,7 +1156,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="propertyName">class System.String</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Item", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Item", Search = typeof(Search_JObject))]
         ///  extern nint GET_ITEM_01 (nint propertyName);
 
 
@@ -1165,7 +1165,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="key">class System.Object</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Item", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Item", Search = typeof(Search_JObject))]
         ///  extern nint GET_ITEM_02 (nint key);
 
 
@@ -1173,7 +1173,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_Last()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Last", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Last", Search = typeof(Search_JObject))]
         ///  extern nint GET_LAST_00 ();
 
 
@@ -1181,7 +1181,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JToken get_Last()
         /// </summary>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Last", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Last", Search = typeof(Search_JObject))]
         ///  extern nint GET_LAST_01 ();
 
 
@@ -1189,7 +1189,7 @@ namespace Maple.Ghostmon
         ///   Newtonsoft.Json.Linq.JTokenType get_Type()
         /// </summary>
         /// <returns>enum Newtonsoft.Json.Linq.JTokenType</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Type", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Type", Search = typeof(Search_JObject))]
         ///  extern Newtonsoft.Json.Linq.JTokenType GET_TYPE_00 ();
 
 
@@ -1197,7 +1197,7 @@ namespace Maple.Ghostmon
         ///  abstract Newtonsoft.Json.Linq.JTokenType get_Type()
         /// </summary>
         /// <returns>enum Newtonsoft.Json.Linq.JTokenType</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Type", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("get_Type", Search = typeof(Search_JObject))]
         ///  extern Newtonsoft.Json.Linq.JTokenType GET_TYPE_01 ();
 
 
@@ -1206,7 +1206,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="parameter">abstract class System.Linq.Expressions.Expression</param>
         /// <returns>class System.Dynamic.DynamicMetaObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMetaObject", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMetaObject", Search = typeof(Search_JObject))]
         ///  extern nint GET_META_OBJECT_00 (nint parameter);
 
 
@@ -1215,7 +1215,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="parameter">abstract class System.Linq.Expressions.Expression</param>
         /// <returns>class System.Dynamic.DynamicMetaObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMetaObject", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMetaObject", Search = typeof(Search_JObject))]
         ///  extern nint GET_META_OBJECT_01 (nint parameter);
 
 
@@ -1224,7 +1224,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("IndexOfItem", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("IndexOfItem", Search = typeof(Search_JObject))]
         ///  extern System.Int32 INDEX_OF_ITEM_00 (nint item);
 
 
@@ -1233,7 +1233,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("IndexOfItem", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("IndexOfItem", Search = typeof(Search_JObject))]
         ///  extern System.Int32 INDEX_OF_ITEM_01 (nint item);
 
 
@@ -1244,7 +1244,7 @@ namespace Maple.Ghostmon
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="skipParentCheck">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InsertItem", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InsertItem", Search = typeof(Search_JObject))]
         ///  extern void INSERT_ITEM_00 (System.Int32 index, nint item, System.Boolean skipParentCheck);
 
 
@@ -1255,7 +1255,7 @@ namespace Maple.Ghostmon
         /// <param name="item">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="skipParentCheck">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InsertItem", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InsertItem", Search = typeof(Search_JObject))]
         ///  extern void INSERT_ITEM_01 (System.Int32 index, nint item, System.Boolean skipParentCheck);
 
 
@@ -1264,7 +1264,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Boolean OP_EXPLICIT_00 (nint value);
 
 
@@ -1273,7 +1273,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.DateTimeOffset</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.DateTimeOffset OP_EXPLICIT_01 (nint value);
 
 
@@ -1282,7 +1282,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Boolean></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Boolean> OP_EXPLICIT_02 (nint value);
 
 
@@ -1291,7 +1291,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Int64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Int64 OP_EXPLICIT_03 (nint value);
 
 
@@ -1300,7 +1300,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.DateTime></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.DateTime> OP_EXPLICIT_04 (nint value);
 
 
@@ -1309,7 +1309,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.DateTimeOffset></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.DateTimeOffset> OP_EXPLICIT_05 (nint value);
 
 
@@ -1318,7 +1318,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Decimal></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Decimal> OP_EXPLICIT_06 (nint value);
 
 
@@ -1327,7 +1327,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Double></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Double> OP_EXPLICIT_07 (nint value);
 
 
@@ -1336,7 +1336,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Char></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Char> OP_EXPLICIT_08 (nint value);
 
 
@@ -1345,7 +1345,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Int32 OP_EXPLICIT_09 (nint value);
 
 
@@ -1354,7 +1354,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Int16</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Int16 OP_EXPLICIT_0A (nint value);
 
 
@@ -1363,7 +1363,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.UInt16</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.UInt16 OP_EXPLICIT_0B (nint value);
 
 
@@ -1372,7 +1372,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Char</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Char OP_EXPLICIT_0C (nint value);
 
 
@@ -1381,7 +1381,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Byte</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Byte OP_EXPLICIT_0D (nint value);
 
 
@@ -1390,7 +1390,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.SByte</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.SByte OP_EXPLICIT_0E (nint value);
 
 
@@ -1399,7 +1399,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Int32></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Int32> OP_EXPLICIT_0F (nint value);
 
 
@@ -1408,7 +1408,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Int16></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Int16> OP_EXPLICIT_10 (nint value);
 
 
@@ -1417,7 +1417,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.UInt16></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.UInt16> OP_EXPLICIT_11 (nint value);
 
 
@@ -1426,7 +1426,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Byte></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Byte> OP_EXPLICIT_12 (nint value);
 
 
@@ -1435,7 +1435,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.SByte></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.SByte> OP_EXPLICIT_13 (nint value);
 
 
@@ -1444,7 +1444,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.DateTime</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.DateTime OP_EXPLICIT_14 (nint value);
 
 
@@ -1453,7 +1453,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Int64></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Int64> OP_EXPLICIT_15 (nint value);
 
 
@@ -1462,7 +1462,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Single></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Single> OP_EXPLICIT_16 (nint value);
 
 
@@ -1471,7 +1471,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Decimal</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Decimal OP_EXPLICIT_17 (nint value);
 
 
@@ -1480,7 +1480,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.UInt32></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.UInt32> OP_EXPLICIT_18 (nint value);
 
 
@@ -1489,7 +1489,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.UInt64></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.UInt64> OP_EXPLICIT_19 (nint value);
 
 
@@ -1498,7 +1498,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Double</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Double OP_EXPLICIT_1A (nint value);
 
 
@@ -1507,7 +1507,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Single OP_EXPLICIT_1B (nint value);
 
 
@@ -1516,7 +1516,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern nint OP_EXPLICIT_1C (nint value);
 
 
@@ -1525,7 +1525,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.UInt32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.UInt32 OP_EXPLICIT_1D (nint value);
 
 
@@ -1534,7 +1534,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.UInt64 OP_EXPLICIT_1E (nint value);
 
 
@@ -1543,7 +1543,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Guid</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Guid OP_EXPLICIT_1F (nint value);
 
 
@@ -1552,7 +1552,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.Guid></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.Guid> OP_EXPLICIT_20 (nint value);
 
 
@@ -1561,7 +1561,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.TimeSpan</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.TimeSpan OP_EXPLICIT_21 (nint value);
 
 
@@ -1570,7 +1570,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Nullable<System.TimeSpan></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern System.Nullable<System.TimeSpan> OP_EXPLICIT_22 (nint value);
 
 
@@ -1579,7 +1579,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>class System.Uri</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("op_Explicit", Search = typeof(Search_JObject))]
         /// static extern nint OP_EXPLICIT_23 (nint value);
 
 
@@ -1588,7 +1588,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="json">class System.String</param>
         /// <returns>class Newtonsoft.Json.Linq.JObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_JObject))]
         /// static extern nint PARSE_00 (nint json);
 
 
@@ -1598,7 +1598,7 @@ namespace Maple.Ghostmon
         /// <param name="json">class System.String</param>
         /// <param name="settings">class Newtonsoft.Json.Linq.JsonLoadSettings</param>
         /// <returns>class Newtonsoft.Json.Linq.JObject</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_JObject))]
         /// static extern nint PARSE_01 (nint json, nint settings);
 
 
@@ -1607,7 +1607,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>class Newtonsoft.Json.Linq.JProperty</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Property", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Property", Search = typeof(Search_JObject))]
         ///  extern nint PROPERTY_00 (nint name);
 
 
@@ -1617,7 +1617,7 @@ namespace Maple.Ghostmon
         /// <param name="name">class System.String</param>
         /// <param name="comparison">enum System.StringComparison</param>
         /// <returns>class Newtonsoft.Json.Linq.JProperty</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Property", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Property", Search = typeof(Search_JObject))]
         ///  extern nint PROPERTY_01 (nint name, System.StringComparison comparison);
 
 
@@ -1626,7 +1626,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="reader">abstract class Newtonsoft.Json.JsonReader</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadFrom", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadFrom", Search = typeof(Search_JObject))]
         /// static extern nint READ_FROM_00 (nint reader);
 
 
@@ -1636,7 +1636,7 @@ namespace Maple.Ghostmon
         /// <param name="reader">abstract class Newtonsoft.Json.JsonReader</param>
         /// <param name="settings">class Newtonsoft.Json.Linq.JsonLoadSettings</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadFrom", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ReadFrom", Search = typeof(Search_JObject))]
         /// static extern nint READ_FROM_01 (nint reader, nint settings);
 
 
@@ -1645,7 +1645,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="propertyName">class System.String</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove", Search = typeof(Search_JObject))]
         ///  extern System.Boolean REMOVE_00 (nint propertyName);
 
 
@@ -1653,7 +1653,7 @@ namespace Maple.Ghostmon
         ///   System.Void Remove()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Remove", Search = typeof(Search_JObject))]
         ///  extern void REMOVE_01 ();
 
 
@@ -1663,7 +1663,7 @@ namespace Maple.Ghostmon
         /// <param name="lineInfo">interface Newtonsoft.Json.IJsonLineInfo</param>
         /// <param name="settings">class Newtonsoft.Json.Linq.JsonLoadSettings</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLineInfo", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLineInfo", Search = typeof(Search_JObject))]
         ///  extern void SET_LINE_INFO_00 (nint lineInfo, nint settings);
 
 
@@ -1673,7 +1673,7 @@ namespace Maple.Ghostmon
         /// <param name="lineNumber">struct System.Int32</param>
         /// <param name="linePosition">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLineInfo", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLineInfo", Search = typeof(Search_JObject))]
         ///  extern void SET_LINE_INFO_01 (System.Int32 lineNumber, System.Int32 linePosition);
 
 
@@ -1682,7 +1682,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="attributes">class System.Attribute[]</param>
         /// <returns>class System.ComponentModel.EventDescriptorCollection</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetEvents", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetEvents", Search = typeof(Search_JObject))]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_EVENTS_00 (nint attributes);
 
 
@@ -1690,7 +1690,7 @@ namespace Maple.Ghostmon
         ///   System.ComponentModel.EventDescriptorCollection System.ComponentModel.ICustomTypeDescriptor.GetEvents()
         /// </summary>
         /// <returns>class System.ComponentModel.EventDescriptorCollection</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetEvents", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetEvents", Search = typeof(Search_JObject))]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_EVENTS_01 ();
 
 
@@ -1698,7 +1698,7 @@ namespace Maple.Ghostmon
         ///   System.ComponentModel.PropertyDescriptorCollection System.ComponentModel.ICustomTypeDescriptor.GetProperties()
         /// </summary>
         /// <returns>class System.ComponentModel.PropertyDescriptorCollection</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetProperties", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetProperties", Search = typeof(Search_JObject))]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_PROPERTIES_00 ();
 
 
@@ -1707,7 +1707,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="attributes">class System.Attribute[]</param>
         /// <returns>class System.ComponentModel.PropertyDescriptorCollection</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetProperties", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.ComponentModel.ICustomTypeDescriptor.GetProperties", Search = typeof(Search_JObject))]
         ///  extern nint SYSTEM.COMPONENT_MODEL.I_CUSTOM_TYPE_DESCRIPTOR.GET_PROPERTIES_01 (nint attributes);
 
 
@@ -1716,7 +1716,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="objectType">abstract class System.Type</param>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToObject", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToObject", Search = typeof(Search_JObject))]
         ///  extern nint TO_OBJECT_00 (nint objectType);
 
 
@@ -1726,7 +1726,7 @@ namespace Maple.Ghostmon
         /// <param name="objectType">abstract class System.Type</param>
         /// <param name="jsonSerializer">class Newtonsoft.Json.JsonSerializer</param>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToObject", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToObject", Search = typeof(Search_JObject))]
         ///  extern nint TO_OBJECT_01 (nint objectType, nint jsonSerializer);
 
 
@@ -1734,7 +1734,7 @@ namespace Maple.Ghostmon
         ///   System.String ToString()
         /// </summary>
         /// <returns>class System.String</returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_JObject))]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_JObject))]
         extern PMonoString TO_STRING_00();
 
 
@@ -1744,7 +1744,7 @@ namespace Maple.Ghostmon
         /// <param name="formatting">enum Newtonsoft.Json.Formatting</param>
         /// <param name="converters">class Newtonsoft.Json.JsonConverter[]</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_JObject))]
         ///  extern nint TO_STRING_01 (Newtonsoft.Json.Formatting formatting, nint converters);
 
 
@@ -1754,7 +1754,7 @@ namespace Maple.Ghostmon
         /// <param name="o">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="existing">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ValidateToken", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ValidateToken", Search = typeof(Search_JObject))]
         ///  extern void VALIDATE_TOKEN_00 (nint o, nint existing);
 
 
@@ -1764,7 +1764,7 @@ namespace Maple.Ghostmon
         /// <param name="o">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <param name="existing">abstract class Newtonsoft.Json.Linq.JToken</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ValidateToken", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ValidateToken", Search = typeof(Search_JObject))]
         ///  extern void VALIDATE_TOKEN_01 (nint o, nint existing);
 
 
@@ -1775,7 +1775,7 @@ namespace Maple.Ghostmon
         /// <param name="validTypes">class Newtonsoft.Json.Linq.JTokenType[]</param>
         /// <param name="nullable">struct System.Boolean</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ValidateToken", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ValidateToken", Search = typeof(Search_JObject))]
         /// static extern System.Boolean VALIDATE_TOKEN_02 (nint o, nint validTypes, System.Boolean nullable);
 
 
@@ -1785,7 +1785,7 @@ namespace Maple.Ghostmon
         /// <param name="writer">abstract class Newtonsoft.Json.JsonWriter</param>
         /// <param name="converters">class Newtonsoft.Json.JsonConverter[]</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("WriteTo", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("WriteTo", Search = typeof(Search_JObject))]
         ///  extern void WRITE_TO_00 (nint writer, nint converters);
 
 
@@ -1795,7 +1795,7 @@ namespace Maple.Ghostmon
         /// <param name="writer">abstract class Newtonsoft.Json.JsonWriter</param>
         /// <param name="converters">class Newtonsoft.Json.JsonConverter[]</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("WriteTo", Search = typeof(Search_JObject))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("WriteTo", Search = typeof(Search_JObject))]
         ///  extern void WRITE_TO_01 (nint writer, nint converters);
 
 
@@ -2648,7 +2648,7 @@ namespace Maple.Ghostmon
             ///   System.String ToString()
             /// </summary>
             public static bool TO_STRING_00(Maple.MonoGameAssistant.Model.MonoMethodInfoDTO monoMethodInfoDTO)
-                => Maple.MonoGameAssistant.MonoCollector.MonoCollectorExtensions.SearchMonoMethodInfo(monoMethodInfoDTO, "ToString");
+                => MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollector.MonoCollectorExtensions.SearchMonoMethodInfo(monoMethodInfoDTO, "ToString");
             ///     
             ///  
             /// 

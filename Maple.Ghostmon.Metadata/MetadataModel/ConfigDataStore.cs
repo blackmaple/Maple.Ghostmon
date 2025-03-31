@@ -1,7 +1,7 @@
 using Maple.Ghostmon.Metadata.MetadataModel.UniTask;
 using Maple.MonoGameAssistant.Common;
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 
 namespace Maple.Ghostmon
 {
@@ -12,8 +12,8 @@ namespace Maple.Ghostmon
     /// [System.Object]
     /// 
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000122U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [67, 111, 110, 102, 105, 103, 68, 97, 116, 97, 83, 116, 111, 114, 101])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x02000122U)]
+    [MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [67, 111, 110, 102, 105, 103, 68, 97, 116, 97, 83, 116, 111, 114, 101])]
 
     //  class static System.Collections.Generic.Dictionary<System.String,System.Collections.Generic.Dictionary<System.UInt64,Newtonsoft.Json.Linq.JObject>> configStore
     [MonoCollectorSearchFieldAttribute(typeof(PMonoDictionary_Ghostmon<PMonoString, PMonoDictionary_Ghostmon<UInt64, JObject.Ptr_JObject>>), "configStore", "CONFIG_STORE", true)]
@@ -107,7 +107,7 @@ namespace Maple.Ghostmon
         /// static  System.Void .cctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".cctor")]
         /// static extern void .CCTOR ();
 
 
@@ -116,7 +116,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="str">class System.String</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckIllegalWords")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckIllegalWords")]
         /// static extern System.Boolean CHECK_ILLEGAL_WORDS (nint str);
 
 
@@ -126,7 +126,7 @@ namespace Maple.Ghostmon
         /// <param name="sheetName">class System.String</param>
         /// <param name="configID">struct System.UInt64</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckKeyExist")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CheckKeyExist")]
         /// static extern System.Boolean CHECK_KEY_EXIST (nint sheetName, System.UInt64 configID);
 
 
@@ -135,7 +135,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="rank">struct System.Int32</param>
         /// <returns>class System.Collections.Generic.List<System.UInt64></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAbilityBuffers")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAbilityBuffers")]
         /// static extern nint GET_ABILITY_BUFFERS (System.Int32 rank);
 
 
@@ -144,7 +144,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="sheetName">class System.String</param>
         /// <returns>class System.Collections.Generic.List<T></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAllData")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAllData")]
         /// static extern nint GET_ALL_DATA (nint sheetName);
 
 
@@ -154,7 +154,7 @@ namespace Maple.Ghostmon
         /// <param name="sheetName">class System.String</param>
         /// <param name="searchKey">class System.String</param>
         /// <returns>class System.Collections.Generic.List<Newtonsoft.Json.Linq.JToken></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAllDataJToken")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAllDataJToken")]
         /// static extern nint GET_ALL_DATA_J_TOKEN (nint sheetName, nint searchKey);
 
 
@@ -165,7 +165,7 @@ namespace Maple.Ghostmon
         /// <param name="searchKey">class System.String</param>
         /// <param name="predicate">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>class System.Collections.Generic.List<T></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAllDataLimit")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetAllDataLimit")]
         /// static extern nint GET_ALL_DATA_LIMIT (nint sheetName, nint searchKey, nint predicate);
 
 
@@ -174,7 +174,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<CollectionObject></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCollectionConfig")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetCollectionConfig")]
         /// static extern Cysharp.Threading.Tasks.UniTask<CollectionObject> GET_COLLECTION_CONFIG (nint name);
 
 
@@ -184,7 +184,7 @@ namespace Maple.Ghostmon
         /// <param name="sheetName">class System.String</param>
         /// <param name="configID">struct System.UInt64</param>
         /// <returns>class T</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataJObject")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataJObject")]
         /// static extern nint GET_DATA_J_OBJECT (nint sheetName, System.UInt64 configID);
 
 
@@ -195,7 +195,7 @@ namespace Maple.Ghostmon
         /// <param name="configID">struct System.UInt64</param>
         /// <param name="searchKey">class System.String</param>
         /// <returns>abstract class Newtonsoft.Json.Linq.JToken</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataJToken")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataJToken")]
         /// static extern nint GET_DATA_J_TOKEN (nint sheetName, System.UInt64 configID, nint searchKey);
 
 
@@ -205,7 +205,7 @@ namespace Maple.Ghostmon
         /// <param name="sheetName">class System.String</param>
         /// <param name="configIDs">class System.Collections.Generic.List<System.UInt64></param>
         /// <returns>class System.Collections.Generic.List<T></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataList")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataList")]
         /// static extern nint GET_DATA_LIST (nint sheetName, nint configIDs);
 
 
@@ -214,7 +214,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="sheetName">class System.String</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataListLength")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDataListLength")]
         /// static extern System.Int32 GET_DATA_LIST_LENGTH (nint sheetName);
 
 
@@ -223,7 +223,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="ID">struct System.UInt64</param>
         /// <returns>class System.Collections.Generic.List<Ghostmon.CommonData></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDropConfig")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetDropConfig")]
         /// static extern nint GET_DROP_CONFIG (System.UInt64 ID);
 
 
@@ -232,7 +232,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="Id">struct System.UInt64</param>
         /// <returns>class System.String</returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLanguageText")]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLanguageText")]
         static extern PMonoString GET_LANGUAGE_TEXT(System.UInt64 Id);
 
 
@@ -243,7 +243,7 @@ namespace Maple.Ghostmon
         /// <param name="configID">struct System.UInt64</param>
         /// <param name="searchKey">class System.String</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLanguageTrans")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLanguageTrans")]
         /// static extern nint GET_LANGUAGE_TRANS (nint sheetName, System.UInt64 configID, nint searchKey);
 
 
@@ -254,7 +254,7 @@ namespace Maple.Ghostmon
         /// <param name="searchKey">class System.String</param>
         /// <param name="predicate">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>class System.Collections.Generic.List<T></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitDataList")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitDataList")]
         /// static extern nint GET_LIMIT_DATA_LIST (nint sheetName, nint searchKey, nint predicate);
 
 
@@ -263,7 +263,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<MonsterObject></returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMonsterConfig")]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetMonsterConfig")]
         static extern Ptr_UniTask<MonsterObject.Ptr_MonsterObject> GET_MONSTER_CONFIG(Maple.MonoGameAssistant.Common.MapleOut<Ref_UniTask<MonsterObject.Ptr_MonsterObject>> ref_UniTask_MonsterObject, PMonoString name);
 
 
@@ -303,7 +303,7 @@ namespace Maple.Ghostmon
         /// static  System.String GetSheetConfigFolder()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSheetConfigFolder")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSheetConfigFolder")]
         /// static extern nint GET_SHEET_CONFIG_FOLDER ();
 
 
@@ -311,7 +311,7 @@ namespace Maple.Ghostmon
         /// static  System.Collections.Generic.Dictionary<System.String,System.String> GetSheetFileList()
         /// </summary>
         /// <returns>class System.Collections.Generic.Dictionary<System.String,System.String></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSheetFileList")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSheetFileList")]
         /// static extern nint GET_SHEET_FILE_LIST ();
 
 
@@ -321,8 +321,8 @@ namespace Maple.Ghostmon
         /// <param name="name">class System.String</param>
         /// <param name="suffix">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<SkillObject></returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSkillConfig")]
-        static extern Ptr_UniTask<SkillObject.Ptr_SkillObject> GET_SKILL_CONFIG(MapleOut<Ref_UniTask<SkillObject.Ptr_SkillObject>>  ref_UniTask, PMonoString name, PMonoString suffix);
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSkillConfig")]
+        static extern Ptr_UniTask<SkillObject.Ptr_SkillObject> GET_SKILL_CONFIG(MapleOut<Ref_UniTask<SkillObject.Ptr_SkillObject>> ref_UniTask, PMonoString name, PMonoString suffix);
 
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="name">class System.String</param>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask<SpriteObject></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSpriteConfig")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetSpriteConfig")]
         /// static extern Cysharp.Threading.Tasks.UniTask<SpriteObject> GET_SPRITE_CONFIG (nint name);
 
 
@@ -338,7 +338,7 @@ namespace Maple.Ghostmon
         /// static  Cysharp.Threading.Tasks.UniTask LoadAllConfig()
         /// </summary>
         /// <returns>struct Cysharp.Threading.Tasks.UniTask</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadAllConfig")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadAllConfig")]
         /// static extern Cysharp.Threading.Tasks.UniTask LOAD_ALL_CONFIG ();
 
 
@@ -346,7 +346,7 @@ namespace Maple.Ghostmon
         /// static  System.Void LoadIllegalWordsConfig()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadIllegalWordsConfig")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("LoadIllegalWordsConfig")]
         /// static extern void LOAD_ILLEGAL_WORDS_CONFIG ();
 
 
@@ -360,7 +360,7 @@ namespace Maple.Ghostmon
         /// <param name="predicate1">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <param name="predicate2">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigID", Search = typeof(Search_ConfigDataStore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigID", Search = typeof(Search_ConfigDataStore))]
         /// static extern System.UInt64 GET_LIMIT_CONFIG_ID_00 (nint sheetName, nint searchKey1, nint searchKey2, nint predicate1, nint predicate2);
 
 
@@ -371,7 +371,7 @@ namespace Maple.Ghostmon
         /// <param name="searchKey1">class System.String</param>
         /// <param name="predicate1">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigID", Search = typeof(Search_ConfigDataStore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigID", Search = typeof(Search_ConfigDataStore))]
         /// static extern System.UInt64 GET_LIMIT_CONFIG_ID_01 (nint sheetName, nint searchKey1, nint predicate1);
 
 
@@ -382,7 +382,7 @@ namespace Maple.Ghostmon
         /// <param name="searchKey">class System.String</param>
         /// <param name="predicate">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>class System.Collections.Generic.List<System.UInt64></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigIDList", Search = typeof(Search_ConfigDataStore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigIDList", Search = typeof(Search_ConfigDataStore))]
         /// static extern nint GET_LIMIT_CONFIG_ID_LIST_00 (nint sheetName, nint searchKey, nint predicate);
 
 
@@ -395,7 +395,7 @@ namespace Maple.Ghostmon
         /// <param name="predicate1">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <param name="predicate2">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>class System.Collections.Generic.List<System.UInt64></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigIDList", Search = typeof(Search_ConfigDataStore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigIDList", Search = typeof(Search_ConfigDataStore))]
         /// static extern nint GET_LIMIT_CONFIG_ID_LIST_01 (nint sheetName, nint searchKey1, nint searchKey2, nint predicate1, nint predicate2);
 
 
@@ -410,7 +410,7 @@ namespace Maple.Ghostmon
         /// <param name="predicate2">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <param name="predicate3">class System.Predicate<Newtonsoft.Json.Linq.JToken></param>
         /// <returns>class System.Collections.Generic.List<System.UInt64></returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigIDList", Search = typeof(Search_ConfigDataStore))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetLimitConfigIDList", Search = typeof(Search_ConfigDataStore))]
         /// static extern nint GET_LIMIT_CONFIG_ID_LIST_02 (nint sheetName, nint searchKey1, nint searchKey2, nint searchKey3, nint predicate1, nint predicate2, nint predicate3);
 
 

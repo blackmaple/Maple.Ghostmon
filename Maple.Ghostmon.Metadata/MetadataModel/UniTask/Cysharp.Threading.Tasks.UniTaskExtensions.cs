@@ -1,6 +1,6 @@
 
 //using Maple.MonoGameAssistant.Core;
-//using Maple.MonoGameAssistant.MonoCollectorDataV2;
+//
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -16,8 +16,8 @@
 //    /// [System.Object]
 //    /// 
 //    /// </summary>
-//    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([85, 110, 105, 84, 97, 115, 107, 46, 100, 108, 108], 0x02000053U)]
-//    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([85, 110, 105, 84, 97, 115, 107, 46, 100, 108, 108], [67, 121, 115, 104, 97, 114, 112, 46, 84, 104, 114, 101, 97, 100, 105, 110, 103, 46, 84, 97, 115, 107, 115], [85, 110, 105, 84, 97, 115, 107, 69, 120, 116, 101, 110, 115, 105, 111, 110, 115])]
+//    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([85, 110, 105, 84, 97, 115, 107, 46, 100, 108, 108], 0x02000053U)]
+//    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([85, 110, 105, 84, 97, 115, 107, 46, 100, 108, 108], [67, 121, 115, 104, 97, 114, 112, 46, 84, 104, 114, 101, 97, 100, 105, 110, 103, 46, 84, 97, 115, 107, 115], [85, 110, 105, 84, 97, 115, 107, 69, 120, 116, 101, 110, 115, 105, 111, 110, 115])]
 
 
 //    public partial class UniTaskExtensions
@@ -77,7 +77,7 @@
 //        /// </summary>
 //        /// <param name="task">struct Cysharp.Threading.Tasks.UniTask</param>
 //        /// <returns>struct System.Void</returns>
-//        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Forget")]
+//        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Forget")]
 //        static extern void FORGET(Ref_UniTask task);
 
 

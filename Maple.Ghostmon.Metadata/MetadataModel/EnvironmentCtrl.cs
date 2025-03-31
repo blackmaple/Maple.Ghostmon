@@ -1,11 +1,4 @@
 using Maple.Ghostmon.Metadata.MetadataModel;
-using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Maple.Ghostmon
 {
@@ -16,8 +9,8 @@ namespace Maple.Ghostmon
     /// [System.Object]
     /// [IDayAndNight]
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020001E4U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [69, 110, 118, 105, 114, 111, 110, 109, 101, 110, 116, 67, 116, 114, 108])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020001E4U)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [69, 110, 118, 105, 114, 111, 110, 109, 101, 110, 116, 67, 116, 114, 108])]
 
 
     // struct 0x10 System.Single detal
@@ -192,7 +185,7 @@ namespace Maple.Ghostmon
         ///   System.Void .ctor()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
         ///  extern void .CTOR ();
 
 
@@ -201,7 +194,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="x">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("<InDay>b__41_0")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("<InDay>b__41_0")]
         ///  extern void <IN_DAY>B__41_0 (System.Single x);
 
 
@@ -212,7 +205,7 @@ namespace Maple.Ghostmon
         /// <param name="color2">struct UnityEngine.Color32</param>
         /// <param name="offet">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("<InitLight>g__SetInitLight|28_0")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("<InitLight>g__SetInitLight|28_0")]
         /// static extern void <INIT_LIGHT>G__SET_INIT_LIGHT|28_0 (UnityEngine.Color32 color1, UnityEngine.Color32 color2, System.Single offet);
 
 
@@ -221,7 +214,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="x">struct System.Single</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("<InNight>b__42_0")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("<InNight>b__42_0")]
         ///  extern void <IN_NIGHT>B__42_0 (System.Single x);
 
 
@@ -230,7 +223,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="hour">struct System.UInt32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ChangeColor")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ChangeColor")]
         ///  extern void CHANGE_COLOR (System.UInt32 hour);
 
 
@@ -238,7 +231,7 @@ namespace Maple.Ghostmon
         ///   System.Void Dispose()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Dispose")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Dispose")]
         ///  extern void DISPOSE ();
 
 
@@ -246,7 +239,7 @@ namespace Maple.Ghostmon
         ///   System.Void HideWeatherAudio()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("HideWeatherAudio")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("HideWeatherAudio")]
         ///  extern void HIDE_WEATHER_AUDIO ();
 
 
@@ -254,7 +247,7 @@ namespace Maple.Ghostmon
         ///   System.Void InDay()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InDay")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InDay")]
         ///  extern void IN_DAY ();
 
 
@@ -263,7 +256,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="config">class EnvironmentScriptable</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Init")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Init")]
         ///  extern void INIT (nint config);
 
 
@@ -273,7 +266,7 @@ namespace Maple.Ghostmon
         /// <param name="value">struct System.UInt32</param>
         /// <param name="m">struct System.UInt32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitLight")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitLight")]
         ///  extern void INIT_LIGHT (System.UInt32 value, System.UInt32 m);
 
 
@@ -283,7 +276,7 @@ namespace Maple.Ghostmon
         /// <param name="value">struct System.UInt32</param>
         /// <param name="m">struct System.UInt32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitRotation")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitRotation")]
         ///  extern void INIT_ROTATION (System.UInt32 value, System.UInt32 m);
 
 
@@ -291,7 +284,7 @@ namespace Maple.Ghostmon
         ///   System.Void InitWeather()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitWeather")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InitWeather")]
         ///  extern void INIT_WEATHER ();
 
 
@@ -299,7 +292,7 @@ namespace Maple.Ghostmon
         ///   System.Void InNight()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("InNight")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("InNight")]
         ///  extern void IN_NIGHT ();
 
 
@@ -308,7 +301,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="immediately">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshWeather")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshWeather")]
         ///  extern void REFRESH_WEATHER (System.Boolean immediately);
 
 
@@ -317,7 +310,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="hour">struct System.UInt32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetAngle")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetAngle")]
         ///  extern void SET_ANGLE (System.UInt32 hour);
 
 
@@ -326,7 +319,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="hour">struct System.UInt32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLight")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLight")]
         ///  extern void SET_LIGHT (System.UInt32 hour);
 
 
@@ -334,7 +327,7 @@ namespace Maple.Ghostmon
         ///   System.Void SetLightRotation()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLightRotation")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetLightRotation")]
         ///  extern void SET_LIGHT_ROTATION ();
 
 
@@ -343,7 +336,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="num">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetSpeed")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetSpeed")]
         ///  extern void SET_SPEED (System.Int32 num);
 
 
@@ -353,7 +346,7 @@ namespace Maple.Ghostmon
         /// <param name="isOn">struct System.Boolean</param>
         /// <param name="immediately">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWCloudyChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWCloudyChanged")]
         ///  extern void SET_W_CLOUDY_CHANGED (System.Boolean isOn, System.Boolean immediately);
 
 
@@ -363,7 +356,7 @@ namespace Maple.Ghostmon
         /// <param name="nextWeather">enum EnvironmentCtrl.MapWeather</param>
         /// <param name="immediately">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWeather")]
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWeather")]
         extern void SET_WEATHER(MapWeather nextWeather, System.Boolean immediately);
 
 
@@ -373,7 +366,7 @@ namespace Maple.Ghostmon
         /// <param name="isOn">struct System.Boolean</param>
         /// <param name="immediately">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWHeavyRainChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWHeavyRainChanged")]
         ///  extern void SET_W_HEAVY_RAIN_CHANGED (System.Boolean isOn, System.Boolean immediately);
 
 
@@ -383,7 +376,7 @@ namespace Maple.Ghostmon
         /// <param name="isOn">struct System.Boolean</param>
         /// <param name="immediately">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWLightRainChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWLightRainChanged")]
         ///  extern void SET_W_LIGHT_RAIN_CHANGED (System.Boolean isOn, System.Boolean immediately);
 
 
@@ -393,7 +386,7 @@ namespace Maple.Ghostmon
         /// <param name="isOn">struct System.Boolean</param>
         /// <param name="immediately">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWModerateRainChanged")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetWModerateRainChanged")]
         ///  extern void SET_W_MODERATE_RAIN_CHANGED (System.Boolean isOn, System.Boolean immediately);
 
 
@@ -401,7 +394,7 @@ namespace Maple.Ghostmon
         ///   System.Void ShowWeatherAudio()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ShowWeatherAudio")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ShowWeatherAudio")]
         ///  extern void SHOW_WEATHER_AUDIO ();
 
 

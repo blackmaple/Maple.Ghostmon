@@ -1,6 +1,6 @@
 
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,8 +54,8 @@ namespace Maple.Ghostmon
     /// 
     /// [System.IComparable]=>[System.IFormattable]=>[System.IConvertible]=>[System.IComparable<System.UInt64>]=>[System.IEquatable<System.UInt64>]
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], 0x02000157U)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], [83, 121, 115, 116, 101, 109], [85, 73, 110, 116, 54, 52])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], 0x02000157U)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([109, 115, 99, 111, 114, 108, 105, 98, 46, 100, 108, 108], [83, 121, 115, 116, 101, 109], [85, 73, 110, 116, 54, 52])]
 
 
     // struct 0x10 System.UInt64 m_value
@@ -125,7 +125,7 @@ namespace Maple.Ghostmon
         ///   System.Int32 GetHashCode()
         /// </summary>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetHashCode")]
         ///  extern System.Int32 GET_HASH_CODE ();
 
 
@@ -133,7 +133,7 @@ namespace Maple.Ghostmon
         ///   System.TypeCode GetTypeCode()
         /// </summary>
         /// <returns>enum System.TypeCode</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetTypeCode")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetTypeCode")]
         ///  extern System.TypeCode GET_TYPE_CODE ();
 
 
@@ -142,7 +142,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToBoolean")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToBoolean")]
         ///  extern System.Boolean SYSTEM.I_CONVERTIBLE.TO_BOOLEAN (nint provider);
 
 
@@ -151,7 +151,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Byte</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToByte")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToByte")]
         ///  extern System.Byte SYSTEM.I_CONVERTIBLE.TO_BYTE (nint provider);
 
 
@@ -160,7 +160,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Char</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToChar")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToChar")]
         ///  extern System.Char SYSTEM.I_CONVERTIBLE.TO_CHAR (nint provider);
 
 
@@ -169,7 +169,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.DateTime</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToDateTime")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToDateTime")]
         ///  extern System.DateTime SYSTEM.I_CONVERTIBLE.TO_DATE_TIME (nint provider);
 
 
@@ -178,7 +178,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Decimal</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToDecimal")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToDecimal")]
         ///  extern System.Decimal SYSTEM.I_CONVERTIBLE.TO_DECIMAL (nint provider);
 
 
@@ -187,7 +187,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Double</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToDouble")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToDouble")]
         ///  extern System.Double SYSTEM.I_CONVERTIBLE.TO_DOUBLE (nint provider);
 
 
@@ -196,7 +196,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Int16</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToInt16")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToInt16")]
         ///  extern System.Int16 SYSTEM.I_CONVERTIBLE.TO_INT16 (nint provider);
 
 
@@ -205,7 +205,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToInt32")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToInt32")]
         ///  extern System.Int32 SYSTEM.I_CONVERTIBLE.TO_INT32 (nint provider);
 
 
@@ -214,7 +214,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Int64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToInt64")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToInt64")]
         ///  extern System.Int64 SYSTEM.I_CONVERTIBLE.TO_INT64 (nint provider);
 
 
@@ -223,7 +223,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.SByte</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToSByte")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToSByte")]
         ///  extern System.SByte SYSTEM.I_CONVERTIBLE.TO_S_BYTE (nint provider);
 
 
@@ -232,7 +232,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.Single</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToSingle")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToSingle")]
         ///  extern System.Single SYSTEM.I_CONVERTIBLE.TO_SINGLE (nint provider);
 
 
@@ -242,7 +242,7 @@ namespace Maple.Ghostmon
         /// <param name="type">abstract class System.Type</param>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>class System.Object</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToType")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToType")]
         ///  extern nint SYSTEM.I_CONVERTIBLE.TO_TYPE (nint type, nint provider);
 
 
@@ -251,7 +251,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.UInt16</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToUInt16")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToUInt16")]
         ///  extern System.UInt16 SYSTEM.I_CONVERTIBLE.TO_U_INT16 (nint provider);
 
 
@@ -260,7 +260,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.UInt32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToUInt32")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToUInt32")]
         ///  extern System.UInt32 SYSTEM.I_CONVERTIBLE.TO_U_INT32 (nint provider);
 
 
@@ -269,7 +269,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToUInt64")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("System.IConvertible.ToUInt64")]
         ///  extern System.UInt64 SYSTEM.I_CONVERTIBLE.TO_U_INT64 (nint provider);
 
 
@@ -281,7 +281,7 @@ namespace Maple.Ghostmon
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <param name="result">struct System.UInt64&</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryParse")]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("TryParse")]
         /// static extern System.Boolean TRY_PARSE (nint s, System.Globalization.NumberStyles style, nint provider, System.UInt64& result);
 
 
@@ -291,7 +291,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">class System.Object</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CompareTo", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CompareTo", Search = typeof(Search_UInt64))]
         ///  extern System.Int32 COMPARE_TO_00 (nint value);
 
 
@@ -300,7 +300,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="value">struct System.UInt64</param>
         /// <returns>struct System.Int32</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("CompareTo", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("CompareTo", Search = typeof(Search_UInt64))]
         ///  extern System.Int32 COMPARE_TO_01 (System.UInt64 value);
 
 
@@ -309,7 +309,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">class System.Object</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_UInt64))]
         ///  extern System.Boolean EQUALS_00 (nint obj);
 
 
@@ -318,7 +318,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="obj">struct System.UInt64</param>
         /// <returns>struct System.Boolean</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Equals", Search = typeof(Search_UInt64))]
         ///  extern System.Boolean EQUALS_01 (System.UInt64 obj);
 
 
@@ -327,7 +327,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="s">class System.String</param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
         /// static extern System.UInt64 PARSE_00 (nint s);
 
 
@@ -337,7 +337,7 @@ namespace Maple.Ghostmon
         /// <param name="s">class System.String</param>
         /// <param name="style">enum System.Globalization.NumberStyles</param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
         /// static extern System.UInt64 PARSE_01 (nint s, System.Globalization.NumberStyles style);
 
 
@@ -347,7 +347,7 @@ namespace Maple.Ghostmon
         /// <param name="s">class System.String</param>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
         /// static extern System.UInt64 PARSE_02 (nint s, nint provider);
 
 
@@ -358,7 +358,7 @@ namespace Maple.Ghostmon
         /// <param name="style">enum System.Globalization.NumberStyles</param>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>struct System.UInt64</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Parse", Search = typeof(Search_UInt64))]
         /// static extern System.UInt64 PARSE_03 (nint s, System.Globalization.NumberStyles style, nint provider);
 
 
@@ -366,7 +366,7 @@ namespace Maple.Ghostmon
         ///   System.String ToString()
         /// </summary>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
         ///  extern nint TO_STRING_00 ();
 
 
@@ -375,7 +375,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
         ///  extern nint TO_STRING_01 (nint provider);
 
 
@@ -384,7 +384,7 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="format">class System.String</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
         ///  extern nint TO_STRING_02 (nint format);
 
 
@@ -394,7 +394,7 @@ namespace Maple.Ghostmon
         /// <param name="format">class System.String</param>
         /// <param name="provider">interface System.IFormatProvider</param>
         /// <returns>class System.String</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
+        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ToString", Search = typeof(Search_UInt64))]
         ///  extern nint TO_STRING_03 (nint format, nint provider);
 
 

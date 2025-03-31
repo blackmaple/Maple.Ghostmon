@@ -1,6 +1,6 @@
 
 using Maple.MonoGameAssistant.Core;
-using Maple.MonoGameAssistant.MonoCollectorDataV2;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +16,8 @@ namespace Maple.Ghostmon
     /// [System.Object]
     /// 
     /// </summary>
-    //[Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020002DAU)]
-    [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [71, 104, 111, 115, 116, 109, 111, 110, 46, 85, 116, 105, 108, 115], [71, 97, 109, 101, 66, 97, 115, 105, 99, 85, 116, 105, 108])]
+    //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020002DAU)]
+    [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [71, 104, 111, 115, 116, 109, 111, 110, 46, 85, 116, 105, 108, 115], [71, 97, 109, 101, 66, 97, 115, 105, 99, 85, 116, 105, 108])]
     
     
     public partial class GameBasicUtil
@@ -77,7 +77,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="go">class UnityEngine.GameObject</param>
             /// <returns>class T</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetOrAddComponent")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("GetOrAddComponent")]
             /// static extern nint GET_OR_ADD_COMPONENT (nint go);
 
             
@@ -87,7 +87,7 @@ namespace Maple.Ghostmon
             /// <param name="num">struct System.Int32</param>
             /// <param name="section">struct System.Int32</param>
             /// <returns>class System.Collections.Generic.List<System.Int32></returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("numSection")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("numSection")]
             /// static extern nint NUM_SECTION (System.Int32 num, System.Int32 section);
 
             
@@ -96,7 +96,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="s">class System.String</param>
             /// <returns>struct System.Single</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("ParseFloat")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("ParseFloat")]
             /// static extern System.Single PARSE_FLOAT (nint s);
 
             
@@ -105,7 +105,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="oriList">class System.Collections.Generic.List<System.Int32></param>
             /// <returns>class System.Collections.Generic.List<System.Int32></returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RandomIntList")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RandomIntList")]
             /// static extern nint RANDOM_INT_LIST (nint oriList);
 
             
@@ -114,7 +114,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="mParent">class UnityEngine.Transform</param>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveAllChild")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RemoveAllChild")]
             /// static extern void REMOVE_ALL_CHILD (nint mParent);
 
             
@@ -123,7 +123,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="totalSecond">struct System.Int32</param>
             /// <returns>class System.String</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Second2HHMMSSTime")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Second2HHMMSSTime")]
             /// static extern nint SECOND2_HHMMSS_TIME (System.Int32 totalSecond);
 
             
@@ -133,7 +133,7 @@ namespace Maple.Ghostmon
             /// <param name="str">class System.String</param>
             /// <param name="delimiter">struct System.Char</param>
             /// <returns>class System.Int32[]</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToIntArray")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToIntArray")]
             /// static extern nint STRING_TO_INT_ARRAY (nint str, System.Char delimiter);
 
             
@@ -143,7 +143,7 @@ namespace Maple.Ghostmon
             /// <param name="str">class System.String</param>
             /// <param name="delimiter">struct System.Char</param>
             /// <returns>class System.UInt64[]</returns>
-              [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToLongArray")]
+              [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToLongArray")]
               static extern nint STRING_TO_LONG_ARRAY (nint str, System.Char delimiter);
 
             
@@ -153,7 +153,7 @@ namespace Maple.Ghostmon
             /// <param name="str">class System.String</param>
             /// <param name="delimiter">struct System.Char</param>
             /// <returns>struct UnityEngine.Vector2</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector2")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector2")]
             /// static extern UnityEngine.Vector2 STRING_TO_VECTOR2 (nint str, System.Char delimiter);
 
             
@@ -163,7 +163,7 @@ namespace Maple.Ghostmon
             /// <param name="str">class System.String</param>
             /// <param name="delimiter">struct System.Char</param>
             /// <returns>struct UnityEngine.Vector2Int</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector2Int")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector2Int")]
             /// static extern UnityEngine.Vector2Int STRING_TO_VECTOR2_INT (nint str, System.Char delimiter);
 
             
@@ -174,7 +174,7 @@ namespace Maple.Ghostmon
             /// <param name="delimiter">struct System.Char</param>
             /// <param name="subDelimiter">struct System.Char</param>
             /// <returns>class System.Collections.Generic.List<UnityEngine.Vector2Int></returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector2IntList")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector2IntList")]
             /// static extern nint STRING_TO_VECTOR2_INT_LIST (nint str, System.Char delimiter, System.Char subDelimiter);
 
             
@@ -184,7 +184,7 @@ namespace Maple.Ghostmon
             /// <param name="str">class System.String</param>
             /// <param name="delimiter">struct System.Char</param>
             /// <returns>struct UnityEngine.Vector3</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector3")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("StringToVector3")]
             /// static extern UnityEngine.Vector3 STRING_TO_VECTOR3 (nint str, System.Char delimiter);
 
             
@@ -194,7 +194,7 @@ namespace Maple.Ghostmon
             /// <param name="str">class System.String</param>
             /// <param name="subCount">struct System.Int32</param>
             /// <returns>class System.String[]</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("SubStringToStrings")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SubStringToStrings")]
             /// static extern nint SUB_STRING_TO_STRINGS (nint str, System.Int32 subCount);
 
             
@@ -204,7 +204,7 @@ namespace Maple.Ghostmon
             /// <param name="vec3">struct UnityEngine.Vector3</param>
             /// <param name="modulus">struct System.Int32</param>
             /// <returns>struct UnityEngine.Vector3</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("Vector3MultiplyInt")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("Vector3MultiplyInt")]
             /// static extern UnityEngine.Vector3 VECTOR3_MULTIPLY_INT (UnityEngine.Vector3 vec3, System.Int32 modulus);
 
             
@@ -214,7 +214,7 @@ namespace Maple.Ghostmon
             /// <param name="filePath">class System.String</param>
             /// <param name="data">class T</param>
             /// <returns>struct System.Void</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("XmlSerialize")]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("XmlSerialize")]
             /// static extern void XML_SERIALIZE (nint filePath, nint data);
             
             
@@ -224,7 +224,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="filePath">class System.String</param>
             /// <returns>class T</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("XmlDeserializer", Search = typeof(Search_GameBasicUtil))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("XmlDeserializer", Search = typeof(Search_GameBasicUtil))]
             /// static extern nint XML_DESERIALIZER_00 (nint filePath);
 
             
@@ -233,7 +233,7 @@ namespace Maple.Ghostmon
             /// </summary>
             /// <param name="bytes">class System.Byte[]</param>
             /// <returns>class T</returns>
-            /// [Maple.MonoGameAssistant.MonoCollectorDataV2.MonoCollectorMethodAttribute("XmlDeserializer", Search = typeof(Search_GameBasicUtil))]
+            /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("XmlDeserializer", Search = typeof(Search_GameBasicUtil))]
             /// static extern nint XML_DESERIALIZER_01 (nint bytes);
 
             
