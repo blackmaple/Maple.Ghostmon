@@ -22,6 +22,9 @@
 		<PackageReference Include="Maple.MonoGameAssistant.MonoCollectorDataV2" Version="1.2.0-rc" />
 		<PackageReference Include="Maple.MonoGameAssistant.MonoCollectorGeneratorV2" Version="1.2.0-rc" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
 		<PackageReference Include="Maple.MonoGameAssistant.MonoCollectorGenerator" Version="1.3.1-rc" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> 
-		<PackageReference Include="Maple.MonoGameAssistant.UnityCore" Version="1.3.0-rc" />
+		<PackageReference Include="Maple.MonoGameAssistant.UnityCore" Version="1.3.1-rc" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="RogueMetadata\" />
 	</ItemGroup>
 </Project>

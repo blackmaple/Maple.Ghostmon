@@ -1,32 +1,37 @@
 ﻿using Maple.Ghostmon.Metadata.MetadataModel;
 using Maple.MonoGameAssistant.GameDTO;
-using Maple.MonoGameAssistant.UnityCore;
+using static Maple.Ghostmon.BattleCore;
+using static Maple.Ghostmon.RegionManager;
+using static Maple.Ghostmon.UserDataManager;
 
 namespace Maple.Ghostmon.Metadata.MetadataContext
 {
 
-    public sealed class GhostmonGameEnvironment
+    public sealed partial class GhostmonGameEnvironment : IGhostmonGameCheatService
     {
 
-        public GhostmonGameEnvironment(GhostmonGameContext @this)
+        public GhostmonGameEnvironment(GhostmonGameContext context)
         {
-            var userDataManager = @this.UserDataManager.INSTANCE;
+            this.Context = context;
+            var userDataManager = context.UserDataManager.INSTANCE;
             if (false == userDataManager)
             {
                 return;
             }
             Ptr_UserDataManager = userDataManager;
 
-            var regionManager = @this.RegionManager.INSTANCE;
+            var regionManager = context.RegionManager.INSTANCE;
             if (false == regionManager)
             {
                 return;
             }
             Ptr_RegionManager = regionManager;
-            Ptr_BattleCore = @this.BattleCore.INSTANCE;
-            Ptr_CharacterCore = @this.CharacterCore.INSTANCE;
+            Ptr_BattleCore = context.BattleCore.INSTANCE;
+            Ptr_CharacterCore = context.CharacterCore.INSTANCE;
+
         }
 
+        public GhostmonGameContext Context { get; }
         public UserDataManager.Ptr_UserDataManager Ptr_UserDataManager { get; }
         public UserData.Ptr_UserData Ptr_UserData => Ptr_UserDataManager.USER_DATA;
         public PlayerProperty.Ptr_PlayerProperty Ptr_PlayerProperty => Ptr_UserDataManager.PLAYER_PROPERTY;
@@ -102,6 +107,55 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         public bool ThrowIfIsLocked()
         {
             return IsLocked() || GameException.Throw<bool>("Character is locked");
+        }
+    }
+
+
+    partial class GhostmonGameEnvironment
+    {
+
+        public GameCurrencyInfoDTO GetCurrencyInfo(GameCurrencyObjectDTO currencyObjectDTO)
+        {
+            return this.Context.GetCurrencyInfo(this, currencyObjectDTO);
+        }
+        public GameCurrencyInfoDTO UpdateCurrencyInfo(GameCurrencyModifyDTO currencyModifyDTO)
+        {
+            return this.Context.UpdateCurrencyInfo(this, currencyModifyDTO);
+        }
+
+        public GameInventoryInfoDTO GetInventoryInfo(GameInventoryObjectDTO inventoryObjectDTO)
+        {
+            return this.Context.GetInventoryInfo(this, inventoryObjectDTO);
+        }
+        public GameInventoryInfoDTO UpdateInventoryInfo(GameInventoryModifyDTO inventoryObjectDTO)
+        {
+            return this.Context.UpdateInventoryInfo(this, inventoryObjectDTO);
+        }
+
+        public GameCharacterDisplayDTO[] GetListCharacterDisplay()
+        {
+            return [.. this.Context.GetListCharacterDisplay(this)];
+        }
+        public GameCharacterStatusDTO GetCharacterStatus(GameCharacterObjectDTO characterObjectDTO)
+        {
+            return this.Context.GetCharacterStatus(this, characterObjectDTO);
+        }
+        public GameCharacterStatusDTO UpdateCharacterStatus(GameCharacterModifyDTO characterModifyDTO)
+        {
+            return this.Context.UpdateCharacterStatus(this, characterModifyDTO);
+        }
+        public GameCharacterSkillDTO GetCharacterSkill(GameCharacterObjectDTO characterObjectDTO)
+        {
+            return this.Context.GetCharacterSkill(this, characterObjectDTO);
+        }
+        public GameCharacterSkillDTO UpdateCharacterSkill(GameCharacterModifyDTO characterModifyDTO)
+        {
+            return this.Context.UpdateCharacterSkill(this, characterModifyDTO);
+        }
+
+        public GameCharacterSkillDTO AddMonsterMember(GameMonsterObjectDTO monsterObjectDTO)
+        {
+            return this.Context.AddMonsterMember(this, monsterObjectDTO);
         }
     }
 }

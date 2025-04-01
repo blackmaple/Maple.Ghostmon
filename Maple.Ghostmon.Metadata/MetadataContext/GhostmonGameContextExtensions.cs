@@ -593,7 +593,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 using var pAtlasName = @this.T2(image.AtlasName);
                 using var pSpriteName = @this.T2(image.SpriteName);
                 ref var uniTask = ref image._Ref_UniTask;
-                _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(MapleOut<Ref_UniTask<Sprite.Ptr_Sprite>>.FromOut(out _), pAtlasName, pSpriteName);
+                _ = LoadUtils.Ptr_LoadUtils.LOAD_SPRITE_ASYNC(MapleOut<Ref_UniTask<Sprite.Ptr_Sprite>>.FromOut(out uniTask), pAtlasName, pSpriteName);
             }
 
             Thread.Sleep(10_000);
@@ -707,6 +707,20 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         {
             return new GhostmonGameEnvironment(@this);
         }
+        public static IGhostmonGameCheatService GetGhostmonGameCheatServiceThrowIfUnknow(this GhostmonGameContext @this)
+        {
+            var ptr_RegionManager = @this.RegionManager.INSTANCE;
+            if (ptr_RegionManager.Valid())
+            {
+                return new GhostmonGameEnvironment(@this);
+            }
+            var ptr_RogueCore = @this.RogueCore.INSTANCE;
+            if (ptr_RogueCore.Valid() && ptr_RogueCore.M_CACHED_PTR != nint.Zero)
+            {
+                return new GhostmonGameRogue(@this);
+            }
+            return GameException.ThrowIfNotLoaded<IGhostmonGameCheatService>();
+        }
         #endregion
 
         #region Currency
@@ -725,7 +739,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             new GameCurrencyDisplayDTO()
             {   ObjectId  = EnumSheetName.COIN.ToString(),
                 DisplayCategory= EnumSheetName.COIN.ToString(),
-                DisplayName= "金币" ,
+                DisplayName= "*金币" ,
                 DisplayDesc= "金币由特殊的矿石加工而成，作为通用的货币，可在所有商人处购买物品。",
             },
             new GameCurrencyDisplayDTO()
@@ -737,7 +751,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             new GameCurrencyDisplayDTO()
             {   ObjectId  = EnumSheetName.REIKI.ToString(),
                 DisplayCategory= EnumSheetName.REIKI.ToString(),
-                DisplayName= "灵气".ToString(),
+                DisplayName= "*灵气".ToString(),
                 DisplayDesc= "战斗结束后，出战妖精损失的生命将通过御妖师的灵气进行补充。灵龛和野外神像都可恢复灵气。灵气上限随御妖师等阶提升而上升。",
             }
             ];
@@ -1322,7 +1336,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
         //}
 
-        private static GameCharacterStatusDTO GetCharacterStatus_Monster(GameCharacterObjectDTO characterObjectDTO, MonsterData.Ptr_MonsterData monster)
+        public static GameCharacterStatusDTO GetCharacterStatus_Monster(GameCharacterObjectDTO characterObjectDTO, MonsterData.Ptr_MonsterData monster)
         {
             return new GameCharacterStatusDTO()
             {
@@ -1947,7 +1961,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {characterObjectDTO.CharacterId}");
 
         }
-        static GameSkillInfoDTO[] GetListSkill_Monster(GhostmonGameContext @this, MonsterData.Ptr_MonsterData monsterData)
+        public static GameSkillInfoDTO[] GetListSkill_Monster(GhostmonGameContext @this, MonsterData.Ptr_MonsterData monsterData)
         {
             var skillId = EnumSheetName.Skill.ToString();
             var ability = EnumSheetName.AbilityConfig.ToString();
@@ -2163,46 +2177,46 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             }
             return GameException.Throw<GameCharacterSkillDTO>($"NOT FOUND {characterModifyDTO.CharacterCategory}");
 
-            static IEnumerable<ulong> RemoveTheSkill(PMonoArray<ulong> abilities, ulong removeSkill)
+
+
+
+        }
+        public static IEnumerable<ulong> RemoveTheSkill(PMonoArray<ulong> abilities, ulong removeSkill)
+        {
+            //只移除一个
+            if (abilities.Valid())
             {
-                //只移除一个
-                if (abilities.Valid())
+                foreach (var item in abilities)
                 {
-                    foreach (var item in abilities)
+                    if (item == removeSkill)
                     {
-                        if (item == removeSkill)
-                        {
-                            removeSkill = 0;
-                        }
-                        else
-                        {
-                            yield return item;
-                        }
+                        removeSkill = 0;
+                    }
+                    else
+                    {
+                        yield return item;
                     }
                 }
             }
-            static IEnumerable<ulong> AddTheSkill(PMonoArray<ulong> abilities, ulong AddSkill, ulong removeSkill = 0)
+        }
+        public static IEnumerable<ulong> AddTheSkill(PMonoArray<ulong> abilities, ulong AddSkill, ulong removeSkill = 0)
+        {
+            yield return AddSkill;
+            if (abilities.Valid())
             {
-                yield return AddSkill;
-                if (abilities.Valid())
+                foreach (var item in abilities)
                 {
-                    foreach (var item in abilities)
+                    //只移除一个
+                    if (item == removeSkill)
                     {
-                        //只移除一个
-                        if (item == removeSkill)
-                        {
-                            removeSkill = 0;
-                        }
-                        else
-                        {
-                            yield return item;
-                        }
+                        removeSkill = 0;
+                    }
+                    else
+                    {
+                        yield return item;
                     }
                 }
             }
-
-
-
         }
 
 

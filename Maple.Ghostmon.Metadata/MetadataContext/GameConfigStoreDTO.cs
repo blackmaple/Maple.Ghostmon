@@ -37,6 +37,8 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                     new IllustrationConfig(){ prefab = "Monster_102_TheBoss" }  ,
                     new IllustrationConfig(){ prefab = "Monster_103_TheBoss" }  ,
                     new IllustrationConfig(){ prefab = "Monster_104_TheBoss" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_89_FinalBoss" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_110_FinalBoss" }  ,
 
                 ]);
         }

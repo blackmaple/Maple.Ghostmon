@@ -25,7 +25,10 @@ namespace Maple.Ghostmon
         protected sealed override GhostmonGameContext LoadGameContext()
            => GhostmonGameContext.LoadGameContext(this.RuntimeContext, EnumMonoCollectorTypeVersion.APP, this.Logger);
 
-
+        //protected override IUnityPlayerNativeMethods? LoadUnityEngineContext()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         protected sealed override async ValueTask LoadGameDataAsync()
         {
@@ -146,6 +149,10 @@ namespace Maple.Ghostmon
         {
             return this.MonoTaskAsync(p => p.GetGhostmonGameEnvironment());
         }
+        private Task<IGhostmonGameCheatService> GetGhostmonGameCheatServiceThrowIfUnknow()
+        {
+            return this.MonoTaskAsync(p => p.GetGhostmonGameCheatServiceThrowIfUnknow());
+        }
         #endregion
 
         #region WebApi
@@ -168,11 +175,15 @@ namespace Maple.Ghostmon
                 return GameException.Throw<GameSessionInfoDTO>("LOADED ERRR");
             }
             var gameImageDatas = await this.MonoTaskAsync((p) => p.GetListGameImageData().ToArray()).ConfigureAwait(false);
+            //        this.Logger.LogInformation("image:{c}", gameImageDatas.Length);
             var imageObjs = await this.UITaskAsync((p, args) => p.GetListUnitySpriteImageData(args.UnityEngineContext, args.gameImageDatas).ToArray(),
                 (this.UnityEngineContext, gameImageDatas)).ConfigureAwait(false);
+            //          this.Logger.LogInformation("imageObjs:{c}", imageObjs.Length);
+
             foreach (var gameIcon in imageObjs)
             {
-                this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
+                var url = this.GameSettings.WriteImageFile(gameIcon.ImageData.AsReadOnlySpan(), gameIcon.Category, $"{gameIcon.Name}.png");
+                //                this.Logger.LogInformation("url{c}", url);
             }
             return await this.GetSessionInfoAsync().ConfigureAwait(false);
         }
@@ -191,22 +202,15 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> GetCurrencyInfoAsync(GameCurrencyObjectDTO currencyObjectDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
-            var data = await this.MonoTaskAsync((gameContext, args) => gameContext.GetCurrencyInfo(args.game_env, args.currencyObjectDTO), (game_env, currencyObjectDTO)).ConfigureAwait(false);
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((gameContext, args) => game_env.GetCurrencyInfo(args.currencyObjectDTO), (game_env, currencyObjectDTO)).ConfigureAwait(false);
             return data;
         }
         public sealed override async ValueTask<GameCurrencyInfoDTO> UpdateCurrencyInfoAsync(GameCurrencyModifyDTO currencyModifyDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
-
-            var data = await this.MonoTaskAsync((gameContext, args) => gameContext.UpdateCurrencyInfo(args.game_env, args.currencyModifyDTO), (game_env, currencyModifyDTO)).ConfigureAwait(false);
-
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((gameContext, args) => args.game_env.UpdateCurrencyInfo(args.currencyModifyDTO), (game_env, currencyModifyDTO)).ConfigureAwait(false);
             await this.PlayMessageAsync($@"{data.ObjectId}:{data.DisplayValue}").ConfigureAwait(false);
-
-
-
             return data;
         }
         #endregion
@@ -222,16 +226,16 @@ namespace Maple.Ghostmon
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> GetInventoryInfoAsync(GameInventoryObjectDTO inventoryObjectDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
-            return this.Context.GetInventoryInfo(game_env, inventoryObjectDTO);
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((gameContext, args) => game_env.GetInventoryInfo(args.inventoryObjectDTO), (game_env, inventoryObjectDTO)).ConfigureAwait(false);
+            return data;
+
         }
         public sealed override async ValueTask<GameInventoryInfoDTO> UpdateInventoryInfoAsync(GameInventoryModifyDTO inventoryObjectDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            var data = await this.MonoTaskAsync((gameContext, args) => gameContext.UpdateInventoryInfo(args.game_env, args.inventoryObjectDTO), (game_env, inventoryObjectDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((gameContext, args) => game_env.UpdateInventoryInfo(args.inventoryObjectDTO), (game_env, inventoryObjectDTO)).ConfigureAwait(false);
 
             await this.PlayMessageAsync($@"{data.ObjectId}:{data.DisplayValue}").ConfigureAwait(false);
             return data;
@@ -242,50 +246,44 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameCharacterDisplayDTO[]> GetListCharacterDisplayAsync()
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
-            var datas = await this.MonoTaskAsync((p, game_env) => p.GetListCharacterDisplay(game_env).ToArray(), game_env).ConfigureAwait(false);
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
+            var datas = await this.MonoTaskAsync((p, game_env) => game_env.GetListCharacterDisplay().ToArray(), game_env).ConfigureAwait(false);
             this.UpdateListGameImage(datas, p => $@"{p.DisplayImage}.png");
 
             return datas;
         }
-        public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
-        {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+        //public sealed override async ValueTask<GameCharacterEquipmentDTO> GetCharacterEquipmentAsync(GameCharacterObjectDTO characterObjectDTO)
+        //{
+        //    var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            return await this.MonoTaskAsync((p, args) => p.GetCharacterEquipment(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
+        //    return await this.MonoTaskAsync((p, args) => p.GetCharacterEquipment(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
 
-        }
+        //}
         public sealed override async ValueTask<GameCharacterSkillDTO> GetCharacterSkillAsync(GameCharacterObjectDTO characterObjectDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            return await this.MonoTaskAsync((p, args) => p.GetCharacterSkill(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => args.game_env.GetCharacterSkill(args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
         }
         public sealed override async ValueTask<GameCharacterStatusDTO> GetCharacterStatusAsync(GameCharacterObjectDTO characterObjectDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            return await this.MonoTaskAsync((p, args) => p.GetCharacterStatus(args.game_env, args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
+            return await this.MonoTaskAsync((p, args) => args.game_env.GetCharacterStatus(args.characterObjectDTO), (game_env, characterObjectDTO)).ConfigureAwait(false);
         }
         public sealed override async ValueTask<GameCharacterStatusDTO> UpdateCharacterStatusAsync(GameCharacterModifyDTO characterModifyDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterStatus(args.game_env, args.characterModifyDTO), (game_env, characterModifyDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((p, args) => args.game_env.UpdateCharacterStatus(args.characterModifyDTO), (game_env, characterModifyDTO)).ConfigureAwait(false);
             await this.PlayMessageAsync($@"CharacterStatus:{data.ObjectId}").ConfigureAwait(false);
             return data;
         }
         public sealed override async ValueTask<GameCharacterSkillDTO> UpdateCharacterSkillAsync(GameCharacterModifyDTO characterModifyDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            var data = await this.MonoTaskAsync((p, args) => p.UpdateCharacterSkill(args.game_env, args.characterModifyDTO), (game_env, characterModifyDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((p, args) => args.game_env.UpdateCharacterSkill(args.characterModifyDTO), (game_env, characterModifyDTO)).ConfigureAwait(false);
 
             await this.PlayMessageAsync($@"CharacterSkill:{data.ObjectId}").ConfigureAwait(false);
             return data;
@@ -305,10 +303,9 @@ namespace Maple.Ghostmon
 
         public sealed override async ValueTask<GameCharacterSkillDTO> AddMonsterMemberAsync(GameMonsterObjectDTO monsterObjectDTO)
         {
-            var game_env = await this.GetGameEnvironmentAsync().ConfigureAwait(false);
-            game_env.ThrowIfNotLoaded();
+            var game_env = await this.GetGhostmonGameCheatServiceThrowIfUnknow().ConfigureAwait(false);
 
-            var data = await this.MonoTaskAsync((p, args) => p.AddMonsterMember(args.game_env, args.monsterObjectDTO), (game_env, monsterObjectDTO)).ConfigureAwait(false);
+            var data = await this.MonoTaskAsync((p, args) => args.game_env.AddMonsterMember(args.monsterObjectDTO), (game_env, monsterObjectDTO)).ConfigureAwait(false);
             await this.PlayMessageAsync($@"AddMonsterMember:{data.ObjectId}").ConfigureAwait(false);
             return data;
         }
@@ -514,13 +511,9 @@ namespace Maple.Ghostmon
         }
 
 
+
+
         #endregion
-
-
-
-
-
-
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using Maple.MonoGameAssistant.Core;
+﻿using Maple.Ghostmon.Metadata;
+using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollector;
 using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 
@@ -71,9 +72,12 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(MapUI))]
 
 
-
-    public partial class GhostmonGameContext  
+    [MonoCollectorType(typeof(CurRogueData))]
+    [MonoCollectorType(typeof(RogueData))]
+    [MonoCollectorType(typeof(RogueCore))]
+    [MonoCollectorType(typeof(RogueDataManager))]
+    public partial class GhostmonGameContext
     {
-     
+
     }
 }
