@@ -1158,7 +1158,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             var addCount = newCount - oldCount;
             if (addCount <= 0)
             {
-                return GameException.Throw<GameInventoryInfoDTO>($"ERROR NUM:{inventoryModifyDTO.InventoryCategory}");
+                return GameException.Throw<GameInventoryInfoDTO>($"ERROR NUM:{inventoryModifyDTO.InventoryCategory}:({oldCount}>{newCount})");
             }
             if (category == EnumSheetName.EggConfig)
             {
@@ -2570,10 +2570,17 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         public static void MapTeleport(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, in Ref_V2 pos)
         {
             const float ZoomRate = 3.125F;
-            var characterCore = gameEnvironment.Ptr_CharacterCore;
+            //var point = new MonoGameAssistant.Core.REF_MONO_VECTOR3()
+            //{
+            //    x = pos.x / ZoomRate,
+            //    y = 0,
+            //    z = pos.z / ZoomRate,
+            //};
+            //gameEnvironment.Ptr_RegionManager.TELEPORT(MapleOut<Ref_UniTask>.FromOut(out _), point);
+
+
             var regionManager = gameEnvironment.Ptr_RegionManager;
-            characterCore.IS_LOCKED = false;
-            using var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.GhostmonPortalConfig.New(true));
+            var gchandle = @this.GhostmonPortalConfig.GCNew<GhostmonPortalConfig.Ptr_GhostmonPortalConfig>(true);
             var config = gchandle.Target;
             config.IS_TRAVEL = true;
             config.WORLD_POS = new MonoGameAssistant.Core.REF_MONO_VECTOR3()
@@ -2585,13 +2592,14 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
             //    SetMainUI(@this, gameEnvironment);
 
-            using var actionHandle = @this.RuntimeContext.CreateMonoGCHandle(@this.SystemAction.New(false));
-            var action = actionHandle.Target;
-            action.CTOR(regionManager, RegionManager.GetDelegate_OnTeleportComplete());
-            regionManager.TELEPORT_TO_SHELTER(gchandle, action);
 
-            SetMapUI(@this, gameEnvironment);
 
+
+            regionManager.TELEPORT_TO_SHELTER(config, nint.Zero);
+
+            //     SetMapUI(@this, gameEnvironment);
+
+            [Obsolete("remove..")]
             static void SetMainUI(GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
             {
                 var regionManager = gameEnvironment.Ptr_RegionManager;
@@ -2603,6 +2611,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 }
             }
 
+            [Obsolete("remove..")]
             static void SetMapUI(GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment)
             {
                 var mainMapCore = @this.MainMapCore.INSTANCE;
