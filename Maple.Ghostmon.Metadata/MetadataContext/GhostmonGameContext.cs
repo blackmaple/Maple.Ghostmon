@@ -70,12 +70,18 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(MainMapCore))]
     [MonoCollectorType(typeof(MainUI))]
     [MonoCollectorType(typeof(MapUI))]
+    [MonoCollectorType(typeof(OrnamentData))]
 
 
     [MonoCollectorType(typeof(CurRogueData))]
     [MonoCollectorType(typeof(RogueData))]
     [MonoCollectorType(typeof(RogueCore))]
     [MonoCollectorType(typeof(RogueDataManager))]
+
+    [MonoCollectorType(typeof(AVGRegionManager))]
+
+
+
     public partial class GhostmonGameContext
     {
 

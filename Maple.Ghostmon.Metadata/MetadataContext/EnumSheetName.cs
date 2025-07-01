@@ -19,6 +19,9 @@
         ItemRecipeConfig = 11,
         FishLureConfig = 12,
 
+        OrnamentConfig = 13,
+        HarnessConfig = 14,
+
         /// <summary>
         /// 灵石
         /// </summary>
@@ -28,9 +31,22 @@
         /// </summary>
         COIN = 22,
         /// <summary>
-        /// 
+        /// 同心石
         /// </summary>
         HeartStone = 23,
+        /// <summary>
+        /// 放生
+        /// </summary>
+        DropMonster = 24,
+        /// <summary>
+        /// 功绩
+        /// </summary>
+        Feats = 25,
+
+
+        CustomItemConfig = 28,
+        CustomPackageConfig = 29,
+        CustomGroundConfig = 30,
         /// <summary>
         /// 灵气
         /// </summary>
@@ -41,6 +57,9 @@
         BuffConfig = 102,
         IllustrationConfig = 103,
 
+        AVGAbilityConfig = 200,
+        AVGMonsterConfig = 201,
+        AVGPropConfig = 202,
         /// <summary>
         /// 读取以上游戏中的JSON 反序列成对象
         /// </summary>

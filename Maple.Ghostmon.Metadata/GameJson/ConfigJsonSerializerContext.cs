@@ -38,6 +38,22 @@ namespace Maple.Ghostmon
 
 
     [JsonSerializable(typeof(EvoMaterialConfig))]
+
+
+    [JsonSerializable(typeof(AVGAbilityConfig))]
+    [JsonSerializable(typeof(AVGMonsterConfig))]
+    [JsonSerializable(typeof(AVGPropConfig))]
+    [JsonSerializable(typeof(HarnessConfig))]
+    [JsonSerializable(typeof(OrnamentConfig))]
+
+    [JsonSerializable(typeof(CustomGroundConfig))]
+    [JsonSerializable(typeof(CustomItemConfig))]
+    [JsonSerializable(typeof(CustomPackageConfig))]
+
+    [JsonSerializable(typeof(TaskMonsterConfig))]
+
+
+
     public partial class ConfigJsonSerializerContext : JsonSerializerContext
     {
 

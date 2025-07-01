@@ -1,4 +1,5 @@
 
+using Maple.Ghostmon.Metadata;
 using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
 using System;
@@ -196,7 +197,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"ts_map_demon", "TS_MAP_DEMON")]
 
     // class 0x1A0 System.Collections.Generic.List<Ghostmon.MapMarkData> mapMarkers
-     [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<MapMarkData.Ptr_MapMarkData>),"mapMarkers", "MAP_MARKERS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<MapMarkData.Ptr_MapMarkData>), "mapMarkers", "MAP_MARKERS")]
 
     // class 0x1A8 System.Collections.Generic.Dictionary<System.UInt64,System.Collections.Generic.List<Ghostmon.CommonData>> shop_goods
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"shop_goods", "SHOP_GOODS")]
@@ -260,7 +261,8 @@ namespace Maple.Ghostmon
 
     //0.95追加 同心石
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "heartStone_num", "HEART_STONE_NUM", IsReadOnly = false)]
-
+    // struct 0x7C System.Int32 Feats_num
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "Feats_num", "FEATS_NUM", IsReadOnly = false)]
     // struct 0x60 System.Single reiki
     [MonoCollectorSearchFieldAttribute(typeof(System.Single), "reiki", "REIKI", IsReadOnly = false)]
 
@@ -383,6 +385,12 @@ namespace Maple.Ghostmon
 
     // class 0x188 Ghostmon.TimeData timeData
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"timeData", "TIME_DATA")]
+
+    // class 0x180 System.Collections.Generic.List<Ghostmon.OrnamentData> total_ornaments
+     [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<OrnamentData.Ptr_OrnamentData>),"total_ornaments", "TOTAL_ORNAMENTS")]
+
+    // class 0x190 System.Collections.Generic.List<System.UInt64> total_harnessPlan
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<UInt64>), "total_harnessPlan", "TOTAL_HARNESS_PLAN")]
 
     // class 0x190 System.Collections.Generic.List<System.UInt64> unLockGuide
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"unLockGuide", "UN_LOCK_GUIDE")]

@@ -44,7 +44,7 @@ namespace Maple.Ghostmon
                 this.Logger.LogInformation("LoadListMonsterInfo=>{count}", count);
                 await this.PlayMessageAsync($"初始化:{load},加载:{count}个妖灵").ConfigureAwait(false);
 
-                this.Logger.LogInformation("gc=>{IsServerGC},{mode}", GCSettings.IsServerGC, GCSettings.LatencyMode);
+                //this.Logger.LogInformation("gc=>{IsServerGC},{mode}", GCSettings.IsServerGC, GCSettings.LatencyMode);
             }
         }
         #endregion

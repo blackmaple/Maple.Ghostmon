@@ -26,5 +26,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="RogueMetadata\" />
+	  <Folder Include="AVGMetadata\" />
 	</ItemGroup>
 </Project>

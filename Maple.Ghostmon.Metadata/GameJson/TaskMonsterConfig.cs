@@ -10,10 +10,10 @@
         //}
 
         // Token: 0x040019EF RID: 6639
-        public int type;
+        //public int type;
 
-        // Token: 0x040019F0 RID: 6640
-        public int level;
+        //// Token: 0x040019F0 RID: 6640
+        //public int level;
 
         // Token: 0x040019F1 RID: 6641
         //public ulong[] abilities;

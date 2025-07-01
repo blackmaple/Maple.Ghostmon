@@ -707,5 +707,4 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             return new GameInventoryInfoDTO() { ObjectId = inventoryModifyDTO.InventoryObject, InventoryCount = newCount };
         }
     }
-
 }

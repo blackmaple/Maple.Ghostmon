@@ -1,4 +1,5 @@
 ﻿using Maple.Ghostmon.Metadata.GameJson;
+using System.Linq;
 
 namespace Maple.Ghostmon.Metadata.MetadataContext
 {
@@ -22,16 +23,35 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         public List<AbilityConfig> ListAbilityConfig { get; } = new(512);
         public List<BuffConfig> ListBuffConfig { get; } = new(512);
         public List<IllustrationConfig> ListIllustrationConfig { get; } = new(512);
+        public List<TaskMonsterConfig> ListTaskMonsterConfig { get; } = new(512);
 
 
         public List<CuisineConfig> ListCuisineConfig { get; } = new(512);
         public List<EvoMaterialConfig> ListEvoMaterialConfig { get; } = new(512);
 
+
+        public List<AVGAbilityConfig> ListAVGAbilityConfig { get; } = new(512);
+        public List<AVGMonsterConfig> ListAVGMonsterConfig { get; } = new(512);
+        public List<AVGPropConfig> ListAVGPropConfig { get; } = new(512);
+
+        public List<HarnessConfig> ListHarnessConfig { get; } = new(512);
+        public List<OrnamentConfig> ListOrnamentConfig { get; } = new(512);
+        public List<CustomGroundConfig> ListCustomGroundConfig { get; } = new(512);
+        public List<CustomItemConfig> ListCustomItemConfig { get; } = new(512);
+        public List<CustomPackageConfig> ListCustomPackageConfig { get; } = new(512);
+
+
+
         public GameConfigStoreDTO()
         {
 
             ListIllustrationConfig.AddRange([
-                    new IllustrationConfig(){ prefab = "Monster_JQR" }  ,
+               //     new IllustrationConfig(){ prefab = "Monster_JQR" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_HeiYueCanQu" }  ,
+                    new IllustrationConfig(){ prefab = "Monster_HeiYue" }  ,
+
+
+
                     new IllustrationConfig(){ prefab = "Monster_100_TheBoss" }  ,
                     new IllustrationConfig(){ prefab = "Monster_101_TheBoss" }  ,
                     new IllustrationConfig(){ prefab = "Monster_102_TheBoss" }  ,
@@ -177,8 +197,99 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 }
             }
 
+            else if (enumSheetName == EnumSheetName.OrnamentConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.OrnamentConfig);
+                if (data is not null)
+                {
+                    ListOrnamentConfig.Add(data);
+                }
+            }
+            else if (enumSheetName == EnumSheetName.HarnessConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.HarnessConfig);
+                if (data is not null)
+                {
+                    ListHarnessConfig.Add(data);
+                }
+            }
+
+
+            //else if (enumSheetName == EnumSheetName.CustomItemConfig)
+            //{
+            //    var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.CustomItemConfig);
+            //    if (data is not null)
+            //    {
+            //        ListCustomItemConfig.Add(data);
+            //    }
+            //}
+            //else if (enumSheetName == EnumSheetName.CustomPackageConfig)
+            //{
+            //    var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.CustomPackageConfig);
+            //    if (data is not null)
+            //    {
+            //        ListCustomPackageConfig.Add(data);
+            //    }
+            //}
+            //else if (enumSheetName == EnumSheetName.CustomGroundConfig)
+            //{
+            //    var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.CustomGroundConfig);
+            //    if (data is not null)
+            //    {
+            //        ListCustomGroundConfig.Add(data);
+            //    }
+            //}
+
+
+            else if (enumSheetName == EnumSheetName.AVGAbilityConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.AVGAbilityConfig);
+                if (data is not null)
+                {
+                    ListAVGAbilityConfig.Add(data);
+                }
+            }
+            else if (enumSheetName == EnumSheetName.AVGMonsterConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.AVGMonsterConfig);
+                if (data is not null)
+                {
+                    ListAVGMonsterConfig.Add(data);
+                }
+            }
+            else if (enumSheetName == EnumSheetName.AVGPropConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.AVGPropConfig);
+                if (data is not null)
+                {
+                    ListAVGPropConfig.Add(data);
+                }
+            }
+
+
+            else if (enumSheetName == EnumSheetName.TaskMonsterConfig)
+            {
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.TaskMonsterConfig);
+                if (data is not null)
+                {
+                    ListTaskMonsterConfig.Add(data);
+                }
+            }
 
         }
+
+
+        //public void UpdateMonsterList()
+        //{
+        //    foreach (var monster in this.ListTaskMonsterConfig)
+        //    {
+        //        var config = this.ListIllustrationConfig.Find(p => p.prefab == monster.prefab);
+        //        if (config is null)
+        //        {
+        //            this.ListIllustrationConfig.Add(new IllustrationConfig() { prefab = monster.prefab });
+        //        }
+        //    }
+        //}
     }
 
 

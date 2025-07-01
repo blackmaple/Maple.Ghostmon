@@ -6,6 +6,7 @@ using Maple.MonoGameAssistant.Core;
 using Maple.MonoGameAssistant.GameDTO;
 using Maple.MonoGameAssistant.UnityCore;
 using Maple.MonoGameAssistant.UnityCore.UnityEngine;
+using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 
 namespace Maple.Ghostmon.Metadata.MetadataContext
@@ -191,6 +192,11 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         //    const string ItemUIAtlas = "ItemUIAtlas";
         //     const string TravelUIAtlas = "TravelUIAtlas";
 
+        const string OrnamentUIAtlas = "OrnamentUIAtlas";
+        const string CustomItemUIAtlas = "CustomItemUIAtlas";
+        const string CustomGroundUIAtlas = "CustomGroundUIAtlas";
+
+        const string AVGHeadIconUIAtlas = "AVGHeadIconUIAtlas";
         public static GameConfigStoreDTO GameConfigStore { get; } = new GameConfigStoreDTO();
 
         #endregion
@@ -199,11 +205,12 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
         static bool AllowLoadConfig(ReadOnlySpan<char> keyName, out EnumSheetName sheetName)
         {
+            //   Unsafe.SkipInit(out sheetName);
             if (Enum.TryParse(keyName, out sheetName))
             {
                 return (int)sheetName < (int)EnumSheetName.MaxLoadConfig;
             }
-            sheetName = EnumSheetName.None;
+            //    sheetName = EnumSheetName.None;
             return false;
         }
 
@@ -245,6 +252,9 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                     GameConfigStore.AddConfig(json, enumSheetName);
                 }
             }
+            //@this.Logger.LogInformation("taskmonster:{c}", GameConfigStore.ListTaskMonsterConfig.Count);
+            //GameConfigStore.UpdateMonsterList();
+
 
             return true;
         }
@@ -551,6 +561,76 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
             }
 
+
+            foreach (var ornament in GameConfigStore.ListOrnamentConfig)
+            {
+                var prefab = ornament.prefab;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.OrnamentConfig.ToString(),
+                        ObjectId = ornament.configID.ToString(),
+                        AtlasName = OrnamentUIAtlas,
+                        SpriteName = $"{Icon_Prefix}{prefab}",
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+
+            foreach (var monster in GameConfigStore.ListAVGMonsterConfig)
+            {
+                var prefab = monster.headIcon;
+                if (string.IsNullOrEmpty(prefab) == false)
+                {
+                    yield return new GameImageData()
+                    {
+                        Category = EnumSheetName.AVGMonsterConfig.ToString(),
+                        ObjectId = monster.configID.ToString(),
+                        AtlasName = AVGHeadIconUIAtlas,
+                        SpriteName = prefab,
+                        Ptr_Sprite = nint.Zero
+                    };
+                }
+
+            }
+
+            //foreach (var customItem in GameConfigStore.ListCustomItemConfig)
+            //{
+            //    var prefab = customItem.prefab;
+            //    if (string.IsNullOrEmpty(prefab) == false)
+            //    {
+            //        yield return new GameImageData()
+            //        {
+            //            Category = EnumSheetName.OrnamentConfig.ToString(),
+            //            ObjectId = customItem.configID.ToString(),
+            //            AtlasName = CustomItemUIAtlas,
+            //            SpriteName = prefab,
+            //            Ptr_Sprite = nint.Zero
+            //        };
+            //    }
+
+            //}
+
+            //foreach (var customGround in GameConfigStore.ListCustomGroundConfig)
+            //{
+            //    var prefab = customGround.prefab;
+            //    if (string.IsNullOrEmpty(prefab) == false)
+            //    {
+            //        yield return new GameImageData()
+            //        {
+            //            Category = EnumSheetName.OrnamentConfig.ToString(),
+            //            ObjectId = customGround.configID.ToString(),
+            //            AtlasName = CustomGroundUIAtlas,
+            //            SpriteName = $"{Icon_Prefix}{prefab}",
+            //            Ptr_Sprite = nint.Zero
+            //        };
+            //    }
+
+            //}
+
+
             yield return new GameImageData()
             {
                 Category = EnumSheetName.GEM.ToString(),
@@ -709,16 +789,25 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         }
         public static IGhostmonGameCheatService GetGhostmonGameCheatServiceThrowIfUnknow(this GhostmonGameContext @this)
         {
-            var ptr_RegionManager = @this.RegionManager.INSTANCE;
-            if (ptr_RegionManager.Valid())
+            var ptr_avg = @this.AVGRegionManager.INSTANCE;
+            if (ptr_avg.Valid() && ptr_avg.M_CACHED_PTR != nint.Zero)
             {
-                return new GhostmonGameEnvironment(@this);
+                return new GhostGameAVG(@this);
             }
+
             var ptr_RogueCore = @this.RogueCore.INSTANCE;
             if (ptr_RogueCore.Valid() && ptr_RogueCore.M_CACHED_PTR != nint.Zero)
             {
                 return new GhostmonGameRogue(@this);
             }
+
+            var ptr_RegionManager = @this.RegionManager.INSTANCE;
+            if (ptr_RegionManager.Valid())
+            {
+                return new GhostmonGameEnvironment(@this);
+            }
+
+
             return GameException.ThrowIfNotLoaded<IGhostmonGameCheatService>();
         }
         #endregion
@@ -729,6 +818,12 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         {
             return [
             new GameCurrencyDisplayDTO()
+            {   ObjectId  = EnumSheetName.COIN.ToString(),
+                DisplayCategory= EnumSheetName.COIN.ToString(),
+                DisplayName= "金币(+AVG/+Roguelike)" ,
+                DisplayDesc= "金币由特殊的矿石加工而成，作为通用的货币，可在所有商人处购买物品。",
+            },
+            new GameCurrencyDisplayDTO()
             {
                 ObjectId  = EnumSheetName.GEM.ToString(),
                 DisplayCategory= EnumSheetName.GEM.ToString(),
@@ -736,12 +831,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 DisplayDesc= "灵石由特殊的矿石加工而成，比金币更加稀有，具有特殊的力量，可在修行台吸收，也可在特殊商店处交易物品。",
 
             },
-            new GameCurrencyDisplayDTO()
-            {   ObjectId  = EnumSheetName.COIN.ToString(),
-                DisplayCategory= EnumSheetName.COIN.ToString(),
-                DisplayName= "*金币" ,
-                DisplayDesc= "金币由特殊的矿石加工而成，作为通用的货币，可在所有商人处购买物品。",
-            },
+
             new GameCurrencyDisplayDTO()
             {   ObjectId  = EnumSheetName.HeartStone.ToString(),
                 DisplayCategory= EnumSheetName.HeartStone.ToString(),
@@ -751,8 +841,14 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             new GameCurrencyDisplayDTO()
             {   ObjectId  = EnumSheetName.REIKI.ToString(),
                 DisplayCategory= EnumSheetName.REIKI.ToString(),
-                DisplayName= "*灵气".ToString(),
+                DisplayName= "灵气(+Roguelike)".ToString(),
                 DisplayDesc= "战斗结束后，出战妖精损失的生命将通过御妖师的灵气进行补充。灵龛和野外神像都可恢复灵气。灵气上限随御妖师等阶提升而上升。",
+            },
+            new GameCurrencyDisplayDTO()
+            {   ObjectId  = EnumSheetName.Feats.ToString(),
+                DisplayCategory= EnumSheetName.Feats.ToString(),
+                DisplayName= "战勋".ToString(),
+                DisplayDesc= "武道大赛给参赛选手的奖励，是一种特殊的货币，只能在战勋商店中使用。",
             }
             ];
         }
@@ -779,6 +875,10 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             else if (obj == EnumSheetName.HeartStone)
             {
                 count = userData.HEART_STONE_NUM.ToString();
+            }
+            else if (obj == EnumSheetName.Feats)
+            {
+                count = userData.FEATS_NUM.ToString();
             }
             else
             {
@@ -810,6 +910,10 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             else if (obj == EnumSheetName.HeartStone)
             {
                 userData.HEART_STONE_NUM = currencyModifyDTO.IntValue;
+            }
+            else if (obj == EnumSheetName.Feats)
+            {
+                userData.FEATS_NUM = currencyModifyDTO.IntValue;
             }
 
             //        @this.PlayMessage($"{obj}:{currencyModifyDTO.NewValue}");
@@ -1001,6 +1105,130 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 yield return data;
             }
 
+            foreach (var config in GameConfigStore.ListHarnessConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = EnumSheetName.HarnessConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+
+                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            foreach (var config in GameConfigStore.ListOrnamentConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = EnumSheetName.OrnamentConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+
+                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
+            //foreach (var config in GameConfigStore.ListCustomItemConfig)
+            //{
+            //    var data = new GameInventoryDisplayDTO
+            //    {
+            //        ObjectId = config.configID.ToString(),
+            //        DisplayCategory = EnumSheetName.CustomItemConfig.ToString(),
+            //        DisplayDesc = config.description,
+            //        DisplayName = config.name,
+            //        ItemAttributes = [
+
+            //     //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+            //        ]
+            //    };
+            //    yield return data;
+            //}
+            //foreach (var config in GameConfigStore.ListCustomGroundConfig)
+            //{
+            //    var data = new GameInventoryDisplayDTO
+            //    {
+            //        ObjectId = config.configID.ToString(),
+            //        DisplayCategory = EnumSheetName.CustomGroundConfig.ToString(),
+            //        DisplayDesc = config.description,
+            //        DisplayName = config.name,
+            //        ItemAttributes = [
+
+            //     //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+            //        ]
+            //    };
+            //    yield return data;
+            //}
+            //foreach (var config in GameConfigStore.ListCustomPackageConfig)
+            //{
+            //    var data = new GameInventoryDisplayDTO
+            //    {
+            //        ObjectId = config.configID.ToString(),
+            //        DisplayCategory = EnumSheetName.CustomPackageConfig.ToString(),
+            //        DisplayDesc = config.description,
+            //        DisplayName = config.name,
+            //        ItemAttributes = [
+
+            //     //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+            //        ]
+            //    };
+            //    yield return data;
+            //}
+
+            foreach (var config in GameConfigStore.ListAVGAbilityConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = EnumSheetName.AVGAbilityConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+
+                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+            foreach (var config in GameConfigStore.ListAVGMonsterConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = EnumSheetName.AVGMonsterConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+
+                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+            foreach (var config in GameConfigStore.ListAVGPropConfig)
+            {
+                var data = new GameInventoryDisplayDTO
+                {
+                    ObjectId = config.configID.ToString(),
+                    DisplayCategory = EnumSheetName.AVGPropConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    ItemAttributes = [
+
+                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    ]
+                };
+                yield return data;
+            }
+
         }
         private static int GetInventoryCount(UserData.Ptr_UserData userData, EnumSheetName category, ulong configId)
         {
@@ -1125,6 +1353,27 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                     }
                 }
             }
+            else if (category == EnumSheetName.HarnessConfig)
+            {
+                foreach (var data in userData.TOTAL_HARNESS_PLAN)
+                {
+                    if (data == configId)
+                    {
+                        count = 1;
+                    }
+                }
+            }
+            else if (category == EnumSheetName.OrnamentConfig)
+            {
+                foreach (var data in userData.TOTAL_ORNAMENTS)
+                {
+                    if (data.CONFIG_ID == configId)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+
             return count;
         }
         public static GameInventoryInfoDTO GetInventoryInfo(this GhostmonGameContext @this, GhostmonGameEnvironment gameEnvironment, GameInventoryObjectDTO inventoryObjectDTO)
