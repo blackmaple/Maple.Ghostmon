@@ -1,3 +1,5 @@
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
+
 namespace Maple.Ghostmon.Metadata
 {
 
@@ -12,7 +14,7 @@ namespace Maple.Ghostmon.Metadata
 
 
     // class 0x10 AVGAbilityConfig abilityConfig
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"abilityConfig", "ABILITY_CONFIG")]
+    [MonoCollectorSearchFieldAttribute(typeof(_AVGAbilityConfig.Ptr__AVGAbilityConfig), "abilityConfig", "ABILITY_CONFIG")]
     public partial class AVGBaseSkill
     {
         //public const string Const_ImageName = "Assembly-CSharp.dll";
@@ -70,16 +72,16 @@ namespace Maple.Ghostmon.Metadata
         /// </summary>
         /// <param name="config">class AVGAbilityConfig</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
-        ///  extern void .CTOR (nint config);
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        extern void CTOR(nint config);
 
 
         /// <summary>
         ///   System.Void RefreshAbilityConfig()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshAbilityConfig")]
-        ///  extern void REFRESH_ABILITY_CONFIG ();
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshAbilityConfig")]
+        extern void REFRESH_ABILITY_CONFIG();
 
 
 

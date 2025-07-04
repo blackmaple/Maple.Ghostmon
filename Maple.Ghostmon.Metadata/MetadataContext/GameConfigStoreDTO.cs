@@ -33,6 +33,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         public List<AVGAbilityConfig> ListAVGAbilityConfig { get; } = new(512);
         public List<AVGMonsterConfig> ListAVGMonsterConfig { get; } = new(512);
         public List<AVGPropConfig> ListAVGPropConfig { get; } = new(512);
+        public List<AVGBuffConfig> ListAVGBuffConfig { get; } = new(512);
 
         public List<HarnessConfig> ListHarnessConfig { get; } = new(512);
         public List<OrnamentConfig> ListOrnamentConfig { get; } = new(512);
@@ -265,16 +266,24 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                     ListAVGPropConfig.Add(data);
                 }
             }
-
-
-            else if (enumSheetName == EnumSheetName.TaskMonsterConfig)
+            else if (enumSheetName == EnumSheetName.AVGBuffConfig)
             {
-                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.TaskMonsterConfig);
+                var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.AVGBuffConfig);
                 if (data is not null)
                 {
-                    ListTaskMonsterConfig.Add(data);
+                    ListAVGBuffConfig.Add(data);
                 }
             }
+
+
+            //else if (enumSheetName == EnumSheetName.TaskMonsterConfig)
+            //{
+            //    var data = System.Text.Json.JsonSerializer.Deserialize(json, ConfigJsonSerializerContext.Default.TaskMonsterConfig);
+            //    if (data is not null)
+            //    {
+            //        ListTaskMonsterConfig.Add(data);
+            //    }
+            //}
 
         }
 

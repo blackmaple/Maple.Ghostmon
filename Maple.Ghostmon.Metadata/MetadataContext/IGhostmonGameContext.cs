@@ -4,6 +4,9 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 {
     public interface IGhostmonGameCheatService
     {
+
+
+        GhostGameType GameType { get; }
         GhostmonGameContext Context { get; }
 
         GameCharacterSkillDTO AddMonsterMember(GameMonsterObjectDTO monsterObjectDTO);

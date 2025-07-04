@@ -1,3 +1,5 @@
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
+
 namespace Maple.Ghostmon.Metadata
 {
 
@@ -12,10 +14,10 @@ namespace Maple.Ghostmon.Metadata
 
 
     // class 0x10 AVGPropConfig config
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"config", "CONFIG")]
+    [MonoCollectorSearchFieldAttribute(typeof(_AVGPropConfig.Ptr__AVGPropConfig), "config", "CONFIG")]
 
     // struct 0x18 System.Int32 count
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"count", "COUNT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "count", "COUNT", IsReadOnly = false)]
     public partial class AVGBagItemData
     {
         //public const string Const_ImageName = "Assembly-CSharp.dll";
@@ -74,8 +76,8 @@ namespace Maple.Ghostmon.Metadata
         /// <param name="config">class AVGPropConfig</param>
         /// <param name="count">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
-        ///  extern void .CTOR (nint config, System.Int32 count);
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        extern void CTOR(_AVGPropConfig.Ptr__AVGPropConfig config, System.Int32 count);
 
 
         /// <summary>
@@ -92,8 +94,8 @@ namespace Maple.Ghostmon.Metadata
         ///   System.Void RefreshConfig()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshConfig")]
-        ///  extern void REFRESH_CONFIG ();
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshConfig")]
+        extern void REFRESH_CONFIG();
 
 
 

@@ -43,6 +43,9 @@ namespace Maple.Ghostmon
     [JsonSerializable(typeof(AVGAbilityConfig))]
     [JsonSerializable(typeof(AVGMonsterConfig))]
     [JsonSerializable(typeof(AVGPropConfig))]
+    [JsonSerializable(typeof(AVGBuffConfig))]
+
+
     [JsonSerializable(typeof(HarnessConfig))]
     [JsonSerializable(typeof(OrnamentConfig))]
 

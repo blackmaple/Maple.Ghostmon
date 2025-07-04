@@ -6,6 +6,8 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 {
     public sealed class GhostmonGameRogue(GhostmonGameContext context) : IGhostmonGameCheatService
     {
+        public GhostGameType GameType => GhostGameType.Roguelike;
+
         RogueDataManager.Ptr_RogueDataManager Ptr_RogueDataManager { get; } = context.RogueDataManager.INSTANCE;
         RogueCore.Ptr_RogueCore Ptr_RogueCore { get; } = context.RogueCore.INSTANCE;
 

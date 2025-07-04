@@ -596,6 +596,10 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
             }
 
+
+
+
+
             //foreach (var customItem in GameConfigStore.ListCustomItemConfig)
             //{
             //    var prefab = customItem.prefab;
@@ -1183,36 +1187,21 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             //    yield return data;
             //}
 
-            foreach (var config in GameConfigStore.ListAVGAbilityConfig)
-            {
-                var data = new GameInventoryDisplayDTO
-                {
-                    ObjectId = config.configID.ToString(),
-                    DisplayCategory = EnumSheetName.AVGAbilityConfig.ToString(),
-                    DisplayDesc = config.description,
-                    DisplayName = config.name,
-                    ItemAttributes = [
+            //foreach (var config in GameConfigStore.ListAVGAbilityConfig)
+            //{
+            //    var data = new GameInventoryDisplayDTO
+            //    {
+            //        ObjectId = config.configID.ToString(),
+            //        DisplayCategory = EnumSheetName.AVGAbilityConfig.ToString(),
+            //        DisplayDesc = config.description,
+            //        DisplayName = config.name,
+            //        ItemAttributes = [
 
-                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
-                    ]
-                };
-                yield return data;
-            }
-            foreach (var config in GameConfigStore.ListAVGMonsterConfig)
-            {
-                var data = new GameInventoryDisplayDTO
-                {
-                    ObjectId = config.configID.ToString(),
-                    DisplayCategory = EnumSheetName.AVGMonsterConfig.ToString(),
-                    DisplayDesc = config.description,
-                    DisplayName = config.name,
-                    ItemAttributes = [
-
-                 //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
-                    ]
-                };
-                yield return data;
-            }
+            //     //   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+            //        ]
+            //    };
+            //    yield return data;
+            //}
             foreach (var config in GameConfigStore.ListAVGPropConfig)
             {
                 var data = new GameInventoryDisplayDTO
@@ -2510,6 +2499,25 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
             }
 
+            foreach (var config in GameConfigStore.ListAVGMonsterConfig)
+            {
+                var data = new GameMonsterDisplayDTO
+                {
+                    ObjectId = config.prefab!.ToString(),
+                    DisplayCategory = EnumSheetName.AVGMonsterConfig.ToString(),
+                    DisplayDesc = config.description,
+                    DisplayName = config.name,
+                    MonsterAttributes = [],
+                    SkillInfos = [],
+                    //   ItemAttributes = [
+
+                    ////   new GameValueInfoDTO() { ObjectId = nameof(config.type), CanPreview = true, DisplayName = nameof(config.type), DisplayValue = config.type.ToString() },
+                    //   ]
+                };
+                yield return data;
+            }
+
+
             GameSkillInfoDTO GetSkillInfo(MonsterObject.Ptr_MonsterObject monsterObject)
             {
                 var skillId = EnumSheetName.Skill.ToString();
@@ -2607,6 +2615,35 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
                 };
             }
 
+            foreach (var skill in GameConfigStore.ListAVGAbilityConfig)
+            {
+                yield return new GameSkillDisplayDTO()
+                {
+                    ObjectId = skill.configID.ToString(),
+                    DisplayName = skill.name,
+                    DisplayDesc = skill.description,
+                    DisplayCategory = EnumSheetName.AVGAbilityConfig.ToString(),
+                    //SkillAttributes = [
+                    //    new GameValueInfoDTO(){  ObjectId =nameof(BuffConfig.buffType),DisplayName = nameof(BuffConfig.buffType), DisplayValue = skill.buffType.ToString()  },
+                    //    new GameValueInfoDTO(){  ObjectId =nameof(BuffConfig.duration),DisplayName = nameof(BuffConfig.duration), DisplayValue = skill.duration.ToString()  },
+                    //    ]
+                };
+            }
+
+            foreach (var skill in GameConfigStore.ListAVGBuffConfig)
+            {
+                yield return new GameSkillDisplayDTO()
+                {
+                    ObjectId = skill.configID.ToString(),
+                    DisplayName = skill.name,
+                    DisplayDesc = skill.description,
+                    DisplayCategory = EnumSheetName.AVGBuffConfig.ToString(),
+                    //SkillAttributes = [
+                    //    new GameValueInfoDTO(){  ObjectId =nameof(BuffConfig.buffType),DisplayName = nameof(BuffConfig.buffType), DisplayValue = skill.buffType.ToString()  },
+                    //    new GameValueInfoDTO(){  ObjectId =nameof(BuffConfig.duration),DisplayName = nameof(BuffConfig.duration), DisplayValue = skill.duration.ToString()  },
+                    //    ]
+                };
+            }
 
         }
 

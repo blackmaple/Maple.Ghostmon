@@ -1,3 +1,5 @@
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
+
 namespace Maple.Ghostmon.Metadata
 {
 
@@ -12,10 +14,10 @@ namespace Maple.Ghostmon.Metadata
 
 
     // class 0x10 AVGBuffConfig config
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"config", "CONFIG")]
+    [MonoCollectorSearchFieldAttribute(typeof(_AVGBuffConfig.Ptr__AVGBuffConfig), "config", "CONFIG")]
 
     // struct 0x18 System.Int32 remainingTurns
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"remainingTurns", "REMAINING_TURNS")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "remainingTurns", "REMAINING_TURNS", IsReadOnly = false)]
     public partial class AVGBaseBuff
     {
         //public const string Const_ImageName = "Assembly-CSharp.dll";
@@ -74,16 +76,16 @@ namespace Maple.Ghostmon.Metadata
         /// <param name="config">class AVGBuffConfig</param>
         /// <param name="remainingTurns">struct System.Int32</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
-        ///  extern void .CTOR (nint config, System.Int32 remainingTurns);
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        extern void CTOR(nint config, System.Int32 remainingTurns);
 
 
         /// <summary>
         ///   System.Void RefreshConfig()
         /// </summary>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshConfig")]
-        ///  extern void REFRESH_CONFIG ();
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("RefreshConfig")]
+        extern void REFRESH_CONFIG();
 
 
 

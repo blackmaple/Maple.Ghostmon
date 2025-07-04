@@ -1,3 +1,6 @@
+using Maple.MonoGameAssistant.Core;
+using Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2;
+
 namespace Maple.Ghostmon.Metadata
 {
 
@@ -12,112 +15,112 @@ namespace Maple.Ghostmon.Metadata
 
 
     // class 0x10 System.String uuid
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"uuid", "UUID")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "uuid", "UUID")]
 
     // struct 0x18 System.Int32 level
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"level", "LEVEL")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "level", "LEVEL", IsReadOnly = false)]
 
     // struct 0x1C System.Single hp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"hp", "HP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "hp", "HP", IsReadOnly = false)]
 
     // struct 0x20 System.Single maxhp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"maxhp", "MAXHP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "maxhp", "MAXHP", IsReadOnly = false)]
 
     // struct 0x24 System.Single mp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"mp", "MP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "mp", "MP", IsReadOnly = false)]
 
     // struct 0x28 System.Single maxmp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"maxmp", "MAXMP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "maxmp", "MAXMP", IsReadOnly = false)]
 
     // struct 0x2C System.Single exp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"exp", "EXP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "exp", "EXP", IsReadOnly = false)]
 
     // struct 0x30 System.Single maxexp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"maxexp", "MAXEXP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "maxexp", "MAXEXP", IsReadOnly = false)]
 
     // struct 0x34 System.Single patk
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"patk", "PATK")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "patk", "PATK", IsReadOnly = false)]
 
     // struct 0x38 System.Single pdef
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"pdef", "PDEF")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "pdef", "PDEF", IsReadOnly = false)]
 
     // struct 0x3C System.Single mdef
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"mdef", "MDEF")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "mdef", "MDEF", IsReadOnly = false)]
 
     // struct 0x40 System.Single matk
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"matk", "MATK")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "matk", "MATK", IsReadOnly = false)]
 
     // struct 0x44 System.Single speed
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"speed", "SPEED")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "speed", "SPEED", IsReadOnly = false)]
 
     // struct 0x48 System.Int32 criticalLevel
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"criticalLevel", "CRITICAL_LEVEL")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "criticalLevel", "CRITICAL_LEVEL", IsReadOnly = false)]
 
     // struct 0x4C System.Single critical
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"critical", "CRITICAL")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "critical", "CRITICAL", IsReadOnly = false)]
 
     // struct 0x50 System.Single dodge
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"dodge", "DODGE")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "dodge", "DODGE", IsReadOnly = false)]
 
     // struct 0x54 System.Single hit
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"hit", "HIT")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "hit", "HIT", IsReadOnly = false)]
 
     // class 0x58 System.Collections.Generic.List<System.Int32> quality
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"quality", "QUALITY")]
+    // [MonoCollectorSearchFieldAttribute(typeof(nint), "quality", "QUALITY")]
 
     // struct 0x60 System.Boolean isMarked
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"isMarked", "IS_MARKED")]
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Boolean), "isMarked", "IS_MARKED")]
 
     // struct 0x64 System.Int32 spaceDetailPos
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"spaceDetailPos", "SPACE_DETAIL_POS")]
 
     // struct 0x68 System.Single extraHp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"extraHp", "EXTRA_HP")]
+    [MonoCollectorSearchFieldAttribute(typeof(System.Single), "extraHp", "EXTRA_HP", IsReadOnly = false)]
 
     // struct 0x6C System.Single originalPAttack
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"originalPAttack", "ORIGINAL_P_ATTACK")]
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "originalPAttack", "ORIGINAL_P_ATTACK")]
 
-    // struct 0x70 System.Single originalPDefence
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"originalPDefence", "ORIGINAL_P_DEFENCE")]
+    //// struct 0x70 System.Single originalPDefence
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "originalPDefence", "ORIGINAL_P_DEFENCE")]
 
-    // struct 0x74 System.Single originalMAttack
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"originalMAttack", "ORIGINAL_M_ATTACK")]
+    //// struct 0x74 System.Single originalMAttack
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "originalMAttack", "ORIGINAL_M_ATTACK")]
 
-    // struct 0x78 System.Single originalMDefence
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"originalMDefence", "ORIGINAL_M_DEFENCE")]
+    //// struct 0x78 System.Single originalMDefence
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "originalMDefence", "ORIGINAL_M_DEFENCE")]
 
-    // struct 0x7C System.Single originalSpeed
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"originalSpeed", "ORIGINAL_SPEED")]
+    //// struct 0x7C System.Single originalSpeed
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "originalSpeed", "ORIGINAL_SPEED")]
 
-    // struct 0x80 System.Single originalMaxMp
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"originalMaxMp", "ORIGINAL_MAX_MP")]
+    //// struct 0x80 System.Single originalMaxMp
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "originalMaxMp", "ORIGINAL_MAX_MP")]
 
     // struct 0x84 System.Single metalSkillChangeRate
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"metalSkillChangeRate", "METAL_SKILL_CHANGE_RATE")]
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "metalSkillChangeRate", "METAL_SKILL_CHANGE_RATE")]
 
-    // struct 0x88 System.Single woodSkillChangeRate
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"woodSkillChangeRate", "WOOD_SKILL_CHANGE_RATE")]
+    //// struct 0x88 System.Single woodSkillChangeRate
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "woodSkillChangeRate", "WOOD_SKILL_CHANGE_RATE")]
 
-    // struct 0x8C System.Single waterSkillChangeRate
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"waterSkillChangeRate", "WATER_SKILL_CHANGE_RATE")]
+    //// struct 0x8C System.Single waterSkillChangeRate
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "waterSkillChangeRate", "WATER_SKILL_CHANGE_RATE")]
 
-    // struct 0x90 System.Single fireSkillChangeRate
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"fireSkillChangeRate", "FIRE_SKILL_CHANGE_RATE")]
+    //// struct 0x90 System.Single fireSkillChangeRate
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "fireSkillChangeRate", "FIRE_SKILL_CHANGE_RATE")]
 
-    // struct 0x94 System.Single earthSkillChangeRate
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"earthSkillChangeRate", "EARTH_SKILL_CHANGE_RATE")]
+    //// struct 0x94 System.Single earthSkillChangeRate
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Single), "earthSkillChangeRate", "EARTH_SKILL_CHANGE_RATE")]
 
     // class 0x98 AVGMonsterConfig config
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"config", "CONFIG")]
+    [MonoCollectorSearchFieldAttribute(typeof(_AVGMonsterConfig.Ptr__AVGMonsterConfig), "config", "CONFIG")]
 
     // class 0xA0 System.Collections.Generic.List<AVGBaseSkill> skills
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"skills", "SKILLS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<AVGBaseSkill.Ptr_AVGBaseSkill>), "skills", "SKILLS", IsReadOnly = false)]
 
     // class 0xA8 System.Collections.Generic.List<AVGBaseBuff> buffs
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"buffs", "BUFFS")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<AVGBaseBuff.Ptr_AVGBaseBuff>), "buffs", "BUFFS", IsReadOnly = false)]
 
     // class 0xB0 System.Collections.Generic.List<AVGBaseSkill> skillPool
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"skillPool", "SKILL_POOL")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoList_S<AVGBaseSkill.Ptr_AVGBaseSkill>), "skillPool", "SKILL_POOL", IsReadOnly = false)]
 
     // class 0xB8 MonsterStatusEffects <StatusEffects>k__BackingField
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"<StatusEffects>k__BackingField", "STATUS_EFFECTS")]

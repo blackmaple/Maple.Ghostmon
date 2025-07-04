@@ -9,6 +9,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
     public sealed partial class GhostmonGameEnvironment : IGhostmonGameCheatService
     {
+        public GhostGameType GameType => GhostGameType.RPG;
 
         public GhostmonGameEnvironment(GhostmonGameContext context)
         {

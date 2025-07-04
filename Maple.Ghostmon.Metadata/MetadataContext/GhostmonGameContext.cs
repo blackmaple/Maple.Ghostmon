@@ -79,7 +79,20 @@ typeof(MonoCollectorClassInfo)
     [MonoCollectorType(typeof(RogueDataManager))]
 
     [MonoCollectorType(typeof(AVGRegionManager))]
-
+    [MonoCollectorType(typeof(AVGBagItemData))]
+    [MonoCollectorType(typeof(AVGBaseSkill))]
+    [MonoCollectorType(typeof(AVGBaseBuff))]
+    [MonoCollectorType(typeof(AVGMonsterData))]
+    [MonoCollectorType(typeof(AVGItemService))]
+    [MonoCollectorType(typeof(AVGMonsterService))]
+    [MonoCollectorType(typeof(AVGServiceManager))]
+    [MonoCollectorType(typeof(AVGUserData))]
+    [MonoCollectorType(typeof(AVGUserDataManager))]
+    [MonoCollectorType(typeof(_AVGMonsterConfig))]
+    [MonoCollectorType(typeof(_AVGPropConfig))]
+    [MonoCollectorType(typeof(_AVGAbilityConfig))]
+    [MonoCollectorType(typeof(_AVGBuffConfig))]
+    [MonoCollectorType(typeof(AVGMonsterGenerator))]
 
 
     public partial class GhostmonGameContext

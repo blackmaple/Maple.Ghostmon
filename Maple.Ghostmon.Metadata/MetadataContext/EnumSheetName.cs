@@ -60,6 +60,7 @@
         AVGAbilityConfig = 200,
         AVGMonsterConfig = 201,
         AVGPropConfig = 202,
+        AVGBuffConfig = 203,
         /// <summary>
         /// 读取以上游戏中的JSON 反序列成对象
         /// </summary>
@@ -103,8 +104,18 @@
 
         Player = 10003,
         Demon = 10004,
+     //   AVGMonster = 10005,
     };
 
+
+    public enum GhostGameType
+    {
+        AVG,
+
+        Roguelike,
+
+        RPG,
+    }
 
     //public enum EnumLanguageConfig : ulong
     //{

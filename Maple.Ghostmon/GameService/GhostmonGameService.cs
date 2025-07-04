@@ -152,6 +152,7 @@ namespace Maple.Ghostmon
         private Task<IGhostmonGameCheatService> GetGhostmonGameCheatServiceThrowIfUnknow()
         {
             return this.MonoTaskAsync(p => p.GetGhostmonGameCheatServiceThrowIfUnknow());
+
         }
         #endregion
 
