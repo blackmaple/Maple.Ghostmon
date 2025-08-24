@@ -793,6 +793,13 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
         }
         public static IGhostmonGameCheatService GetGhostmonGameCheatServiceThrowIfUnknow(this GhostmonGameContext @this)
         {
+            var cheatService = @this.GetGhostmonGameCheatServiceThrowIfUnknowImp();
+            @this.Logger.LogInformation("IGhostmonGameCheatService Type:{Type}", cheatService.GameType);
+            return cheatService;
+        }
+
+        public static IGhostmonGameCheatService GetGhostmonGameCheatServiceThrowIfUnknowImp(this GhostmonGameContext @this)
+        {
             var ptr_avg = @this.AVGRegionManager.INSTANCE;
             if (ptr_avg.Valid() && ptr_avg.M_CACHED_PTR != nint.Zero)
             {
@@ -814,6 +821,7 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
 
             return GameException.ThrowIfNotLoaded<IGhostmonGameCheatService>();
         }
+
         #endregion
 
         #region Currency
@@ -2550,11 +2558,28 @@ namespace Maple.Ghostmon.Metadata.MetadataContext
             var gchandle = @this.RuntimeContext.CreateMonoGCHandle(@this.MonsterData.New(false));
             var monsterData = gchandle.Target;
 
+            //   @this.Logger.LogInformation("1:U_PROFESSIONAL:{U_PROFESSIONAL}//title:{t}", monsterData.U_PROFESSIONAL, monsterObject.M_TITLE);
+
+            //       @this.Logger.DebugLine();
             monsterData.CTOR(monsterObject, 1, 0, true);
+
+            //   @this.Logger.LogInformation("2:U_PROFESSIONAL:{U_PROFESSIONAL}//title:{t}", monsterData.U_PROFESSIONAL, monsterObject.M_TITLE);
+
+            //     @this.Logger.DebugLine();
             monsterData.GET_ABILITIES();
-            userDataManager.SET_MONSTER_INFO(monsterData);
+
+            //@this.Logger.DebugLine();
+            // userDataManager.SET_MONSTER_NAME(monsterData);
+
+            monsterData.U_NAME = @this.T2(DateTime.Now.ToString("yyyyMMddHHmmss")).Target;
+            monsterData.U_YING_YANG = Random.Shared.Next(0, 2);
+            monsterData.U_FAVORABILITY = Random.Shared.Next(1, 11);
+            monsterData.MONSTER_JOB = MonsterJob.Nothing;
+
+            //      @this.Logger.DebugLine();
             userDataManager.ADD_MONSTER(monsterData);
 
+            //      @this.Logger.DebugLine();
             return new GameCharacterSkillDTO()
             {
                 ObjectId = monsterData.DATA_ID.ToString(),

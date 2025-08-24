@@ -19,7 +19,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.UInt64),"dataID", "DATA_ID")]
 
     // class 0x18 System.String u_name
-    // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_name", "U_NAME")]
+    //[MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_name", "U_NAME", IsReadOnly = false)]
 
     // class 0x20 System.String u_prefab
     // [MonoCollectorSearchFieldAttribute(typeof(nint),"u_prefab", "U_PREFAB")]
@@ -37,7 +37,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_rank", "U_RANK")]
 
     // struct 0x3C System.Int32 u_YingYang
-    // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_YingYang", "U_YING_YANG")]
+    //[MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_YingYang", "U_YING_YANG", IsReadOnly = false)]
 
     // struct 0x40 System.Boolean u_flash
     // [MonoCollectorSearchFieldAttribute(typeof(System.Boolean),"u_flash", "U_FLASH")]
@@ -73,7 +73,7 @@ namespace Maple.Ghostmon
     // [MonoCollectorSearchFieldAttribute(typeof(System.Int32),"u_trade", "U_TRADE")]
 
     // enum 0x64 MonsterJob monsterJob
-    // [MonoCollectorSearchFieldAttribute(typeof(MonsterJob),"monsterJob", "MONSTER_JOB")]
+    //[MonoCollectorSearchFieldAttribute(typeof(MonsterJob), "monsterJob", "MONSTER_JOB")]
 
     // struct 0x68 System.Single u_capture_prob
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_capture_prob", "U_CAPTURE_PROB")]
@@ -323,7 +323,7 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(System.UInt64), "dataID", "DATA_ID")]
 
     // class 0x18 System.String u_name
-    [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_name", "U_NAME")]
+    [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_name", "U_NAME", IsReadOnly = false)]
 
     // class 0x20 System.String u_prefab
     [MonoCollectorSearchFieldAttribute(typeof(PMonoString), "u_prefab", "U_PREFAB")]
@@ -371,7 +371,7 @@ namespace Maple.Ghostmon
     [MonoCollectorSearchFieldAttribute(typeof(System.Int32), "u_trade", "U_TRADE", IsReadOnly = false)]
 
     // enum 0x60 MonsterJob monsterJob
-    // [MonoCollectorSearchFieldAttribute(typeof(MonsterJob),"monsterJob", "MONSTER_JOB")]
+    [MonoCollectorSearchFieldAttribute(typeof(MonsterJob), "monsterJob", "MONSTER_JOB", IsReadOnly = false)]
 
     // struct 0x64 System.Single u_capture_prob
     // [MonoCollectorSearchFieldAttribute(typeof(System.Single),"u_capture_prob", "U_CAPTURE_PROB")]
@@ -657,6 +657,16 @@ namespace Maple.Ghostmon
     public partial class MonsterData
     {
 
+        /// <summary>
+        ///   System.Void .ctor(MonsterObject m, System.Int32 level, System.Int32 type, System.Boolean randomCheck)
+        /// </summary>
+        /// <param name="m">class MonsterObject</param>
+        /// <param name="level">struct System.Int32</param>
+        /// <param name="type">struct System.Int32</param>
+        /// <param name="randomCheck">struct System.Boolean</param>
+        /// <returns>struct System.Void</returns>
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor", Search = typeof(Search_MonsterData))]
+        extern void CTOR(nint m, System.Int32 level, System.Int32 type, System.Boolean randomCheck);
 
 
         /// <summary>
@@ -667,8 +677,8 @@ namespace Maple.Ghostmon
         /// <param name="type">struct System.Int32</param>
         /// <param name="randomCheck">struct System.Boolean</param>
         /// <returns>struct System.Void</returns>
-        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
-        extern void CTOR(nint m, System.Int32 level, System.Int32 type, System.Boolean randomCheck);
+        //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute(".ctor")]
+        //extern void CTOR(nint m, System.Int32 level, System.Int32 type, System.Boolean randomCheck);
 
 
         /// <summary>
@@ -963,12 +973,17 @@ namespace Maple.Ghostmon
 
 
 
-        /// public static partial class Search_MonsterData
-        /// {
-        /// 
-        ///     
-        /// 
-        /// }
+        public static partial class Search_MonsterData
+        {
+            /// <summary>
+            ///   System.Void .ctor(MonsterObject m, System.Int32 level, System.Int32 type, System.Boolean randomCheck)
+            /// </summary>
+            public static bool CTOR(Maple.MonoGameAssistant.Model.MonoMethodInfoDTO monoMethodInfoDTO)
+                => Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollector.MonoCollectorExtensions.SearchMonoMethodInfo(monoMethodInfoDTO, ".ctor", "MonsterObject", "System.Int32", "System.Int32", "System.Boolean");
+            ///     
+            ///  
+            /// 
+        }
 
     }
 

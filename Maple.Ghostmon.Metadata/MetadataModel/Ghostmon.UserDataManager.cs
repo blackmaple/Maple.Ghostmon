@@ -878,8 +878,8 @@ namespace Maple.Ghostmon
         /// </summary>
         /// <param name="monsterData">class MonsterData</param>
         /// <returns>struct System.Void</returns>
-        /// [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMonsterName")]
-        ///  extern void SET_MONSTER_NAME (nint monsterData);
+        [Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorMethodAttribute("SetMonsterName")]
+        extern void SET_MONSTER_NAME(nint monsterData);
 
 
         /// <summary>

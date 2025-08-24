@@ -10,7 +10,7 @@ namespace Maple.Ghostmon
     /// [Ghostmon.ITicker]
     /// </summary>
     //[Maple.MonoGameAssistant.MonoCollectorExtensionsV2.MonoCollectorDataV2.MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], 0x020000F1U)]
-    [ MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [66, 85, 110, 105, 116])]
+    [MonoCollectorSettingsAttribute([65, 115, 115, 101, 109, 98, 108, 121, 45, 67, 83, 104, 97, 114, 112, 46, 100, 108, 108], [], [66, 85, 110, 105, 116])]
 
 
     // struct 0x10 System.Boolean activeSelf
@@ -1119,6 +1119,4 @@ namespace Maple.Ghostmon
         /// }
 
     }
-
-
 }
